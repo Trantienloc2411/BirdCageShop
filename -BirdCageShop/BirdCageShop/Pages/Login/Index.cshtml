@@ -4,61 +4,29 @@
     ViewData["Title"] = "Home page";
 }
 
-@* <section>
-    <div class="container-fluid h-custom">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-
-            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                <form method="post" asp-page="Index">
-                    <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
-                        @if (TempData["errorMessage"] != null)
-                        {
-                            <div class="alert alert-danger">@TempData["errorMessage"]</div>
-                        }
-                    </div>
-
-
-
-                    <!-- Email input -->
-                    <div class="form-outline mb-4">
-                        <label for="email">Email address</label>
-                        <input type="email" class="form-control" id="email" name="email" required placeholder="Enter email">
-                    </div>
-
-                    <!-- Password input -->
-                    <div class="form-outline mb-3">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" required placeholder="Password">
-                    </div>
-
-
-
-                    <div class="text-center text-lg-start mt-4 pt-2">
-                        <button type="submit" class="btn btn-primary btn-lg"
-                                style="padding-left: 2.5rem; padding-right: 2.5rem;">
-
-                            Login
-                        </button>
-                        <p class="small fw-bold mt-2 pt-1 mb-0">
-                            Don't have an account? <a asp-page="User/Create"
-                                                      class="link-danger">Register</a>
-                        </p>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-
-    </div>
-</section> *@
-
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet" />
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+          rel="stylesheet" />
+
+    <!-- Libraries Stylesheet -->
+    <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet" />
 </head>
+
+
+
 <body>
 
     @Model.ErrorMessage
@@ -73,7 +41,7 @@
                 <label for="password">Password:</label>
                 <input type="password" class="form-control" asp-for="@Model.Password">
             </div>
-            <button type="submit" value="Login" class="btn btn-primary">Login</button>
+            <button type="submit" value="Login" class="btn btn-primary">Đăng nhập</button>
         </form>
     </div>
 

@@ -1,4 +1,6 @@
 ﻿using BusinessObjects.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace DataAccessObjects
 {
@@ -78,5 +80,11 @@ namespace DataAccessObjects
         {
             return _dbContext.Roles.ToList();
         }
+        public bool isEmailExisted(string email)
+        {
+            return _dbContext.Users.Any(e => e.Email == email);
+        }
+
+
     }
 }

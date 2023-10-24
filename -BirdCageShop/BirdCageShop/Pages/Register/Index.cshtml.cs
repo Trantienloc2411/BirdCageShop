@@ -9,7 +9,7 @@ using Repository;
 
 namespace BirdCageShop.Pages.Register
 {
-	public class IndexModel : PageModel
+    public class IndexModel : PageModel
     {
         private readonly IUserRepository _userRepo;
 

@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessObjects
 {
@@ -77,5 +78,51 @@ namespace DataAccessObjects
         {
             return _db.Discounts.ToList();
         }
+        public List<Product> getListProductForUser()
+        {
+            return _db.Products
+                       .Where(p => p.CageStatus.Equals(1))
+                       .Include(p => p.Discount)
+                       .ToList();
+        }
+
+        //public List<Product> getListProductTrendingForUser()
+        //{
+        //    var avgFeedback = (from p in _db.Products
+        //    join od in _db.OrderDetails on p.CageId equals od.CageId
+        //                       join o in _db.Orders on od.OrderId equals o.OrderId
+        //                       join fed in _db.Feedbacks on o.OrderId equals fed.OrderId
+
+        //                       select fed.Rating).Average();
+        //    return List.Enumerator(avgFeedback);   //error
+        //}
+
+        public Product getProductDetail(int id)
+        {
+            return _db.Products.FirstOrDefault(p => p.CageId == id && p.CageStatus == 1);
+        }
+
+        public Tuple<int, int> getRatingProduct(int productID)
+        {
+            var countFeedback = (from p in _db.Products
+                                 join od in _db.OrderDetails on p.CageId equals od.CageId
+                                 join o in _db.Orders on od.OrderId equals o.OrderId
+                                 join fed in _db.Feedbacks on o.OrderId equals fed.OrderId
+                                 where p.CageId == productID
+                                 select fed.FeedbackId).Count();
+            var avgFeedback = (from p in _db.Products
+                               join od in _db.OrderDetails on p.CageId equals od.CageId
+                               join o in _db.Orders on od.OrderId equals o.OrderId
+                               join fed in _db.Feedbacks on o.OrderId equals fed.OrderId
+                               where p.CageId == productID
+                               select fed.Rating).Average();
+            if (countFeedback > 0)
+            {
+                return Tuple.Create(countFeedback, (int)avgFeedback);
+            }
+            else return Tuple.Create(0, 0);
+
+        }
+
     }
 }

@@ -1,19 +1,28 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BusinessObjects.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Repository;
 
 namespace BirdCageShop.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly CategoryRepository _cateRepo;
+        private readonly ProductRepository _proRepo;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel()
         {
-            _logger = logger;
+            _cateRepo = new CategoryRepository();
+            _proRepo = new ProductRepository();
         }
 
-        public void OnGet()
+        public IList<BusinessObjects.Models.Category> Categories { get; set; }
+        public IList<BusinessObjects.Models.Product> Products { get; set; }
+        public IActionResult OnGet()
         {
+            Categories = _cateRepo.GetAll().ToList();
+            Products = _proRepo.getProductListForUser().ToList();
+            return Page();
         }
 
         public IActionResult OnGetLogout()

@@ -21,5 +21,6 @@ namespace Repository
         public int Update(User user) => _dao.Update(user);
         public User checkUserLogin(string email, string password) => _dao.checkUserLogin(email, password);
         public List<Role> GetUserRole() => _dao.GetRoles();
+        public bool isEmailexisted(string email) => _dao.isEmailExisted(email);
     }
 }

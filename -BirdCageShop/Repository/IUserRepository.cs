@@ -14,5 +14,6 @@ namespace Repository
         public byte[] GetUserImage(int Id);
         int Update(User user);
         List<Role> GetUserRole();
+        bool isEmailexisted(string email);
     }
 }

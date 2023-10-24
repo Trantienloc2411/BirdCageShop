@@ -21,10 +21,6 @@ namespace BirdCageShop.Login
             _userRepo = new UserRepository();
         }
 
-        public void OnGet()
-        {
-
-        }
 
         public IActionResult OnPost()
         {
@@ -34,12 +30,13 @@ namespace BirdCageShop.Login
                 if (user.RoleId == 1)
                 {
                     HttpContext.Session.SetString("LoggedInUser", "User");
+                    HttpContext.Session.SetString("userName", user.UserName);
                     return RedirectToPage("../Index");
                 }
                 else if (user.RoleId == 2)
                 {
                     HttpContext.Session.SetString("LoggedInUser", "Adminstrator");
-                    return RedirectToPage("../Admin/MProduct/Index");
+                    return RedirectToPage("../Index");
                 }
                 else if (user.RoleId == 3)
                 {
