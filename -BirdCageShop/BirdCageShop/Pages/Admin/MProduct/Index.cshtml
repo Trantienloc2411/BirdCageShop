@@ -1,0 +1,227 @@
+﻿@page
+@model BirdCageShop.Pages.Admin.MProduct.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_AdminLayout";
+}
+
+@* <h1 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #4CAF50; text-align: center; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px;">Product List</h1>
+
+<p style="text-align: left; margin-top: 20px;">
+    <a asp-page="Create" style="text-decoration: none; background-color: #4CAF50; color: #ffffff; padding: 12px 24px; border-radius: 6px; font-weight: bold; transition: background-color 0.3s;">Create a product</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].CageName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].CageImg)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Material)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Size)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Bar)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].CageStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Discount)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Product) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CageName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CageImg)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Material)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Size)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bar)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CageStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Discount.DiscountId)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.CageId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.CageId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.CageId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table> *@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Product List</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="~/table-07/css/style.css">
+
+</head>
+
+<body>
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <h1 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: pink; text-align: center; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px;">Product List</h1>
+        </div>
+    </div>
+    <section class="ftco-section">
+            <p style="text-align: left; margin-top: 20px;">
+                <a asp-page="Create" style="text-decoration: none; background-color: darkgray; color: #ffffff; padding: 12px 24px; border-radius: 6px; font-weight: bold; transition: background-color 0.3s;">Create a product</a>
+            </p>
+            <div class="row">
+                <div class="col-md-30">
+
+                        <table class="table table-bordered table-gray table-hover">
+                            <thead>
+                                <tr>
+                                    <th style="color: pink; border: solid gainsboro">
+                                        @Html.DisplayNameFor(model => model.Product[0].CageName)
+                                    </th>
+                            <th style="color: pink; border: solid gainsboro">
+                                        @Html.DisplayNameFor(model => model.Product[0].Quantity)
+                                    </th>
+                            <th style="color: pink; border: solid gainsboro">
+                                        @Html.DisplayNameFor(model => model.Product[0].Price)
+                                    </th>
+                            <th style="color: pink; border: solid gainsboro">
+                                        @Html.DisplayNameFor(model => model.Product[0].CageImg)
+                                    </th>
+                            <th style="color: pink; border: solid gainsboro">
+                                        @Html.DisplayNameFor(model => model.Product[0].Material)
+                                    </th>
+                            <th style="color: pink; border: solid gainsboro">
+                                        @Html.DisplayNameFor(model => model.Product[0].Size)
+                                    </th>
+                            <th style="color: pink; border: solid gainsboro">
+                                        @Html.DisplayNameFor(model => model.Product[0].Bar)
+                                    </th>
+                            <th style="color: pink; border: solid gainsboro">
+                                        @Html.DisplayNameFor(model => model.Product[0].Description)
+                                    </th>
+                            <th style="color: pink; border: solid gainsboro">
+                                        @Html.DisplayNameFor(model => model.Product[0].CageStatus)
+                                    </th>
+                            <th style="color: pink; border: solid gainsboro">
+                                        @Html.DisplayNameFor(model => model.Product[0].Category)
+                                    </th>
+                            <th style="color: pink; border: solid gainsboro">
+                                        @Html.DisplayNameFor(model => model.Product[0].Discount)
+                                    </th>
+                            <th style="color: pink; border: solid gainsboro">
+                                        Action
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Product)
+                                {
+                                    <tr>
+                                <td style="border: solid gainsboro">
+                                            @Html.DisplayFor(modelItem => item.CageName)
+                                        </td>
+                                <td style="border: solid gainsboro">
+                                            @Html.DisplayFor(modelItem => item.Quantity)
+                                        </td>
+                                <td style="border: solid gainsboro">
+                                            @Html.DisplayFor(modelItem => item.Price)
+                                        </td>
+                                <td style="border: solid gainsboro">
+                                            @Html.DisplayFor(modelItem => item.CageImg)
+                                        </td>
+                                <td style="border: solid gainsboro">
+                                            @Html.DisplayFor(modelItem => item.Material)
+                                        </td>
+                                <td style="border: solid gainsboro">
+                                            @Html.DisplayFor(modelItem => item.Size)
+                                        </td>
+                                <td style="border: solid gainsboro">
+                                            @Html.DisplayFor(modelItem => item.Bar)
+                                        </td>
+                                <td style="border: solid gainsboro">
+                                            @Html.DisplayFor(modelItem => item.Description)
+                                        </td>
+                                <td style="border: solid gainsboro">
+                                            @Html.DisplayFor(modelItem => item.CageStatus)
+                                        </td>
+                                <td style="border: solid gainsboro">
+                                            @Html.DisplayFor(modelItem => item.Category.CategoryId)
+                                        </td>
+                                <td style="border: solid gainsboro">
+                                            @Html.DisplayFor(modelItem => item.Discount.DiscountId)
+                                        </td>
+                                <td style="border: solid gainsboro">
+                                            <a asp-page="./Edit" asp-route-id="@item.CageId">Edit</a> |
+                                            <a asp-page="./Details" asp-route-id="@item.CageId">Details</a> |
+                                            <a asp-page="./Delete" asp-route-id="@item.CageId">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+    </section>
+
+    <script src="~/table-07/js/jquery.min.js"></script>
+    <script src="~/table-07/js/popper.js"></script>
+    <script src="~/table-07/js/bootstrap.min.js"></script>
+    <script src="~/table-07/js/main.js"></script>
+
+</body>
+
+</html>
