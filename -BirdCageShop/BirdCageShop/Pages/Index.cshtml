@@ -1,0 +1,20 @@
+﻿@page
+@using System.Text.Json;
+@using BusinessObjects.Models;
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+@if (string.IsNullOrEmpty(HttpContext.Session.GetString("LoggedInUser")))
+{
+    <h1 class="display-4">Welcome</h1>
+    <a asp-page="./Login/Index">Login</a>
+}
+else
+{
+    var str = HttpContext.Session.GetString("LoggedInUser");
+    <h1 class="display-4">Welcome Shop</h1>
+
+    <a asp-page-handler="Logout">Log Out</a>
+}
