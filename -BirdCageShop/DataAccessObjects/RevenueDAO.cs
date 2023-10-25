@@ -10,9 +10,9 @@ namespace DataAccessObjects
         {
             _db = new CageShopUni_alaContext();
         }
-        public IEnumerable<Category> GetAll()
+        public IEnumerable<Order> GetAll()
         {
-            return _db.Categories.ToList();
+            return _db.Orders;
         }
     }
 }
