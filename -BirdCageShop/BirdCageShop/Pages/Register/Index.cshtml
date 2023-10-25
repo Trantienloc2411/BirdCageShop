@@ -1,0 +1,260 @@
+﻿@page
+@model BirdCageShop.Pages.Register.IndexModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<!doctype html>
+<html>
+<head>
+    <link href="/css/style.css" rel="stylesheet" />
+
+
+</head>
+<body>
+
+    @{
+        var errorMessage = TempData["errorMessage"] as string;
+        var successMessage = TempData["successMessage"] as string;
+    }
+
+    <!-- Hiển thị thông báo lỗi -->
+    <div class="alert alert-danger" style="@(string.IsNullOrEmpty(errorMessage) ? "display: none;" : "")">
+        @errorMessage
+    </div>
+
+    <!-- Hiển thị thông báo thành công -->
+    <div class="alert alert-success" style="@(string.IsNullOrEmpty(successMessage) ? "display: none;" : "")">
+        @successMessage
+    </div>
+
+    <!-- Form đăng ký ở đây -->
+    <!-- Form đăng ký ở đây -->
+
+    <div class="container">
+        <h1>Đăng kí</h1>
+        <form id="registrationForm" method="post">
+            <div class="form-group">
+                <label for="Email">Email:</label>
+                <input type="text" class="form-control" asp-for="@Model.Email">
+            </div>
+            <div class="form-group">
+                <label for="password">Tên Người Dùng:</label>
+                <input type="text" class="form-control" asp-for="@Model.UserName">
+            </div>
+            <div class="form-group">
+                <label for="password">Mật khẩu:</label>
+                <input type="password" class="form-control" asp-for="@Model.Password">
+            </div>
+            <div class="form-group">
+                <label for="password">Nhập lại mật khẩu:</label>
+                <input type="password"
+                       id="confirmPassword"
+                       name="confirmPassword"
+                       required />
+            </div>
+            <button type="submit" value="Login" class="btn btn-primary">Đăng kí</button>
+        </form>
+    </div>
+
+    @*<div class="container">
+        <h1>Đăng kí</h1>
+        <form method="post">
+            <div class="form-group">
+                <label for="Email">Email:</label>
+                <input type="text" class="form-control" asp-for="@Model.Email">
+            </div>
+            <div class="form-group">
+                <label for="password">Tên Người Dùng:</label>
+                <input type="text" class="form-control" asp-for="@Model.UserName">
+            </div>
+            <div class="form-group">
+                <label for="password">Mật khẩu:</label>
+                <input type="password" class="form-control" asp-for="@Model.Password">
+            </div>
+            <div class="form-group">
+                <label for="password">Nhập lại mật khẩu:</label>
+                <input type="password"
+                       id="confirmPassword"
+                       name="confirmPassword"
+                       required />
+            </div>
+            <button type="submit" value="Login" class="btn btn-primary">Đăng kí</button>
+        </form>
+    </div>*@
+
+    <style>
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding-top: 50px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+            button[type="submit"]:hover {
+                background-color: #45a049;
+            }
+    </style>
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top">
+        <i class="fa fa-angle-double-up"></i>
+    </a>
+
+    <!-- JavaScript Libraries -->
+    @*<script>
+          const emailInput = document.getElementById("email");
+          const emailError = document.getElementById("emailError");
+          const passwordInput = document.getElementById("password");
+          const passwordError = document.getElementById("passwordError");
+          const confirmPasswordInput = document.getElementById("confirmPassword");
+          const confirmPasswordError = document.getElementById(
+            "confirmPasswordError"
+          );
+
+          // Hàm kiểm tra định dạng email
+          //Đã thay đổi < Nguyên nhân: Razor page nhận các kí tự đặc biệt như hoặc [] >
+
+            function isValidEmail(email) {
+            return /^@@[^\s@@]+@@[^\s@@]+@@[^\s@@]+@@$/.test(email);
+            }
+
+          // Hàm kiểm tra độ mạnh của mật khẩu
+          function isStrongPassword(password) {
+            // Mật khẩu phải chứa ít nhất 8 ký tự, gồm chữ thường, chữ hoa và số
+            return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(password);
+          }
+
+          // Xử lý sự kiện khi người dùng submit form Register
+          function handleSignupSubmit(event) {
+            event.preventDefault(); // Ngăn chặn trang web reload khi submit form
+            const name = document.getElementById("name").value; // Lấy giá trị
+            const email = emailInput.value;
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+
+            // Kiểm tra định dạng email
+            if (!isValidEmail(email)) {
+              emailError.innerHTML = "Địa chỉ email không hợp lệ";
+              return;
+            }
+            emailError.innerHTML = "";
+
+            // Kiểm tra độ mạnh của mật khẩu
+            if (!isStrongPassword(password)) {
+              passwordError.innerHTML =
+                "Mật khẩu phải chứa ít nhất 8 ký tự, gồm chữ thường, chữ hoa và số";
+              return;
+            }
+            passwordError.innerHTML = "";
+
+            // Kiểm tra xác nhận mật khẩu
+            if (confirmPassword !== password) {
+              confirmPasswordError.innerHTML = "Mật khẩu xác nhận không khớp";
+              return;
+            }
+            confirmPasswordError.innerHTML = "";
+
+            // Nếu thông tin Register hợp lệ, gửi form Register đến server
+            // Code để gửi form Register đến server ở đây
+            document.cookie = `email=${email}; path=/; max-age=3600`;
+            document.cookie = `password=${password}; path=/; max-age=3600`;
+            // Sau khi Register thành công, chuyển sang trang khác
+            window.location.href = "/login.html";
+          }
+
+          // Register sự kiện submit cho form Register
+          const signupForm = document.querySelector("form");
+          signupForm.addEventListener("submit", handleSignupSubmit);
+        </script>*@
+
+    <script>
+    function isValidEmail(email) {
+        return /^@@[^\s@@]+@@[^\s@@]+@@[^\s@@]+@@$/.test(email);
+    }
+
+    function isStrongPassword(password) {
+        return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(password);
+    }
+
+    document.getElementById("registrationForm").addEventListener("submit", function(event) {
+        const email = document.querySelector('input[asp-for="@Model.Email"]').value;
+        const password = document.querySelector('input[asp-for="@Model.Password"]').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+
+        if (!isValidEmail(email)) {
+            alert("Địa chỉ email không hợp lệ");
+            event.preventDefault();
+            return false;
+        }
+
+        if (!isStrongPassword(password)) {
+            alert("Mật khẩu phải chứa ít nhất 8 ký tự, gồm chữ thường, chữ hoa và số");
+            event.preventDefault();
+            return false;
+        }
+
+        if (confirmPassword !== password) {
+            alert("Mật khẩu xác nhận không khớp");
+            event.preventDefault();
+            return false;
+        }
+
+        return true;
+    });
+    </script>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="/lib/easing/easing.min.js"></script>
+    <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="/mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/js/main.js"></script>
+</body>
+</html>
+
+
