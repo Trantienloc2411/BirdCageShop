@@ -73,7 +73,7 @@
                              id="navbarCollapse">
                             <div class="navbar-nav mr-auto py-0">
                                 <a asp-page="../Index" class="nav-item nav-link active">Trang chủ</a>
-                                <a href="shop.html" class="nav-item nav-link">Cửa hàng</a>
+                                <a asp-page="Users/Shop" class="nav-item nav-link">Cửa hàng</a>
                             </div>
                             <div class="navbar-nav ml-auto py-0">
                                 <a asp-page="Login/Index" class="nav-item nav-link">Đăng nhập</a>
@@ -129,10 +129,10 @@
                              id="navbarCollapse">
                             <div class="navbar-nav mr-auto py-0">
                                 <a asp-page="../Index" class="nav-item nav-link active">Trang chủ</a>
-                                <a href="shop.html" class="nav-item nav-link">Cửa hàng</a>
+                                <a asp-page="Users/Shop" class="nav-item nav-link">Cửa hàng</a>
                             </div>
                             <div class="navbar-nav ml-auto py-0">
-                                <a asp-page="Login/Index" class="nav-item nav-link">Xin chào, @HttpContext.Session.GetString("userName") </a>
+                                <a asp-page="Users/Profile" asp-page-UserEmail="@HttpContext.Session.GetString("userEmail")" class="nav-item nav-link">Xin chào, @HttpContext.Session.GetString("userName") </a>
                                 <a asp-page="Admin/Logout" class="nav-item nav-link">Đăng xuất</a>
                             </div>
                         </div>
@@ -142,7 +142,6 @@
         </div>
         <!-- Navbar End -->
     }
-
     <!-- Featured Start -->
     <div class="container-fluid pt-5">
         <div class="row px-xl-5 pb-3">

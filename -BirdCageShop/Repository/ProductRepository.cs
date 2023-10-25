@@ -31,5 +31,7 @@ namespace Repository
         public Product getProductDetail(int id) => _dao.getProductDetail(id);
 
         public Tuple<int, int> getFeedback(int id) => _dao.getRatingProduct(id);
+
+        public List<Product> getListProductTrendingForUser() => _dao.getListProductTrendingForUser();
     }
 }

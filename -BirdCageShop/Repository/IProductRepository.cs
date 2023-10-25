@@ -14,5 +14,7 @@ namespace Repository
         void Update(Product product);
         Product getProductDetail(int id);
         Tuple<int, int> getFeedback(int id);
+        List<Product> getListProductTrendingForUser();
+        List<Product> getProductListForUser();
     }
 }

@@ -28,8 +28,23 @@
 
 
 <body>
+    @*
+        Hiện thông báo lỗi handled exceptions
+    *@
+    @{
+        var errorMessage = TempData["errorMessage"] as string;
+        var successMessage = TempData["successMessage"] as string;
+    }
+    <div class="alert alert-danger" style="@(string.IsNullOrEmpty(errorMessage) ? "display: none;" : "")">
+        @errorMessage
+    </div>
 
-    @Model.ErrorMessage
+    <!-- Hiển thị thông báo thành công -->
+    <div class="alert alert-success" style="@(string.IsNullOrEmpty(successMessage) ? "display: none;" : "")">
+        @successMessage
+    </div>
+
+
     <div class="container">
         <h1>Login</h1>
         <form method="post">

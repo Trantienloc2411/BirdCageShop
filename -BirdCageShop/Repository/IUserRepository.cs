@@ -15,5 +15,8 @@ namespace Repository
         int Update(User user);
         List<Role> GetUserRole();
         bool isEmailexisted(string email);
+        bool IsEmailExistedExceptEmailCurrent(string emailCheck, string emailCurrent);
+        int UpdateUserProfile(User User);
+        int AddProductToCart(int userID, int productID, int quantity);
     }
 }

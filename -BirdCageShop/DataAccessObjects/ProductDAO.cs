@@ -86,16 +86,22 @@ namespace DataAccessObjects
                        .ToList();
         }
 
-        //public List<Product> getListProductTrendingForUser()
-        //{
-        //    var avgFeedback = (from p in _db.Products
-        //    join od in _db.OrderDetails on p.CageId equals od.CageId
-        //                       join o in _db.Orders on od.OrderId equals o.OrderId
-        //                       join fed in _db.Feedbacks on o.OrderId equals fed.OrderId
+        public List<Product> getListProductTrendingForUser()
+        {
+            var cageIds = (from p in _db.Products
+                           join od in _db.OrderDetails on p.CageId equals od.CageId
+                           join o in _db.Orders on od.OrderId equals o.OrderId
+                           join f in _db.Feedbacks on o.OrderId equals f.OrderId
+                           group f by p.CageId into g
+                           select new { CageId = g.Key, AverageRating = g.Average(x => x.Rating) })
+                          .OrderByDescending(x => x.AverageRating)
+                          .Take(4)
+                          .Select(x => x.CageId)
+                          .ToList();
 
-        //                       select fed.Rating).Average();
-        //    return List.Enumerator(avgFeedback);   //error
-        //}
+            var products = _db.Products.Where(p => cageIds.Contains(p.CageId)).ToList();
+            return products.ToList();
+        }
 
         public Product getProductDetail(int id)
         {

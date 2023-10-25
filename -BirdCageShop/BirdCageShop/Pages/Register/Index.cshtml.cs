@@ -36,7 +36,7 @@ namespace BirdCageShop.Pages.Register
             var isEmailExisted = _userRepo.isEmailexisted(this.UserName);
             if (isEmailExisted)
             {
-                TempData["errorMessage"] = "This email is registered! Try another one.";
+                TempData["errorMessage"] = "Email này đã tồn tại trong hệ thống! Hãy sử dụng email khác.";
                 return Page();
             }
             else
@@ -44,7 +44,7 @@ namespace BirdCageShop.Pages.Register
 
                 _userRepo.Add(user);
 
-                TempData["successMessage"] = "Register successfully!";
+                TempData["successMessage"] = "Đăng kí tài khoản thành công!";
                 return Page();
             }
 

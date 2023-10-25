@@ -9,6 +9,7 @@ namespace BirdCageShop.Pages
     {
         private readonly CategoryRepository _cateRepo;
         private readonly ProductRepository _proRepo;
+        public string ErrorMessage { get; set; }
 
         public IndexModel()
         {
@@ -21,14 +22,15 @@ namespace BirdCageShop.Pages
         public IActionResult OnGet()
         {
             Categories = _cateRepo.GetAll().ToList();
-            Products = _proRepo.getProductListForUser().ToList();
+            Products = _proRepo.getListProductTrendingForUser().ToList();
+            TempData["errorMessage"] = "";
             return Page();
         }
 
         public IActionResult OnGetLogout()
         {
             HttpContext.Session.Clear();
-            return RedirectToPage("/Index");
+            return RedirectToPage("../Index");
         }
     }
 }
