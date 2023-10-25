@@ -12,7 +12,7 @@ namespace DataAccessObjects
         }
         public IEnumerable<Order> GetAll()
         {
-            return _db.Orders;
+            return _db.Orders.ToList();
         }
     }
 }

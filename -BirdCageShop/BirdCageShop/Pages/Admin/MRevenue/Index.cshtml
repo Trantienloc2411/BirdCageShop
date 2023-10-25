@@ -1,4 +1,5 @@
 ﻿@page
+@using Repository;
 @model BirdCageShop.Pages.Admin.MRevenue.IndexModel
 @{
     ViewData["Title"] = "Index";
@@ -62,104 +63,40 @@
     </div>
     <section style="padding: 1cm 0">
         <div class="row">
-            <div class="col-md-30">
+            <div class="col-md-20">
 
                 <table class="table table-bordered table-gray table-hover">
                     <thead>
+                        
                         <tr>
                             <th style="color: pink; border: solid gainsboro">
                                 @Html.DisplayNameFor(model => model.Order[0].UserId)
                             </th>
                             <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.Order[0].OrderStatus)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
                                 @Html.DisplayNameFor(model => model.Order[0].OrderPrice)
                             </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.Order[0].OrderDate)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.Order[0].OrderAdress)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.Order[0].OrderName)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.Order[0].OrderPhone)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.Order[0].Note)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.Order[0].Payment)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro"></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model.Order)
                         {
+                            
                             <tr>
                                 <td style="border: solid gainsboro">
                                     @Html.DisplayFor(modelItem => item.UserId)
                                 </td>
                                 <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.OrderStatus)
-                                </td>
-                                <td style="border: solid gainsboro">
                                     @Html.DisplayFor(modelItem => item.OrderPrice)
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.OrderDate)
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.OrderAdress)
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.OrderName)
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.OrderPhone)
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.Note)
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.Payment.PaymentId)
-                                </td>
-                                <td style="border: solid gainsboro; padding: 10px;">
-
-                                    <style>
-                                        .action-buttons {
-                                            display: flex;
-                                            flex-direction: column;
-                                            gap: 10px;
-                                            margin-top: 10px;
-                                        }
-
-                                            .action-buttons a {
-                                                padding: 10px 15px;
-                                                background-color: pink;
-                                                color: white;
-                                                border: none;
-                                                border-radius: 5px;
-                                                cursor: pointer;
-                                                transition: background-color 0.3s;
-                                            }
-
-                                                .action-buttons a:hover {
-                                                    background-color: deeppink;
-                                                }
-                                    </style>
-
-                                    <div class="action-buttons">
-                                        <a asp-page="./Details" asp-route-id="@item.OrderId">Details</a>
-                                    </div>
                                 </td>
                             </tr>
                         }
                     </tbody>
+                    <!-- Display Total Order Price -->
+                    <div class="row justify-content-center">
+                        <div class="col-md-6 text-center">
+                            <h4 style="color: hotpink">Total Order Price: <span style="color: red;">@Model.TotalOrderPrice</span></h4>
+                        </div>
+                    </div>
                 </table>
             </div>
         </div>

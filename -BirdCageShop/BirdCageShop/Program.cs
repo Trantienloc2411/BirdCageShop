@@ -17,12 +17,14 @@ namespace BirdCageShop
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<IDiscountRepository, DiscountRepository>();
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+            builder.Services.AddScoped<IRevenueRepository, RevenueRepository>();
 
             builder.Services.AddScoped<UserDAO>();
             builder.Services.AddScoped<ProductDAO>();
             builder.Services.AddScoped<CategoryDAO>();
             builder.Services.AddScoped<DiscountDAO>();
             builder.Services.AddScoped<OrderDAO>();
+            builder.Services.AddScoped<RevenueDAO>();
 
             var app = builder.Build();
 
