@@ -28,7 +28,7 @@ namespace BirdCageShop.Pages.Users
                 if (product == null)
                 {
                     return RedirectToAction("../Error");
-                    
+
                 }
                 else
                 {

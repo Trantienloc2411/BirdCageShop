@@ -21,10 +21,6 @@ namespace BirdCageShop.Login
             _userRepo = new UserRepository();
         }
 
-        public void OnGet()
-        {
-
-        }
 
         public IActionResult OnPost()
         {
@@ -34,12 +30,15 @@ namespace BirdCageShop.Login
                 if (user.RoleId == 1)
                 {
                     HttpContext.Session.SetString("LoggedInUser", "User");
+                    HttpContext.Session.SetString("userName", user.UserName);
+                    HttpContext.Session.SetString("userEmail", user.Email);
+                    HttpContext.Session.SetInt32("userID", user.UserId);
                     return RedirectToPage("../Index");
                 }
                 else if (user.RoleId == 2)
                 {
                     HttpContext.Session.SetString("LoggedInUser", "Adminstrator");
-                    return RedirectToPage("../Admin/MProduct/Index");
+                    return RedirectToPage("Admin/Index");
                 }
                 else if (user.RoleId == 3)
                 {
@@ -50,9 +49,7 @@ namespace BirdCageShop.Login
                 {
                     TempData["errorMessage"] = "You are not allowed to do this function!";
                     return Page();
-
                 }
-
             }
             else
             {
