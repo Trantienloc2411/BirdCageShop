@@ -38,7 +38,7 @@ namespace BirdCageShop.Login
                 else if (user.RoleId == 2)
                 {
                     HttpContext.Session.SetString("LoggedInUser", "Adminstrator");
-                    return RedirectToPage("Admin/Index");
+                    return RedirectToPage("../Admin/MProduct/Index");
                 }
                 else if (user.RoleId == 3)
                 {

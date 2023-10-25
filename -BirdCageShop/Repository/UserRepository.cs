@@ -25,7 +25,7 @@ namespace Repository
         public int UpdateUserProfile(User User) => _dao.UpdateUserProfile(User);   
         public bool IsEmailExistedExceptEmailCurrent(string emailCheck, string emailCurrent) => _dao.IsEmailExistedExceptEmailCurrent(emailCheck, emailCurrent);
 
-        public int AddProductToCart(int userID, int productID, int quantity) => _dao.AddProductToCart(userID, productID, quantity); 
+        public int AddProductToCart(int userID, int productID, int quantity) => _dao.AddProductToCart(userID, productID, quantity);
 
     }
 }
