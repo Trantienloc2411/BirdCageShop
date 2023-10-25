@@ -33,5 +33,7 @@ namespace Repository
         public Tuple<int, int> getFeedback(int id) => _dao.getRatingProduct(id);
 
         public List<Product> getListProductTrendingForUser() => _dao.getListProductTrendingForUser();
+
+
     }
 }

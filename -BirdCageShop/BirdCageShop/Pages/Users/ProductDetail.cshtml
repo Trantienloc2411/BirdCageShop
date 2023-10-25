@@ -94,7 +94,7 @@
                 }
                 else
                 {
-                    <h3 class="font-weight-semi-bold mb-4">@Model.product.Price</h3>
+                    <h3 class="font-weight-semi-bold mb-4">@Model.product.Price $</h3>
                 }
 
                 <h4>Số lượng : @Model.product.Quantity</h4>
@@ -102,7 +102,13 @@
                     @Model.product.Description
                 </p>
                 <div class="d-flex mb-3">
-                    <p class="text-dark font-weight-medium mb-0 mr-3">Kích cỡ: S</p>
+                    <p class="text-dark font-weight-medium mb-0 mr-3">Kích cỡ: @Model.product.Size</p>
+                </div>
+                <div class="d-flex mb-3">
+                    <p class="text-dark font-weight-medium mb-0 mr-3">Chất liệu: @Model.product.Material</p>
+                </div>
+                <div class="d-flex mb-3">
+                    <p class="text-dark font-weight-medium mb-0 mr-3">Số thanh: @Model.product.Bar </p>
                 </div>
                 <div class="d-flex align-items-center mb-4 pt-2">
                     <div class="input-group quantity mr-3" style="width: 130px;">
@@ -324,16 +330,33 @@
     <a href="#" class="btn btn-primary back-to-top">
         <i class="fa fa-angle-double-up"></i>
     </a>
+    <script>
+        document.querySelector('.btn-plus').addEventListener('click', function () {
+            var input = document.querySelector('.form-control');
+            var currentValue = Number(input.value);
+            input.value = currentValue + 1;
+        });
+
+        document.querySelector('.btn-minus').addEventListener('click', function () {
+            var input = document.querySelector('.form-control');
+            var currentValue = Number(input.value);
+            if (currentValue > 0) {
+                input.value = currentValue - 1;
+            }
+        });
+
+    </script>
+
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="/lib/easing/easing.min.js"></script>
-    <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="~/lib/easing/easing.min.js"></script>
+    <script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Contact Javascript File -->
-    <script src="/mail/jqBootstrapValidation.min.js"></script>
-    <script src="/mail/contact.js"></script>
+    <script src="~/mail/jqBootstrapValidation.min.js"></script>
+    <script src="~/mail/contact.js"></script>
 
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>

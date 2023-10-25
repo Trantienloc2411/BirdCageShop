@@ -144,9 +144,7 @@ namespace DataAccessObjects
                     {
                         throw new Exception(ex.Message);
                     }
-
                 } 
-
                 //in case thhe cart existed
                 else if(order != null)
                 {
@@ -173,7 +171,7 @@ namespace DataAccessObjects
                 }
                 return 0;
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 throw new Exception(ex.Message);
             }
