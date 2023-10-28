@@ -26,7 +26,7 @@
 
 <body>
     <!-- Shop Detail Start -->
-    <div class="container-fluid py-5">
+     <div class="container-fluid py-5">
         <div class="row px-xl-5">
             <div class="col-lg-5 pb-5">
                 <div id="product-carousel"
@@ -118,7 +118,7 @@
                             </button>
                         </div>
                         <input type="text"
-                               class="form-control bg-secondary text-center"
+                               class="form-control bg-secondary text-center quantity-input"
                                value="1" />
                         <div class="input-group-btn">
                             <button class="btn btn-primary btn-plus">
@@ -126,10 +126,13 @@
                             </button>
                         </div>
                     </div>
-                    <button class="btn btn-primary px-3">
-                        <i class="fa fa-shopping-cart mr-1"></i> Thêm vào giỏ hàng
-                    </button>
+                    <form method="post">
+                        <button class="btn btn-primary px-3">
+                            <i class="fa fa-shopping-cart mr-1"></i> Thêm vào giỏ hàng
+                        </button>
+                    </form>
                 </div>
+
                 <div class="d-flex pt-2">
                     <p class="text-dark font-weight-medium mb-0 mr-2">Chia sẻ trên:</p>
                     <div class="d-inline-flex">
@@ -330,23 +333,6 @@
     <a href="#" class="btn btn-primary back-to-top">
         <i class="fa fa-angle-double-up"></i>
     </a>
-    <script>
-        document.querySelector('.btn-plus').addEventListener('click', function () {
-            var input = document.querySelector('.form-control');
-            var currentValue = Number(input.value);
-            input.value = currentValue + 1;
-        });
-
-        document.querySelector('.btn-minus').addEventListener('click', function () {
-            var input = document.querySelector('.form-control');
-            var currentValue = Number(input.value);
-            if (currentValue > 0) {
-                input.value = currentValue - 1;
-            }
-        });
-
-    </script>
-
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
