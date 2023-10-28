@@ -1,5 +1,6 @@
 ﻿using BusinessObjects.Models;
 using DataAccessObjects;
+using Microsoft.AspNetCore.Http;
 
 namespace Repository
 {
@@ -26,5 +27,7 @@ namespace Repository
         public List<Discount> GetDiscounts() => _dao.GetDiscounts();
 
         public void Update(Product product) => _dao.Update(product);
+
+        public void Upload(int cageId, IFormFile imageFile) => _dao.Upload(cageId, imageFile);
     }
 }

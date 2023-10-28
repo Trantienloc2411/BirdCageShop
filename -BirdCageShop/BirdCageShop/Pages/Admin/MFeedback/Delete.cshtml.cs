@@ -1,20 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BusinessObjects.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Repository;
 
-namespace BirdCageShop.Pages.Admin.MProduct
+namespace BirdCageShop.Pages.Admin.MFeedback
 {
     public class DeleteModel : PageModel
     {
-        private readonly IProductRepository _proRepo;
+        private readonly IFeedbackRepository _fbRepo;
 
-        public DeleteModel(IProductRepository productRepository)
+        public DeleteModel(IFeedbackRepository feedbackRepository)
         {
-            _proRepo = productRepository;
+            _fbRepo = feedbackRepository;
         }
 
         [BindProperty]
-        public BusinessObjects.Models.Product Product { get; set; }
+        public Feedback Feedback { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
@@ -23,9 +24,9 @@ namespace BirdCageShop.Pages.Admin.MProduct
                 return NotFound();
             }
 
-            Product = _proRepo.GetProductById(id);
+            Feedback = _fbRepo.GetFeedbackrById(id);
 
-            if (Product == null)
+            if (Feedback == null)
             {
                 return NotFound();
             }
@@ -39,11 +40,11 @@ namespace BirdCageShop.Pages.Admin.MProduct
                 return NotFound();
             }
 
-            Product = _proRepo.GetProductById(id);
+            Feedback = _fbRepo.GetFeedbackrById(id);
 
-            if (Product != null)
+            if (Feedback != null)
             {
-                _proRepo.Delete(id);
+                _fbRepo.Delete(id);
             }
 
             return RedirectToPage("./Index");
