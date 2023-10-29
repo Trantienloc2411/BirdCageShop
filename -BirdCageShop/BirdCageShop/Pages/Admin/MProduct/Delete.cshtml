@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Delete";
+    Layout = "_AdminLayout";
 }
 
 <h1>Delete</h1>
@@ -83,6 +84,6 @@
     <form method="post">
         <input type="hidden" asp-for="Product.CageId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-page="./Index">Back to List</a>
+        <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
     </form>
 </div>
