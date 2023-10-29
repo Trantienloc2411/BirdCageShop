@@ -144,30 +144,33 @@ namespace DataAccessObjects
                     {
                         throw new Exception(ex.Message);
                     }
-                } 
+                }
                 //in case thhe cart existed
-                else if(order != null)
+                else
                 {
                     // find the product information
                     var product = _dbContext.Products.First(p => p.CageId == productID);
                     //get information about the cart
                     var orderDetail = _dbContext.OrderDetails.FirstOrDefault(od => od.CageId == productID && od.OrderId == order.OrderId);
-                    OrderDetail od = new OrderDetail();
-                    od.OrderId = order.OrderId;
-                    od.CageId = productID;
-                    od.DetailPrice = product.Price; //take the price not include discount
+//take the price not include discount
                     if (orderDetail != null)
                     {
-                        od.DetailQuantity += quantity;
+                        int bdb = (int)orderDetail.DetailQuantity;
+                        orderDetail.DetailQuantity += 1;
+                        return _dbContext.SaveChanges();
                     }
                     else
                     {
                         // You need to initialize orderDetail before you can use it
+                        OrderDetail od = new OrderDetail();
+                        od.OrderId = order.OrderId;
+                        od.CageId = productID;
+                        od.DetailPrice = product.Price;
+                        quantity = 1;
                         od.DetailQuantity = quantity;
+                        _dbContext.OrderDetails.Add(od);
+                        return _dbContext.SaveChanges();
                     }
-
-                    _dbContext.OrderDetails.Add(od);
-                    return _dbContext.SaveChanges();
                 }
                 return 0;
             }
@@ -177,6 +180,29 @@ namespace DataAccessObjects
             }
         }
 
+        /*
+        public List<Order> getListcartByUserID(int userID)
+        {
+            try
+            {
+                var cart = _dbContext.Orders.FirstOrDefault(o => o.UserId == userID && o.OrderStatus == "Cart");
+                if(cart != null)
+                {
+                    var result = (from o in _dbContext.Orders
+                                  join od in _dbContext.OrderDetails on o.OrderId equals od.OrderId
+                                  join p in _dbContext.Products on od.CageId equals p.CageId
+                                  where o.OrderStatus == "Cart" && o.UserId == userID
+                                  select new { p.CageName, p.Price, p.}).ToList();
 
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        */
     }
 }

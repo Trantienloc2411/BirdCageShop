@@ -75,11 +75,11 @@
 
                     }
                     <div class="text-primary mr-2">
-                        @for (int i = 1; i <= getFeebackStatic.Item1; i++)
+                        @for (int h = 1; h <= getFeebackStatic.Item1; h++)
                         {
                             <small class="fas fa-star"></small>
                         }
-                        @for (int i = 1; i <= (5 - getFeebackStatic.Item1); i++)
+                        @for (int l = 1; l <= (5 - getFeebackStatic.Item1); l++)
                         {
                             <small class="far fa-star"></small>
                         }
@@ -111,25 +111,31 @@
                     <p class="text-dark font-weight-medium mb-0 mr-3">Số thanh: @Model.product.Bar </p>
                 </div>
                 <div class="d-flex align-items-center mb-4 pt-2">
-                    <div class="input-group quantity mr-3" style="width: 130px;">
+
+                   @*  <div class="input-group quantity mr-3" style="width: 130px;">
                         <div class="input-group-btn">
                             <button class="btn btn-primary btn-minus">
                                 <i class="fa fa-minus"></i>
                             </button>
                         </div>
                         <input type="text"
-                               class="form-control bg-secondary text-center"
+                               class="form-control bg-secondary text-center quantity-input"
                                value="1" />
                         <div class="input-group-btn">
                             <button class="btn btn-primary btn-plus">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
-                    </div>
-                    <button class="btn btn-primary px-3">
-                        <i class="fa fa-shopping-cart mr-1"></i> Thêm vào giỏ hàng
-                    </button>
+                    </div>    *@
+                    
+                    <form method="post">
+                        <button class="btn btn-primary px-3">
+                            <i class="fa fa-shopping-cart mr-1"></i> Thêm vào giỏ hàng
+                        </button>
+                    </form>
+
                 </div>
+
                 <div class="d-flex pt-2">
                     <p class="text-dark font-weight-medium mb-0 mr-2">Chia sẻ trên:</p>
                     <div class="d-inline-flex">
@@ -330,36 +336,8 @@
     <a href="#" class="btn btn-primary back-to-top">
         <i class="fa fa-angle-double-up"></i>
     </a>
-    <script>
-        document.querySelector('.btn-plus').addEventListener('click', function () {
-            var input = document.querySelector('.form-control');
-            var currentValue = Number(input.value);
-            input.value = currentValue + 1;
-        });
-
-        document.querySelector('.btn-minus').addEventListener('click', function () {
-            var input = document.querySelector('.form-control');
-            var currentValue = Number(input.value);
-            if (currentValue > 0) {
-                input.value = currentValue - 1;
-            }
-        });
-
-    </script>
-
 
     <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/easing/easing.min.js"></script>
-    <script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
-
-    <!-- Contact Javascript File -->
-    <script src="~/mail/jqBootstrapValidation.min.js"></script>
-    <script src="~/mail/contact.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="/js/main.js"></script>
 </body>
 
 </html>
