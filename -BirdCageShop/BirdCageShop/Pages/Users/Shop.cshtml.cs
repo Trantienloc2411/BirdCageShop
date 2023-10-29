@@ -1,6 +1,7 @@
 ﻿using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.CodeAnalysis;
 using Repository;
 
 namespace BirdCageShop.Pages.Users
@@ -11,10 +12,13 @@ namespace BirdCageShop.Pages.Users
         public int CurrentPage { get; set; } = 1;
         public int TotalPages { get; set; }  = 0;
         private readonly IProductRepository _proRepos;
+        private readonly IUserRepository _userRepo;
+        public static int productID { get; set; }
         public List<Product> Data { get; set; }
         public IndexModel()
         {
             _proRepos = new ProductRepository();
+            _userRepo = new UserRepository();
         }
         public List<BusinessObjects.Models.Product> pagedProducts { get; set; }
         public List<Product> Products { get; set; }
@@ -43,6 +47,38 @@ namespace BirdCageShop.Pages.Users
             {
                 return RedirectToPage("../Error");
             }
+        }
+        public IActionResult OnPost()
+        {
+            try
+            {
+                if (HttpContext.Session.GetInt32("userID") == null)
+                {
+                    TempData["errorMessage"] = "Hãy đăng nhập trước khi thêm vào giỏ của bạn nhé. Mình chuyển đến trang đăng nhập giúp bạn rồi nè";
+                    return RedirectToPage("./Login");
+                }
+                else
+                {
+                    int userID = (int)HttpContext.Session.GetInt32("userID");
+                    int result = _userRepo.AddProductToCart(userID, productID, 1);
+                    if (result == 0)
+                    {
+                        TempData["errorMessage"] = "Có vẻ điều gì đó đã xảy ra. Không thể thêm vào giỏ hàng";
+                        return RedirectToPage("./Shop");
+                    }
+                    else
+                    {
+                        TempData["successMessage"] = "Thêm vào giỏ hàng thành công";
+                        return RedirectToPage("./Shop");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                TempData["errorMessage"] = "Somthing unexpected happend!" + ex.Message; return RedirectToPage("./Error");
+            }
+
         }
 
 

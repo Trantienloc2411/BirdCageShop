@@ -6,7 +6,7 @@
 
 <!DOCTYPE html>
 <html>
-    <head>
+<head>
     <link href="img/favicon.ico" rel="icon" />
 
     <!-- Google Web Fonts -->
@@ -23,8 +23,22 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="/css/style.css" rel="stylesheet" />
-    </head>
-    <body>
+</head>
+<body>
+
+    @{
+        var errorMessage = TempData["errorMessage"] as string;
+        var successMessage = TempData["successMessage"] as string;
+    }
+    <div class="alert alert-danger" style="@(string.IsNullOrEmpty(errorMessage) ? "display: none;" : "")">
+        @errorMessage
+    </div>
+
+    <!-- Hiển thị thông báo thành công -->
+    <div class="alert alert-success" style="@(string.IsNullOrEmpty(successMessage) ? "display: none;" : "")">
+        @successMessage
+    </div>
+
     <div class="container-fluid bg-secondary mb-5">
         <div class="d-flex flex-column align-items-center justify-content-center"
              style="min-height: 300px;">
@@ -229,7 +243,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div> 
+                    </div>
 
 
 
@@ -243,7 +257,7 @@
                                 <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                     <h6 class="text-truncate mb-3">@Html.DisplayFor(modelItem => item.CageName)</h6>
                                     <div class="d-flex justify-content-center">
-                                        @if(item.Discount != null)
+                                        @if (item.Discount != null)
                                         {
                                             var discountedPrice = Math.Round((double)(item.Price - (item.Price * item.Discount.Discount1 / 100)), 2);
                                             <h6>@Html.DisplayFor(modelItem => discountedPrice)</h6>  <!-- (Giá được giảm)  -->
@@ -260,15 +274,16 @@
                                     <a asp-page="Users/ProductDetail" asp-route-productId="@item.CageId" class="btn btn-sm text-dark p-0">
                                         <i class="fas fa-eye text-primary mr-1"></i>Xem chi tiết
                                     </a>
-                                    <a href="/detail.html" class="btn btn-sm text-dark p-0">
+                                    <a asp-page="Users/ProductDetail" class="btn btn-sm text-dark p-0" asp-route-productId="@item.CageId">
                                         <i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm
                                         vào giỏ
                                     </a>
+
                                 </div>
                             </div>
                         </div>
                     }
-                    
+
                     <!-- Page Navigate -->
                     <div class="col-12 pb-1">
                         <nav aria-label="Page navigation">
@@ -301,16 +316,5 @@
     </div>
     <!-- Shop End -->
     <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/easing/easing.min.js"></script>
-    <script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
-
-    <!-- Contact Javascript File -->
-    <script src="~/mail/jqBootstrapValidation.min.js"></script>
-    <script src="~/mail/contact.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="~/js/main.js"></script>
-    </body>
+</body>
 </html>
