@@ -17,5 +17,6 @@ namespace Repository
         public IEnumerable<Order> GetAll() => _dao.GetAll();
         public void Update(Order order) => _dao.Update(order);
         public List<Order> Report(DateTime startDate, DateTime endDate) => _dao.Report(startDate, endDate);
+
     }
 }
