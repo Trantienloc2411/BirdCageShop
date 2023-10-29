@@ -16,11 +16,11 @@ namespace BusinessObjects.Models
         public string? Email { get; set; }
         public string? Phone { get; set; }
         public string? Address { get; set; }
-        public byte[]? UserImg { get; set; }
         public DateTime? DoB { get; set; }
         public string? Status { get; set; }
         public int? RoleId { get; set; }
         public string? Gender { get; set; }
+        public string? UserImg { get; set; }
 
         public virtual Role? Role { get; set; }
         public virtual ICollection<Feedback> Feedbacks { get; set; }
