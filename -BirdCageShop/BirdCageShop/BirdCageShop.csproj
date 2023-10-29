@@ -31,11 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="UploadService\IUploadService.cs" />
-    <Content Include="UploadService\LocalFileUploadService.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="wwwroot\Adminassets\es6\app.js" />
     <None Include="wwwroot\Adminassets\es6\constant\theme-constant.js" />
     <None Include="wwwroot\Adminassets\es6\core\core.js" />
@@ -659,7 +654,6 @@
     <None Include="wwwroot\Adminassets\vendors\select2\select2_locale_vi.js" />
     <None Include="wwwroot\Adminassets\vendors\select2\select2_locale_zh-CN.js" />
     <None Include="wwwroot\Adminassets\vendors\select2\select2_locale_zh-TW.js" />
-    <None Include="wwwroot\Content\Image\Outlaws Squad.png" />
     <None Include="wwwroot\images\brand\br1.png" />
     <None Include="wwwroot\images\brand\br2.png" />
     <None Include="wwwroot\images\brand\br3.png" />
@@ -790,8 +784,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="LazZiya.TagHelpers" Version="6.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.23" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.23" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.23">

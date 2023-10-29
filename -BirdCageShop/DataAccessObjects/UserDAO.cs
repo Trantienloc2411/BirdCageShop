@@ -16,7 +16,7 @@ namespace DataAccessObjects
             return _dbContext.Users.FirstOrDefault(c => c.Email == email);
         }
 
-        public string getUserImage(int Id)
+        public byte[] getUserImage(int Id)
         {
             var userImg = GetUserById(Id);
             return userImg?.UserImg ?? null;

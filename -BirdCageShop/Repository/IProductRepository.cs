@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Repository
 {
@@ -12,8 +13,6 @@ namespace Repository
         Product GetProductById(int id);
         List<Product> GetListProductByName(string name);
         void Update(Product product);
-        List<Product> getProductPages(int pageIndex, int pageSize);
-        int getTotalProductPages();
-        //void Upload(int cageId, IFormFile imageFile);
+        void Upload(int cageId, IFormFile imageFile);
     }
 }

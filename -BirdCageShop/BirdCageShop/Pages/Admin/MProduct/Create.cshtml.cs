@@ -1,5 +1,4 @@
-﻿using BirdCageShop.wwwroot.UploadService;
-using BusinessObjects.Models;
+﻿using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,13 +9,11 @@ namespace BirdCageShop.Pages.Admin.MProduct
     public class CreateModel : PageModel
     {
         private readonly IProductRepository _proRepo;
-        private readonly IUploadService _uploadService;
-        public string filePath;
 
-        public CreateModel(IProductRepository productRepository, IUploadService uploadService)
+
+        public CreateModel(IProductRepository productRepository)
         {
             _proRepo = productRepository;
-            this._uploadService = uploadService;
 
         }
 
@@ -24,7 +21,7 @@ namespace BirdCageShop.Pages.Admin.MProduct
         [BindProperty]
         public BusinessObjects.Models.Product Product { get; set; }
         [BindProperty]
-        public String CageImg { get; set; }
+        public IFormFile ImageFile { get; set; }
 
         public IActionResult OnGet()
         {
@@ -38,24 +35,19 @@ namespace BirdCageShop.Pages.Admin.MProduct
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(IFormFile CageImg)
+        public async Task<IActionResult> OnPostAsync()
         {
-            if (CageImg != null)
+            if (!ModelState.IsValid)
             {
-                Product.CageImg = await _uploadService.UploadFileAsync(CageImg);
+                return Page();
             }
 
-            //if (!ModelState.IsValid)
-            //{
-            //    return Page();
-            //}
+            var imageFile = HttpContext.Request.Form.Files.FirstOrDefault();
 
-            //var imageFile = HttpContext.Request.Form.Files.FirstOrDefault();
-
-            //if (imageFile != null && imageFile.Length > 0)
-            //{
-            //    _proRepo.Upload(Product.CageId, imageFile);
-            //}
+            if (imageFile != null && imageFile.Length > 0)
+            {
+                _proRepo.Upload(Product.CageId, imageFile);
+            }
 
             // Add product
             _proRepo.Add(Product);

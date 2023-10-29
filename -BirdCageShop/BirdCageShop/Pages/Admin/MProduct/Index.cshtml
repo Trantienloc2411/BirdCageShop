@@ -1,6 +1,6 @@
 ﻿@page
 @model BirdCageShop.Pages.Admin.MProduct.IndexModel
-@addTagHelper *, LazZiya.TagHelpers
+
 @{
     ViewData["Title"] = "Index";
     Layout = "_AdminLayout";
@@ -123,7 +123,7 @@
                                             @Html.DisplayFor(modelItem => item.Price)
                                         </td>
                                 <td style="border: solid gainsboro">
-                                    <img src="~/@item.CageImg" alt="Product Image" style="max-width: 100px; max-height: 100px;" />
+                                            @Html.DisplayFor(modelItem => item.CageImg)
                                         </td>
                                 <td style="border: solid gainsboro">
                                             @Html.DisplayFor(modelItem => item.Material)
@@ -181,10 +181,8 @@
                                 }
                             </tbody>
                         </table>
-                        <paging class="pagination" total-records="@Model.totalProduct" show-total-pages="false" show-total-records="false" page-size="@Model.pageSize" page-no="@Model.pageNo"></paging>
-            </div>
+                    </div>
                 </div>
-
     </section>
 
     <script src="~/table-07/js/jquery.min.js"></script>
