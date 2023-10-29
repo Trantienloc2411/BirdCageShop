@@ -11,7 +11,7 @@ namespace Repository
         List<User> GetListUserByName(string name);
         User GetUserByEmail(string email);
         User GetUserById(int id);
-        public byte[] GetUserImage(int Id);
+        string GetUserImage(int Id);
         int Update(User user);
         List<Role> GetUserRole();
     }

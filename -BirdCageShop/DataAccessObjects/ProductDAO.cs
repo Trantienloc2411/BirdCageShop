@@ -1,5 +1,4 @@
 ﻿using BusinessObjects.Models;
-using Microsoft.AspNetCore.Http;
 
 namespace DataAccessObjects
 {
@@ -78,20 +77,28 @@ namespace DataAccessObjects
         {
             return _db.Discounts.ToList();
         }
-
-        public void Upload(int cageId, IFormFile imageFile)
+        public List<Product> getProductPages(int pageIndex, int pageSize)
         {
-            var cage = GetProductById(cageId);
-
-            if (cage != null && imageFile != null && imageFile.Length > 0)
-            {
-                using (BinaryReader reader = new BinaryReader(imageFile.OpenReadStream()))
-                {
-                    cage.CageImg = reader.ReadBytes((int)imageFile.Length);
-                    _db.SaveChanges();
-                }
-            }
+            return _db.Products.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
         }
+        public int getTotalProductPages()
+        {
+            return _db.Products.Count();
+        }
+
+        //public void Upload(int cageId, IFormFile imageFile)
+        //{
+        //    var cage = GetProductById(cageId);
+
+        //    if (cage != null && imageFile != null && imageFile.Length > 0)
+        //    {
+        //        using (BinaryReader reader = new BinaryReader(imageFile.OpenReadStream()))
+        //        {
+        //            cage.CageImg = reader.ReadBytes((int)imageFile.Length);
+        //            _db.SaveChanges();
+        //        }
+        //    }
+        //}
 
     }
 }

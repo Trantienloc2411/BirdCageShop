@@ -1,3 +1,4 @@
+using BirdCageShop.wwwroot.UploadService;
 using DataAccessObjects;
 using Repository;
 
@@ -19,6 +20,7 @@ namespace BirdCageShop
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
             builder.Services.AddScoped<IRevenueRepository, RevenueRepository>();
             builder.Services.AddScoped<IFeedbackRepository, FeedbackRepository>();
+            builder.Services.AddScoped<IUploadService, LocalFileUploadService>();
 
             builder.Services.AddScoped<UserDAO>();
             builder.Services.AddScoped<ProductDAO>();
@@ -44,6 +46,7 @@ namespace BirdCageShop
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseStaticFiles();
 
             app.UseSession();
 
