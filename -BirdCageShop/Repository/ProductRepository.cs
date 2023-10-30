@@ -30,13 +30,14 @@ namespace Repository
         public int getTotalProductPages() => _dao.getTotalProductPages();
 
         //public void Upload(int cageId, IFormFile imageFile) => _dao.Upload(cageId, imageFile);
-        public List<Product> getProductListForUser() => _dao.getListProductForUser();
 
         public Product getProductDetail(int id) => _dao.getProductDetail(id);
 
         public Tuple<int, int> getFeedback(int id) => _dao.getRatingProduct(id);
 
         public List<Product> getListProductTrendingForUser() => _dao.getListProductTrendingForUser();
+
+        public List<Product> getProductListForUser() => _dao.getListProductForUser();
 
     }
 }

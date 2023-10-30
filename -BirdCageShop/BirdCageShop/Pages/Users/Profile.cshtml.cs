@@ -35,14 +35,14 @@ namespace BirdCageShop.Pages.Users
             try
             {
                 
-                int id = (int)HttpContext.Session.GetInt32("userID");
-                if(id == null)
+                
+                if(HttpContext.Session.Id == null)
                 {
-                    TempData["errorMessage"] = "Your account have not authorized yet!";
-                    RedirectToPage("../Index");
+                    TempData["errorMessage"] = "Hãy xác thực để xem thông tin của mình nhé";
+                    RedirectToPage("../Login/Index");
                 }
 
-                var _user = userRepository.GetUserById(id);
+                var _user = userRepository.GetUserById((int)HttpContext.Session.GetInt32("userID"));
                 if (_user != null)
                 {
                     user = _user;
@@ -60,8 +60,8 @@ namespace BirdCageShop.Pages.Users
             }
             catch (Exception ex)
             {
-
-                throw new Exception(ex.Message);
+                TempData["errorMessage"] = "Error: " + ex.Message;
+                return Page();
             }
 
         }
