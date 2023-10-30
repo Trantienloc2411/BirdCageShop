@@ -12,5 +12,9 @@ namespace Repository
         Product GetProductById(int id);
         List<Product> GetListProductByName(string name);
         void Update(Product product);
+        Product getProductDetail(int id);
+        Tuple<int, int> getFeedback(int id);
+        List<Product> getListProductTrendingForUser();
+        List<Product> getProductListForUser();
     }
 }

@@ -38,6 +38,5 @@ namespace Repository
 
         public List<Product> getListProductTrendingForUser() => _dao.getListProductTrendingForUser();
 
-
     }
 }
