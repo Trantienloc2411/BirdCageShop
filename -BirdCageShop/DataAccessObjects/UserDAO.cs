@@ -204,6 +204,18 @@ namespace DataAccessObjects
                 throw new Exception(ex.Message);
             }
         }
+        public Order getOrderPrice_Cart_ByUserID(int userID)
+        {
+            try
+            {
+                return _dbContext.Orders.FirstOrDefault(o => o.UserId == userID && o.OrderStatus == "Cart");
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
 
 
     }

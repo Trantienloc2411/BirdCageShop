@@ -2,8 +2,10 @@
 @model BirdCageShop.Pages.Users.UCart.IndexModel
 @{
     ViewData["Title"] = "Giỏ hàng";
+
 }
 
+                            
 <body>
     @{
         var errorMessage = TempData["errorMessage"] as string;
@@ -16,7 +18,7 @@
              style="min-height: 300px;">
             <h1 class="font-weight-semi-bold text-uppercase mb-3">Giỏ hàng</h1>
             <div class="d-inline-flex">
-                <p class="m-0"><a asp-page="./Shop">Trang chủ</a></p>
+                <p class="m-0"><a asp-page="../Shop">Trang chủ</a></p>
                 <p class="m-0 px-2">-</p>
                 <p class="m-0">Giỏ hàng</p>
             </div>
@@ -38,8 +40,10 @@
                         </tr>
                     </thead>
                     <tbody class="align-middle">
+
                         @foreach(var item in Model.cart)
                         {
+
                             <tr>
                                 <td class="align-middle">
                                     <img src="img/product-1.jpg" alt="" style="width: 50px;" />
@@ -49,19 +53,19 @@
                                 <td class="align-middle">
                                     <div class="input-group quantity mx-auto"
                                          style="width: 100px;">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-sm btn-primary btn-minus">
+@*                                         <div class="input-group-btn">
+                                            <button class="btn btn-sm btn-primary btn-minus"  onclick="@DecrementQuantity(item.DetailId)">
                                                 <i class="fa fa-minus"></i>
                                             </button>
-                                        </div>
+                                        </div> *@
                                         <input type="text"
                                                class="form-control form-control-sm bg-secondary text-center"
                                                value="@item.DetailQuantity" />
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-sm btn-primary btn-plus">
+@*                                         <div class="input-group-btn">
+                                            <button class="btn btn-sm btn-primary btn-plus" onclick="@IncrementQuantity(item.DetailId)">
                                                 <i class="fa fa-plus"></i>
                                             </button>
-                                        </div>
+                                        </div> *@
                                     </div>
                                 </td>
                                 @{
@@ -80,7 +84,6 @@
 
 
                         <!-- Thêm các hàng sản phẩm khác tương tự ở đây -->
-
 
                     </tbody>
                 </table>
@@ -103,7 +106,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between mb-3 pt-1">
                             <h6 class="font-weight-medium">Tổng cộng</h6>
-                            <h6 class="font-weight-medium"></h6>
+                            <h6 class="font-weight-medium">@Model.totalCart</h6>
                         </div>
                         <div class="d-flex justify-content-between">
                             <h6 class="font-weight-medium">Phí vận chuyển</h6>
@@ -113,7 +116,10 @@
                     <div class="card-footer border-secondary bg-transparent">
                         <div class="d-flex justify-content-between mt-2">
                             <h5 class="font-weight-bold">Tổng cộng</h5>
-                            <h5 class="font-weight-bold">$160</h5>
+                            @{
+                                Model.totalCart += 10;
+                            }
+                            <h5 class="font-weight-bold">@Model.totalCart</h5>
                         </div>
                         <button class="btn btn-block btn-primary my-3 py-3">
                             Tiến hành thanh toán

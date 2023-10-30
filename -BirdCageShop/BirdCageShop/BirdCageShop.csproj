@@ -814,6 +814,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\Users\UOrder\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\js\" />
