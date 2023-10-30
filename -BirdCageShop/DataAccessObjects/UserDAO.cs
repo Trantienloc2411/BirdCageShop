@@ -180,35 +180,29 @@ namespace DataAccessObjects
             }
         }
 
-
-        public List<CartItem> getListcartByUserID(int userID)
+        /*
+        public List<Order> getListcartByUserID(int userID)
         {
             try
             {
-                var cart = _dbContext.Orders.FirstOrDefault(o => o.UserId == userID && o.OrderStatus == "Cart");    
-                if (cart != null)
+                var cart = _dbContext.Orders.FirstOrDefault(o => o.UserId == userID && o.OrderStatus == "Cart");
+                if(cart != null)
                 {
                     var result = (from o in _dbContext.Orders
                                   join od in _dbContext.OrderDetails on o.OrderId equals od.OrderId
                                   join p in _dbContext.Products on od.CageId equals p.CageId
                                   where o.OrderStatus == "Cart" && o.UserId == userID
-                                  select new CartItem { CageName = p.CageName, DetailPrice = (decimal)od.DetailPrice, DetailQuantity = (int)od.DetailQuantity }).ToList();
+                                  select new { p.CageName, p.Price, p.}).ToList();
 
-                    return result;
-
-                }
-                else
-                {
-                    return new List<CartItem>();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
-                throw new Exception(ex.Message);
+                throw;
             }
         }
 
-
+        */
     }
 }
