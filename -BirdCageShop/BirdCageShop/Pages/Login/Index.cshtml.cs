@@ -33,6 +33,7 @@ namespace BirdCageShop.Login
                     HttpContext.Session.SetString("userName", user.UserName);
                     HttpContext.Session.SetString("userEmail", user.Email);
                     HttpContext.Session.SetInt32("userID", user.UserId);
+                    
                     return RedirectToPage("../Index");
                 }
                 else if (user.RoleId == 2)

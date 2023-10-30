@@ -18,6 +18,6 @@ namespace Repository
         bool IsEmailExistedExceptEmailCurrent(string emailCheck, string emailCurrent);
         int UpdateUserProfile(User User);
         int AddProductToCart(int userID, int productID, int quantity);
-        List<CartItem> getListcartByUserID(int userID);
+        List<OrderDetail> getListcartByUserID(int userID);
     }
 }
