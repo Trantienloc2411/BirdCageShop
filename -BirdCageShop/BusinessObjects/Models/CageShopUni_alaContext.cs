@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace BusinessObjects.Models
 {
@@ -30,17 +32,8 @@ namespace BusinessObjects.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer(GetConnectionString(), options => options.EnableRetryOnFailure());
+                optionsBuilder.UseSqlServer("Server=(local);Uid=sa;Pwd=nguyenbmt;Database=CageShopUni_ala");
             }
-        }
-
-        public string GetConnectionString()
-        {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-            IConfiguration configuration = builder.Build();
-            return configuration.GetConnectionString("CageShopUni_alaDB");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -176,7 +169,7 @@ namespace BusinessObjects.Models
             modelBuilder.Entity<OrderDetail>(entity =>
             {
                 entity.HasKey(e => e.DetailId)
-                    .HasName("PK__OrderDet__135C314D3BC92A20");
+                    .HasName("PK__OrderDet__135C314D4CF950ED");
 
                 entity.ToTable("OrderDetail");
 
@@ -220,15 +213,13 @@ namespace BusinessObjects.Models
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.HasKey(e => e.CageId)
-                    .HasName("PK__Product__792D9FBA21084D99");
+                    .HasName("PK__Product__792D9FBACE0D77BB");
 
                 entity.ToTable("Product");
 
                 entity.Property(e => e.CageId).HasColumnName("CageID");
 
-                entity.Property(e => e.CageImg)
-                    .HasColumnType("image")
-                    .HasColumnName("CageIMG");
+                entity.Property(e => e.CageImg).HasColumnName("CageIMG");
 
                 entity.Property(e => e.CageName)
                     .HasMaxLength(50)
@@ -294,9 +285,7 @@ namespace BusinessObjects.Models
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
-                entity.Property(e => e.UserImg)
-                    .HasColumnType("image")
-                    .HasColumnName("UserIMG");
+                entity.Property(e => e.UserImg).HasColumnName("UserIMG");
 
                 entity.Property(e => e.UserName)
                     .HasMaxLength(50)

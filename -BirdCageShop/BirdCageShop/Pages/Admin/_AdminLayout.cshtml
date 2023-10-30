@@ -235,9 +235,9 @@
                                 <li>
                                     <a asp-page="/Admin/MRevenue/Index">Revenue Manager</a>
                                 </li>
-                                <li>
+                                @* <li>
                                     <a asp-page="/Admin/MContact/Index">Contact Manager</a>
-                                </li>
+                                </li> *@
                                 <li>
                                     <a asp-page="/Admin/MFeedback/Index">Feedback Manager</a>
                                 </li>
@@ -279,5 +279,7 @@
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+    <!-- Add your JavaScript links here -->
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

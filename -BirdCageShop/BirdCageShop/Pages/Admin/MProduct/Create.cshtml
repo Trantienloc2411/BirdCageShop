@@ -87,6 +87,7 @@
 
 @{
     ViewData["Title"] = "Create";
+    Layout = "_AdminLayout";
 }
 <!-- Add this to your head section -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyFhBDGh6fF6yoG400DbPZZH8+78VIaa"
@@ -101,7 +102,7 @@
     <div class="col-md-6">
         <div class="card">
             <div class="card-body">
-        <form method="post">
+                <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Product.CageName" class="control-label"></label>
@@ -127,8 +128,8 @@
                 <select asp-for="Product.DiscountId" class="form-control" asp-items="@((SelectList)TempData["DiscountId"])"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Product.CageImg" class="control-label"></label>
-                <input asp-for="Product.CageImg" class="form-control" />
+                <label asp-for="Product.CageImg"></label>
+                <input name="CageImg" type="file" class="form-control" />
                 <span asp-validation-for="Product.CageImg" class="text-danger"></span>
             </div>
             <div class="form-group">
