@@ -8,14 +8,14 @@ namespace BirdCageShop.Pages.Users.UCart
     {
         private readonly IProductRepository _proRepo;
         
-        public CartModel()
-        {
-            _proRepo = new ProductRepository();
+        //public CartModel()
+        //{
+        //    _proRepo = new ProductRepository();
             
-        }
-        public IActionResult OnGet()
-        {
+        //}
+        //public IActionResult OnGet()
+        //{
             
-        }
+        //}
     }
 }
