@@ -15,6 +15,7 @@ namespace Repository
         Product getProductDetail(int id);
         Tuple<int, int> getFeedback(int id);
         List<Product> getListProductTrendingForUser();
-        List<Product> getProductListForUser();
+        List<Product> getListProductForUser();
+        List<Product> getProductPagesForUser(int pageIndex, int pageSize);
     }
 }

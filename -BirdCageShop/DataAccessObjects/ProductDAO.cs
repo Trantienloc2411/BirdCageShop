@@ -1,5 +1,6 @@
 ﻿using BusinessObjects.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing.Printing;
 
 namespace DataAccessObjects
 {
@@ -68,7 +69,7 @@ namespace DataAccessObjects
 
         public IEnumerable<Product> GetAll()
         {
-            return _db.Products.Where(p => p.CageStatus == 1).ToList();
+            return _db.Products.ToList();
         }
         public List<Category> GetCategories()
         {
@@ -78,10 +79,12 @@ namespace DataAccessObjects
         {
             return _db.Discounts.ToList();
         }
+        //get list of product with specific tab
         public List<Product> getProductPages(int pageIndex, int pageSize)
         {
             return _db.Products.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
         }
+        //Get count of product in data
         public int getTotalProductPages()
         {
             return _db.Products.Count();
@@ -103,9 +106,13 @@ namespace DataAccessObjects
         public List<Product> getListProductForUser()
         {
             return _db.Products
-                       .Where(p => p.CageStatus.Equals(1))
-                       .Include(p => p.Discount)
-                       .ToList();
+                        .Where(p => p.CageStatus.Equals(1))
+                        .Include(p => p.Discount)
+                        .ToList();
+        }
+        public List<Product> getProductPagesForUser(int pageIndex, int pageSize)
+        {
+            return this.getListProductForUser().Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
         }
 
         public List<Product> getListProductTrendingForUser()

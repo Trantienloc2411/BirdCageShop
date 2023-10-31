@@ -34,7 +34,7 @@ namespace BirdCageShop.Pages.Users.UCart
                     return RedirectToPage("../Login/Index");
                 }
                 var cartList = _usrRepo.getListcartByUserID(userID);
-                if (cartList != null)
+                if (cartList.Count != 0)
                 {
                     cart = cartList.ToList();
                     order = _usrRepo.getOrderPrice_Cart_ByUserID(userID);

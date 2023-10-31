@@ -26,7 +26,6 @@ namespace BirdCageShop.Pages
             TempData["errorMessage"] = "";
             return Page();
         }
-
         public IActionResult OnGetLogout()
         {
             HttpContext.Session.Clear();
