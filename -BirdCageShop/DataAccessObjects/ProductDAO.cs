@@ -67,7 +67,7 @@ namespace DataAccessObjects
 
         public IEnumerable<Product> GetAll()
         {
-            return _db.Products.Where(p => p.CageStatus == 1).ToList();
+            return _db.Products.ToList();
         }
         public List<Category> GetCategories()
         {
