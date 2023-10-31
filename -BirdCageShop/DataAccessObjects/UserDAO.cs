@@ -204,6 +204,8 @@ namespace DataAccessObjects
                 throw new Exception(ex.Message);
             }
         }
+
+        
         public Order getOrderPrice_Cart_ByUserID(int userID)
         {
             try
@@ -217,6 +219,34 @@ namespace DataAccessObjects
             }
         }
 
+
+        public List<Order> getOrderByUser(int userID)
+        {
+            try
+            {
+                return _dbContext.Orders.Where(o => o.OrderStatus != "Cart").ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        //public int countProductInOrder(int orderID)
+        //{
+        //    try
+        //    {
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        throw new ;
+        //    }
+        //}
+        //public List<OrderDetail> getDetailProductInOrderByOrderID(int orderID)
+        //{
+
+        //}
 
     }
 }

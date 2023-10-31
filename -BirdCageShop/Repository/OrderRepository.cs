@@ -18,5 +18,7 @@ namespace Repository
         public void Update(Order order) => _dao.Update(order);
         public List<Order> Report(DateTime startDate, DateTime endDate) => _dao.Report(startDate, endDate);
 
+        public List<Order> getOrderByUserID(int userID) => _dao.getOrderByUserID(userID);
+
     }
 }

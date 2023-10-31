@@ -1,18 +1,28 @@
 ﻿using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
 using Repository;
+using System.Drawing.Printing;
 
 namespace BirdCageShop.Pages.Users
 {
     public class IndexModel : PageModel
     {
-        [BindProperty(SupportsGet = true)]
-        public int CurrentPage { get; set; } = 1;
-        public int TotalPages { get; set; }  = 0;
         private readonly IProductRepository _proRepos;
         private readonly IUserRepository _userRepo;
+        [BindProperty(SupportsGet = true)]
+
+
+
+        public int pageNo { get; set; } = 1; //PageNo
+        public int totalProduct { get; set; } //Count
+        public int pageSize { get; set; }
+
+
+
+
         public static int productID { get; set; }
         public List<Product> Data { get; set; }
         public IndexModel()
@@ -20,27 +30,28 @@ namespace BirdCageShop.Pages.Users
             _proRepos = new ProductRepository();
             _userRepo = new UserRepository();
         }
-        public List<BusinessObjects.Models.Product> pagedProducts { get; set; }
-        public List<Product> Products { get; set; }
-        public IActionResult OnGet()
-        {
 
+        public IList<BusinessObjects.Models.Product> pagedProducts { get; set; } //Product
+        public List<Product> Products { get; set; }
+
+
+
+        public IActionResult OnGet(int p = 1, int s = 6)
+        {
             try
             {
-                int pageNumber = CurrentPage; // Số trang hiện tại
-                int pageSize = 6; // Số lượng sản phẩm trên mỗi trang
+                Products = _proRepos.getListProductForUser().ToList();
 
-                Products = _proRepos.getProductListForUser().ToList();
                 if (Products != null)
                 {
-                    pagedProducts = Products
-                        .Skip((pageNumber - 1) * pageSize)
-                        .Take(pageSize)
-                        .ToList();
+                    pagedProducts = _proRepos.getProductPagesForUser(p, s);
+                    
+                    totalProduct = Products.Count();
+                   
+                    
                 }
-                int totalPages = (int)Math.Floor((int)Products.Count / (double)pageSize);
-                TotalPages += totalPages;
-
+                pageSize = s;
+                pageNo = p;
                 return Page();
             }
             catch (Exception ex)
@@ -48,6 +59,9 @@ namespace BirdCageShop.Pages.Users
                 return RedirectToPage("../Error");
             }
         }
+
+        
+
         public IActionResult OnPost()
         {
             try

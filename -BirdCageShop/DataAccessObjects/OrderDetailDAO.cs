@@ -26,5 +26,13 @@ namespace DataAccessObjects
         {
             return _db.Products.ToList();
         }
+        public List<OrderDetail> getOrderDetailByOrderID(int orderID)
+        {
+            return _db.OrderDetails.Where(o => o.OrderId == orderID).ToList();
+        }
+        public int getQuantityProductByOrderID(int orderID)
+        {
+            return _db.OrderDetails.Where(o => o.OrderId == orderID).Count();
+        }
     }
 }

@@ -20,5 +20,6 @@ namespace Repository
         int AddProductToCart(int userID, int productID, int quantity);
         List<OrderDetail> getListcartByUserID(int userID);
         Order getOrderPrice_Cart_ByUserID(int userID);
+        List<Order> getOrderByUser(int userID);
     }
 }

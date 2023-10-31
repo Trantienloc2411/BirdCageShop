@@ -37,7 +37,8 @@ namespace Repository
 
         public List<Product> getListProductTrendingForUser() => _dao.getListProductTrendingForUser();
 
-        public List<Product> getProductListForUser() => _dao.getListProductForUser();
+        public List<Product> getListProductForUser() => _dao.getListProductForUser();
+        public List<Product> getProductPagesForUser(int pageIndex, int pageSize) => _dao.getProductPagesForUser(pageIndex, pageSize);
 
     }
 }
