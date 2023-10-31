@@ -50,19 +50,6 @@ namespace BusinessObjects.Models
             return config.GetConnectionString("CageShopUni_alaDB");
         }
 
-        protected string GetConnectionString()
-        {
-            //IConfiguration config = new ConfigurationBuilder()
-            //     .SetBasePath(Directory.GetCurrentDirectory())
-            //            .AddJsonFile("appsettings.json", true, true)
-            //            .Build();
-            //var strConn = config["ConnectionStrings: DefaultConnectionStringDB "];
-
-            //return strConn;
-            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
-            IConfiguration config = builder.Build();
-            return config.GetConnectionString("CageShopUni_alaDB");
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
