@@ -40,6 +40,16 @@ namespace DataAccessObjects
                 _db.SaveChanges();
             }
         }
+        public void ManagerUpdate(Order order)
+        {
+            var o = GetOrderById(order.OrderId);
+            if (o != null)
+            {
+                o.OrderStatus = order.OrderStatus;
+                o.Note = order.Note;
+                _db.SaveChanges();
+            }
+        }
         public void Delete(int orderId)
         {
             var o = GetOrderById(orderId);

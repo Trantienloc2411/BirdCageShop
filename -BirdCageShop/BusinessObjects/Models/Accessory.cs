@@ -13,12 +13,12 @@ namespace BusinessObjects.Models
         public int AccessoryId { get; set; }
         public string? AccessoryName { get; set; }
         public double? AccessoryPrice { get; set; }
-        public byte[]? AccessoryImg { get; set; }
         public string? AccessoryDescription { get; set; }
         public int? AccessoryQuantity { get; set; }
         public int? AccessoryStatus { get; set; }
         public int? CategoryId { get; set; }
         public int? DiscountId { get; set; }
+        public string? AccessoryImg { get; set; }
 
         public virtual Category? Category { get; set; }
         public virtual Discount? Discount { get; set; }

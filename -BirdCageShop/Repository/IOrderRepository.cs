@@ -10,7 +10,11 @@ namespace Repository
         Order GetOrderById(int id);
         List<Order> Report(DateTime startDate, DateTime endDate);
         void Update(Order order);
+
         List<Order> getOrderByUserID(int userID);
        
+
+        void ManagerUpdate(Order order);
+
     }
 }

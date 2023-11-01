@@ -22,5 +22,7 @@ namespace Repository
         Order getOrderPrice_Cart_ByUserID(int userID);
         List<Order> getOrderByUser(int userID);
         int DeleteProductInCartByProductID(int userID, int productID);
+        int ManagerUpdate(User User);
+
     }
 }
