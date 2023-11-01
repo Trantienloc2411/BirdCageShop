@@ -50,22 +50,22 @@
                                 </td>
                                 <td class="align-middle">@item.DetailPrice</td>
                                 <td class="align-middle">
-                                    <div class="input-group quantity mx-auto"
-                                         style="width: 100px;">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-sm btn-primary btn-minus">
-                                                <i class="fa fa-minus"></i>
-                                            </button>
+                                        <div class="input-group quantity mx-auto"
+                                             style="width: 100px;">
+                                            @* <form class="input-group-btn" asp-page-handler="edit" asp-route-productID="@item.Cage.CageId" asp-route-quantity="@{item.DetailQuantity -= 1;}">
+                                                <button class="btn btn-sm btn-primary btn-minus">
+                                                    <i class="fa fa-minus"></i>
+                                                </button>
+                                            </form> *@
+                                            <input type="text"
+                                                   class="form-control form-control-sm bg-secondary text-center"
+                                                   value="@item.DetailQuantity" />
+                                            @* <form class="input-group-btn" method="post" asp-page-handler="edit" asp-route-productID="@item.Cage.CageId" asp-route-quantity="@{item.DetailQuantity += 1;}">
+                                                <button class="btn btn-sm btn-primary btn-plus">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </form> *@
                                         </div>
-                                        <input type="text"
-                                               class="form-control form-control-sm bg-secondary text-center"
-                                               value="@item.DetailQuantity" />
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-sm btn-primary btn-plus">
-                                                <i class="fa fa-plus"></i>
-                                            </button>
-                                        </div>
-                                    </div>
                                 </td>
                                 @{
                                     // Check if quantity is null
@@ -141,21 +141,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script>
-        $(document).ready(function () {
-            $('.quantity input').on('input', function () {
-                var price = parseFloat($(this).closest('tr').find('.price').text());
-                var quantity = $(this).val();
-                if (quantity.trim() === "" || isNaN(quantity)) {
-                    quantity = 0;
-                } else {
-                    quantity = parseInt(quantity);
-                }
-                var total = price * quantity;
-                $(this).closest('tr').find('.total').text(total.toFixed(2));
-            });
+        // Get the input field and buttons
+        var input = document.querySelector('.form-control');
+        var btnMinus = document.querySelector('.btn-minus');
+        var btnPlus = document.querySelector('.btn-plus');
+
+        // Attach event listeners to the buttons
+        btnMinus.addEventListener('click', function () {
+            if (input.value > 0) { // Prevent going into negative
+                input.value--;
+            }
         });
 
-
-
+        btnPlus.addEventListener('click', function () {
+            input.value++;
+        });
     </script>
+
 </body>

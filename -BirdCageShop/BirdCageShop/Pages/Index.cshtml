@@ -128,8 +128,9 @@
                         <div class="collapse navbar-collapse justify-content-between"
                              id="navbarCollapse">
                             <div class="navbar-nav mr-auto py-0">
-                                <a asp-page="../Index" class="nav-item nav-link active">Trang chủ</a>
-                                <a asp-page="Users/Shop" class="nav-item nav-link">Cửa hàng</a>
+                                <a style="padding-right: 150px;" asp-page="../Index" class="nav-item nav-link active">Trang chủ</a>
+                                <a style="padding-right: 150px;" asp-page="Users/Shop" class="nav-item nav-link">Cửa hàng</a>
+                                <a href="accessories.html" class="nav-item nav-link">Phụ kiện</a>
                             </div>
                             <div class="navbar-nav ml-auto py-0">
                                 <a asp-page="Users/Profile" asp-page-UserEmail="@HttpContext.Session.GetString("userEmail")" class="nav-item nav-link">Xin chào, @HttpContext.Session.GetString("userName") </a>

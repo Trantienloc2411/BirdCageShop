@@ -8,7 +8,7 @@ namespace DataAccessObjects
     public class UserDAO
     {
         private readonly CageShopUni_alaContext _dbContext;
-
+        
         public UserDAO()
         {
             _dbContext = new CageShopUni_alaContext();
@@ -236,6 +236,30 @@ namespace DataAccessObjects
             }
         }
 
+        public int UpdateProductInCartByProductID(int userID, int productID, int quantity)
+        {
+            try
+            {
+                var order = _dbContext.Orders.FirstOrDefault(o => o.UserId == userID && o.OrderStatus == "Cart");
+                if (order != null)
+                {
+                    var productInCart = _dbContext.OrderDetails.FirstOrDefault(od => od.OrderId == order.OrderId && od.CageId == productID);
+                    if (productInCart != null)
+                    {
+                        productInCart.DetailQuantity = quantity;
+                        var product = this.getListcartByUserID(userID).ToList();
+                        order.OrderPrice = product.Sum(p => p.DetailPrice);
+                        return _dbContext.SaveChanges();
+                    }
+                }
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public int DeleteProductInCartByProductID(int userID, int productID)
         {
             try
@@ -260,6 +284,8 @@ namespace DataAccessObjects
             }
         }
 
+
+        
         
 
 

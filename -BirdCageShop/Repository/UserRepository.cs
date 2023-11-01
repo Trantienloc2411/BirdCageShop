@@ -29,5 +29,6 @@ namespace Repository
         public Order getOrderPrice_Cart_ByUserID(int userID) => _dao.getOrderPrice_Cart_ByUserID(userID);
         public List<Order> getOrderByUser(int userID) => _dao.getOrderByUser(userID);
         public int DeleteProductInCartByProductID(int userID, int productID) => _dao.DeleteProductInCartByProductID(userID, productID);
+        public int UpdateProductInCartByProductID(int userID, int productID, int quantity) => _dao.UpdateProductInCartByProductID(userID, productID, quantity);
     }
 }
