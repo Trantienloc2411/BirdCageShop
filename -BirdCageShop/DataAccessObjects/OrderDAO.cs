@@ -63,5 +63,12 @@ namespace DataAccessObjects
         {
             return _db.Orders.ToList();
         }
+
+        public List<Order> getOrderByUserID(int userID)
+        {
+            return _db.Orders.Where(o => o.OrderStatus != "Cart" && o.UserId == userID).ToList();
+        }
+
+
     }
 }

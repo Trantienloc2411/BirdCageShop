@@ -1,25 +1,38 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BusinessObjects.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Repository;
 
 namespace BirdCageShop.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly CategoryRepository _cateRepo;
+        private readonly ProductRepository _proRepo;
+        private readonly IDiscountRepository _discountRepos;
+        public string ErrorMessage { get; set; }
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel()
         {
-            _logger = logger;
+            _cateRepo = new CategoryRepository();
+            _proRepo = new ProductRepository();
+            _discountRepos = new DiscountRepository();
         }
 
-        public void OnGet()
+        public IList<BusinessObjects.Models.Category> Categories { get; set; }
+        public IList<BusinessObjects.Models.Product> Products { get; set; }
+        public IActionResult OnGet()
         {
+            _discountRepos.AutoUpdateDiscount(); // this is function auto update account after load Index Page
+            Categories = _cateRepo.GetAll().ToList();
+            Products = _proRepo.getListProductTrendingForUser().ToList();
+            TempData["errorMessage"] = "";
+            return Page();
         }
-
         public IActionResult OnGetLogout()
         {
             HttpContext.Session.Clear();
-            return RedirectToPage("/Index");
+            return RedirectToPage("../Index");
         }
     }
 }

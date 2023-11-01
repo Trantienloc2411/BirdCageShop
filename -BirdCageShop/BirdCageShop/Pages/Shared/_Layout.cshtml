@@ -7,148 +7,205 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BirdCageShop.styles.css" asp-append-version="true" />
-    @* <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" asp-append-version="true">
-    <link href="https://fonts.googleapis.com/css?family=Rufina:400,700" rel="stylesheet" asp-append-version="true">
-    <link rel="shortcut icon" type="image/icon" href="assets/logo/favicon.png" asp-append-version="true" />
 
-    <!--font-awesome.min.css-->
-    <link rel="stylesheet" href="~/css/font-awesome.min.css" asp-append-version="true">
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon" />
 
-    <!--linear icon css-->
-    <link rel="stylesheet" href="~/css/linearicons.css" asp-append-version="true">
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet" />
 
-    <!--flaticon.css-->
-    <link rel="stylesheet" href="~/css/flaticon.css" asp-append-version="true">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+          rel="stylesheet" />
 
-    <!--animate.css-->
-    <link rel="stylesheet" href="~/css/animate.css" asp-append-version="true">
+    <!-- Libraries Stylesheet -->
+    <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
 
-    <!--owl.carousel.css-->
-    <link rel="stylesheet" href="~/css/owl.carousel.min.css" asp-append-version="true">
-    <link rel="stylesheet" href="~/css/owl.theme.default.min.css" asp-append-version="true">
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet" />
 
-    <!--bootstrap.min.css-->
-    <link rel="stylesheet" href="~/css/bootstrap.min.css" asp-append-version="true">
-
-    <!-- bootsnav -->
-    <link rel="stylesheet" href="~/css/bootsnav.css" asp-append-version="true">
-
-    <!--style.css-->
-    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true">
-
-    <!--responsive.css-->
-    <link rel="stylesheet" href="~/css/responsive.css" asp-append-version="true"> *@
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">BirdCageShop</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        @if (Context.Session.GetString("LoggedInUser") == "Adminstrator")
-                        {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="./Admin/MProduct/Index">Manage Product</a>
-                            </li>
-                        }
-                        else if (Context.Session.GetString("LoggedInUser") == "Shopkeeper")
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/">User Management</a>
-                            </li>
-                        }
-                        else if (Context.Session.GetString("LoggedInUser") == "User")
-                        {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/">Privacy</a>
-                            </li>
-                        }
-                    </ul>
+    <!-- Topbar Start -->
+    <div class="container-fluid">
+        <div class="row bg-secondary py-2 px-xl-5">
+            <div class="col-lg-6 d-none d-lg-block">
+                <div class="d-inline-flex align-items-center">
+                    <a class="text-dark" href="">FAQs</a>
+                    <span class="text-muted px-2">|</span>
+                    <a class="text-dark" href="">Help</a>
+                    <span class="text-muted px-2">|</span>
+                    <a class="text-dark" href="">Support</a>
                 </div>
             </div>
-        </nav>
-    </header>
-
-
-
-    @* <header>
-        <div class="top-area">
-            <div class="header-area">
-                <!-- Start Navigation -->
-                <div class="wrap-sticky" style="height: 114px;">
-                <nav class="navbar navbar-default bootsnav navbar-sticky navbar-scrollspy" data-minus-value-desktop="70" data-minus-value-mobile="55" data-speed="1000">
-                    <div class="container">
-                        <!-- Start Header Navigation -->
-                        <div class="navbar-header">
-                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            <a class="navbar-brand" asp-area="" asp-page="/Index">BirdCageShop<span></span></a>
-                        </div><!--/.navbar-header-->
-                        <!-- End Header Navigation -->
-                        <!-- Collect the nav links, forms, and other content for toggling -->
-                        <div class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
-                            <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
-                                @if (Context.Session.GetString("Role") == "Adminstrator")
-                                {
-                                    <li class="scroll active"><a asp-area="" asp-page="/Index">home</a></li>
-                                }
-                                else if (Context.Session.GetString("Role") == "Shopkeeper")
-                                {
-                                    <li class="scroll"><a asp-area="" asp-page="/">a</a></li>
-                                    <li class="scroll"><a asp-area="" asp-page="/">b</a></li>
-                                    <li class="scroll"><a asp-area="" asp-page="/">c</a></li>
-                                    <li class="scroll"><a asp-area="" asp-page="/">d</a></li>
-                                }
-                                else if (Context.Session.GetString("Role") == "User")
-                                {
-                                    <li class="scroll"><a asp-area="" asp-page="/">e</a></li>
-                                }
-                            </ul><!--/.nav -->
-                        </div><!-- /.navbar-collapse -->
-                    </div><!--/.container-->
-                </nav><!--/nav-->
-                </div>
-                <!-- End Navigation -->
-            </div>
-            <div class="clearfix"></div>
-        </div><!-- /.top-area-->
-        <div id="home" class="welcome-hero">
-            <!-- Your new section content goes here -->
-            <div class="container">
-                <div class="welcome-hero-txt">
-                    <h2>get your desired car in reasonable price</h2>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    </p>
-                    <button class="welcome-btn animated fadeInDown" asp-page="~/Login/Index">LOGIN</button>
+            <div class="col-lg-6 text-center text-lg-right">
+                <div class="d-inline-flex align-items-center">
+                    <a class="text-dark px-2" href="">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a class="text-dark px-2" href="">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a class="text-dark px-2" href="">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a class="text-dark px-2" href="">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a class="text-dark pl-2" href="">
+                        <i class="fab fa-youtube"></i>
+                    </a>
                 </div>
             </div>
         </div>
+        <div class="row align-items-center py-3 px-xl-5">
+            <div class="col-lg-3 d-none d-lg-block">
+                <a asp-page="../Index" class="text-decoration-none">
+                    <h1 class="m-0 display-5 font-weight-semi-bold">
+                        <span class="text-primary font-weight-bold border px-3 mr-1">E</span>Shopper
+                    </h1>
+                </a>
+            </div>
+            <div class="col-lg-6 col-6 text-left">
+                <form action="">
+                    <div class="input-group">
+                        <input type="text"
+                               class="form-control"
+                               placeholder="Tìm sản phẩm " />
+                        <div class="input-group-append">
+                            <span class="input-group-text bg-transparent text-primary">
+                                <i class="fa fa-search"></i>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-3 col-6 text-right">
 
-    </header> *@
-    
 
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+
+                <a asp-page="./Users/UCart/" class="btn border">
+                    <i class="fas fa-shopping-cart text-primary"></i>
+@*                     <span class="badge">0</span> *@
+                </a>
+
+
+            </div>
+        </div>
     </div>
+    <!-- Topbar End -->
+    @RenderBody()
+    <!-- Footer Start -->
+    <div class="container-fluid bg-secondary text-dark mt-5 pt-5">
+        <div class="row px-xl-5 pt-5">
+            <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
+                <a asp-page="./Index" class="text-decoration-none">
+                    <h1 class="mb-4 display-5 font-weight-semi-bold">
+                        <span class="text-primary font-weight-bold border border-white px-3 mr-1">E</span>Shopper
+                    </h1>
+                </a>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - BirdCageShop - <a asp-area="" asp-page="/Privacy">Privacy</a>
+                <p class="mb-2">
+                    <i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Đường, New
+                    York, Mỹ
+                </p>
+                <p class="mb-2">
+                    <i class="fa fa-envelope text-primary mr-3"></i>info@example.com
+                </p>
+                <p class="mb-0">
+                    <i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890
+                </p>
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <div class="row">
+                    <div class="col-md-4 mb-5">
+                        <h5 class="font-weight-bold text-dark mb-4">Liên kết nhanh</h5>
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Trang chủ</a>
+                            <a class="text-dark mb-2" href="shop.html">
+                                <i class="fa fa-angle-right mr-2"></i>Cửa hàng của chúng
+                                tôi
+                            </a>
+                            <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Chi tiết cửa hàng</a>
+                            <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Giỏ hàng</a>
+                            <a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>Thanh toán</a>
+                            <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Liên hệ</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5">
+                        <h5 class="font-weight-bold text-dark mb-4">Liên kết nhanh</h5>
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Trang chủ</a>
+                            <a class="text-dark mb-2" href="shop.html">
+                                <i class="fa fa-angle-right mr-2"></i>Cửa hàng của chúng
+                                tôi
+                            </a>
+                            <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Chi tiết cửa hàng</a>
+                            <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Giỏ hàng</a>
+                            <a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>Thanh toán</a>
+                            <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Liên hệ</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5">
+                        <h5 class="font-weight-bold text-dark mb-4">Bản tin</h5>
+                        <form action="">
+                            <div class="form-group">
+                                <input type="text"
+                                       class="form-control border-0 py-4"
+                                       placeholder="Tên của bạn"
+                                       required="required" />
+                            </div>
+                            <div class="form-group">
+                                <input type="email"
+                                       class="form-control border-0 py-4"
+                                       placeholder="Email của bạn"
+                                       required="required" />
+                            </div>
+                            <div>
+                                <button class="btn btn-primary btn-block border-0 py-3"
+                                        type="submit">
+                                    Đăng ký ngay
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-    </footer>
+        <div class="row border-top border-light mx-xl-5 py-4">
+            <div class="col-md-6 px-xl-0">
+                <p class="mb-md-0 text-center text-md-left text-dark">
+                    &copy;
+                    <a class="text-dark font-weight-semi-bold" href="#">Tên trang web của bạn</a>. Bảo lưu mọi quyền. Thiết kế bởi
+                    <a class="text-dark font-weight-semi-bold"
+                       href="https://htmlcodex.com">HTML Codex</a>
+                </p>
+            </div>
+            <div class="col-md-6 px-xl-0 text-center text-md-right">
+                <img class="img-fluid" src="img/payments.png" alt="" />
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top">
+        <i class="fa fa-angle-double-up"></i>
+    </a>
 
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="/lib/easing/easing.min.js"></script>
+    <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="/mail/jqBootstrapValidation.min.js"></script>
+    <script src="/mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/js/main.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
