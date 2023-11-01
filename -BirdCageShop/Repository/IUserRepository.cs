@@ -21,5 +21,6 @@ namespace Repository
         List<OrderDetail> getListcartByUserID(int userID);
         Order getOrderPrice_Cart_ByUserID(int userID);
         List<Order> getOrderByUser(int userID);
+        int DeleteProductInCartByProductID(int userID, int productID);
     }
 }

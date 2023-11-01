@@ -43,5 +43,10 @@ namespace BirdCageShop.Pages.Users.UOrder
         {
             return _orderDetailRepo.getQuantityProductByOrderID(orderID);
         }
+
+        //public IActionResult OnPostDelete(int productID)
+        //{
+
+        //}
     }
 }

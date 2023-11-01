@@ -19,6 +19,7 @@ namespace BirdCageShop.Pages.Users
         public static int productID { get; set; }
         public Product product { get; set; }
         public Tuple<int, int> getFeedbackStatic { get; set; }
+        public List<Product> getPopularList { get; set; }
         public string ErrorMessage { get; set; }
         public IActionResult OnGet(int productId)
         {
@@ -28,6 +29,7 @@ namespace BirdCageShop.Pages.Users
                 product = new Product();
                 product = _proRepo.GetProductById(productId);
                 getFeedbackStatic = _proRepo.getFeedback(productId);
+                getPopularList = _proRepo.getListProductTrendingForUser();
                 if (product == null)
                 {
                     return RedirectToAction("../Error");

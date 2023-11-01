@@ -21,7 +21,6 @@ namespace BusinessObjects.Models
         public int? RoleId { get; set; }
         public string? Gender { get; set; }
         public string? UserImg { get; set; }
-
         public virtual Role? Role { get; set; }
         public virtual ICollection<Feedback> Feedbacks { get; set; }
     }
