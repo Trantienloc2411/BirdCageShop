@@ -57,9 +57,7 @@ namespace BusinessObjects.Models
 
                 entity.Property(e => e.AccessoryDescription).HasMaxLength(255);
 
-                entity.Property(e => e.AccessoryImg)
-                    .HasColumnType("image")
-                    .HasColumnName("AccessoryIMG");
+                entity.Property(e => e.AccessoryImg).HasColumnName("AccessoryIMG");
 
                 entity.Property(e => e.AccessoryName).HasMaxLength(50);
 
@@ -84,9 +82,7 @@ namespace BusinessObjects.Models
 
                 entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
 
-                entity.Property(e => e.CategoryName)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.CategoryName).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Discount>(entity =>
@@ -101,9 +97,7 @@ namespace BusinessObjects.Models
 
                 entity.Property(e => e.DiscountFinish).HasColumnType("date");
 
-                entity.Property(e => e.DiscountName)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.DiscountName).HasMaxLength(50);
 
                 entity.Property(e => e.DiscountStart).HasColumnType("date");
 
@@ -120,9 +114,7 @@ namespace BusinessObjects.Models
 
                 entity.Property(e => e.FeedBackContent).HasColumnType("text");
 
-                entity.Property(e => e.FeedBackName)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.FeedBackName).HasMaxLength(50);
 
                 entity.Property(e => e.OrderId).HasColumnName("OrderID");
 
@@ -133,7 +125,7 @@ namespace BusinessObjects.Models
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.Feedbacks)
                     .HasForeignKey(d => d.OrderId)
-                    .HasConstraintName("FK__Feedback__OrderI__239E4DCF");
+                    .HasConstraintName("FK__Feedback__OrderI__33D4B598");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Feedbacks)
@@ -147,15 +139,11 @@ namespace BusinessObjects.Models
 
                 entity.Property(e => e.Note).HasMaxLength(255);
 
-                entity.Property(e => e.OrderAdress)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                entity.Property(e => e.OrderAdress).HasMaxLength(100);
 
                 entity.Property(e => e.OrderDate).HasColumnType("date");
 
-                entity.Property(e => e.OrderName)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.OrderName).HasMaxLength(50);
 
                 entity.Property(e => e.OrderPhone)
                     .HasMaxLength(20)
@@ -180,7 +168,7 @@ namespace BusinessObjects.Models
             modelBuilder.Entity<OrderDetail>(entity =>
             {
                 entity.HasKey(e => e.DetailId)
-                    .HasName("PK__OrderDet__135C314D4CF950ED");
+                    .HasName("PK__OrderDet__135C314D642D8210");
 
                 entity.ToTable("OrderDetail");
 
@@ -202,12 +190,12 @@ namespace BusinessObjects.Models
                 entity.HasOne(d => d.Cage)
                     .WithMany(p => p.OrderDetails)
                     .HasForeignKey(d => d.CageId)
-                    .HasConstraintName("FK__OrderDeta__CageI__25869641");
+                    .HasConstraintName("FK__OrderDeta__CageI__35BCFE0A");
 
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.OrderDetails)
                     .HasForeignKey(d => d.OrderId)
-                    .HasConstraintName("FK__OrderDeta__Order__267ABA7A");
+                    .HasConstraintName("FK__OrderDeta__Order__36B12243");
             });
 
             modelBuilder.Entity<PaymentMethod>(entity =>
@@ -224,7 +212,7 @@ namespace BusinessObjects.Models
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.HasKey(e => e.CageId)
-                    .HasName("PK__Product__792D9FBACE0D77BB");
+                    .HasName("PK__Product__792D9FBA31E8206C");
 
                 entity.ToTable("Product");
 
@@ -232,9 +220,7 @@ namespace BusinessObjects.Models
 
                 entity.Property(e => e.CageImg).HasColumnName("CageIMG");
 
-                entity.Property(e => e.CageName)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.CageName).HasMaxLength(50);
 
                 entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
 
@@ -249,12 +235,12 @@ namespace BusinessObjects.Models
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.CategoryId)
-                    .HasConstraintName("FK__Product__Categor__29572725");
+                    .HasConstraintName("FK__Product__Categor__38996AB5");
 
                 entity.HasOne(d => d.Discount)
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.DiscountId)
-                    .HasConstraintName("FK__Product__Discoun__2A4B4B5E");
+                    .HasConstraintName("FK__Product__Discoun__398D8EEE");
             });
 
             modelBuilder.Entity<Role>(entity =>
@@ -263,18 +249,14 @@ namespace BusinessObjects.Models
 
                 entity.Property(e => e.RoleId).HasColumnName("RoleID");
 
-                entity.Property(e => e.RoleName)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.RoleName).HasMaxLength(50);
             });
 
             modelBuilder.Entity<User>(entity =>
             {
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
-                entity.Property(e => e.Address)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                entity.Property(e => e.Address).HasMaxLength(100);
 
                 entity.Property(e => e.DoB).HasColumnType("date");
 
@@ -298,9 +280,7 @@ namespace BusinessObjects.Models
 
                 entity.Property(e => e.UserImg).HasColumnName("UserIMG");
 
-                entity.Property(e => e.UserName)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.UserName).HasMaxLength(50);
 
                 entity.Property(e => e.UserPassword)
                     .HasMaxLength(50)
@@ -309,7 +289,7 @@ namespace BusinessObjects.Models
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.RoleId)
-                    .HasConstraintName("FK__Users__RoleID__2B3F6F97");
+                    .HasConstraintName("FK__Users__RoleID__3A81B327");
             });
 
             OnModelCreatingPartial(modelBuilder);
