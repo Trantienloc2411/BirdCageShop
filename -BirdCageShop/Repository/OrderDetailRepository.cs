@@ -16,7 +16,12 @@ namespace Repository
         public List<Order> GetOrders() => _dao.GetOrders();
         public List<Product> GetProducts() => _dao.GetProducts();
 
+
         public List<OrderDetail> getOrderDetailByOrderID(int orderID) => _dao.getOrderDetailByOrderID(orderID);
         public int getQuantityProductByOrderID(int orderID) => _dao.getQuantityProductByOrderID((int)orderID);  
+
+        public OrderDetail GetOrderDetailById(int detailId) => _dao.GetOrderDetailById(detailId);
+        public void Delete(int detailId) => _dao.Delete(detailId);
+
     }
 }

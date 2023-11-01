@@ -1,0 +1,60 @@
+﻿@page
+@model BirdCageShop.Pages.Manager.MDiscount.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "_ManagerLayout";
+}
+
+<h1>Edit</h1>
+
+<h4>Discount</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Discount.DiscountId" />
+            <div class="form-group">
+                <label asp-for="Discount.DiscountName" class="control-label"></label>
+                <input asp-for="Discount.DiscountName" class="form-control" />
+                <span asp-validation-for="Discount.DiscountName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Discount.DiscountStart" class="control-label"></label>
+                <input asp-for="Discount.DiscountStart" class="form-control" />
+                <span asp-validation-for="Discount.DiscountStart" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Discount.DiscountFinish" class="control-label"></label>
+                <input asp-for="Discount.DiscountFinish" class="form-control" />
+                <span asp-validation-for="Discount.DiscountFinish" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Discount.Discount1" class="control-label"></label>
+                <input asp-for="Discount.Discount1" class="form-control" />
+                <span asp-validation-for="Discount.Discount1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Discount.DiscountStatus" class="control-label"></label>
+                <select asp-for="Discount.DiscountStatus" class="form-control">
+                    <option value="Ongoing">Ongoing</option>
+                    <option value="Ended">Ended</option>
+                    <option value="NotStarted">Not Started</option>
+                </select>
+                <span asp-validation-for="Discount.DiscountStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

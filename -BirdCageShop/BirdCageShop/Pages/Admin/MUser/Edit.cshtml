@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Edit";
+    Layout = "_AdminLayout";
 }
 
 <h1>Edit</h1>
@@ -51,7 +52,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="User.Status" class="control-label"></label>
-                <input asp-for="User.Status" class="form-control" />
+                <select asp-for="User.Status" class="form-control">
+                    <option value="Active">Active</option>
+                    <option value="Suspended">Suspended</option>
+                </select>
                 <span asp-validation-for="User.Status" class="text-danger"></span>
             </div>
             <div class="form-group">

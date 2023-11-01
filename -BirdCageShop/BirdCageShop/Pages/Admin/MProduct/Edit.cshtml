@@ -12,7 +12,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Product.CageId" />
             <div class="form-group">
@@ -40,9 +40,14 @@
                 <select asp-for="Product.DiscountId" class="form-control" asp-items="@((SelectList)TempData["DiscountId"])"></select>
                 <span asp-validation-for="Product.DiscountId" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            @* <div class="form-group">
                 <label asp-for="Product.CageImg" class="control-label"></label>
                 <input asp-for="Product.CageImg" class="form-control" />
+                <span asp-validation-for="Product.CageImg" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <label asp-for="Product.CageImg"></label>
+                <input name="CageImg" type="file" class="form-control" />
                 <span asp-validation-for="Product.CageImg" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -73,6 +78,7 @@
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
+            <div asp-validation-summary="All" class="text-danger"></div>
         </form>
     </div>
 </div>

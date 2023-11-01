@@ -1,0 +1,81 @@
+﻿@page
+@model BirdCageShop.Pages.Manager.MOrder.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "_ManagerLayout";
+}
+
+<h1>Edit</h1>
+
+<h4>Order</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Order.OrderId" />
+            <div class="form-group">
+                <label asp-for="Order.UserId" class="control-label"></label>
+                <input asp-for="Order.UserId" class="form-control" readonly />
+                <span asp-validation-for="Order.UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.OrderStatus" class="control-label"></label>
+                <select asp-for="Order.OrderStatus" class="form-control">
+                    <option value="Pending">Pending</option>
+                    <option value="Delivering">Delivering</option>
+                    <option value="Delivered">Delivered</option>
+                </select>
+                <span asp-validation-for="Order.OrderStatus" class="text-danger"></span>
+            </div>
+
+            @* <div class="form-group">
+                <label asp-for="Order.OrderPrice" class="control-label"></label>
+                <input asp-for="Order.OrderPrice" class="form-control" readonly />
+                <span asp-validation-for="Order.OrderPrice" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <label asp-for="Order.OrderDate" class="control-label"></label>
+                <input asp-for="Order.OrderDate" class="form-control" readonly />
+                <span asp-validation-for="Order.OrderDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.OrderAdress" class="control-label"></label>
+                <input asp-for="Order.OrderAdress" class="form-control" readonly />
+                <span asp-validation-for="Order.OrderAdress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.OrderName" class="control-label"></label>
+                <input asp-for="Order.OrderName" class="form-control" readonly />
+                <span asp-validation-for="Order.OrderName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.OrderPhone" class="control-label"></label>
+                <input asp-for="Order.OrderPhone" class="form-control" readonly />
+                <span asp-validation-for="Order.OrderPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.PaymentId" class="control-label"></label>
+                <input asp-for="Order.PaymentId" class="form-control" readonly />
+                <span asp-validation-for="Order.PaymentId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.Note" class="control-label"></label>
+                <input asp-for="Order.Note" class="form-control" />
+                <span asp-validation-for="Order.Note" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
