@@ -14,5 +14,6 @@ namespace Repository
         string GetUserImage(int Id);
         int Update(User user);
         List<Role> GetUserRole();
+        int ManagerUpdate(User User);
     }
 }

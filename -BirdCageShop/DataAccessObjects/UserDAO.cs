@@ -58,6 +58,19 @@ namespace DataAccessObjects
             }
             return 0;
         }
+        public int ManagerUpdate(User User)
+        {
+            var user = GetUserById(User.UserId);
+            if (user != null)
+            {
+
+                user.Status = User.Status;
+
+
+                return _dbContext.SaveChanges();
+            }
+            return 0;
+        }
 
         public void Delete(int cusID)
         {

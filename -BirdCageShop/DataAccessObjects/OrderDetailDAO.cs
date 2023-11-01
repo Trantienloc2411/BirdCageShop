@@ -26,5 +26,18 @@ namespace DataAccessObjects
         {
             return _db.Products.ToList();
         }
+        public OrderDetail GetOrderDetailById(int detailId)
+        {
+            return _db.OrderDetails.FirstOrDefault(o => o.DetailId == detailId);
+        }
+        public void Delete(int detailId)
+        {
+            var o = GetOrderDetailById(detailId);
+            if (o != null)
+            {
+                _db.OrderDetails.Remove(o);
+                _db.SaveChanges();
+            }
+        }
     }
 }

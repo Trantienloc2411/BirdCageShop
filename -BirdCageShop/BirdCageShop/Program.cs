@@ -13,6 +13,7 @@ namespace BirdCageShop
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddSession();
+            builder.Services.AddLogging();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
@@ -21,6 +22,7 @@ namespace BirdCageShop
             builder.Services.AddScoped<IRevenueRepository, RevenueRepository>();
             builder.Services.AddScoped<IFeedbackRepository, FeedbackRepository>();
             builder.Services.AddScoped<IUploadService, LocalFileUploadService>();
+            builder.Services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
 
             builder.Services.AddScoped<UserDAO>();
             builder.Services.AddScoped<ProductDAO>();
@@ -29,6 +31,7 @@ namespace BirdCageShop
             builder.Services.AddScoped<OrderDAO>();
             builder.Services.AddScoped<RevenueDAO>();
             builder.Services.AddScoped<FeedbackDAO>();
+            builder.Services.AddScoped<OrderDetailDAO>();
 
             var app = builder.Build();
 
