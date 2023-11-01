@@ -12,8 +12,10 @@ namespace Repository
         Product GetProductById(int id);
         List<Product> GetListProductByName(string name);
         void Update(Product product);
-        List<Product> getProductPages(int pageIndex, int pageSize);
-        int getTotalProductPages();
-        //void Upload(int cageId, IFormFile imageFile);
+        Product getProductDetail(int id);
+        Tuple<int, int> getFeedback(int id);
+        List<Product> getListProductTrendingForUser();
+        List<Product> getListProductForUser();
+        List<Product> getProductPagesForUser(int pageIndex, int pageSize);
     }
 }

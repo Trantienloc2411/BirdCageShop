@@ -1,4 +1,6 @@
 ﻿using BusinessObjects.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Drawing.Printing;
 
 namespace DataAccessObjects
 {
@@ -77,10 +79,12 @@ namespace DataAccessObjects
         {
             return _db.Discounts.ToList();
         }
+        //get list of product with specific tab
         public List<Product> getProductPages(int pageIndex, int pageSize)
         {
             return _db.Products.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
         }
+        //Get count of product in data
         public int getTotalProductPages()
         {
             return _db.Products.Count();
@@ -99,6 +103,62 @@ namespace DataAccessObjects
         //        }
         //    }
         //}
+        public List<Product> getListProductForUser()
+        {
+            return _db.Products
+                        .Where(p => p.CageStatus.Equals(1))
+                        .Include(p => p.Discount)
+                        .ToList();
+        }
+        public List<Product> getProductPagesForUser(int pageIndex, int pageSize)
+        {
+            return this.getListProductForUser().Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+        }
+
+        public List<Product> getListProductTrendingForUser()
+        {
+            var cageIds = (from p in _db.Products
+                           join od in _db.OrderDetails on p.CageId equals od.CageId
+                           join o in _db.Orders on od.OrderId equals o.OrderId
+                           join f in _db.Feedbacks on o.OrderId equals f.OrderId
+                           group f by p.CageId into g
+                           select new { CageId = g.Key, AverageRating = g.Average(x => x.Rating) })
+                          .OrderByDescending(x => x.AverageRating)
+                          .Take(4)
+                          .Select(x => x.CageId)
+                          .ToList();
+
+            var products = _db.Products.Where(p => cageIds.Contains(p.CageId)).ToList();
+            return products.ToList();
+        }
+
+        public Product getProductDetail(int id)
+        {
+            return _db.Products.FirstOrDefault(p => p.CageId == id && p.CageStatus == 1);
+        }
+
+        public Tuple<int, int> getRatingProduct(int productID)
+        {
+            var countFeedback = (from p in _db.Products
+                                 join od in _db.OrderDetails on p.CageId equals od.CageId
+                                 join o in _db.Orders on od.OrderId equals o.OrderId
+                                 join fed in _db.Feedbacks on o.OrderId equals fed.OrderId
+                                 where p.CageId == productID
+                                 select fed.FeedbackId).Count();
+            var avgFeedback = (from p in _db.Products
+                               join od in _db.OrderDetails on p.CageId equals od.CageId
+                               join o in _db.Orders on od.OrderId equals o.OrderId
+                               join fed in _db.Feedbacks on o.OrderId equals fed.OrderId
+                               where p.CageId == productID
+                               select fed.Rating).Average();
+            if (countFeedback > 0)
+            {
+                return Tuple.Create(countFeedback, (int)avgFeedback);
+            }
+            else return Tuple.Create(0, 0);
+
+        }
+
 
     }
 }

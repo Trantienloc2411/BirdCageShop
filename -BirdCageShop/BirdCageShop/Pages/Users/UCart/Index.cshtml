@@ -1,0 +1,161 @@
+﻿@page "{handler?}"
+@model BirdCageShop.Pages.Users.UCart.IndexModel
+@{
+    ViewData["Title"] = "Giỏ hàng";
+
+}
+
+                            
+<body>
+    @{
+        var errorMessage = TempData["errorMessage"] as string;
+    }
+    <div class="alert alert-danger" style="@(string.IsNullOrEmpty(errorMessage) ? "display: none;" : "")">
+        @errorMessage
+    </div>
+    <div class="container-fluid bg-secondary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center"
+             style="min-height: 300px;">
+            <h1 class="font-weight-semi-bold text-uppercase mb-3">Giỏ hàng</h1>
+            <div class="d-inline-flex">
+                <p class="m-0"><a asp-page="../Shop">Trang chủ</a></p>
+                <p class="m-0 px-2">-</p>
+                <p class="m-0">Giỏ hàng</p>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+    <!-- Cart Start -->
+    <div class="container-fluid pt-5">
+        <div class="row px-xl-5">
+            <div class="col-lg-8 table-responsive mb-5">
+                <table class="table table-bordered text-center mb-0">
+                    <thead class="bg-secondary text-dark">
+                        <tr>
+                            <th>Sản phẩm</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                            <th>Tổng cộng</th>
+                            <th>Xóa</th>
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle">
+
+                        @foreach (var item in Model.cart)
+                        {
+                            <tr>
+                                <td class="align-middle">
+                                    <img src="img/product-1.jpg" alt="" style="width: 50px;" />
+                                    @item.Cage.CageName
+                                </td>
+                                <td class="align-middle">@item.DetailPrice</td>
+                                <td class="align-middle">
+                                    <div class="input-group quantity mx-auto"
+                                         style="width: 100px;">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-sm btn-primary btn-minus">
+                                                <i class="fa fa-minus"></i>
+                                            </button>
+                                        </div>
+                                        <input type="text"
+                                               class="form-control form-control-sm bg-secondary text-center"
+                                               value="@item.DetailQuantity" />
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-sm btn-primary btn-plus">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                                @{
+                                    // Check if quantity is null
+                                    int quantity = 0;
+                                    if (int.TryParse(item.DetailQuantity.ToString(), out int result))
+                                    {
+                                        quantity = result;
+                                    }
+                                    // Calculate total
+                                    decimal? total = item.DetailPrice * quantity;
+                                }
+                                <td class="align-middle total">@total</td>
+                                <!--Delete button-->
+                                <td class="align-middle">
+                                    <form method="post" asp-route-productID="@item.Cage.CageId" asp-page-handler="delete">
+                                        <button class="btn btn-sm btn-primary">
+                                            <i class="fa fa-times"></i>
+                                        </button>
+                                    </form>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <div class="alert alert-danger">
+                        Hãy lưu ý rằng số lượng sản phẩm mà bạn đã thêm vào giỏ hàng có thể đã hết hoặc không đủ số lượng.
+                    </div>
+                </table>
+            </div>
+            <div class="col-lg-4">
+                <form class="mb-5" action="">
+                    <div class="input-group">
+                        <input type="text"
+                               class="form-control p-4"
+                               placeholder="Mã giảm giá" />
+                        <div class="input-group-append">
+                            <button class="btn btn-primary">Áp dụng mã giảm giá</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="card border-secondary mb-5">
+                    <div class="card-header bg-secondary border-0">
+                        <h4 class="font-weight-semi-bold m-0">Tóm tắt giỏ hàng</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-3 pt-1">
+                            <h6 class="font-weight-medium">Tổng cộng</h6>
+                            <h6 class="font-weight-medium">@Model.totalCart</h6>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <h6 class="font-weight-medium">Phí vận chuyển</h6>
+                            <h6 class="font-weight-medium">$10</h6>
+                        </div>
+                    </div>
+                    <div class="card-footer border-secondary bg-transparent">
+                        <div class="d-flex justify-content-between mt-2">
+                            <h5 class="font-weight-bold">Tổng cộng</h5>
+                            @{
+                                Model.totalCart += 10;
+                            }
+                            <h5 class="font-weight-bold">@Model.totalCart</h5>
+                        </div>
+                        <button class="btn btn-block btn-primary my-3 py-3">
+                            Tiến hành thanh toán
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart End -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.quantity input').on('input', function () {
+                var price = parseFloat($(this).closest('tr').find('.price').text());
+                var quantity = $(this).val();
+                if (quantity.trim() === "" || isNaN(quantity)) {
+                    quantity = 0;
+                } else {
+                    quantity = parseInt(quantity);
+                }
+                var total = price * quantity;
+                $(this).closest('tr').find('.total').text(total.toFixed(2));
+            });
+        });
+
+
+
+    </script>
+</body>

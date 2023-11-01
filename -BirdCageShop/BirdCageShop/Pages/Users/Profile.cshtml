@@ -1,0 +1,184 @@
+﻿@page
+@model BirdCageShop.Pages.Users.ProfileModel;
+@{
+    ViewData["Title"] = "Hồ sơ của bạn";
+}
+
+<!DOCTYPE html>
+<html>
+    <head>
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon" />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet" />
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+          rel="stylesheet" />
+
+    <!-- Libraries Stylesheet -->
+    <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet" />
+    <style>
+        /* Custom CSS for profile page */
+        .profile-card {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+            .profile-card h2 {
+                margin-bottom: 10px;
+            }
+
+            .profile-card label {
+                font-weight: bold;
+            }
+
+            .profile-card .form-group {
+                margin-bottom: 15px;
+            }
+    </style>
+    </head>
+    <body>
+    <!-- Page Header Start -->
+    <div class="container-fluid bg-secondary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center"
+             style="min-height: 300px;">
+            <h1 class="font-weight-semi-bold text-uppercase mb-3">Hồ sơ</h1>
+            <div class="d-inline-flex">
+                <p class="m-0"><a href="">Trang chủ</a></p>
+                <p class="m-0 px-2">-</p>
+                <p class="m-0">Hồ sơ</p>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+    <!-- Profile Page Start -->
+    @{
+        var errorMessage = TempData["errorMessage"] as string;
+        var successMessage = TempData["successMessage"] as string;
+    }
+    <div class="alert alert-danger" style="@(string.IsNullOrEmpty(errorMessage) ? "display: none;" : "")">
+        @errorMessage
+    </div>
+
+    <!-- Hiển thị thông báo thành công -->
+    <div class="alert alert-success" style="@(string.IsNullOrEmpty(successMessage) ? "display: none;" : "")">
+        @successMessage
+    </div>
+    <div class="container-fluid pt-5">
+        <div class="row px-xl-5">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="profile-card">
+                    <h2 class="text-center mb-4">Hồ sơ người dùng</h2>
+                        <form method="post">
+                            <div class="form-group">
+                                <label for="fullname">Họ và tên</label>
+                                <input type="text"
+                                       id="fullname"
+                                       class="form-control"
+                                       asp-for="@Model.UserName" />
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email"
+                                       id="email"
+                                       class="form-control"
+                                       asp-for="@Model.UserEmail" />
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Số điện thoại</label>
+                                <input type="text"
+                                       id="phone"
+                                       class="form-control"
+                                       asp-for="@Model.Phone" />
+                            </div>
+                            <!-- Nút để chuyển đổi hiển thị thông tin bổ sung -->
+                            <button type="button" id="toggleInfo" class="btn btn-secondary">
+                                Hiển thị thêm
+                            </button>
+
+                            <!-- Thông tin bổ sung (ban đầu ẩn) -->
+                            <div id="additionalInfo" style="display: none;">
+                                <div class="form-group">
+                                    <label for="address">Địa chỉ</label>
+                                    <input type="text"
+                                           id="address"
+                                           class="form-control"
+                                           placeholder="Địa chỉ mới"
+                                           asp-for="@Model.Address" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="dob">Ngày sinh</label>
+                                    <input type="date" id="dob" class="form-control" asp-for="@Model.dob" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="newPassword">Mật khẩu</label>
+                                    <input type="password"
+                                           id="newPassword"
+                                           class="form-control"
+                                           placeholder="Nhập mật khẩu mới" 
+                                           asp-for="@Model.Password"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirmPassword">Xác nhận mật khẩu</label>
+                                    <input type="password"
+                                           id="confirmPassword"
+                                           class="form-control"
+                                           placeholder="Xác nhận mật khẩu mới" 
+                                           asp-for="@Model.PasswordRepeat"/>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">
+                                Lưu thay đổi
+                            </button>
+                        </form>
+
+                        <a asp-page="./UCart/Index"> Xem giỏ hàng </a> <br />
+                        <a asp-page="./UOrder/OrderView"> Xem đơn hàng của bạn </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top">
+        <i class="fa fa-angle-double-up"></i>
+    </a>
+    
+     <script>
+            const toggleButton = document.getElementById("toggleInfo");
+            const additionalInfo = document.getElementById("additionalInfo");
+
+            // Xử lý sự kiện khi nút "Show" được nhấn
+            toggleButton.addEventListener("click", function () {
+                if (additionalInfo.style.display === "none") {
+                    additionalInfo.style.display = "block";
+                    toggleButton.innerText = "Hide"; // Thay đổi nút thành "Hide"
+                } else {
+                    additionalInfo.style.display = "none";
+                    toggleButton.innerText = "Show More"; // Thay đổi nút thành "Show More"
+                }
+            });
+    </script> 
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="/lib/easing/easing.min.js"></script>
+    <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="/mail/jqBootstrapValidation.min.js"></script>
+    <script src="/mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/js/main.js"></script>
+    </body>
+</html>

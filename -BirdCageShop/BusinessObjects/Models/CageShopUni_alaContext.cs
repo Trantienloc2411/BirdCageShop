@@ -1,4 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+
 using Microsoft.Extensions.Configuration;
 
 namespace BusinessObjects.Models
@@ -46,6 +51,7 @@ namespace BusinessObjects.Models
             IConfiguration config = builder.Build();
             return config.GetConnectionString("CageShopUni_alaDB");
         }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace BusinessObjects.Models
 {
@@ -9,7 +10,6 @@ namespace BusinessObjects.Models
         {
             Feedbacks = new HashSet<Feedback>();
         }
-
         public int UserId { get; set; }
         public string? UserName { get; set; }
         public string? UserPassword { get; set; }
@@ -21,7 +21,6 @@ namespace BusinessObjects.Models
         public int? RoleId { get; set; }
         public string? Gender { get; set; }
         public string? UserImg { get; set; }
-
         public virtual Role? Role { get; set; }
         public virtual ICollection<Feedback> Feedbacks { get; set; }
     }
