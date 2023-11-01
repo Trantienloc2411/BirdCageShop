@@ -40,5 +40,15 @@ namespace Repository
         public List<Product> getListProductForUser() => _dao.getListProductForUser();
         public List<Product> getProductPagesForUser(int pageIndex, int pageSize) => _dao.getProductPagesForUser(pageIndex, pageSize);
 
+        public List<Accessory> GetAccessories() => _dao.GetAccessories();
+
+        public Accessory getDetailAccessoryByID(int accessoryID) => _dao.getDetailAccessoryByID(accessoryID);
+
+        public List<Accessory> getAccessoryPages(int pageIndex, int pageSize) =>  _dao.getAccessoryPages(pageIndex, pageSize);
+
+        public int getTotalAccessoryPages() => _dao.getTotalAccessoryPages();
+
+        List<Accessory> IProductRepository.GetAccessoryByName(string name) => _dao.GetAccessoryByName((string)name);    
+
     }
 }
