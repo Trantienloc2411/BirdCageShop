@@ -17,5 +17,11 @@ namespace Repository
         List<Product> getListProductTrendingForUser();
         List<Product> getListProductForUser();
         List<Product> getProductPagesForUser(int pageIndex, int pageSize);
+        List<Accessory> GetAccessories();
+
+        Accessory getDetailAccessoryByID(int accessoryID);
+        List<Accessory> getAccessoryPages(int pageIndex, int pageSize);
+        int getTotalAccessoryPages();
+        List<Accessory> GetAccessoryByName(string name);
     }
 }
