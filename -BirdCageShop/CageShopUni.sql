@@ -1,10 +1,10 @@
 USE [master]
 GO
-/****** Object:  Database [CageShopUni_ala]    Script Date: 10/29/2023 8:58:03 AM ******/
+/****** Object:  Database [CageShopUni_ala]    Script Date: 11/1/2023 9:39:16 AM ******/
 CREATE DATABASE [CageShopUni_ala]
 USE [CageShopUni_ala]
 GO
-/****** Object:  Table [dbo].[Accessory]    Script Date: 10/29/2023 8:58:03 AM ******/
+/****** Object:  Table [dbo].[Accessory]    Script Date: 11/1/2023 9:39:16 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13,52 +13,52 @@ CREATE TABLE [dbo].[Accessory](
 	[AccessoryID] [int] IDENTITY(1,1) NOT NULL,
 	[AccessoryName] [nvarchar](50) NULL,
 	[AccessoryPrice] [float] NULL,
-	[AccessoryIMG] [image] NULL,
 	[AccessoryDescription] [nvarchar](255) NULL,
 	[AccessoryQuantity] [int] NULL,
 	[AccessoryStatus] [int] NULL,
 	[CategoryID] [int] NULL,
 	[DiscountID] [int] NULL,
+	[AccessoryIMG] [nvarchar](max) NULL,
  CONSTRAINT [PK_Accessories] PRIMARY KEY CLUSTERED 
 (
 	[AccessoryID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Category]    Script Date: 10/29/2023 8:58:03 AM ******/
+/****** Object:  Table [dbo].[Category]    Script Date: 11/1/2023 9:39:16 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Category](
 	[CategoryID] [int] IDENTITY(1,1) NOT NULL,
-	[CategoryName] [varchar](50) NULL,
+	[CategoryName] [nvarchar](50) NULL,
 	[Description] [nvarchar](max) NULL,
-PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK__Category__19093A2B117C88DF] PRIMARY KEY CLUSTERED 
 (
 	[CategoryID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Discount]    Script Date: 10/29/2023 8:58:03 AM ******/
+/****** Object:  Table [dbo].[Discount]    Script Date: 11/1/2023 9:39:16 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Discount](
 	[DiscountID] [int] IDENTITY(1,1) NOT NULL,
-	[DiscountName] [varchar](50) NULL,
+	[DiscountName] [nvarchar](50) NULL,
 	[DiscountStart] [date] NULL,
 	[DiscountFinish] [date] NULL,
 	[Discount] [decimal](5, 2) NULL,
 	[DiscountStatus] [varchar](20) NULL,
-PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK__Discount__E43F6DF6FBB06ADC] PRIMARY KEY CLUSTERED 
 (
 	[DiscountID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Feedback]    Script Date: 10/29/2023 8:58:03 AM ******/
+/****** Object:  Table [dbo].[Feedback]    Script Date: 11/1/2023 9:39:16 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -68,16 +68,16 @@ CREATE TABLE [dbo].[Feedback](
 	[UserID] [int] NULL,
 	[OrderID] [int] NULL,
 	[RatingID] [int] NULL,
-	[FeedBackName] [varchar](50) NULL,
+	[FeedBackName] [nvarchar](50) NULL,
 	[FeedBackContent] [text] NULL,
 	[Rating] [float] NULL,
-PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK__Feedback__6A4BEDF6BB4C2459] PRIMARY KEY CLUSTERED 
 (
 	[FeedbackID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[OrderDetail]    Script Date: 10/29/2023 8:58:03 AM ******/
+/****** Object:  Table [dbo].[OrderDetail]    Script Date: 11/1/2023 9:39:16 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -95,7 +95,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Orders]    Script Date: 10/29/2023 8:58:03 AM ******/
+/****** Object:  Table [dbo].[Orders]    Script Date: 11/1/2023 9:39:16 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -106,18 +106,18 @@ CREATE TABLE [dbo].[Orders](
 	[OrderStatus] [varchar](20) NULL,
 	[OrderPrice] [decimal](8, 2) NULL,
 	[OrderDate] [date] NULL,
-	[OrderAdress] [varchar](100) NULL,
-	[OrderName] [varchar](50) NULL,
+	[OrderAdress] [nvarchar](100) NULL,
+	[OrderName] [nvarchar](50) NULL,
 	[OrderPhone] [varchar](20) NULL,
 	[PaymentID] [int] NULL,
 	[Note] [nvarchar](255) NULL,
-PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK__Orders__C3905BAF3AD396CC] PRIMARY KEY CLUSTERED 
 (
 	[OrderID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[PaymentMethod]    Script Date: 10/29/2023 8:58:03 AM ******/
+/****** Object:  Table [dbo].[PaymentMethod]    Script Date: 11/1/2023 9:39:16 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -131,14 +131,14 @@ CREATE TABLE [dbo].[PaymentMethod](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Product]    Script Date: 10/29/2023 8:58:03 AM ******/
+/****** Object:  Table [dbo].[Product]    Script Date: 11/1/2023 9:39:16 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Product](
 	[CageID] [int] IDENTITY(1,1) NOT NULL,
-	[CageName] [varchar](50) NULL,
+	[CageName] [nvarchar](50) NULL,
 	[CategoryID] [int] NULL,
 	[Quantity] [int] NULL,
 	[Price] [decimal](8, 2) NULL,
@@ -149,44 +149,44 @@ CREATE TABLE [dbo].[Product](
 	[Description] [nvarchar](max) NULL,
 	[CageStatus] [int] NULL,
 	[CageIMG] [nvarchar](max) NULL,
-PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK__Product__792D9FBA31E8206C] PRIMARY KEY CLUSTERED 
 (
 	[CageID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Role]    Script Date: 10/29/2023 8:58:03 AM ******/
+/****** Object:  Table [dbo].[Role]    Script Date: 11/1/2023 9:39:16 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Role](
 	[RoleID] [int] IDENTITY(1,1) NOT NULL,
-	[RoleName] [varchar](50) NULL,
-PRIMARY KEY CLUSTERED 
+	[RoleName] [nvarchar](50) NULL,
+ CONSTRAINT [PK__Role__8AFACE3ABFC3AE1B] PRIMARY KEY CLUSTERED 
 (
 	[RoleID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Users]    Script Date: 10/29/2023 8:58:03 AM ******/
+/****** Object:  Table [dbo].[Users]    Script Date: 11/1/2023 9:39:16 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Users](
 	[UserID] [int] IDENTITY(1,1) NOT NULL,
-	[UserName] [varchar](50) NULL,
+	[UserName] [nvarchar](50) NULL,
 	[UserPassword] [varchar](50) NULL,
 	[Email] [varchar](50) NULL,
 	[Phone] [varchar](20) NULL,
-	[Address] [varchar](100) NULL,
+	[Address] [nvarchar](100) NULL,
 	[DoB] [date] NULL,
 	[Status] [varchar](20) NULL,
 	[RoleID] [int] NULL,
 	[Gender] [nchar](10) NULL,
 	[UserIMG] [nvarchar](max) NULL,
-PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK__Users__1788CCACD54997FB] PRIMARY KEY CLUSTERED 
 (
 	[UserID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
@@ -194,9 +194,9 @@ PRIMARY KEY CLUSTERED
 GO
 SET IDENTITY_INSERT [dbo].[Accessory] ON 
 
-INSERT [dbo].[Accessory] ([AccessoryID], [AccessoryName], [AccessoryPrice], [AccessoryIMG], [AccessoryDescription], [AccessoryQuantity], [AccessoryStatus], [CategoryID], [DiscountID]) VALUES (1, N'Cửa lồng chim', 2000, NULL, N'Phụ kiện thay thế cửa lồng chim', 1, 1, 6, NULL)
-INSERT [dbo].[Accessory] ([AccessoryID], [AccessoryName], [AccessoryPrice], [AccessoryIMG], [AccessoryDescription], [AccessoryQuantity], [AccessoryStatus], [CategoryID], [DiscountID]) VALUES (2, N'Nắp lồng chim ', 1200, NULL, N'Phụ kiện thay nắp lồng chim', 12, 1, 6, NULL)
-INSERT [dbo].[Accessory] ([AccessoryID], [AccessoryName], [AccessoryPrice], [AccessoryIMG], [AccessoryDescription], [AccessoryQuantity], [AccessoryStatus], [CategoryID], [DiscountID]) VALUES (3, N'Cây trang trí', 1393, NULL, N'Phụ kiện tạo địa hình giúp chim gần gũi với thiên nhiên hơn', 31, 1, 6, NULL)
+INSERT [dbo].[Accessory] ([AccessoryID], [AccessoryName], [AccessoryPrice], [AccessoryDescription], [AccessoryQuantity], [AccessoryStatus], [CategoryID], [DiscountID], [AccessoryIMG]) VALUES (1, N'Cửa lồng chim', 2000, N'Phụ kiện thay thế cửa lồng chim', 1, 1, 6, NULL, NULL)
+INSERT [dbo].[Accessory] ([AccessoryID], [AccessoryName], [AccessoryPrice], [AccessoryDescription], [AccessoryQuantity], [AccessoryStatus], [CategoryID], [DiscountID], [AccessoryIMG]) VALUES (2, N'Nắp lồng chim ', 1200, N'Phụ kiện thay nắp lồng chim', 12, 1, 6, NULL, NULL)
+INSERT [dbo].[Accessory] ([AccessoryID], [AccessoryName], [AccessoryPrice], [AccessoryDescription], [AccessoryQuantity], [AccessoryStatus], [CategoryID], [DiscountID], [AccessoryIMG]) VALUES (3, N'Cây trang trí', 1393, N'Phụ kiện tạo địa hình giúp chim gần gũi với thiên nhiên hơn', 31, 1, 6, NULL, NULL)
 SET IDENTITY_INSERT [dbo].[Accessory] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Category] ON 
@@ -253,18 +253,20 @@ INSERT [dbo].[OrderDetail] ([DetailID], [OrderID], [CageID], [DetailPrice], [Det
 INSERT [dbo].[OrderDetail] ([DetailID], [OrderID], [CageID], [DetailPrice], [DetailQuantity], [AccessoryID]) VALUES (18, 7, 4, CAST(1999.00 AS Decimal(8, 2)), 5, NULL)
 INSERT [dbo].[OrderDetail] ([DetailID], [OrderID], [CageID], [DetailPrice], [DetailQuantity], [AccessoryID]) VALUES (19, 7, 13, CAST(2999.00 AS Decimal(8, 2)), 2, NULL)
 INSERT [dbo].[OrderDetail] ([DetailID], [OrderID], [CageID], [DetailPrice], [DetailQuantity], [AccessoryID]) VALUES (20, 7, 10, CAST(6999.00 AS Decimal(8, 2)), 1, NULL)
+INSERT [dbo].[OrderDetail] ([DetailID], [OrderID], [CageID], [DetailPrice], [DetailQuantity], [AccessoryID]) VALUES (26, 9, 7, CAST(2499.00 AS Decimal(8, 2)), 4, NULL)
+INSERT [dbo].[OrderDetail] ([DetailID], [OrderID], [CageID], [DetailPrice], [DetailQuantity], [AccessoryID]) VALUES (27, 9, 2, CAST(2999.00 AS Decimal(8, 2)), 1, NULL)
 SET IDENTITY_INSERT [dbo].[OrderDetail] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Orders] ON 
 
 INSERT [dbo].[Orders] ([OrderID], [UserID], [OrderStatus], [OrderPrice], [OrderDate], [OrderAdress], [OrderName], [OrderPhone], [PaymentID], [Note]) VALUES (1, 2, N'Pending', CAST(2850.00 AS Decimal(8, 2)), CAST(N'2023-09-18' AS Date), N'San Francisco, USA', N'TRAN TIEN LOC', N'0382381141', NULL, NULL)
-INSERT [dbo].[Orders] ([OrderID], [UserID], [OrderStatus], [OrderPrice], [OrderDate], [OrderAdress], [OrderName], [OrderPhone], [PaymentID], [Note]) VALUES (2, 1002, N'Deliveried', CAST(7798.20 AS Decimal(8, 2)), CAST(N'2023-09-14' AS Date), N'13 Ward, Go Vap, HCMC', N'TRAN THANH TIEN', N'0819477503', NULL, NULL)
+INSERT [dbo].[Orders] ([OrderID], [UserID], [OrderStatus], [OrderPrice], [OrderDate], [OrderAdress], [OrderName], [OrderPhone], [PaymentID], [Note]) VALUES (2, 1002, N'Delivered', CAST(7798.20 AS Decimal(8, 2)), CAST(N'2023-09-14' AS Date), N'13 Ward, Go Vap, HCMC', N'TRAN THANH TIEN', N'0819477503', NULL, NULL)
 INSERT [dbo].[Orders] ([OrderID], [UserID], [OrderStatus], [OrderPrice], [OrderDate], [OrderAdress], [OrderName], [OrderPhone], [PaymentID], [Note]) VALUES (3, 1003, N'Delivered', CAST(5700.00 AS Decimal(8, 2)), CAST(N'2023-09-18' AS Date), N'HCMC', N'NGUYEN VAN Q ', N'011111', NULL, NULL)
 INSERT [dbo].[Orders] ([OrderID], [UserID], [OrderStatus], [OrderPrice], [OrderDate], [OrderAdress], [OrderName], [OrderPhone], [PaymentID], [Note]) VALUES (4, 1004, N'Delivering', CAST(14397.60 AS Decimal(8, 2)), CAST(N'2023-09-18' AS Date), N'HCMC', N'TRAN VAN B', N'011111', NULL, NULL)
 INSERT [dbo].[Orders] ([OrderID], [UserID], [OrderStatus], [OrderPrice], [OrderDate], [OrderAdress], [OrderName], [OrderPhone], [PaymentID], [Note]) VALUES (5, 1004, N'Delivered', CAST(14593.65 AS Decimal(8, 2)), CAST(N'2023-09-18' AS Date), N'HCMC', N'TRAN VAN A', N'011111', NULL, NULL)
 INSERT [dbo].[Orders] ([OrderID], [UserID], [OrderStatus], [OrderPrice], [OrderDate], [OrderAdress], [OrderName], [OrderPhone], [PaymentID], [Note]) VALUES (6, 1006, N'Delivering', CAST(14895.65 AS Decimal(8, 2)), CAST(N'2023-09-17' AS Date), N'HCMC', N'PHAN VAN ANH', N'011111', NULL, NULL)
-INSERT [dbo].[Orders] ([OrderID], [UserID], [OrderStatus], [OrderPrice], [OrderDate], [OrderAdress], [OrderName], [OrderPhone], [PaymentID], [Note]) VALUES (7, 1008, N'Cart', NULL, CAST(N'2023-10-15' AS Date), N'HCMC', N'PHAM NGOC QUYNH GIANG', N'0334464451', NULL, NULL)
-INSERT [dbo].[Orders] ([OrderID], [UserID], [OrderStatus], [OrderPrice], [OrderDate], [OrderAdress], [OrderName], [OrderPhone], [PaymentID], [Note]) VALUES (8, 2, N'Cart', NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+INSERT [dbo].[Orders] ([OrderID], [UserID], [OrderStatus], [OrderPrice], [OrderDate], [OrderAdress], [OrderName], [OrderPhone], [PaymentID], [Note]) VALUES (7, 1008, N'Cart', CAST(51483.00 AS Decimal(8, 2)), CAST(N'2023-10-15' AS Date), N'HCMC', N'PHAM NGOC QUYNH GIANG', N'0334464451', NULL, NULL)
+INSERT [dbo].[Orders] ([OrderID], [UserID], [OrderStatus], [OrderPrice], [OrderDate], [OrderAdress], [OrderName], [OrderPhone], [PaymentID], [Note]) VALUES (9, 1002, N'Cart', CAST(12995.00 AS Decimal(8, 2)), CAST(N'2023-10-29' AS Date), NULL, N'user1', NULL, NULL, NULL)
 SET IDENTITY_INSERT [dbo].[Orders] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Product] ON 
@@ -287,6 +289,7 @@ INSERT [dbo].[Product] ([CageID], [CageName], [CategoryID], [Quantity], [Price],
 INSERT [dbo].[Product] ([CageID], [CageName], [CategoryID], [Quantity], [Price], [DiscountID], [Material], [Size], [Bar], [Description], [CageStatus], [CageIMG]) VALUES (1003, N'', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
 INSERT [dbo].[Product] ([CageID], [CageName], [CategoryID], [Quantity], [Price], [DiscountID], [Material], [Size], [Bar], [Description], [CageStatus], [CageIMG]) VALUES (1005, N'adsada', 1, 21, CAST(121212.00 AS Decimal(8, 2)), 1, N'Wood', N'L', 50, N'Hihi', 1, NULL)
 INSERT [dbo].[Product] ([CageID], [CageName], [CategoryID], [Quantity], [Price], [DiscountID], [Material], [Size], [Bar], [Description], [CageStatus], [CageIMG]) VALUES (1006, N'32324', 1, 50, CAST(11111.00 AS Decimal(8, 2)), 1, N'Wood', N'L', 60, N'HihI', 1, NULL)
+INSERT [dbo].[Product] ([CageID], [CageName], [CategoryID], [Quantity], [Price], [DiscountID], [Material], [Size], [Bar], [Description], [CageStatus], [CageIMG]) VALUES (1007, N'LOL', 3, 6327, CAST(121.00 AS Decimal(8, 2)), 1, NULL, NULL, NULL, NULL, 1, N'Content/Image/9pGfVx9z9bfrWBRXE04MtihDrB3j0GT25xnm3dtV.jpg')
 SET IDENTITY_INSERT [dbo].[Product] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Role] ON 
@@ -305,10 +308,10 @@ INSERT [dbo].[Users] ([UserID], [UserName], [UserPassword], [Email], [Phone], [A
 INSERT [dbo].[Users] ([UserID], [UserName], [UserPassword], [Email], [Phone], [Address], [DoB], [Status], [RoleID], [Gender], [UserIMG]) VALUES (4, N'ShopCageThuDuc', N'111', N'shopcagethuduc@gmail.com', N'0424424884', N'Phuoc Long B, Thu Duc, Ho Chi Minh', CAST(N'1993-07-01' AS Date), N'Suspended', 3, N'Male      ', NULL)
 INSERT [dbo].[Users] ([UserID], [UserName], [UserPassword], [Email], [Phone], [Address], [DoB], [Status], [RoleID], [Gender], [UserIMG]) VALUES (5, N'User11', N'1', N'user11@gmail.com', N'034348233', N'11 Ward, Binh Thanh', CAST(N'1984-03-20' AS Date), N'Suspended', 1, N'Male      ', NULL)
 INSERT [dbo].[Users] ([UserID], [UserName], [UserPassword], [Email], [Phone], [Address], [DoB], [Status], [RoleID], [Gender], [UserIMG]) VALUES (1002, N'user1', N'1', N'user1@gmail.com', N'0819477503', N'13 Ward, Go Vap, HCMC', CAST(N'1988-11-23' AS Date), N'Active', 1, N'Male      ', NULL)
-INSERT [dbo].[Users] ([UserID], [UserName], [UserPassword], [Email], [Phone], [Address], [DoB], [Status], [RoleID], [Gender], [UserIMG]) VALUES (1003, N'UserV', N'1', NULL, N'011111', N'HCMC', NULL, N'Active', 1, N'Male      ', NULL)
-INSERT [dbo].[Users] ([UserID], [UserName], [UserPassword], [Email], [Phone], [Address], [DoB], [Status], [RoleID], [Gender], [UserIMG]) VALUES (1004, N'UserV2', N'1', NULL, N'0111111', N'HCMC', NULL, N'Active ', 1, NULL, NULL)
-INSERT [dbo].[Users] ([UserID], [UserName], [UserPassword], [Email], [Phone], [Address], [DoB], [Status], [RoleID], [Gender], [UserIMG]) VALUES (1005, N'UserV3', N'1', NULL, N'0232333', N'HCMC', NULL, N'Active', 1, N'Male      ', NULL)
-INSERT [dbo].[Users] ([UserID], [UserName], [UserPassword], [Email], [Phone], [Address], [DoB], [Status], [RoleID], [Gender], [UserIMG]) VALUES (1006, N'UserV4', N'1', NULL, N'034234234', N'HCMC', NULL, N'Active', 1, N'Male      ', NULL)
+INSERT [dbo].[Users] ([UserID], [UserName], [UserPassword], [Email], [Phone], [Address], [DoB], [Status], [RoleID], [Gender], [UserIMG]) VALUES (1003, N'UserV', N'1', N'1@gmail.com', N'011111', N'HCMC', CAST(N'2000-07-01' AS Date), N'Active', 1, N'Male      ', NULL)
+INSERT [dbo].[Users] ([UserID], [UserName], [UserPassword], [Email], [Phone], [Address], [DoB], [Status], [RoleID], [Gender], [UserIMG]) VALUES (1004, N'UserV2', N'1', N'2@gmail.com', N'0111111', N'HCMC', CAST(N'1999-12-23' AS Date), N'Active ', 1, N'Male      ', NULL)
+INSERT [dbo].[Users] ([UserID], [UserName], [UserPassword], [Email], [Phone], [Address], [DoB], [Status], [RoleID], [Gender], [UserIMG]) VALUES (1005, N'UserV3', N'1', N'3@gmail.com', N'0232333', N'HCMC', CAST(N'1996-07-19' AS Date), N'Active', 1, N'Male      ', NULL)
+INSERT [dbo].[Users] ([UserID], [UserName], [UserPassword], [Email], [Phone], [Address], [DoB], [Status], [RoleID], [Gender], [UserIMG]) VALUES (1006, N'UserV4', N'1', N'4@gmail.com', N'034234234', N'HCMC', CAST(N'2003-11-24' AS Date), N'Active', 1, N'Male      ', NULL)
 INSERT [dbo].[Users] ([UserID], [UserName], [UserPassword], [Email], [Phone], [Address], [DoB], [Status], [RoleID], [Gender], [UserIMG]) VALUES (1009, N'Tran Tien Loc', N'1', N'onlyaccgame2411@gmail.com', N'0334464451', N'Thu Duc HCMC', CAST(N'2003-11-24' AS Date), N'Active', 1, N'Male      ', NULL)
 INSERT [dbo].[Users] ([UserID], [UserName], [UserPassword], [Email], [Phone], [Address], [DoB], [Status], [RoleID], [Gender], [UserIMG]) VALUES (1012, N'aaed', N'1', N'd@gmail.com', N'0353023282', N'dsads', CAST(N'2023-10-28' AS Date), N'Active', NULL, N'Male      ', NULL)
 SET IDENTITY_INSERT [dbo].[Users] OFF
@@ -323,19 +326,25 @@ REFERENCES [dbo].[Discount] ([DiscountID])
 GO
 ALTER TABLE [dbo].[Accessory] CHECK CONSTRAINT [FK_Accessory_Discount]
 GO
-ALTER TABLE [dbo].[Feedback]  WITH CHECK ADD FOREIGN KEY([OrderID])
+ALTER TABLE [dbo].[Feedback]  WITH CHECK ADD  CONSTRAINT [FK__Feedback__OrderI__33D4B598] FOREIGN KEY([OrderID])
 REFERENCES [dbo].[Orders] ([OrderID])
+GO
+ALTER TABLE [dbo].[Feedback] CHECK CONSTRAINT [FK__Feedback__OrderI__33D4B598]
 GO
 ALTER TABLE [dbo].[Feedback]  WITH CHECK ADD  CONSTRAINT [FK_Feedback_Users] FOREIGN KEY([UserID])
 REFERENCES [dbo].[Users] ([UserID])
 GO
 ALTER TABLE [dbo].[Feedback] CHECK CONSTRAINT [FK_Feedback_Users]
 GO
-ALTER TABLE [dbo].[OrderDetail]  WITH CHECK ADD FOREIGN KEY([CageID])
+ALTER TABLE [dbo].[OrderDetail]  WITH CHECK ADD  CONSTRAINT [FK__OrderDeta__CageI__35BCFE0A] FOREIGN KEY([CageID])
 REFERENCES [dbo].[Product] ([CageID])
 GO
-ALTER TABLE [dbo].[OrderDetail]  WITH CHECK ADD FOREIGN KEY([OrderID])
+ALTER TABLE [dbo].[OrderDetail] CHECK CONSTRAINT [FK__OrderDeta__CageI__35BCFE0A]
+GO
+ALTER TABLE [dbo].[OrderDetail]  WITH CHECK ADD  CONSTRAINT [FK__OrderDeta__Order__36B12243] FOREIGN KEY([OrderID])
 REFERENCES [dbo].[Orders] ([OrderID])
+GO
+ALTER TABLE [dbo].[OrderDetail] CHECK CONSTRAINT [FK__OrderDeta__Order__36B12243]
 GO
 ALTER TABLE [dbo].[OrderDetail]  WITH CHECK ADD  CONSTRAINT [FK_OrderDetail_Accessory] FOREIGN KEY([AccessoryID])
 REFERENCES [dbo].[Accessory] ([AccessoryID])
@@ -347,14 +356,20 @@ REFERENCES [dbo].[PaymentMethod] ([PaymentID])
 GO
 ALTER TABLE [dbo].[Orders] CHECK CONSTRAINT [FK_Orders_PaymentMethod]
 GO
-ALTER TABLE [dbo].[Product]  WITH CHECK ADD FOREIGN KEY([CategoryID])
+ALTER TABLE [dbo].[Product]  WITH CHECK ADD  CONSTRAINT [FK__Product__Categor__38996AB5] FOREIGN KEY([CategoryID])
 REFERENCES [dbo].[Category] ([CategoryID])
 GO
-ALTER TABLE [dbo].[Product]  WITH CHECK ADD FOREIGN KEY([DiscountID])
+ALTER TABLE [dbo].[Product] CHECK CONSTRAINT [FK__Product__Categor__38996AB5]
+GO
+ALTER TABLE [dbo].[Product]  WITH CHECK ADD  CONSTRAINT [FK__Product__Discoun__398D8EEE] FOREIGN KEY([DiscountID])
 REFERENCES [dbo].[Discount] ([DiscountID])
 GO
-ALTER TABLE [dbo].[Users]  WITH CHECK ADD FOREIGN KEY([RoleID])
+ALTER TABLE [dbo].[Product] CHECK CONSTRAINT [FK__Product__Discoun__398D8EEE]
+GO
+ALTER TABLE [dbo].[Users]  WITH CHECK ADD  CONSTRAINT [FK__Users__RoleID__3A81B327] FOREIGN KEY([RoleID])
 REFERENCES [dbo].[Role] ([RoleID])
+GO
+ALTER TABLE [dbo].[Users] CHECK CONSTRAINT [FK__Users__RoleID__3A81B327]
 GO
 USE [master]
 GO
