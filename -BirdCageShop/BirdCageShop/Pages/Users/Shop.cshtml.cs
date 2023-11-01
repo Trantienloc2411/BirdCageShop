@@ -20,7 +20,8 @@ namespace BirdCageShop.Pages.Users
         public int totalProduct { get; set; } //Count
         public int pageSize { get; set; }
 
-
+        [BindProperty(SupportsGet = true)]
+        public string SortBy { get; set; }
 
 
         public static int productID { get; set; }
@@ -44,12 +45,28 @@ namespace BirdCageShop.Pages.Users
 
                 if (Products != null)
                 {
-                    pagedProducts = _proRepos.getProductPagesForUser(p, s);
-                    
+                    if (!string.IsNullOrEmpty(SortBy))
+                    {
+                        switch (SortBy)
+                        {
+                            case "Quantity":
+                                pagedProducts = _proRepos.getProductPagesForUser(p, s).OrderByDescending(p => p.Quantity).ToList();
+                                break;
+                            case "Price":
+                                pagedProducts = _proRepos.getProductPagesForUser(p, s).OrderByDescending(p => p.Price).ToList();
+                                break;
+                            default:
+                                pagedProducts = _proRepos.getProductPagesForUser(p, s);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        pagedProducts = _proRepos.getProductPagesForUser(p, s);
+                    }
                     totalProduct = Products.Count();
-                   
-                    
                 }
+
                 pageSize = s;
                 pageNo = p;
                 return Page();
@@ -60,39 +77,48 @@ namespace BirdCageShop.Pages.Users
             }
         }
 
-        
 
-        public IActionResult OnPost()
-        {
-            try
+
+
+        public IActionResult OnPost(int productID)
             {
-                if (HttpContext.Session.GetInt32("userID") == null)
+                try
                 {
-                    TempData["errorMessage"] = "Hãy đăng nhập trước khi thêm vào giỏ của bạn nhé. Mình chuyển đến trang đăng nhập giúp bạn rồi nè";
-                    return RedirectToPage("./Login");
-                }
-                else
-                {
-                    int userID = (int)HttpContext.Session.GetInt32("userID");
-                    int result = _userRepo.AddProductToCart(userID, productID, 1);
-                    if (result == 0)
+                    if (HttpContext.Session.GetInt32("userID") == null)
                     {
-                        TempData["errorMessage"] = "Có vẻ điều gì đó đã xảy ra. Không thể thêm vào giỏ hàng";
-                        return RedirectToPage("./Shop");
+                        TempData["errorMessage"] = "Hãy đăng nhập trước khi thêm vào giỏ của bạn nhé. Mình chuyển đến trang đăng nhập giúp bạn rồi nè";
+                        return RedirectToPage("./Login");
                     }
                     else
                     {
-                        TempData["successMessage"] = "Thêm vào giỏ hàng thành công";
-                        return RedirectToPage("./Shop");
+                        int userID = (int)HttpContext.Session.GetInt32("userID");
+                        int result = _userRepo.AddProductToCart(userID, productID, 1);
+                        if (result == 0)
+                        {
+                            TempData["errorMessage"] = "Có vẻ điều gì đó đã xảy ra. Không thể thêm vào giỏ hàng";
+                            return RedirectToPage("./Shop");
+                        }
+                        else
+                        {
+                            TempData["successMessage"] = "Thêm vào giỏ hàng thành công";
+                            return RedirectToPage("./Shop");
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+
+                    TempData["errorMessage"] = "Somthing unexpected happend!" + ex.Message; return RedirectToPage("./Error");
+                }
+
             }
-            catch (Exception ex)
+        public void OnPostSearch(string productName)
+        {
+            pagedProducts = _proRepos.GetListProductByName(productName);
+            if (pagedProducts == null)
             {
-
-                TempData["errorMessage"] = "Somthing unexpected happend!" + ex.Message; return RedirectToPage("./Error");
+                OnGet();
             }
-
         }
 
 

@@ -26,12 +26,12 @@ namespace BirdCageShop.Pages.Users.UCart
         {
             try
             {
-               
-                int userID = (int)HttpContext.Session.GetInt32("userID");
-                if(userID == null)
+
+                int userID = HttpContext.Session.GetInt32("userID").GetValueOrDefault(-1);
+                if (userID == -1)
                 {
                     TempData["errorMessage"] = "Đăng nhập để tiếp tục!";
-                    //return RedirectToPage("../Login/Index");
+                    RedirectToPage("../Login/Index");
                 }
                 var cartList = _usrRepo.getListcartByUserID(userID);
                 if (cartList.Count != 0)
@@ -39,19 +39,19 @@ namespace BirdCageShop.Pages.Users.UCart
                     cart = cartList.ToList();
                     order = _usrRepo.getOrderPrice_Cart_ByUserID(userID);
                     totalCart = order.OrderPrice;
-                    //return Page();
+                    Page();
                 }
                 else
                 {
                     cart = new List<OrderDetail>();
-                    //return Page();
+                    Page();
                 }
             }
             catch (Exception ex)
             {
 
                 TempData["errorMessage"] = "Đã có lỗi xảy ra. Chúng mình đang khắc phục. Lỗi : " + ex.Message;
-                //return Page();
+                Page();
             }
 
         }
@@ -88,6 +88,30 @@ namespace BirdCageShop.Pages.Users.UCart
                 return Page();
             }
 
+        }
+        public IActionResult OnPostEdit(int productID, int quantity)
+        {
+            int userID = HttpContext.Session.GetInt32("userID").GetValueOrDefault(-1);
+            if (userID == -1)
+            {
+                TempData["errorMessage"] = "Đăng nhập để tiếp tục!";
+                return RedirectToPage("../Login/Index");
+            }
+            else
+            {
+                int result = _usrRepo.UpdateProductInCartByProductID(userID,productID,quantity);
+                if (result != 0)
+                {
+                    TempData["successMessage"] = "Cập nhật sản phẩm trong giỏ hàng của bạn thành công";
+                    this.OnGet();
+                    return Page();
+                }
+                else
+                {
+                    TempData["errorMessage"] = "Cập nhật thất bại!. Đã có lỗi xảy ra";
+                    return Page();
+                }
+            }
         }
     }
 }
