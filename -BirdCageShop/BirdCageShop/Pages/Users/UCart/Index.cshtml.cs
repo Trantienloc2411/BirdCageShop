@@ -22,7 +22,7 @@ namespace BirdCageShop.Pages.Users.UCart
 
         }
 
-        public IActionResult OnGet()
+        public void OnGet()
         {
             try
             {
@@ -31,7 +31,7 @@ namespace BirdCageShop.Pages.Users.UCart
                 if(userID == null)
                 {
                     TempData["errorMessage"] = "Đăng nhập để tiếp tục!";
-                    return RedirectToPage("../Login/Index");
+                    //return RedirectToPage("../Login/Index");
                 }
                 var cartList = _usrRepo.getListcartByUserID(userID);
                 if (cartList.Count != 0)
@@ -39,18 +39,52 @@ namespace BirdCageShop.Pages.Users.UCart
                     cart = cartList.ToList();
                     order = _usrRepo.getOrderPrice_Cart_ByUserID(userID);
                     totalCart = order.OrderPrice;
-                    return Page();
+                    //return Page();
                 }
                 else
                 {
                     cart = new List<OrderDetail>();
-                    return Page();
+                    //return Page();
                 }
             }
             catch (Exception ex)
             {
 
                 TempData["errorMessage"] = "Đã có lỗi xảy ra. Chúng mình đang khắc phục. Lỗi : " + ex.Message;
+                //return Page();
+            }
+
+        }
+
+        public IActionResult OnPostDelete(int productID)
+        {
+            try
+            {
+                int userID = HttpContext.Session.GetInt32("userID").GetValueOrDefault(-1);
+                if (userID == -1)
+                {
+                    TempData["errorMessage"] = "Đăng nhập để tiếp tục!";
+                    return RedirectToPage("../Login/Index");
+                }
+                else
+                {
+                    int result = _usrRepo.DeleteProductInCartByProductID(userID, productID);
+                    if (result != 0)
+                    {
+                        TempData["successMessage"] = "Xoá sản phẩm ra khỏi giỏ hàng của bạn thành công";
+                        this.OnGet();
+                        return Page();
+                    }
+                    else
+                    {
+                        TempData["errorMessage"] = "Xoá thất bại!. Đã có lỗi xảy ra";
+                        return Page();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["errorMessage"] = "Dự án đang phát triển ! Xin lỗi vì sự bất tiện này! Lỗi: " + ex.Message + ". Hãy liên hệ với quản trị viên";
                 return Page();
             }
 

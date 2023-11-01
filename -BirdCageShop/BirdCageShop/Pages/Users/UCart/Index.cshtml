@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{handler?}"
 @model BirdCageShop.Pages.Users.UCart.IndexModel
 @{
     ViewData["Title"] = "Giỏ hàng";
@@ -52,9 +52,19 @@
                                 <td class="align-middle">
                                     <div class="input-group quantity mx-auto"
                                          style="width: 100px;">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-sm btn-primary btn-minus">
+                                                <i class="fa fa-minus"></i>
+                                            </button>
+                                        </div>
                                         <input type="text"
-                                               class="form-control form-control-sm bg-secondary text-center quantity"
+                                               class="form-control form-control-sm bg-secondary text-center"
                                                value="@item.DetailQuantity" />
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-sm btn-primary btn-plus">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </td>
                                 @{
@@ -68,17 +78,21 @@
                                     decimal? total = item.DetailPrice * quantity;
                                 }
                                 <td class="align-middle total">@total</td>
+                                <!--Delete button-->
                                 <td class="align-middle">
-                                    <button class="btn btn-sm btn-primary">
-                                        <i class="fa fa-times"></i>
-                                    </button>
+                                    <form method="post" asp-route-productID="@item.Cage.CageId" asp-page-handler="delete">
+                                        <button class="btn btn-sm btn-primary">
+                                            <i class="fa fa-times"></i>
+                                        </button>
+                                    </form>
+
                                 </td>
                             </tr>
                         }
                     </tbody>
-                    <button class="btn btn-block btn-primary my-3 py-3">
-                        Lưu lại giỏ hàng
-                    </button>
+                    <div class="alert alert-danger">
+                        Hãy lưu ý rằng số lượng sản phẩm mà bạn đã thêm vào giỏ hàng có thể đã hết hoặc không đủ số lượng.
+                    </div>
                 </table>
             </div>
             <div class="col-lg-4">

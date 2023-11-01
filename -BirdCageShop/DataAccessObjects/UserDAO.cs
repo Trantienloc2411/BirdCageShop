@@ -152,11 +152,13 @@ namespace DataAccessObjects
                     var product = _dbContext.Products.First(p => p.CageId == productID);
                     //get information about the cart
                     var orderDetail = _dbContext.OrderDetails.FirstOrDefault(od => od.CageId == productID && od.OrderId == order.OrderId);
-//take the price not include discount
+                    //take the price not include discount
                     if (orderDetail != null)
                     {
                         int bdb = (int)orderDetail.DetailQuantity;
                         orderDetail.DetailQuantity += 1;
+                        var productCartList = this.getListcartByUserID(userID).ToList();
+                        order.OrderPrice = productCartList.Sum(p => p.DetailPrice);
                         return _dbContext.SaveChanges();
                     }
                     else
@@ -169,6 +171,8 @@ namespace DataAccessObjects
                         quantity = 1;
                         od.DetailQuantity = quantity;
                         _dbContext.OrderDetails.Add(od);
+                        var productCartList = this.getListcartByUserID(userID).ToList();
+                        order.OrderPrice = productCartList.Sum(p => p.DetailPrice);
                         return _dbContext.SaveChanges();
                     }
                 }
@@ -231,22 +235,33 @@ namespace DataAccessObjects
                 throw new Exception(ex.Message);
             }
         }
-        //public int countProductInOrder(int orderID)
-        //{
-        //    try
-        //    {
 
-        //    }
-        //    catch (Exception ex)
-        //    {
+        public int DeleteProductInCartByProductID(int userID, int productID)
+        {
+            try
+            {
+                var order = _dbContext.Orders.FirstOrDefault(o => o.UserId == userID && o.OrderStatus == "Cart");
+                if (order != null)
+                {
+                    var productInCart = _dbContext.OrderDetails.FirstOrDefault(od => od.OrderId == order.OrderId && od.CageId == productID);
+                    if (productInCart != null)
+                    {
+                        _dbContext.OrderDetails.Remove(productInCart);
+                        var product = this.getListcartByUserID(userID).ToList();
+                        order.OrderPrice = product.Sum(p => p.DetailPrice);
+                        return _dbContext.SaveChanges();
+                    }
+                }
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
-        //        throw new ;
-        //    }
-        //}
-        //public List<OrderDetail> getDetailProductInOrderByOrderID(int orderID)
-        //{
+        
 
-        //}
 
     }
 }
