@@ -131,7 +131,7 @@
                             <div class="navbar-nav mr-auto py-0">
                                 <a style="padding-right: 150px;" asp-page="../Index" class="nav-item nav-link active">Trang chủ</a>
                                 <a style="padding-right: 150px;" asp-page="Users/Shop" class="nav-item nav-link">Cửa hàng</a>
-                                <a href="accessories.html" class="nav-item nav-link">Phụ kiện</a>
+                                <a class="nav-item nav-link" asp-page="Users/Accessory">Phụ kiện</a>
                             </div>
                             <div class="navbar-nav ml-auto py-0">
                                 <a asp-page="Users/Profile" asp-page-UserEmail="@HttpContext.Session.GetString("userEmail")" class="nav-item nav-link">Xin chào, @HttpContext.Session.GetString("userName") </a>
@@ -245,7 +245,12 @@
                     </div>
                     <div class="card-footer d-flex justify-content-between bg-light border">
                         <a asp-page="Users/ProductDetail" asp-route-productId="@item.CageId" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>Xem chi tiết</a>
-                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm vào giỏ</a>
+                        <form method="post">
+                            <button asp-page="" type="submit" class="btn btn-sm text-dark p-0" asp-route-productID="@item.CageId">
+                                <i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm
+                                vào giỏ
+                            </button>
+                        </form>
                     </div>
                 </div>
             }

@@ -11,15 +11,18 @@ namespace BirdCageShop.Pages.Users.UCart
     {
         public string ErrorMessage {  get; set; }
         private readonly IUserRepository _usrRepo;
+        private readonly ICartRepository _cartRepo;
         public decimal? totalCart { get; set; } = 0;
-        public List<OrderDetail> cart { get; set; }
+        public List<CartItem> cart { get; set; }
         public List<CartItem> cartItems { get; set; }
+        
         public Order order { get; set; }
         public int quantity { get; set; }
         
         public IndexModel()
         {
             _usrRepo = new UserRepository();
+            _cartRepo = new CartRepository();   
 
         }
 
@@ -34,17 +37,16 @@ namespace BirdCageShop.Pages.Users.UCart
                     TempData["errorMessage"] = "Đăng nhập để tiếp tục!";
                     RedirectToPage("../Login/Index");
                 }
-                var cartList = _usrRepo.getListcartByUserID(userID);
+                var cartList = _cartRepo.showCart();
                 if (cartList.Count != 0)
                 {
                     cart = cartList.ToList();
                     order = _usrRepo.getOrderPrice_Cart_ByUserID(userID);
-                    
                     Page();
                 }
                 else
                 {
-                    cart = new List<OrderDetail>();
+                    cart = new List<CartItem>();
                     Page();
                 }
             }
@@ -69,7 +71,7 @@ namespace BirdCageShop.Pages.Users.UCart
                 }
                 else
                 {
-                    int result = _usrRepo.DeleteProductInCartByProductID(userID, productID);
+                    int result = _cartRepo.deleteProductfromCart(productID);
                     if (result != 0)
                     {
                         TempData["successMessage"] = "Xoá sản phẩm ra khỏi giỏ hàng của bạn thành công";
@@ -90,7 +92,7 @@ namespace BirdCageShop.Pages.Users.UCart
             }
 
         }
-        public IActionResult OnPostEdit(int productID, int quantity)
+        public IActionResult OnPostUpdate(int productID, int quantity)
         {
             int userID = HttpContext.Session.GetInt32("userID").GetValueOrDefault(-1);
             if (userID == -1)
@@ -100,18 +102,19 @@ namespace BirdCageShop.Pages.Users.UCart
             }
             else
             {
-                int result = _usrRepo.UpdateProductInCartByProductID(userID,productID,quantity);
-                if (result != 0)
-                {
-                    TempData["successMessage"] = "Cập nhật sản phẩm trong giỏ hàng của bạn thành công";
-                    this.OnGet();
-                    return Page();
-                }
-                else
-                {
-                    TempData["errorMessage"] = "Cập nhật thất bại!. Đã có lỗi xảy ra";
-                    return Page();
-                }
+                _cartRepo.updateQuantity(productID, quantity);
+                //if (result != 0)
+                //{
+                //    TempData["successMessage"] = "Cập nhật sản phẩm trong giỏ hàng của bạn thành công";
+                //    this.OnGet();
+                //    return Page();
+                //}
+                //else
+                //{
+                //    TempData["errorMessage"] = "Cập nhật thất bại!. Đã có lỗi xảy ra";
+                //    return Page();
+                //}
+                return Page();
             }
         }
     }

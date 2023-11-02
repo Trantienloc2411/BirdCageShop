@@ -12,6 +12,7 @@ namespace BirdCageShop.Pages.Users
     {
         private readonly IProductRepository _proRepos;
         private readonly IUserRepository _userRepo;
+        private readonly ICartRepository _cartRepo;
         [BindProperty(SupportsGet = true)]
 
 
@@ -30,6 +31,7 @@ namespace BirdCageShop.Pages.Users
         {
             _proRepos = new ProductRepository();
             _userRepo = new UserRepository();
+            _cartRepo = new CartRepository();
         }
 
         public IList<BusinessObjects.Models.Product> pagedProducts { get; set; } //Product
@@ -92,7 +94,7 @@ namespace BirdCageShop.Pages.Users
                     else
                     {
                         int userID = (int)HttpContext.Session.GetInt32("userID");
-                        int result = _userRepo.AddProductToCart(userID, productID, 1);
+                        int result = _cartRepo.addProductToCart(productID, 1);
                         if (result == 0)
                         {
                             TempData["errorMessage"] = "Có vẻ điều gì đó đã xảy ra. Không thể thêm vào giỏ hàng";
