@@ -92,30 +92,22 @@ namespace BirdCageShop.Pages.Users.UCart
             }
 
         }
-        public IActionResult OnPostUpdate(int productID, int quantity)
+        public void OnPostUpdate(int productID, int quantity)
         {
+
             int userID = HttpContext.Session.GetInt32("userID").GetValueOrDefault(-1);
             if (userID == -1)
             {
                 TempData["errorMessage"] = "Đăng nhập để tiếp tục!";
-                return RedirectToPage("../Login/Index");
+                     RedirectToPage("../Login/Index");
             }
             else
             {
                 _cartRepo.updateQuantity(productID, quantity);
-                //if (result != 0)
-                //{
-                //    TempData["successMessage"] = "Cập nhật sản phẩm trong giỏ hàng của bạn thành công";
-                //    this.OnGet();
-                //    return Page();
-                //}
-                //else
-                //{
-                //    TempData["errorMessage"] = "Cập nhật thất bại!. Đã có lỗi xảy ra";
-                //    return Page();
-                //}
-                return Page();
+                OnGet();
+                Page();
             }
+            Page();
         }
     }
 }

@@ -57,12 +57,14 @@
                                     <div class="input-group quantity mx-auto"
                                          style="width: 100px;">
                                         <form method="post" asp-page-handler="Update">
+                                            @Html.AntiForgeryToken()
                                             <input name="productID" value="@item.Id" type="hidden">
                                             <input type="text"
-                                                   class="form-control form-control-sm bg-secondary text-center" id="myInput" oninput="myFunction()"
-                                                   value="@item.DetailQuantity"  name="quantity"/>
-                                            <button type="submit" id="myButton" style="display: none;">Lưu lại</button>
+                                                   class="form-control form-control-sm bg-secondary text-center myInput" oninput="myFunction(event)"
+                                                   value="@item.DetailQuantity" name="quantity" />
+                                            <a href="#" onclick="this.closest('form').submit();" class="myButton" style="display: none;">Lưu lại</a>
                                         </form>
+
 
                     
                                     </div>
@@ -140,13 +142,10 @@
 
     <!-- Cart End -->
     <script>
-        function myFunction() {
-            var x = document.getElementById("myInput").value;
-            if (x !== '') {
-                document.getElementById("myButton").style.display = "block";
-            } else {
-                document.getElementById("myButton").style.display = "none";
-            }
+        function myFunction(event) {
+            var inputField = event.target;
+            var saveButton = inputField.nextElementSibling;
+            saveButton.style.display = 'inline';
         }
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
