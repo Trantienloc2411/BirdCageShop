@@ -69,6 +69,11 @@ namespace DataAccessObjects
             return _db.Orders.Where(o => o.OrderStatus != "Cart" && o.UserId == userID).ToList();
         }
 
-
+        public int placeOrderByOrderID(int orderID)
+        {
+            var order = _db.Orders.FirstOrDefault(o => o.OrderId == orderID && o.OrderStatus == "Cart");
+            order.OrderStatus = "Pending";
+            return _db.SaveChanges();
+        }
     }
 }

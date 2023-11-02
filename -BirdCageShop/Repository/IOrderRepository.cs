@@ -15,6 +15,6 @@ namespace Repository
        
 
         void ManagerUpdate(Order order);
-
+        int placeOrderByOrderID(int orderID);
     }
 }

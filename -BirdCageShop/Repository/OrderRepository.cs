@@ -23,6 +23,6 @@ namespace Repository
 
 
         public void ManagerUpdate(Order order) => _dao.ManagerUpdate(order);
-
+        public int placeOrderByOrderID(int orderID) => _dao.placeOrderByOrderID(orderID);
     }
 }

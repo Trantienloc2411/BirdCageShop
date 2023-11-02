@@ -11,10 +11,11 @@ namespace BirdCageShop.Pages.Users.UCart
     {
         public string ErrorMessage {  get; set; }
         private readonly IUserRepository _usrRepo;
-        public decimal? totalCart { get; set; }
+        public decimal? totalCart { get; set; } = 0;
         public List<OrderDetail> cart { get; set; }
         public List<CartItem> cartItems { get; set; }
         public Order order { get; set; }
+        public int quantity { get; set; }
         
         public IndexModel()
         {
@@ -38,7 +39,7 @@ namespace BirdCageShop.Pages.Users.UCart
                 {
                     cart = cartList.ToList();
                     order = _usrRepo.getOrderPrice_Cart_ByUserID(userID);
-                    totalCart = order.OrderPrice;
+                    
                     Page();
                 }
                 else
