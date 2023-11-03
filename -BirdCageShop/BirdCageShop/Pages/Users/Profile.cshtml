@@ -260,6 +260,8 @@
         {
             @: "@o.OrderId": {
             @:cageId: "@o.OrderId",
+            @:nameOrder: "@o.OrderName",
+            @:addressOrder: "@o.OrderStatus",
             @:detailPrice: "@o.OrderPrice",
             @:detailQuantity: {
             @foreach (var product in o.OrderDetails)
@@ -289,9 +291,11 @@
 
                 if (orderDetail) {
                     const orderDetailHTML = `
-                                      <p><strong>Cage ID:</strong> ${orderDetail.cageId}</p>
-                                      <p><strong>Detail Price:</strong> ${orderDetail.detailPrice}</p>
-                                      <p><strong>Detail Quantity:</strong></p>
+                                      <p><strong>Mã đơn hàng: </strong> ${orderDetail.cageId}</p>
+                                      <p><strong>Tên người đặt đơn:  </strong> ${orderDetail.nameOrder}</p>
+                                      <p><strong>Địa chỉ giao hàng: </strong> ${orderDetail.addressOrder}</p>
+                                      <p><strong>Tổng giá trị đơn hàng: </strong> ${orderDetail.detailPrice}</p>
+                                      <p><strong>Chi tiết đơn hàng: </strong></p>
                                       <ul>
                                         ${Object.entries(orderDetail.detailQuantity)
                             .map(

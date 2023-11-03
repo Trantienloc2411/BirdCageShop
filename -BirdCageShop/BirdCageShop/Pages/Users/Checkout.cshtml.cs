@@ -73,10 +73,12 @@ namespace BirdCageShop.Pages.Users.UOrder
 
             int orderID = _orderRepo.AddReturnOrderID(o);
             cartItems = _cartRepo.showCart();
+            
             foreach(var item in cartItems)
             {
                 if(item.type == 0)
                 {
+                    
                     OrderDetail od = new OrderDetail();
                     od.OrderId = orderID;
                     od.CageId = item.Id;
@@ -84,6 +86,7 @@ namespace BirdCageShop.Pages.Users.UOrder
                     od.DetailQuantity = item.DetailQuantity;
                     int isCompleted = _orderDetailRepo.AddOrderDetail(od);
                     if (isCompleted == 0) break;
+                    
                 }
                 else if(item.type == 1)
                 {

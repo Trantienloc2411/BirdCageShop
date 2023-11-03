@@ -12,6 +12,7 @@ namespace BirdCageShop.Pages.Users.UCart
         public string ErrorMessage {  get; set; }
         private readonly IUserRepository _usrRepo;
         private readonly ICartRepository _cartRepo;
+        private readonly IOrderDetailRepository _odRepo;
         public decimal? totalCart { get; set; } = 0;
         public List<CartItem> cart { get; set; }
         public List<CartItem> cartItems { get; set; }
@@ -22,7 +23,8 @@ namespace BirdCageShop.Pages.Users.UCart
         public IndexModel()
         {
             _usrRepo = new UserRepository();
-            _cartRepo = new CartRepository();   
+            _cartRepo = new CartRepository();
+            _odRepo = new OrderDetailRepository();
 
         }
 
@@ -101,11 +103,16 @@ namespace BirdCageShop.Pages.Users.UCart
                 TempData["errorMessage"] = "Đăng nhập để tiếp tục!";
                      RedirectToPage("../Login/Index");
             }
-            else
+            else if (_odRepo.isProductAvailble(quantity,productID,type) == true)
             {
                 _cartRepo.updateQuantity(productID, quantity,type);
                 OnGet();
                 Page();
+            }
+            else
+            {
+                TempData["errorMessage"] = "Sản phẩm bạn vừa cập nhật không đủ số lượng ở cửa hàng";
+                OnGet();
             }
             Page();
         }
