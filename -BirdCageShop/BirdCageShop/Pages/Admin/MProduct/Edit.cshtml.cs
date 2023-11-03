@@ -23,7 +23,7 @@ namespace BirdCageShop.Pages.Admin.MProduct
         [BindProperty]
         public BusinessObjects.Models.Product Product { get; set; }
         [BindProperty]
-        public String CageImg { get; set; }
+        public string? CageImg { get; set; }
 
         public IActionResult OnGetAsync(int id)
         {
@@ -60,15 +60,14 @@ namespace BirdCageShop.Pages.Admin.MProduct
             // Check if a file is uploaded
             if (CageImg != null && CageImg.Length > 0)
             {
-                // Call the file upload service to save the new file
-                Product.CageImg = await uploadService.UploadFileAsync(CageImg);
-
                 // If there was an old image, delete it
                 if (!string.IsNullOrEmpty(oldCageImgPath))
                 {
                     // You may want to add error handling here in case the delete fails
                     System.IO.File.Delete(oldCageImgPath);
                 }
+                // Call the file upload service to save the new file
+                Product.CageImg = await uploadService.UploadFileAsync(CageImg);
             }
 
             try
@@ -96,6 +95,7 @@ namespace BirdCageShop.Pages.Admin.MProduct
 
             return RedirectToPage("./Index");
         }
+
 
     }
 }
