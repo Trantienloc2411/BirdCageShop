@@ -15,6 +15,6 @@ namespace Repository
         OrderDetail GetOrderDetailById(int detailId);
         void Delete(int detailId);
         int AddOrderDetail(OrderDetail detail);
-
+        bool isProductAvailble(int quantity, int productID, int type);
     }
 }

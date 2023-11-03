@@ -123,16 +123,21 @@ namespace BirdCageShop.Pages.Users
                     user.Phone = Phone;
                     user.Address = Address;
                     user.DoB = dob;
-                    user.UserPassword = Password;
+                    if(Password != null)
+                    {
+                        user.UserPassword = Password;
+                    }
                     int success = userRepository.UpdateUserProfile(user);
                     if(success != 0)
                     {
                         TempData["successMessage"] = "Thông tin được cập nhật thành công! Hãy tải lại trang để thấy thay đổi";
+                        OnGet();
                         return Page();
                     }
                     else
                     {
                         TempData["errorMessage"] = "Hệ thống không thể ghi lại bản sửa của bạn! Hãy thử lại hoặc sửa lại sau ít phút. Chúng tôi đang sửa nó `(*>﹏<*)′`(*>﹏<*)′";
+                        OnGet();
                         return Page();
                     }
                 }
@@ -140,6 +145,7 @@ namespace BirdCageShop.Pages.Users
             catch (Exception ex)
             {
                 TempData["errorMessage"] = "Hệ thống không thể ghi lại bản sửa của bạn! Hãy thử lại hoặc sửa lại sau ít phút. Chúng tôi đang sửa nó `(*>﹏<*)′`(*>﹏<*)′" + ex.Message;
+                OnGet();
                 return Page();
 
             }

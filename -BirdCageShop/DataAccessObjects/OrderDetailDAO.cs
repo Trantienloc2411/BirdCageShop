@@ -40,6 +40,7 @@ namespace DataAccessObjects
         {
             return _db.OrderDetails.FirstOrDefault(o => o.DetailId == detailId);
         }
+
         public void Delete(int detailId)
         {
             var o = GetOrderDetailById(detailId);
@@ -49,12 +50,23 @@ namespace DataAccessObjects
                 _db.SaveChanges();
             }
         }
-
+        
         public int AddOrderDetail(OrderDetail detail)
         {
             if(detail != null)
             {
                 _db.OrderDetails.Add(detail);
+                ///Decrease quantity -1 if place order succesfully
+                if (detail.CageId != null)
+                {
+                    var product = _db.Products.First(p => p.CageId == detail.CageId);
+                    product.Quantity--;
+                }
+                else
+                {
+                    var product = _db.Accessories.First(a => a.AccessoryId == detail.AccessoryId);
+                    product.AccessoryQuantity--;
+                }
                 return _db.SaveChanges();
             }
             else
@@ -62,6 +74,22 @@ namespace DataAccessObjects
                 _db.SaveChanges();
                 //_cartDAO.clearCart();
                 return 0;
+            }
+        }
+
+        public bool isProductAvailble(int quantity, int productID, int type)
+        {
+            if(type == 0)
+            {
+                var product = _db.Products.First(p => p.CageId == productID);
+                if (product.Quantity < quantity) return false;
+                else return true;
+            }
+            else
+            {
+                var product = _db.Accessories.First(a => a.AccessoryId == productID);
+                if (product.AccessoryQuantity < quantity) return false;
+                else return true;
             }
         }
     }
