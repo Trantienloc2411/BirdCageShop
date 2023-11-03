@@ -157,5 +157,9 @@ namespace BirdCageShop.Pages.Users
         {
             return productRepository.GetProductById(productID);
         }
+        public Accessory getAccessoryNameByAccessoryID(int accessoryID)
+        {
+            return productRepository.getDetailAccessoryByID(accessoryID);
+        }
     }
 }

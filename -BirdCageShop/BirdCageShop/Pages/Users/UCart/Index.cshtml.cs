@@ -59,7 +59,7 @@ namespace BirdCageShop.Pages.Users.UCart
 
         }
 
-        public IActionResult OnPostDelete(int productID)
+        public IActionResult OnPostDelete(int productID, int type)
         {
             try
             {
@@ -71,7 +71,7 @@ namespace BirdCageShop.Pages.Users.UCart
                 }
                 else
                 {
-                    int result = _cartRepo.deleteProductfromCart(productID);
+                    int result = _cartRepo.deleteProductfromCart(productID, type);
                     if (result != 0)
                     {
                         TempData["successMessage"] = "Xoá sản phẩm ra khỏi giỏ hàng của bạn thành công";
@@ -92,7 +92,7 @@ namespace BirdCageShop.Pages.Users.UCart
             }
 
         }
-        public void OnPostUpdate(int productID, int quantity)
+        public void OnPostUpdate(int productID, int quantity, int type)
         {
 
             int userID = HttpContext.Session.GetInt32("userID").GetValueOrDefault(-1);
@@ -103,7 +103,7 @@ namespace BirdCageShop.Pages.Users.UCart
             }
             else
             {
-                _cartRepo.updateQuantity(productID, quantity);
+                _cartRepo.updateQuantity(productID, quantity,type);
                 OnGet();
                 Page();
             }

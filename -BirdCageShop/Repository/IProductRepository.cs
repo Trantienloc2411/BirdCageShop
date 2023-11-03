@@ -23,5 +23,6 @@ namespace Repository
         List<Accessory> getAccessoryPages(int pageIndex, int pageSize);
         int getTotalAccessoryPages();
         List<Accessory> GetAccessoryByName(string name);
+        Tuple<int, int> getRatingAccessory(int accessoryID);
     }
 }
