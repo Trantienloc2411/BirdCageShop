@@ -1,11 +1,15 @@
 ﻿@page "{handler?}"
 @model BirdCageShop.Pages.Users.UCart.IndexModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
 @{
     ViewData["Title"] = "Giỏ hàng";
 
 }
 
-                            
+@{
+
+}
 <body>
     @{
         var errorMessage = TempData["errorMessage"] as string;
@@ -46,26 +50,25 @@
                             <tr>
                                 <td class="align-middle">
                                     <img src="img/product-1.jpg" alt="" style="width: 50px;" />
-                                    @item.Cage.CageName
+                                    @item.CageName
                                 </td>
+                                
                                 <td class="align-middle">@item.DetailPrice</td>
                                 <td class="align-middle">
-                                        <div class="input-group quantity mx-auto"
-                                             style="width: 100px;">
-                                            @* <form class="input-group-btn" asp-page-handler="edit" asp-route-productID="@item.Cage.CageId" asp-route-quantity="@{item.DetailQuantity -= 1;}">
-                                                <button class="btn btn-sm btn-primary btn-minus">
-                                                    <i class="fa fa-minus"></i>
-                                                </button>
-                                            </form> *@
+                                    <div class="input-group quantity mx-auto"
+                                         style="width: 100px;">
+                                        <form method="post" asp-page-handler="Update">
+                                            @Html.AntiForgeryToken()
+                                            <input name="productID" value="@item.Id" type="hidden" >
                                             <input type="text"
-                                                   class="form-control form-control-sm bg-secondary text-center"
-                                                   value="@item.DetailQuantity" />
-                                            @* <form class="input-group-btn" method="post" asp-page-handler="edit" asp-route-productID="@item.Cage.CageId" asp-route-quantity="@{item.DetailQuantity += 1;}">
-                                                <button class="btn btn-sm btn-primary btn-plus">
-                                                    <i class="fa fa-plus"></i>
-                                                </button>
-                                            </form> *@
-                                        </div>
+                                                   class="form-control form-control-sm bg-secondary text-center myInput" oninput="myFunction(event)"
+                                                   value="@item.DetailQuantity" name="quantity" />
+                                            <a href="#" onclick="this.closest('form').submit();" class="myButton" style="display: none;">Lưu lại</a>
+                                        </form>
+
+
+                    
+                                    </div>
                                 </td>
                                 @{
                                     // Check if quantity is null
@@ -75,12 +78,12 @@
                                         quantity = result;
                                     }
                                     // Calculate total
-                                    decimal? total = item.DetailPrice * quantity;
+                                    Model.totalCart += item.TotalPrice;
                                 }
-                                <td class="align-middle total">@total</td>
+                                <td class="align-middle total">@item.TotalPrice</td>
                                 <!--Delete button-->
                                 <td class="align-middle">
-                                    <form method="post" asp-route-productID="@item.Cage.CageId" asp-page-handler="delete">
+                                    <form method="post" asp-route-productID="@item.Id" asp-page-handler="delete">
                                         <button class="btn btn-sm btn-primary">
                                             <i class="fa fa-times"></i>
                                         </button>
@@ -127,10 +130,11 @@
                                 Model.totalCart += 10;
                             }
                             <h5 class="font-weight-bold">@Model.totalCart</h5>
-                        </div>
-                        <button class="btn btn-block btn-primary my-3 py-3">
+                        </div >
+
+                        <a asp-page="../Checkout" class="btn btn-block btn-primary my-3 py-3">
                             Tiến hành thanh toán
-                        </button>
+                        </a> 
                     </div>
                 </div>
             </div>
@@ -138,24 +142,14 @@
     </div>
 
     <!-- Cart End -->
+    <script>
+        function myFunction(event) {
+            var inputField = event.target;
+            var saveButton = inputField.nextElementSibling;
+            saveButton.style.display = 'inline';
+        }
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <script>
-        // Get the input field and buttons
-        var input = document.querySelector('.form-control');
-        var btnMinus = document.querySelector('.btn-minus');
-        var btnPlus = document.querySelector('.btn-plus');
-
-        // Attach event listeners to the buttons
-        btnMinus.addEventListener('click', function () {
-            if (input.value > 0) { // Prevent going into negative
-                input.value--;
-            }
-        });
-
-        btnPlus.addEventListener('click', function () {
-            input.value++;
-        });
-    </script>
 
 </body>

@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessObjects
 {
@@ -23,6 +24,12 @@ namespace DataAccessObjects
         {
             _db.Add(order);
             _db.SaveChanges();
+        }
+        public int AddReturnOrderID(Order order)
+        {
+            _db.Orders.Add(order);
+            _db.SaveChanges();
+            return order.OrderId;
         }
         public void Update(Order order)
         {
@@ -69,6 +76,15 @@ namespace DataAccessObjects
             return _db.Orders.Where(o => o.OrderStatus != "Cart" && o.UserId == userID).ToList();
         }
 
-
+        public int placeOrderByOrderID(int orderID)
+        {
+            var order = _db.Orders.FirstOrDefault(o => o.OrderId == orderID && o.OrderStatus == "Cart");
+            order.OrderStatus = "Pending";
+            return _db.SaveChanges();
+        }
+        public List<Order> orderListIncludeOrderDetail(int userID)
+        {
+            return _db.Orders.Include(o => o.OrderDetails).Where(o => o.UserId == userID).ToList();
+        }
     }
 }

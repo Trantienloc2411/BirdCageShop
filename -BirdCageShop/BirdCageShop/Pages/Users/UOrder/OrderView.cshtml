@@ -2,7 +2,7 @@
 @model BirdCageShop.Pages.Users.UOrder.OrderViewModel
 @{
     ViewData["Title"] = "Đơn hàng";
-
+    Layout = "_Layout";
 }
 
 <body>
@@ -68,5 +68,95 @@
             </div>
         </div>
     </div>
+    <div class="modal fade"
+         id="orderDetailModal"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="orderDetailModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="orderDetailModalLabel">
+                        Chi tiết đơn hàng
+                    </h5>
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="orderDetailBody">
+                    <!-- Order detail will be displayed here -->
+                </div>
+            </div>
+        </div>
+        </div>
+    <script>
+        // Sample order detail data
+        const orderDetails = {
+            "12345": {
+                cageId: "Cage123",
+                detailPrice: "$120",
+                detailQuantity: {
+                    "Product 1": 1,
+                    "Product 2": 2,
+                },
+            },
+            "67890": {
+                cageId: "Cage456",
+                detailPrice: "$70",
+                detailQuantity: {
+                    "Product 3": 3,
+                    "Product 4": 1,
+                },
+            },
+        };
+
+        const orderLinks = document.querySelectorAll(".order-link");
+        const orderDetailBody = document.getElementById("orderDetailBody");
+
+        orderLinks.forEach((link) => {
+            link.addEventListener("click", (event) => {
+                event.preventDefault();
+                const orderId = event.target.dataset.orderId;
+                const orderDetail = orderDetails[orderId];
+
+                if (orderDetail) {
+                    const orderDetailHTML = `
+                      <p><strong>Cage ID:</strong> ${orderDetail.cageId}</p>
+                      <p><strong>Detail Price:</strong> ${orderDetail.detailPrice}</p>
+                      <p><strong>Detail Quantity:</strong></p>
+                      <ul>
+                        ${Object.entries(orderDetail.detailQuantity)
+                            .map(
+                                ([product, quantity]) => `<li>${product} - ${quantity}</li>`
+                            )
+                            .join("")}
+                      </ul>
+                    `;
+                    orderDetailBody.innerHTML = orderDetailHTML;
+                } else {
+                    orderDetailBody.innerHTML = "Order detail not found.";
+                }
+            });
+        });
+    </script>
+    <script>
+        const toggleButton = document.getElementById("toggleInfo");
+        const additionalInfo = document.getElementById("additionalInfo");
+
+        // Xử lý sự kiện khi nút "Show" được nhấn
+        toggleButton.addEventListener("click", function () {
+            if (additionalInfo.style.display === "none") {
+                additionalInfo.style.display = "block";
+                toggleButton.innerText = "Ẩn"; // Thay đổi nút thành "Hide"
+            } else {
+                additionalInfo.style.display = "none";
+                toggleButton.innerText = "Hiển thị thêm"; // Thay đổi nút thành "Show More"
+            }
+        });
+    </script>
 
 </body>

@@ -5,10 +5,11 @@ namespace DataAccessObjects
     public class OrderDetailDAO
     {
         private readonly CageShopUni_alaContext _db;
-
+        private CartDAO _cartDAO;
         public OrderDetailDAO()
         {
             _db = new CageShopUni_alaContext();
+            _cartDAO = new CartDAO();   
         }
         public IEnumerable<OrderDetail> GetAll()
         {
@@ -46,6 +47,21 @@ namespace DataAccessObjects
             {
                 _db.OrderDetails.Remove(o);
                 _db.SaveChanges();
+            }
+        }
+
+        public int AddOrderDetail(OrderDetail detail)
+        {
+            if(detail != null)
+            {
+                _db.OrderDetails.Add(detail);
+                return _db.SaveChanges();
+            }
+            else
+            {
+                _db.SaveChanges();
+                //_cartDAO.clearCart();
+                return 0;
             }
         }
     }

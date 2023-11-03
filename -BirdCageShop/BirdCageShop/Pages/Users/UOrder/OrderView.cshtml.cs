@@ -23,7 +23,7 @@ namespace BirdCageShop.Pages.Users.UOrder
             int userID = HttpContext.Session.GetInt32("userID").GetValueOrDefault(-1);
             if (userID == -1)
             {
-                return RedirectToPage("./Error");
+                return RedirectToPage("../Error");
 
             }
             else
