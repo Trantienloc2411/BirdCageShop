@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessObjects
 {
@@ -52,6 +53,30 @@ namespace DataAccessObjects
         public List<User> GetUsers()
         {
             return _db.Users.ToList();
+        }
+
+        public List<FeedbackItem> getListFeedbackByProductID(int productID)
+        {
+            
+            var result = from f in _db.Feedbacks
+                         join o in _db.Orders on f.OrderId equals o.OrderId
+                         join u in _db.Users on f.UserId equals u.UserId
+                         join od in _db.OrderDetails on o.OrderId equals od.OrderId
+                         join p in _db.Products on od.CageId equals p.CageId
+                         where p.CageId == productID
+                         select new FeedbackItem { UserName = u.UserName, FeedbackName = f.FeedBackName, FeedbackContent =  f.FeedBackContent, rating = (double)f.Rating, UserIMG = u.UserImg };
+            return result.ToList();
+        }
+        public List<FeedbackItem> getListFeedbackByAccessoryID(int productID)
+        {
+            var result = from f in _db.Feedbacks
+                         join o in _db.Orders on f.OrderId equals o.OrderId
+                         join u in _db.Users on f.UserId equals u.UserId
+                         join od in _db.OrderDetails on o.OrderId equals od.OrderId
+                         join p in _db.Accessories on od.AccessoryId equals p.AccessoryId
+                         where p.AccessoryId == productID
+                         select new FeedbackItem { UserName = u.UserName, FeedbackName = f.FeedBackName, FeedbackContent = f.FeedBackContent, rating = (double)f.Rating, UserIMG = u.UserImg };
+            return result.ToList();
         }
     }
 }

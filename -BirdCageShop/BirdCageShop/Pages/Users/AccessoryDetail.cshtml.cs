@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.CodeAnalysis;
 using Repository;
+using System.Collections.Generic;
 
 namespace BirdCageShop.Pages.Users
 {
@@ -12,16 +13,19 @@ namespace BirdCageShop.Pages.Users
         private readonly IProductRepository _proRepo;
         private readonly IUserRepository _userRepo;
         private readonly ICartRepository _cartRepo;
+        private readonly IFeedbackRepository _feedbackRepo;
         public AccessoryDetailModel()
         {
             _proRepo = new ProductRepository();
             _userRepo = new UserRepository();
             _cartRepo = new CartRepository();   
+            _feedbackRepo = new FeedbackRepository();
         }
         public static int accessoryID { get; set; }
         public Accessory accessory { get; set; }
         public Tuple<int, int> getFeedbackStatic { get; set; }
         public List<Product> getPopularList { get; set; }
+        public List<FeedbackItem> GetFeedbackItems { get; set; }
         public string ErrorMessage { get; set; }
         public IActionResult OnGet(int accessoryId)
         {
@@ -30,8 +34,9 @@ namespace BirdCageShop.Pages.Users
                 accessoryID = accessoryId;
                 accessory = new Accessory();
                 accessory = _proRepo.getDetailAccessoryByID(accessoryID);
-                getFeedbackStatic = _proRepo.getFeedback(accessoryID);
+                getFeedbackStatic = _proRepo.getRatingAccessory(accessoryID);
                 getPopularList = _proRepo.getListProductTrendingForUser();
+                GetFeedbackItems = _feedbackRepo.getListFeedbackByAccessoryID(accessoryId);
                 if (accessory == null)
                 {
                     return RedirectToAction("../Error");

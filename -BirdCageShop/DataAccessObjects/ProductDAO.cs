@@ -158,16 +158,6 @@ namespace DataAccessObjects
             else return Tuple.Create(0, 0);
 
         }
-
-
-
-
-
-
-
-
-
-
         /// <summary>
         /// This part will container AccessoryDAO 
         /// </summary>
