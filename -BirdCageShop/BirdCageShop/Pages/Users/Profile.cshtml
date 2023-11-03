@@ -264,8 +264,16 @@
             @:detailQuantity: {
             @foreach (var product in o.OrderDetails)
             {
-                @:         "@Model.getProductNameByProductID((int)product.CageId).CageName": @product.DetailPrice,
-            }
+                @if(product.CageId != null)
+                {
+                    @:         "@Model.getProductNameByProductID((int)product.CageId).CageName": @product.DetailPrice,
+                }
+                else
+                {
+                    @:         "@Model.getAccessoryNameByAccessoryID((int)product.AccessoryId).AccessoryName": @product.DetailPrice,
+                }
+
+        }
             @:     },
             @: },
         }

@@ -15,15 +15,15 @@ namespace Repository
         {
             _dao = new CartDAO();
         }
-        public int addProductToCart(int productID, int quantity) => _dao.addProductToCart(productID, quantity);
+        public int addProductToCart(int productID, int quantity, int type) => _dao.addProductToCart(productID, quantity,    type);
 
         public void clearCart() => _dao.clearCart();
 
-        public int deleteProductfromCart(int productID) => _dao.deleteProductfromCart(productID);
+        public int deleteProductfromCart(int productID, int type) => _dao.deleteProductfromCart(productID,type);
 
         public List<CartItem> showCart() => _dao.showCart();
 
-        public void updateQuantity(int productID, int quantity) =>_dao.updateQuantity(productID, quantity);
+        public void updateQuantity(int productID, int quantity, int type) =>_dao.updateQuantity(productID, quantity,type);
 
     }
 }

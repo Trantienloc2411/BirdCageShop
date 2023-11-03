@@ -15,6 +15,7 @@ namespace BirdCageShop.Pages.Users
 
         private readonly IProductRepository _proRepos;
         private readonly IUserRepository _userRepo;
+        private readonly ICartRepository _cartRepo;
         [BindProperty(SupportsGet = true)]
 
 
@@ -33,6 +34,7 @@ namespace BirdCageShop.Pages.Users
         {
             _proRepos = new ProductRepository();
             _userRepo = new UserRepository();
+            _cartRepo = new CartRepository();
         }
 
         public IList<Accessory> pagedProducts { get; set; } //Product
@@ -77,38 +79,38 @@ namespace BirdCageShop.Pages.Users
             }
 
         }
-        //public IActionResult OnPost(int accessoryID)
-        //{
-        //    try
-        //    {
-        //        if (HttpContext.Session.GetInt32("userID") == null)
-        //        {
-        //            TempData["errorMessage"] = "Hãy đăng nhập trước khi thêm vào giỏ của bạn nhé. Mình chuyển đến trang đăng nhập giúp bạn rồi nè";
-        //            return RedirectToPage("./Login");
-        //        }
-        //        else
-        //        {
-        //            int userID = (int)HttpContext.Session.GetInt32("userID");
-        //            int result = _userRepo.AddProductToCart(userID, , 1);
-        //            if (result == 0)
-        //            {
-        //                TempData["errorMessage"] = "Có vẻ điều gì đó đã xảy ra. Không thể thêm vào giỏ hàng";
-        //                return RedirectToPage("./Shop");
-        //            }
-        //            else
-        //            {
-        //                TempData["successMessage"] = "Thêm vào giỏ hàng thành công";
-        //                return RedirectToPage("./Shop");
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
+        public IActionResult OnPost(int accessoryID)
+        {
+            try
+            {
+                if (HttpContext.Session.GetInt32("userID") == null)
+                {
+                    TempData["errorMessage"] = "Hãy đăng nhập trước khi thêm vào giỏ của bạn nhé. Mình chuyển đến trang đăng nhập giúp bạn rồi nè";
+                    return RedirectToPage("/Login/Index");
+                }
+                else
+                {
+                    int userID = (int)HttpContext.Session.GetInt32("userID");
+                    int result = _cartRepo.addProductToCart(accessoryID, 1,1);
+                    if (result == 0)
+                    {
+                        TempData["errorMessage"] = "Có vẻ điều gì đó đã xảy ra. Không thể thêm vào giỏ hàng";
+                        return RedirectToPage("./Shop");
+                    }
+                    else
+                    {
+                        TempData["successMessage"] = "Thêm vào giỏ hàng thành công";
+                        return RedirectToPage("./Shop");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
 
-        //        TempData["errorMessage"] = "Somthing unexpected happend!" + ex.Message; return RedirectToPage("./Error");
-        //    }
+                TempData["errorMessage"] = "Somthing unexpected happend!" + ex.Message; return Page();
+            }
 
-        //}
+        }
         public void OnPostSearch(string productName)
         {
             pagedProducts = _proRepos.GetAccessoryByName(productName);

@@ -48,7 +48,8 @@ namespace Repository
 
         public int getTotalAccessoryPages() => _dao.getTotalAccessoryPages();
 
-        List<Accessory> IProductRepository.GetAccessoryByName(string name) => _dao.GetAccessoryByName((string)name);    
+        List<Accessory> IProductRepository.GetAccessoryByName(string name) => _dao.GetAccessoryByName((string)name);
 
+        public Tuple<int, int> getRatingAccessory(int accessoryID) => _dao.getRatingAccessory(accessoryID);
     }
 }

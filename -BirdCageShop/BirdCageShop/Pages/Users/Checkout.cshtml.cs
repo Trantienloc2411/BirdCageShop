@@ -75,13 +75,27 @@ namespace BirdCageShop.Pages.Users.UOrder
             cartItems = _cartRepo.showCart();
             foreach(var item in cartItems)
             {
-                OrderDetail od = new OrderDetail();
-                od.OrderId = orderID;
-                od.CageId = item.Id;
-                od.DetailPrice = item.DetailPrice;
-                od.DetailQuantity = item.DetailQuantity;
-                int isCompleted = _orderDetailRepo.AddOrderDetail(od);
-                if (isCompleted == 0) break;
+                if(item.type == 0)
+                {
+                    OrderDetail od = new OrderDetail();
+                    od.OrderId = orderID;
+                    od.CageId = item.Id;
+                    od.DetailPrice = item.DetailPrice;
+                    od.DetailQuantity = item.DetailQuantity;
+                    int isCompleted = _orderDetailRepo.AddOrderDetail(od);
+                    if (isCompleted == 0) break;
+                }
+                else if(item.type == 1)
+                {
+                    OrderDetail od = new OrderDetail();
+                    od.OrderId = orderID;
+                    od.AccessoryId = item.Id;
+                    od.DetailPrice = item.DetailPrice;
+                    od.DetailQuantity = item.DetailQuantity;
+                    int isCompleted = _orderDetailRepo.AddOrderDetail(od);
+                    if (isCompleted == 0) break;
+                }
+
             }
             TempData["successMessage"] = "Đặt hàng thành công";
             _cartRepo.clearCart();

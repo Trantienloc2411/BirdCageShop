@@ -60,6 +60,7 @@
                                         <form method="post" asp-page-handler="Update">
                                             @Html.AntiForgeryToken()
                                             <input name="productID" value="@item.Id" type="hidden" >
+                                            <input name="type" value="@item.type" type="hidden">
                                             <input type="text"
                                                    class="form-control form-control-sm bg-secondary text-center myInput" oninput="myFunction(event)"
                                                    value="@item.DetailQuantity" name="quantity" />
@@ -83,7 +84,7 @@
                                 <td class="align-middle total">@item.TotalPrice</td>
                                 <!--Delete button-->
                                 <td class="align-middle">
-                                    <form method="post" asp-route-productID="@item.Id" asp-page-handler="delete">
+                                    <form method="post" asp-route-productID="@item.Id" asp-route-type="@item.type" asp-page-handler="delete">
                                         <button class="btn btn-sm btn-primary">
                                             <i class="fa fa-times"></i>
                                         </button>

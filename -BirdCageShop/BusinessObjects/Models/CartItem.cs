@@ -17,5 +17,6 @@ namespace BusinessObjects.Models
         public decimal DetailPrice { get; set; } 
         public int DetailQuantity { get; set; }
         public decimal TotalPrice { get; set; } 
+        public int type { get; set; }
     }
 }

@@ -94,7 +94,7 @@ namespace BirdCageShop.Pages.Users
                     else
                     {
                         int userID = (int)HttpContext.Session.GetInt32("userID");
-                        int result = _cartRepo.addProductToCart(productID, 1);
+                        int result = _cartRepo.addProductToCart(productID, 1,0);
                         if (result == 0)
                         {
                             TempData["errorMessage"] = "Có vẻ điều gì đó đã xảy ra. Không thể thêm vào giỏ hàng";

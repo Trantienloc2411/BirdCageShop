@@ -10,9 +10,9 @@ namespace Repository
 {
     public  interface ICartRepository
     {
-        int deleteProductfromCart(int productID);
-        void updateQuantity(int productID, int quantity);
-        int addProductToCart(int productID, int quantity);
+        int deleteProductfromCart(int productID, int type);
+        void updateQuantity(int productID, int quantity,int type);
+        int addProductToCart(int productID, int quantity, int type);
         List<CartItem> showCart();
         void clearCart();
     }
