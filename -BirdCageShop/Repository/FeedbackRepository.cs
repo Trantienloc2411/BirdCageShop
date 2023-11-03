@@ -19,5 +19,8 @@ namespace Repository
         public IEnumerable<Feedback> GetAll() => _dao.GetAll();
         public List<Order> GetOrders() => _dao.GetOrders();
         public List<User> GetUsers() => _dao.GetUsers();
+        public List<FeedbackItem> getListFeedbackByProductID(int productID) => _dao.getListFeedbackByProductID(productID);
+        public List<FeedbackItem> getListFeedbackByAccessoryID(int productID) => _dao.getListFeedbackByAccessoryID(productID);
+
     }
 }
