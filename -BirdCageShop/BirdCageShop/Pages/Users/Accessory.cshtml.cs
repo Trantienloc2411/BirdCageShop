@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Repository;
 
-namespace BirdCageShop.Pages
+namespace BirdCageShop.Pages.Users
 {
     public class AccessoryModel : PageModel
     {
@@ -35,14 +35,14 @@ namespace BirdCageShop.Pages
             _userRepo = new UserRepository();
         }
 
-        public IList<BusinessObjects.Models.Accessory> pagedProducts { get; set; } //Product
+        public IList<Accessory> pagedProducts { get; set; } //Product
         public List<Accessory> accessories { get; set; }
         public void OnGet(int p = 1, int s = 6)
         {
             try
             {
                 accessories = _proRepos.GetAccessories();
-                if(accessories != null)
+                if (accessories != null)
                 {
                     if (!string.IsNullOrEmpty(SortBy))
                     {

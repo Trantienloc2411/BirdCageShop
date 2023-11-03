@@ -22,6 +22,6 @@ namespace Repository
 
         public OrderDetail GetOrderDetailById(int detailId) => _dao.GetOrderDetailById(detailId);
         public void Delete(int detailId) => _dao.Delete(detailId);
-
+        public int AddOrderDetail(OrderDetail detail) => _dao.AddOrderDetail(detail);   
     }
 }

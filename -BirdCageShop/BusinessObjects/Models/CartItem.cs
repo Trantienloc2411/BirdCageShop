@@ -6,11 +6,16 @@ using System.Threading.Tasks;
 
 namespace BusinessObjects.Models
 {
+    /// <summary>
+    /// Temp Cart
+    /// </summary>
     public class CartItem
     {
-       public int Id { get; set; }
-        public string CageName { get; set; }
-        public decimal DetailPrice { get; set; }
+
+        public int Id { get; set; }
+        public string? CageName { get; set; }
+        public decimal DetailPrice { get; set; } 
         public int DetailQuantity { get; set; }
+        public decimal TotalPrice { get; set; } 
     }
 }

@@ -14,5 +14,6 @@ namespace Repository
         void updateQuantity(int productID, int quantity);
         int addProductToCart(int productID, int quantity);
         List<CartItem> showCart();
+        void clearCart();
     }
 }

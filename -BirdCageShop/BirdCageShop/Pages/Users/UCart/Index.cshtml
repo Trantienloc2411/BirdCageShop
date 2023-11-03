@@ -52,13 +52,14 @@
                                     <img src="img/product-1.jpg" alt="" style="width: 50px;" />
                                     @item.CageName
                                 </td>
+                                
                                 <td class="align-middle">@item.DetailPrice</td>
                                 <td class="align-middle">
                                     <div class="input-group quantity mx-auto"
                                          style="width: 100px;">
                                         <form method="post" asp-page-handler="Update">
                                             @Html.AntiForgeryToken()
-                                            <input name="productID" value="@item.Id" type="hidden">
+                                            <input name="productID" value="@item.Id" type="hidden" >
                                             <input type="text"
                                                    class="form-control form-control-sm bg-secondary text-center myInput" oninput="myFunction(event)"
                                                    value="@item.DetailQuantity" name="quantity" />
@@ -77,10 +78,9 @@
                                         quantity = result;
                                     }
                                     // Calculate total
-                                    decimal? total = item.DetailPrice * quantity;
-                                    Model.totalCart += total;
+                                    Model.totalCart += item.TotalPrice;
                                 }
-                                <td class="align-middle total">@total</td>
+                                <td class="align-middle total">@item.TotalPrice</td>
                                 <!--Delete button-->
                                 <td class="align-middle">
                                     <form method="post" asp-route-productID="@item.Id" asp-page-handler="delete">
@@ -130,10 +130,11 @@
                                 Model.totalCart += 10;
                             }
                             <h5 class="font-weight-bold">@Model.totalCart</h5>
-                        </div>
-                        <button class="btn btn-block btn-primary my-3 py-3">
+                        </div >
+
+                        <a asp-page="../Checkout" class="btn btn-block btn-primary my-3 py-3">
                             Tiến hành thanh toán
-                        </button>
+                        </a> 
                     </div>
                 </div>
             </div>

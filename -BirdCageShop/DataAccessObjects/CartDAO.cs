@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +13,13 @@ namespace DataAccessObjects
         /// <summary>
         /// Contain product in cart;
         /// </summary>
-        private static List<CartItem> odList = new List<CartItem>();
+        private static List<CartItem> odList;
         private CartItem od;
         private CageShopUni_alaContext _db;
         public CartDAO()
         {
             _db = new CageShopUni_alaContext();
+            
         }
 
         public List<CartItem> showCart()
@@ -28,12 +30,13 @@ namespace DataAccessObjects
             }
             return odList;
         }
+
         public int addProductToCart(int productID, int quantity)
         {
             if(odList != null)
             {
                 int countList = odList.Count;
-                var product = _db.Products.First(p => productID == p.CageId);
+                var product = _db.Products.Include(p => p.Discount).First(p => productID == p.CageId);
                 if (product != null)
                 {
                     ///Check if product already in cart => increase quantity
@@ -49,8 +52,19 @@ namespace DataAccessObjects
                     od = new CartItem();
                     od.Id = product.CageId;
                     od.CageName = product.CageName;
-                    od.DetailPrice = (decimal)product.Price;
                     od.DetailQuantity = quantity;
+                    ///Check product have discout or not
+                    ///
+                    if (product.Discount == null || product.Discount.Discount1 == 0)
+                    {
+                        od.DetailPrice = (decimal)product.Price;
+                    }
+                    else
+                    {
+                        ///Price after discount successfully!
+                        od.DetailPrice = (decimal)(product.Price * (1-(product.Discount.Discount1)));    
+                    }
+                    od.TotalPrice = od.DetailPrice * od.DetailQuantity;
                     odList.Add(od);
                     if (odList.Count > countList)
                     {
@@ -67,7 +81,9 @@ namespace DataAccessObjects
             }
             else
             {
-                return 0;
+                odList = new List<CartItem> ();
+                addProductToCart(productID, quantity);
+                return 1;
             }
 
         }
@@ -75,12 +91,14 @@ namespace DataAccessObjects
         {
             if(quantity > 0)
             {
+                var product = _db.Products.First(p => p.CageId == productID);
                 foreach (CartItem detail in odList)
                 {
                     if (detail.Id == productID)
                     {
                         od = detail;
                         od.DetailQuantity = quantity;
+                        od.TotalPrice = od.DetailPrice * od.DetailQuantity;
                         return;
                     }
                 }
@@ -100,6 +118,11 @@ namespace DataAccessObjects
             }
             return 0;
         }
-        
+
+        public void clearCart()
+        {
+            odList.Clear();
+        }
+
     }
 }

@@ -24,5 +24,8 @@ namespace Repository
 
         public void ManagerUpdate(Order order) => _dao.ManagerUpdate(order);
         public int placeOrderByOrderID(int orderID) => _dao.placeOrderByOrderID(orderID);
+        public List<Order> orderListIncludeOrderDetail(int userID) => _dao.orderListIncludeOrderDetail(userID);
+        
+        public int AddReturnOrderID(Order order)  => _dao.AddReturnOrderID(order);
     }
 }

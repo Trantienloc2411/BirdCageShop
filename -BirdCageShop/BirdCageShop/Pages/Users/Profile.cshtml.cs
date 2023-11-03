@@ -1,6 +1,7 @@
 ﻿using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Exchange.WebServices.Data;
 using Repository;
 
 namespace BirdCageShop.Pages.Users
@@ -8,7 +9,15 @@ namespace BirdCageShop.Pages.Users
     public class ProfileModel : PageModel
     {
         private IUserRepository userRepository;
-        
+        private IOrderRepository _orderRepo;
+        private IOrderDetailRepository _orderDetailRepo;
+        private IProductRepository productRepository;
+        public List<OrderDetail> GetOrderDetails { get; set; }
+        public List<Order> order { get; set; }
+
+
+
+        public int countOrderDetail { get; set; }
         public User user { get; set; }
         [BindProperty]
         public string UserEmail { get; set; }
@@ -29,14 +38,17 @@ namespace BirdCageShop.Pages.Users
         public ProfileModel()
         {
             userRepository = new UserRepository();
+            _orderRepo = new OrderRepository();
+            _orderDetailRepo = new OrderDetailRepository();
+            productRepository = new ProductRepository();
         }
         public IActionResult OnGet()
         {
             try
             {
-                
-                
-                if(HttpContext.Session.Id == null)
+
+                int userID = HttpContext.Session.GetInt32("userID").GetValueOrDefault(-1);
+                if (HttpContext.Session.Id == null)
                 {
                     TempData["errorMessage"] = "Hãy xác thực để xem thông tin của mình nhé";
                     RedirectToPage("../Login/Index");
@@ -54,6 +66,20 @@ namespace BirdCageShop.Pages.Users
                     Address = user.Address;
                     dob = (DateTime)user.DoB;
                     Phone = user.Phone;
+
+                    
+                    ///Part of OrderList
+                    var orderList = _orderRepo.orderListIncludeOrderDetail(userID);
+                    if (orderList != null)
+                    {
+                        order = orderList.ToList();
+
+                    }
+                    else
+                    {
+                        order = new List<Order>();
+                    }
+
                     return Page();
                 }
                 return Page();
@@ -118,6 +144,18 @@ namespace BirdCageShop.Pages.Users
 
             }
 
+        }
+        public int countProductInOrder(int orderID)
+        {
+            return _orderDetailRepo.getQuantityProductByOrderID(orderID);
+        }
+        public List<OrderDetail> GetOrderDetailsByOrderID(int orderID)
+        {
+            return _orderDetailRepo.getOrderDetailByOrderID(orderID);
+        }
+        public Product getProductNameByProductID(int productID)
+        {
+            return productRepository.GetProductById(productID);
         }
     }
 }
