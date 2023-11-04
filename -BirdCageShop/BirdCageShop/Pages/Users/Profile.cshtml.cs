@@ -46,13 +46,15 @@ namespace BirdCageShop.Pages.Users
         {
             try
             {
-
+                #region Handle if user not authorize can not access this page
+                #endregion
                 int userID = HttpContext.Session.GetInt32("userID").GetValueOrDefault(-1);
-                if (HttpContext.Session.Id == null)
+                if (userID == -1)
                 {
                     TempData["errorMessage"] = "Hãy xác thực để xem thông tin của mình nhé";
-                    RedirectToPage("../Login/Index");
+                    return RedirectToPage("../Login/Index");
                 }
+                
 
                 var _user = userRepository.GetUserById((int)HttpContext.Session.GetInt32("userID"));
                 if (_user != null)
