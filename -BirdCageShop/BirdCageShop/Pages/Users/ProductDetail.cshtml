@@ -37,7 +37,7 @@
                     <div class="carousel-inner border">
                         <div class="carousel-item active">
                             <img class="w-100 h-100"
-                                 src="@Model.product.CageImg"
+                                 src="~/@Model.product.CageImg"
                                  alt="Hình ảnh" />
                         </div>
 @*                         <div class="carousel-item">
@@ -196,20 +196,30 @@
                             <div class="col-md-12">
                                 <h4 class="mb-4">1 nhận xét cho "Lồng chim"</h4>
                                 <div class="media mb-4">
-                                    <img src="/img/user.jpg"
-                                         alt="Hình ảnh"
-                                         class="img-fluid mr-3 mt-1"
-                                         style="width: 45px;" />
-                                    <div class="media-body">
-                                        <h6>
-                                            John Doe<small> - <i>01 Tháng 01, 2045</i></small>
-                                        </h6>
-                                        <div class="text-primary mb-2">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half-alt"></i>
-                                            <i class="far fa-star"></i>
+                                    @foreach(var item in Model.getFeedback)
+                                    {
+                                        <img src="~/@item.UserIMG"
+                                             alt="Hình ảnh"
+                                             class="img-fluid mr-3 mt-1"
+                                             style="width: 45px;" />
+                                        <div class="media-body">
+                                            <h6>
+                                                @item.UserName<small> - <i>@item.FeedbackName</i></small>
+                                            </h6>
+                                            @for(double i = item.rating; i >= 0.0; i--)
+                                            {
+                                                if(i == 0.5)
+                                                {
+                                                    <i class="fas fa-star-half-alt"></i>
+                                                }
+                                                else
+                                                {
+                                                    <i class="fas fa-star"></i>
+                                                }
+                                            }
+                                            <p>
+                                                @item.FeedbackContent
+                                            </p>
                                         </div>
                                         <p>
                                             Diam amet duo labore stet elitr ea clita ipsum, tempor
@@ -241,7 +251,7 @@
                     {
                         <div class="card product-item border-0">
                             <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                <img class="img-fluid w-100" src="/img/product-1.jpg" alt="" />
+                                <img class="img-fluid w-100" src="~/@item.CageImg" alt="" />
                             </div>
                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                 <h6 class="text-truncate mb-3">@item.CageName</h6>
