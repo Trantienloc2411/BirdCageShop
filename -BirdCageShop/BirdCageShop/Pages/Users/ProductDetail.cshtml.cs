@@ -11,15 +11,18 @@ namespace BirdCageShop.Pages.Users
     {
         private readonly IProductRepository _proRepo;
         private readonly IUserRepository _userRepo;
+        private readonly IFeedbackRepository _feedbackRepo;
         public ProductDetailModel()
         {
             _proRepo = new ProductRepository();
             _userRepo = new UserRepository();
+            _feedbackRepo = new FeedbackRepository();
         }
         public static int productID { get; set; }
         public Product product { get; set; }
         public Tuple<int, int> getFeedbackStatic { get; set; }
         public List<Product> getPopularList { get; set; }
+        public List<FeedbackItem> getFeedback { get; set; }
         public string ErrorMessage { get; set; }
         public IActionResult OnGet(int productId)
         {
@@ -30,6 +33,7 @@ namespace BirdCageShop.Pages.Users
                 product = _proRepo.GetProductById(productId);
                 getFeedbackStatic = _proRepo.getFeedback(productId);
                 getPopularList = _proRepo.getListProductTrendingForUser();
+                getFeedback = _feedbackRepo.getListFeedbackByProductID(productId);
                 if (product == null)
                 {
                     return RedirectToAction("../Error");
