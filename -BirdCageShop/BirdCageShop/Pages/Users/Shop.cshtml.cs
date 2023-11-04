@@ -65,6 +65,7 @@ namespace BirdCageShop.Pages.Users
                     else
                     {
                         pagedProducts = _proRepos.getProductPagesForUser(p, s);
+                        
                     }
                     totalProduct = Products.Count();
                 }
