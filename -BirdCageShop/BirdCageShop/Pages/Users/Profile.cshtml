@@ -188,7 +188,7 @@
                                 @if (item.OrderStatus == "Pending")
                                 {
                                     <td class="align-middle">Đang đợi</td>
-                                    <td><a class="btn btn-sm" style="background-color: #ff786f; color: white;" asp-page="" asp-page-handler="Update" asp-route-OrderID="@item.OrderId" onclick="return confirm('Bạn có chắc chắn muốn huỷ đơn hàng này không?');">Huỷ đơn hàng</a></td>
+                                    <td><a class="btn btn-sm" style="background-color: #ff786f; color: white;" asp-page="" asp-page-handler="Update" asp-route-OrderID="@item.OrderId">Huỷ đơn hàng</a></td>
                                 }
                                 else if (item.OrderStatus == "Delivering")
                                 {
