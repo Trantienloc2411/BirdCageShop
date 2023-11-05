@@ -22,5 +22,6 @@ namespace Repository
         public List<FeedbackItem> getListFeedbackByProductID(int productID) => _dao.getListFeedbackByProductID(productID);
         public List<FeedbackItem> getListFeedbackByAccessoryID(int productID) => _dao.getListFeedbackByAccessoryID(productID);
 
+        public int giveFeedbackByUser(Feedback f) => _dao.sumbitFeedbackForProductByProductIDAndUserID(f);
     }
 }

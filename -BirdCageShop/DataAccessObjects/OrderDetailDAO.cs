@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessObjects
 {
@@ -30,7 +31,7 @@ namespace DataAccessObjects
 
         public List<OrderDetail> getOrderDetailByOrderID(int orderID)
         {
-            return _db.OrderDetails.Where(o => o.OrderId == orderID).ToList();
+            return _db.OrderDetails.Include(p => p.Order).Include(a => a.Accessory).Where(o => o.OrderId == orderID).ToList();
         }
         public int getQuantityProductByOrderID(int orderID)
         {

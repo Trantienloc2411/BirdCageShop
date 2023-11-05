@@ -27,5 +27,7 @@ namespace Repository
         public List<Order> orderListIncludeOrderDetail(int userID) => _dao.orderListIncludeOrderDetail(userID);
         
         public int AddReturnOrderID(Order order)  => _dao.AddReturnOrderID(order);
+
+        public Order getOrderByOrderID(int orderID) => _dao.getOrderByOrderID(orderID);
     }
 }

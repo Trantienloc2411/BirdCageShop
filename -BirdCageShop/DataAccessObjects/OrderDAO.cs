@@ -86,5 +86,10 @@ namespace DataAccessObjects
         {
             return _db.Orders.Include(o => o.OrderDetails).Where(o => o.UserId == userID).ToList();
         }
+
+        public Order getOrderByOrderID(int orderID)
+        {
+            return _db.Orders.FirstOrDefault(o => o.OrderId == orderID);
+        }
     }
 }

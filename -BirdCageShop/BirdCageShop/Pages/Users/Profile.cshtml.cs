@@ -153,6 +153,31 @@ namespace BirdCageShop.Pages.Users
             }
 
         }
+
+        //public IActionResult OnPostView(int OrderID)
+        //{
+        //    return RedirectToPage("./Feedback");
+        //}
+
+        public IActionResult OnPostUpdate(int OrderID)
+        {
+            var order = _orderRepo.getOrderByOrderID(OrderID);
+            if(order != null)
+            {
+                order.OrderStatus = "Canceling";
+                _orderRepo.Update(order);
+                TempData["successMessage"] = "Huỷ đơn hàng thành công! Hãy chờ thông tin từ của hàng";
+                OnGet();
+                return Page();
+            }
+            else
+            {
+                TempData["errorMessage"] = "Huỷ đơn hàng không thành công!";
+                OnGet();
+                return Page();
+            }
+            
+        }
         public int countProductInOrder(int orderID)
         {
             return _orderDetailRepo.getQuantityProductByOrderID(orderID);
@@ -169,5 +194,7 @@ namespace BirdCageShop.Pages.Users
         {
             return productRepository.getDetailAccessoryByID(accessoryID);
         }
+
+
     }
 }

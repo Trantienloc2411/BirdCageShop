@@ -26,11 +26,12 @@
                     <option value="Pending">Pending</option>
                     <option value="Delivering">Delivering</option>
                     <option value="Delivered">Delivered</option>
+                    <option value="Rejected">Rejected</option>
                 </select>
                 <span asp-validation-for="Order.OrderStatus" class="text-danger"></span>
             </div>
 
-            @* <div class="form-group">
+            @* <div class="form-group"> 
                 <label asp-for="Order.OrderPrice" class="control-label"></label>
                 <input asp-for="Order.OrderPrice" class="form-control" readonly />
                 <span asp-validation-for="Order.OrderPrice" class="text-danger"></span>

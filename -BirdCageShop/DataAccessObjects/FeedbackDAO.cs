@@ -57,14 +57,15 @@ namespace DataAccessObjects
 
         public List<FeedbackItem> getListFeedbackByProductID(int productID)
         {
-            
-            var result = from f in _db.Feedbacks
-                         join o in _db.Orders on f.OrderId equals o.OrderId
-                         join u in _db.Users on f.UserId equals u.UserId
-                         join od in _db.OrderDetails on o.OrderId equals od.OrderId
-                         join p in _db.Products on od.CageId equals p.CageId
-                         where p.CageId == productID
-                         select new FeedbackItem { UserName = u.UserName, FeedbackName = f.FeedBackName, FeedbackContent =  f.FeedBackContent, rating = (double)f.Rating, UserIMG = u.UserImg };
+
+            var result = (from od in _db.OrderDetails
+                          join p in _db.Products on od.CageId equals p.CageId
+                          join o in _db.Orders on od.OrderId equals o.OrderId
+                          join f in _db.Feedbacks on o.OrderId equals f.OrderId
+                          join u in _db.Users on f.UserId equals u.UserId
+                          where p.CageId == productID
+                          select new FeedbackItem { UserName = u.UserName, FeedbackName = f.FeedBackName, FeedbackContent = f.FeedBackContent, rating = (double)f.Rating , UserIMG = u.UserImg }).ToList();
+
             return result.ToList();
         }
         public List<FeedbackItem> getListFeedbackByAccessoryID(int productID)
@@ -78,5 +79,14 @@ namespace DataAccessObjects
                          select new FeedbackItem { UserName = u.UserName, FeedbackName = f.FeedBackName, FeedbackContent = f.FeedBackContent, rating = (double)f.Rating, UserIMG = u.UserImg };
             return result.ToList();
         }
+
+        public int sumbitFeedbackForProductByProductIDAndUserID(Feedback fb)
+        {
+            _db.Feedbacks.Add(fb);
+            return _db.SaveChanges();
+        }
+       
+
+        //int giveFeedbackByUser(FeedbackItem item, int productID, int type)
     }
 }
