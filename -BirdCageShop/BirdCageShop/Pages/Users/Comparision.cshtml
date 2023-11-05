@@ -30,30 +30,38 @@
                     </thead>
                     <tbody class="align-middle">
                         <!-- Sample product data for comparison -->
-                        <tr>
-                            <td class="align-middle">@Model.comparePro[0].CageName</td>
-                            <td class="align-middle">@Model.comparePro[1].CageName</td>
-                        </tr>
-                        <tr>
-                            <td class="align-middle">@Model.comparePro[0].Price</td>
-                            <td class="align-middle">@Model.comparePro[1].Price</td>
-                        </tr>
-                        <tr>
-                            <td class="align-middle">@Model.comparePro[0].Size</td>
-                            <td class="align-middle">@Model.comparePro[1].Size</td>
-                        </tr>
-                        <tr>
-                            <td class="align-middle">@Model.comparePro[0].Material</td>
-                            <td class="align-middle">@Model.comparePro[1].Material</td>
-                        </tr>
-                        <tr>
-                            <td class="align-middle">
-                                @Model.comparePro[0].Description
-                            </td>
-                            <td class="align-middle">
-                                @Model.comparePro[1].Description
-                            </td>
-                        </tr>
+                        @if(Model.comparePro.Count == 0)
+                        {
+                            <div>EMPTY. You should add 2 products to see the result</div>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td class="align-middle">@Model.comparePro[0].CageName</td>
+                                <td class="align-middle">@Model.comparePro[1].CageName</td>
+                            </tr>
+                            <tr>
+                                <td class="align-middle">@Model.comparePro[0].Price</td>
+                                <td class="align-middle">@Model.comparePro[1].Price</td>
+                            </tr>
+                            <tr>
+                                <td class="align-middle">@Model.comparePro[0].Size</td>
+                                <td class="align-middle">@Model.comparePro[1].Size</td>
+                            </tr>
+                            <tr>
+                                <td class="align-middle">@Model.comparePro[0].Material</td>
+                                <td class="align-middle">@Model.comparePro[1].Material</td>
+                            </tr>
+                            <tr>
+                                <td class="align-middle">
+                                    @Model.comparePro[0].Description
+                                </td>
+                                <td class="align-middle">
+                                    @Model.comparePro[1].Description
+                                </td>
+                            </tr>
+                        }
+                        
                     </tbody>
                 </table>
             </div>
