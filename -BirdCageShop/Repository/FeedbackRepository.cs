@@ -21,7 +21,8 @@ namespace Repository
         public List<User> GetUsers() => _dao.GetUsers();
         public List<FeedbackItem> getListFeedbackByProductID(int productID) => _dao.getListFeedbackByProductID(productID);
         public List<FeedbackItem> getListFeedbackByAccessoryID(int productID) => _dao.getListFeedbackByAccessoryID(productID);
-
         public int giveFeedbackByUser(Feedback f) => _dao.sumbitFeedbackForProductByProductIDAndUserID(f);
+        public bool isFeedbackExistedByOrderID(int orderID) => _dao.isFeedbackExistedByOrderID(orderID);
+        public Feedback GetFeedbackByOrderID(int OrderID) => _dao.GetFeedbackByOrderID(OrderID);
     }
 }

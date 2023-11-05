@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{handler?}/{id?}"
 @model BirdCageShop.Pages.Users.FeedbackModel
 @{
     ViewData["Title"] = "Phản hồi đơn hàng";
@@ -56,6 +56,18 @@
     </style>
 </head>
 <body>
+    @{
+        var errorMessage = TempData["errorMessage"] as string;
+        var successMessage = TempData["successMessage"] as string;
+    }
+    <div class="alert alert-danger" style="@(string.IsNullOrEmpty(errorMessage) ? "display: none;" : "")">
+        @errorMessage
+    </div>
+
+    <!-- Hiển thị thông báo thành công -->
+    <div class="alert alert-success" style="@(string.IsNullOrEmpty(successMessage) ? "display: none;" : "")">
+        @successMessage
+    </div>
     <div class="container-fluid bg-secondary mb-5">
         <div class="d-flex flex-column align-items-center justify-content-center"
              style="min-height: 300px;">
@@ -72,28 +84,28 @@
     <div class="container" style="display: flex; max-width: fit-content">
         <div style="flex: 1; margin-right: 20px">
             <h2>Biểu mẫu phản hồi đơn hàng</h2>
-            <div class="feedback-form">
-
+            <form method="post" asp class="feedback-form">
                 <label for="feedbackContent">Tiêu đề phản hồi</label>
-                <textarea id="feedbackContent" placeholder="Tóm tắt phản hồi"></textarea>
+                <textarea id="feedbackContent" placeholder="Tóm tắt phản hồi" asp-for="feedback.FeedBackName"></textarea>
                 <label for="feedbackContent">Nội dung phản hồi:</label>
-                <textarea id="feedbackContent" placeholder="Bạn làm rõ giúp mình nhé"></textarea>
+                <textarea id="feedbackContent" placeholder="Bạn làm rõ giúp mình nhé" asp-for="feedback.FeedBackContent"></textarea>
                 <label for="rating">Đánh giá (1-5):</label>
                 <input type="number"
                        id="rating"
                        min="1"
                        max="5"
                        step="1"
-                       placeholder="Đánh giá của bạn" />
-                <button onclick="submitFeedback()">Gửi phản hồi</button>
-            </div>
+                       placeholder="Đánh giá của bạn" asp-for="feedback.Rating" />
+                <input asp-for="@Model.feedback.OrderId" type="hidden" />
+                <button type="submit" onclick="submitFeedback()">Gửi phản hồi</button>
+            </form>
         </div>
         <div style="flex: 1; margin-left: 60px">
             <div style="display: inline">
                 <h2>Chi tiết đơn hàng</h2>
-                <h4>Mã đơn: @Model.fb.OrderId</h4>
+                <h4>Mã đơn: @Model.OrderID</h4>
             </div>
-            
+
             <table class="feedback-table">
                 <thead>
                     <tr>
@@ -105,11 +117,11 @@
                 </thead>
                 <tbody id="feedbackList">
                     <!-- Các mục phản hồi sẽ được thêm động vào đây -->
-                    @foreach(var item in Model.orders)
+                    @foreach (var item in Model.orders)
                     {
                         var total = item.DetailPrice * item.DetailQuantity;
-                        if(item.CageId != null)
-                         {
+                        if (item.CageId != null)
+                        {
                             <tr>
                                 <td>@Model.getProductNameByProductID((int)item.CageId).CageName </td>
                                 <td>@item.DetailQuantity</td>
@@ -117,10 +129,10 @@
                                 <td>@total</td>
                             </tr>
                         }
-                        else if(item.AccessoryId != null)
+                        else if (item.AccessoryId != null)
                         {
                             <tr>
-                                <td>@Model.getAccessoryNameByAccessoryID((int) item.AccessoryId).AccessoryName</td>
+                                <td>@Model.getAccessoryNameByAccessoryID((int)item.AccessoryId).AccessoryName</td>
                                 <td>@item.DetailQuantity</td>
                                 <td>@item.DetailPrice</td>
                                 <td>@total</td>
@@ -129,7 +141,7 @@
 
                     }
                     <tr style="background-color:#d19c97 ; color: white">
-                        <td style="font-style: oblique     ">Tổng đơn hàng</td>
+                        <td style="font-style: oblique">Tổng đơn hàng</td>
                         <td></td>
                         <td></td>
                         <td>@Model.OrderPrice</td>

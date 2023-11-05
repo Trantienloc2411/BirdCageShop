@@ -14,7 +14,7 @@ namespace BirdCageShop.Pages.Users
         private IProductRepository productRepository;
         public List<OrderDetail> GetOrderDetails { get; set; }
         public List<Order> order { get; set; }
-
+        public Feedback fb;
 
 
         public int countOrderDetail { get; set; }
@@ -41,6 +41,7 @@ namespace BirdCageShop.Pages.Users
             _orderRepo = new OrderRepository();
             _orderDetailRepo = new OrderDetailRepository();
             productRepository = new ProductRepository();
+            fb = new Feedback();
         }
         public IActionResult OnGet()
         {
@@ -154,12 +155,12 @@ namespace BirdCageShop.Pages.Users
 
         }
 
-        //public IActionResult OnPostView(int OrderID)
-        //{
-        //    return RedirectToPage("./Feedback");
-        //}
-
-        public IActionResult OnPostUpdate(int OrderID)
+        ///TODO: This function can not pass from View to CodeBEHinde
+        /// <summary>
+        /// Update Order When user cancel the Order 
+        /// </summary>
+        /// <param name="OrderID"></param>
+        public void OnPostUpdate(int OrderID)
         {
             var order = _orderRepo.getOrderByOrderID(OrderID);
             if(order != null)
@@ -168,13 +169,13 @@ namespace BirdCageShop.Pages.Users
                 _orderRepo.Update(order);
                 TempData["successMessage"] = "Huỷ đơn hàng thành công! Hãy chờ thông tin từ của hàng";
                 OnGet();
-                return Page();
+                RedirectToPage("../Index");
             }
             else
             {
                 TempData["errorMessage"] = "Huỷ đơn hàng không thành công!";
                 OnGet();
-                return Page();
+                Page();
             }
             
         }

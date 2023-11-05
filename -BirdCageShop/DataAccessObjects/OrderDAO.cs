@@ -84,12 +84,17 @@ namespace DataAccessObjects
         }
         public List<Order> orderListIncludeOrderDetail(int userID)
         {
-            return _db.Orders.Include(o => o.OrderDetails).Where(o => o.UserId == userID).ToList();
+            return _db.Orders.Include(o => o.OrderDetails).Where(o => o.UserId == userID && o.OrderStatus != "Cart").ToList();
         }
 
         public Order getOrderByOrderID(int orderID)
         {
             return _db.Orders.FirstOrDefault(o => o.OrderId == orderID);
         }
+
+        //public Tuple<Product,Product> comparisionProduct(Product prod1, Product prd2)
+        //{
+
+        //}
     }
 }

@@ -85,8 +85,17 @@ namespace DataAccessObjects
             _db.Feedbacks.Add(fb);
             return _db.SaveChanges();
         }
-       
-
+        public bool isFeedbackExistedByOrderID(int orderID)
+        {
+            var order = _db.Feedbacks.First(f => f.OrderId == orderID);
+            if (order == null) return false;
+            else return true;
+        }
+        public Feedback GetFeedbackByOrderID(int OrderID)
+        {
+            return _db.Feedbacks.FirstOrDefault(p => p.OrderId == OrderID);
+        }
+        
         //int giveFeedbackByUser(FeedbackItem item, int productID, int type)
     }
 }
