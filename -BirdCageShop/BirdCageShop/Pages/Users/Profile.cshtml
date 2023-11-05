@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{handler?}/{id?}"
 @model BirdCageShop.Pages.Users.ProfileModel;
 @using Newtonsoft.Json.Linq;
 @{
@@ -48,6 +48,7 @@
     </style>
 </head>
 <body>
+
     <!-- Page Header Start -->
     <div class="container-fluid bg-secondary mb-5">
         <div class="d-flex flex-column align-items-center justify-content-center"
@@ -163,6 +164,7 @@
                             <th style="width: 30%;">Số lượng sản phẩm trong đơn hàng</th>
                             <th>Tổng cộng</th>
                             <th>Trạng thái</th>
+                            <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody class="align-middle">
@@ -181,11 +183,12 @@
                                 @{
                                     Model.countOrderDetail = Model.countProductInOrder(item.OrderId);
                                 }
-                                <td class="align-middle">@Model.countOrderDetail</td>
+                                <td class="align-middle">@Model.countOrderDetail sản phẩm</td>
                                 <td class="align-middle">@item.OrderPrice</td>
                                 @if (item.OrderStatus == "Pending")
                                 {
                                     <td class="align-middle">Đang đợi</td>
+                                    <td><a class="btn btn-sm" style="background-color: #ff786f; color: white;" asp-page="" asp-page-handler="Update" asp-route-OrderID="@item.OrderId" onclick="return confirm('Bạn có chắc chắn muốn huỷ đơn hàng này không?');">Huỷ đơn hàng</a></td>
                                 }
                                 else if (item.OrderStatus == "Delivering")
                                 {
@@ -194,7 +197,24 @@
                                 else if (item.OrderStatus == "Delivered")
                                 {
                                     <td class="align-middle">Đã giao hàng</td>
+                                    <td>
+                                        <a asp-page="../Users/Feedback" asp-route-orderID="@item.OrderId" class="btn btn-sm" style="background-color: #d19c97; color: white;">Đánh giá</a>
+
+                                    </td>
                                 }
+                                else if (item.OrderStatus == "Canceling")
+                                {
+                                    
+                                    <td class="align-middle">Đang huỷ đơn</td>
+                                }
+                                else if (item.OrderStatus == "Rejected")
+                                {
+                                    <td class="align-middle">Đơn đã bị huỷ</td>
+                                }
+
+
+                                
+                                
                             </tr>
                         }
                     </tbody>
@@ -225,43 +245,24 @@
                 </div>
                 <div class="modal-body" id="orderDetailBody">
                     <!-- Order detail will be displayed here -->
+                    
                 </div>
             </div>
         </div>
     </div>
-    <!-- Profile Page End -->
-    <a href="#" class="btn btn-primary back-to-top">
-        <i class="fa fa-angle-double-up"></i>
-    </a>
 
     <script>
-        // // Sample order detail data
-        // const orderDetails = {
-
-        //     "12345": {
-        //         cageId: "Cage123",
-        //         detailPrice: "$120",
-        //         detailQuantity: {
-        //             "Product 1": 1,
-        //             "Product 2": 2,
-        //         },
-        //     },
-        //     "67890": {
-        //         cageId: "Cage456",
-        //         detailPrice: "$70",
-        //         detailQuantity: {
-        //             "Product 3": 3,
-        //             "Product 4": 1,
-        //         },
-        //     },
-        // };
         const orderDetails = {
         @foreach (var o in Model.order)
         {
+            
+            
+            
             @: "@o.OrderId": {
             @:cageId: "@o.OrderId",
             @:nameOrder: "@o.OrderName",
-            @:addressOrder: "@o.OrderStatus",
+            @:addressOrder: "@o.OrderAdress",
+            @:statusOrder: "@o.OrderStatus",
             @:detailPrice: "@o.OrderPrice",
             @:detailQuantity: {
             @foreach (var product in o.OrderDetails)
@@ -291,23 +292,25 @@
 
                 if (orderDetail) {
                     const orderDetailHTML = `
-                                      <p><strong>Mã đơn hàng: </strong> ${orderDetail.cageId}</p>
-                                      <p><strong>Tên người đặt đơn:  </strong> ${orderDetail.nameOrder}</p>
-                                      <p><strong>Địa chỉ giao hàng: </strong> ${orderDetail.addressOrder}</p>
-                                      <p><strong>Tổng giá trị đơn hàng: </strong> ${orderDetail.detailPrice}</p>
-                                      <p><strong>Chi tiết đơn hàng: </strong></p>
-                                      <ul>
-                                        ${Object.entries(orderDetail.detailQuantity)
+                <p><strong>Mã đơn hàng: </strong> ${orderDetail.cageId}</p>
+                <p><strong>Tên người đặt đơn:  </strong> ${orderDetail.nameOrder}</p>
+                <p><strong>Địa chỉ giao hàng: </strong> ${orderDetail.addressOrder}</p>
+                <p><strong>Trạng thái đơn hàng: </strong> ${orderDetail.statusOrder} </p >
+                <p><strong>Tổng giá trị đơn hàng: </strong> ${orderDetail.detailPrice}</p>
+                <p><strong>Chi tiết đơn hàng: </strong></p>
+                <ul>
+                    ${Object.entries(orderDetail.detailQuantity)
                             .map(
                                 ([product, quantity]) => `<li>${product} - ${quantity}</li>`
                             )
                             .join("")}
-                                      </ul>
-                                    `;
+                </ul>
+            `;
                     orderDetailBody.innerHTML = orderDetailHTML;
                 } else {
                     orderDetailBody.innerHTML = "Order detail not found.";
                 }
+
             });
         });
     </script>
