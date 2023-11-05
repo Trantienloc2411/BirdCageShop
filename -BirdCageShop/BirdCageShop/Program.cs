@@ -23,6 +23,7 @@ namespace BirdCageShop
             builder.Services.AddScoped<IFeedbackRepository, FeedbackRepository>();
             builder.Services.AddScoped<IUploadService, LocalFileUploadService>();
             builder.Services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
+            builder.Services.AddScoped<IAccessoryRepository, AccessoryRepository>();
 
             builder.Services.AddScoped<UserDAO>();
             builder.Services.AddScoped<ProductDAO>();
@@ -32,6 +33,7 @@ namespace BirdCageShop
             builder.Services.AddScoped<RevenueDAO>();
             builder.Services.AddScoped<FeedbackDAO>();
             builder.Services.AddScoped<OrderDetailDAO>();
+            builder.Services.AddScoped<AccessoryDAO>();
 
             var app = builder.Build();
 

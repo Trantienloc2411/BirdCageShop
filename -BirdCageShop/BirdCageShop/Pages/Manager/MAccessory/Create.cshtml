@@ -1,0 +1,143 @@
+﻿@page
+@model BirdCageShop.Pages.Manager.MAccessory.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "_ManagerLayout";
+}
+
+<h1>Create</h1>
+
+<h4>Product</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Accessory.AccessoryName" class="control-label"></label>
+                        <input asp-for="Accessory.AccessoryName" class="form-control" />
+                        <span asp-validation-for="Accessory.AccessoryName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Accessory.AccessoryPrice" class="control-label"></label>
+                        <input asp-for="Accessory.AccessoryPrice" class="form-control" />
+                        <span asp-validation-for="Accessory.AccessoryPrice" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Accessory.AccessoryDescription" class="control-label"></label>
+                        <input asp-for="Accessory.AccessoryDescription" class="form-control" />
+                        <span asp-validation-for="Accessory.AccessoryDescription" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Accessory.AccessoryQuantity" class="control-label"></label>
+                        <input asp-for="Accessory.AccessoryQuantity" class="form-control" />
+                        <span asp-validation-for="Accessory.AccessoryQuantity" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Accessory.AccessoryStatus" class="control-label"></label>
+                        <input asp-for="Accessory.AccessoryStatus" class="form-control" />
+                        <span asp-validation-for="Accessory.AccessoryStatus" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Accessory.CategoryId" class="control-label"></label>
+                        <select asp-for="Accessory.CategoryId" class="form-control" asp-items="@((SelectList)TempData["CategoryId"])"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Accessory.DiscountId" class="control-label"></label>
+                        <select asp-for="Accessory.DiscountId" class="form-control" asp-items="@((SelectList)TempData["DiscountId"])"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Accessory.AccessoryImg" class="control-label"></label>
+                        <input name="AccessoryImg" type="file" class="form-control" />
+                        <span asp-validation-for="Accessory.AccessoryImg" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary btn-lg" />
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-3">
+    <a asp-page="Index" class="btn btn-secondary">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+
+
+
+
+
+
+@* <h1>Create</h1>
+
+<h4>Accessory</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" >
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Accessory.AccessoryName" class="control-label"></label>
+                <input asp-for="Accessory.AccessoryName" class="form-control" />
+                <span asp-validation-for="Accessory.AccessoryName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Accessory.AccessoryPrice" class="control-label"></label>
+                <input asp-for="Accessory.AccessoryPrice" class="form-control" />
+                <span asp-validation-for="Accessory.AccessoryPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Accessory.AccessoryDescription" class="control-label"></label>
+                <input asp-for="Accessory.AccessoryDescription" class="form-control" />
+                <span asp-validation-for="Accessory.AccessoryDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Accessory.AccessoryQuantity" class="control-label"></label>
+                <input asp-for="Accessory.AccessoryQuantity" class="form-control" />
+                <span asp-validation-for="Accessory.AccessoryQuantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Accessory.AccessoryStatus" class="control-label"></label>
+                <input asp-for="Accessory.AccessoryStatus" class="form-control" />
+                <span asp-validation-for="Accessory.AccessoryStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Accessory.CategoryId" class="control-label"></label>
+                <select asp-for="Accessory.CategoryId" class ="form-control" asp-items="ViewBag.CategoryId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Accessory.DiscountId" class="control-label"></label>
+                <select asp-for="Accessory.DiscountId" class ="form-control" asp-items="ViewBag.DiscountId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Accessory.AccessoryImg" class="control-label"></label>
+                <input asp-for="Accessory.AccessoryImg" class="form-control" />
+                <span asp-validation-for="Accessory.AccessoryImg" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+ *@
