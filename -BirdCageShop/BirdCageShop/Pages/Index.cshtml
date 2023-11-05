@@ -84,9 +84,11 @@
                         <div class="collapse navbar-collapse justify-content-between"
                              id="navbarCollapse">
                             <div class="navbar-nav mr-auto py-0">
-                                <a asp-page="../Index" class="nav-item nav-link active">Trang chủ</a>
-                                <a asp-page="Users/Shop" class="nav-item nav-link">Cửa hàng</a>
-                                <a asp-page="Users/Accessory" class="nav-item nav-link">Phụ kiện</a>
+                                <a style="padding-right: 70px;" asp-page="../Index" class="nav-item nav-link active">Trang chủ</a>
+                                <a style="padding-right: 70px;" asp-page="Users/Shop" class="nav-item nav-link">Cửa hàng</a>
+                                <a style="padding-right: 70px" class="nav-item nav-link active" asp-page="Users/Accessory">Phụ kiện</a>
+                                <a style="padding-right: 70px" class="nav-item nav-link active" asp-page="Users/Comparision">So sánh</a>
+                                <a style="padding-right: 70px" class="nav-item nav-link active" asp-page="Users/Comparision">Tạo lồng</a>
                             </div>
                             <div class="navbar-nav ml-auto py-0">
                                 <a asp-page="Login/Index" class="nav-item nav-link">Đăng nhập</a>
@@ -141,9 +143,11 @@
                         <div class="collapse navbar-collapse justify-content-between"
                              id="navbarCollapse">
                             <div class="navbar-nav mr-auto py-0">
-                                <a style="padding-right: 150px;" asp-page="../Index" class="nav-item nav-link active">Trang chủ</a>
-                                <a style="padding-right: 150px;" asp-page="Users/Shop" class="nav-item nav-link">Cửa hàng</a>
-                                <a class="nav-item nav-link" asp-page="Users/Accessory">Phụ kiện</a>
+                                <a style="padding-right: 30px;" asp-page="../Index" class="nav-item nav-link active">Trang chủ</a>
+                                <a style="padding-right: 30px;" asp-page="Users/Shop" class="nav-item nav-link">Cửa hàng</a>
+                                <a style="padding-right: 30px" class="nav-item nav-link active" asp-page="Users/Accessory">Phụ kiện</a>
+                                <a style="padding-right: 30px" class="nav-item nav-link active" asp-page="Users/Comparision">So sánh</a>
+                                <a style="padding-right: 30px" class="nav-item nav-link active" asp-page="Users/Comparision">Tạo lồng</a>
                             </div>
                             <div class="navbar-nav ml-auto py-0">
                                 <a asp-page="Users/Profile" asp-page-UserEmail="@HttpContext.Session.GetString("userEmail")" class="nav-item nav-link">Xin chào, @HttpContext.Session.GetString("userName") </a>

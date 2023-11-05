@@ -24,5 +24,6 @@ namespace Repository
         int getTotalAccessoryPages();
         List<Accessory> GetAccessoryByName(string name);
         Tuple<int, int> getRatingAccessory(int accessoryID);
+        List<Product> comparisionProduct(int prod1, int prod2);
     }
 }

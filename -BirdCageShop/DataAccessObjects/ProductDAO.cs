@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing.Printing;
 using System.Security.Cryptography.X509Certificates;
@@ -8,7 +9,7 @@ namespace DataAccessObjects
     public class ProductDAO
     {
         private readonly CageShopUni_alaContext _db;
-
+        private List<Product> _products;
         public ProductDAO()
         {
             _db = new CageShopUni_alaContext();
@@ -293,6 +294,33 @@ namespace DataAccessObjects
 
           
         }
+
+
+
+        public List<Product> comparisionProduct(int prod1, int prod2)
+        {
+            if (_products == null)
+            {
+                _products = new List<Product>();
+            }
+
+            var product1 = _db.Products.FirstOrDefault(p => p.CageId == prod1);
+            var product2 = _db.Products.FirstOrDefault(p => p.CageId == prod2);
+
+            if (product1 != null && product2 != null)
+            {
+                List<Product> list = new List<Product>();
+                list.Add(product1);
+                list.Add(product2);
+                return list;
+            }
+            else
+            {
+                return new List<Product>();
+            }
+        }
+
+
 
 
     }

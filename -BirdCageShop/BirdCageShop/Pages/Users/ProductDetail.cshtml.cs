@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.CodeAnalysis;
@@ -12,12 +13,15 @@ namespace BirdCageShop.Pages.Users
         private readonly IProductRepository _proRepo;
         private readonly IUserRepository _userRepo;
         private readonly IFeedbackRepository _feedbackRepo;
+        private readonly ICartRepository _cartRepo;
         public ProductDetailModel()
         {
             _proRepo = new ProductRepository();
             _userRepo = new UserRepository();
             _feedbackRepo = new FeedbackRepository();
+            _cartRepo = new CartRepository();
         }
+        public int Id { get; set; }
         public static int productID { get; set; }
         public Product product { get; set; }
         public Tuple<int, int> getFeedbackStatic { get; set; }
@@ -51,7 +55,7 @@ namespace BirdCageShop.Pages.Users
             }
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAddAsync()
         {
             try
             {
@@ -63,7 +67,7 @@ namespace BirdCageShop.Pages.Users
                 else
                 {
                     int userID = (int)HttpContext.Session.GetInt32("userID");
-                    int result = _userRepo.AddProductToCart(userID, productID, 1);
+                    int result = _cartRepo.addProductToCart(productID,1,0);
                     if (result == 0)
                     {
                         TempData["errorMessage"] = "Có vẻ điều gì đó đã xảy ra. Không thể thêm vào giỏ hàng";
@@ -83,6 +87,28 @@ namespace BirdCageShop.Pages.Users
             }
 
         }
+        public async Task<IActionResult> OnPostCompareAsync()
+        {
+            if(productID != 0)
+            {
+                if(HttpContext.Session.GetInt32("pID1") == null)
+                {
+                    HttpContext.Session.SetInt32("pID1", productID);
+                    OnGet(productID);
+                    return Page();
+                }
+                else if(HttpContext.Session.GetInt32("pID2") == null)
+                {
+                    HttpContext.Session.SetInt32("pID2", productID);
+                    OnGet(productID);
+                    return Page();
+                }
+                else return RedirectToPage();
+            }
+            return RedirectToPage();
+        }
+
+        
         
     }
 }
