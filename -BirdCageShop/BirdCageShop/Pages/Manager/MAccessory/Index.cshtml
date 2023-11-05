@@ -1,0 +1,256 @@
+﻿@page
+@model BirdCageShop.Pages.Manager.MAccessory.IndexModel
+@addTagHelper *, LazZiya.TagHelpers
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_ManagerLayout";
+}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Accessory List</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="~/table-07/css/style.css">
+</head>
+
+<body>
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <h1 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: pink; text-align: center; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px;">Accessory List</h1>
+        </div>
+    </div>
+    <style>
+        .search-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            width: 500px; /* Set the desired width */
+            padding: 8px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            margin-right: 8px;
+        }
+
+        .search-button {
+            padding: 8px 12px;
+            background-color: pink;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+            .search-button:hover {
+                background-color: #45a049;
+            }
+    </style>
+
+    <div class="ml-auto search-container">
+        <form method="post">
+            <input class="search-input" name="SearchString" placeholder="Search ..." />
+            <button asp-page-handler="search" type="submit" class="search-button">Search</button>
+        </form>
+    </div>
+    <section style="padding: 1cm 0">
+        <p style="text-align: left; margin-top: 20px;">
+            <a asp-page="Create" style="text-decoration: none; background-color: darkgray; color: #ffffff; padding: 12px 24px; border-radius: 6px; font-weight: bold; transition: background-color 0.3s;">Create a accessory</a>
+        </p>
+        <div class="row">
+            <div class="col-md-30">
+
+                <table class="table table-bordered table-gray table-hover">
+                    <thead>
+                        <tr>
+                            <th style="color: pink; border: solid gainsboro">
+                                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryName)
+                            </th>
+                            <th style="color: pink; border: solid gainsboro">
+                                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryPrice)
+                            </th>
+                            <th style="color: pink; border: solid gainsboro">
+                                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryDescription)
+                            </th>
+                            <th style="color: pink; border: solid gainsboro">
+                                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryQuantity)
+                            </th>
+                            <th style="color: pink; border: solid gainsboro">
+                                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryStatus)
+                            </th>
+                            <th style="color: pink; border: solid gainsboro">
+                                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryImg)
+                            </th>
+                            <th style="color: pink; border: solid gainsboro">
+                                @Html.DisplayNameFor(model => model.Accessory[0].Category)
+                            </th>
+                            <th style="color: pink; border: solid gainsboro">
+                                @Html.DisplayNameFor(model => model.Accessory[0].Discount)
+                            </th>
+                            <th style="color: pink; border: solid gainsboro">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Accessory)
+                        {
+                            <tr>
+                                <td style="border: solid gainsboro">
+                                    @Html.DisplayFor(modelItem => item.AccessoryName)
+                                </td>
+                                <td style="border: solid gainsboro">
+                                    @Html.DisplayFor(modelItem => item.AccessoryPrice)
+                                </td>
+                                <td style="border: solid gainsboro">
+                                    @Html.DisplayFor(modelItem => item.AccessoryDescription)
+                                </td>
+                                <td style="border: solid gainsboro">
+                                    @Html.DisplayFor(modelItem => item.AccessoryQuantity)
+                                </td>
+                                <td style="border: solid gainsboro">
+                                    @Html.DisplayFor(modelItem => item.AccessoryStatus)
+                                </td>
+                                <td style="border: solid gainsboro">
+                                    <img src="~/@item.AccessoryImg" alt="Accessory Image" style="max-width: 100px; max-height: 100px;" />
+                                </td>
+                                <td style="border: solid gainsboro">
+                                    @Html.DisplayFor(modelItem => item.Category.CategoryId)
+                                </td>
+                                <td style="border: solid gainsboro">
+                                    @Html.DisplayFor(modelItem => item.Discount.DiscountId)
+                                </td>
+                                <td style="border: solid gainsboro; padding: 10px;">
+
+                                    <style>
+                                        .action-buttons {
+                                            display: flex;
+                                            flex-direction: column;
+                                            gap: 10px;
+                                            margin-top: 10px;
+                                        }
+
+                                            .action-buttons a {
+                                                padding: 10px 15px;
+                                                background-color: pink;
+                                                color: white;
+                                                border: none;
+                                                border-radius: 5px;
+                                                cursor: pointer;
+                                                transition: background-color 0.3s;
+                                            }
+
+                                                .action-buttons a:hover {
+                                                    background-color: deeppink;
+                                                }
+                                    </style>
+
+                                    <div class="action-buttons">
+                                        <a asp-page="./Edit" asp-route-id="@item.AccessoryId">Edit</a>
+                                        <a asp-page="./Details" asp-route-id="@item.AccessoryId">Details</a>
+                                        <a asp-page="./Delete" asp-route-id="@item.AccessoryId">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <paging class="pagination" total-records="@Model.totalAccessory" show-total-pages="false" show-total-records="false" page-size="@Model.pageSize" page-no="@Model.pageNo"></paging>
+            </div>
+        </div>
+
+    </section>
+
+    <script src="~/table-07/js/jquery.min.js"></script>
+    <script src="~/table-07/js/popper.js"></script>
+    <script src="~/table-07/js/bootstrap.min.js"></script>
+    <script src="~/table-07/js/main.js"></script>
+
+</body>
+
+</html>
+
+
+
+
+
+@* <h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryQuantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryImg)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Accessory[0].Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Accessory[0].Discount)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Accessory) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccessoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccessoryPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccessoryDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccessoryQuantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccessoryStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccessoryImg)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Discount.DiscountId)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.AccessoryId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.AccessoryId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.AccessoryId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table> *@
