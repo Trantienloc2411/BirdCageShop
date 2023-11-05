@@ -51,5 +51,6 @@ namespace Repository
         List<Accessory> IProductRepository.GetAccessoryByName(string name) => _dao.GetAccessoryByName((string)name);
 
         public Tuple<int, int> getRatingAccessory(int accessoryID) => _dao.getRatingAccessory(accessoryID);
+        public List<Product> comparisionProduct(int prod1, int prod2) => _dao.comparisionProduct(prod1, prod2);
     }
 }
