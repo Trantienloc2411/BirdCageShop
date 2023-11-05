@@ -68,6 +68,10 @@
     <div class="alert alert-success" style="@(string.IsNullOrEmpty(successMessage) ? "display: none;" : "")">
         @successMessage
     </div>
+    @{
+        var orderID = Model.OrderID;
+        
+}
     <div class="container-fluid bg-secondary mb-5">
         <div class="d-flex flex-column align-items-center justify-content-center"
              style="min-height: 300px;">
@@ -96,7 +100,8 @@
                        max="5"
                        step="1"
                        placeholder="Đánh giá của bạn" asp-for="feedback.Rating" />
-                <input asp-for="@Model.feedback.OrderId" type="hidden" />
+                <input name="orderID" value="@orderID" type="hidden" />
+                
                 <button type="submit" onclick="submitFeedback()">Gửi phản hồi</button>
             </form>
         </div>

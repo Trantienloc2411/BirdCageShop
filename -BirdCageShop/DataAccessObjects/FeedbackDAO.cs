@@ -87,7 +87,7 @@ namespace DataAccessObjects
         }
         public bool isFeedbackExistedByOrderID(int orderID)
         {
-            var order = _db.Feedbacks.First(f => f.OrderId == orderID);
+            var order = _db.Feedbacks.FirstOrDefault(f => f.OrderId == orderID);
             if (order == null) return false;
             else return true;
         }

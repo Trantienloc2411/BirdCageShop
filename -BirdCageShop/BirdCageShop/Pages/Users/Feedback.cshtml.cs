@@ -11,7 +11,7 @@ namespace BirdCageShop.Pages.Users
         private readonly IOrderDetailRepository _odRepo;
         private readonly IOrderRepository _orderRepo;
         private readonly IProductRepository productRepository;
-        public int OrderID;
+        public int OrderID { get; set; }
         public Product product;
         public List<OrderDetail> orders;
         public decimal OrderPrice { get; set; }
@@ -37,21 +37,23 @@ namespace BirdCageShop.Pages.Users
             feedback.OrderId = orderID;
             feedback = _fbRepo.GetFeedbackByOrderID((int)feedback.OrderId);
         }
-        public void OnPost()
+        public void OnPost(int orderID)
         {
-            if(feedback.OrderId != null)
+            if(orderID != null)
             {
-                if (_fbRepo.isFeedbackExistedByOrderID((int)feedback.OrderId) == false)
+                if (_fbRepo.isFeedbackExistedByOrderID(orderID) == false)
                 {
+                    feedback.OrderId = orderID;
+                    feedback.UserId = (int)HttpContext.Session.GetInt32("userID");
                     _fbRepo.Add(feedback);
                     TempData["successMessage"] = "Phản hồi thành công! Cảm ơn bạn!";
-                    OnGet((int)feedback.OrderId);
+                    OnGet(orderID);
                     Page();
                 }
                 else
                 {
                     TempData["errorMessage"] = "Phản hồi thất bại! Không thể sửa phản hồi!";
-                    OnGet((int)feedback.OrderId);
+                    OnGet(orderID);
                     Page();
                 }
 
@@ -59,7 +61,7 @@ namespace BirdCageShop.Pages.Users
             else
             {
                 TempData["errorMessage"] = "Hành động thất bại";
-                OnGet((int)feedback.OrderId);
+                OnGet(orderID);
                 Page();
             }
 
