@@ -26,24 +26,25 @@ namespace BirdCageShop.Pages.Users.UOrder
         /// <summary>
         /// Load cart to order
         /// </summary>
-        public void OnGet()
+        public IActionResult OnGet()
         {
             int userID = HttpContext.Session.GetInt32("userID").GetValueOrDefault(-1);
             if (HttpContext.Session.Id == null)
             {
                 TempData["errorMessage"] = "Hãy xác thực để xem thông tin của mình nhé";
-                RedirectToPage("../Login/Index");
+                return RedirectToPage("../Login/Index");
             }
             user = _userRepo.GetUserById(userID);
             cartItems = _cartRepo.showCart();
             if(cartItems == null || cartItems.Count == 0)
             {
                 TempData["errorMessage"] = "Trong giỏ hàng của bạn đang trống! Hãy lấp đầy đi nào";
-                RedirectToPage("/Shop"); 
+                return RedirectToPage("../Index");
+                
             }
             else
             {
-                Page();
+                return Page();
             }
         }
 

@@ -67,7 +67,15 @@ namespace BirdCageShop.Pages.Users
                     UserName = user.UserName;
                     PasswordRepeat = user.UserPassword;
                     Address = user.Address;
-                    dob = (DateTime)user.DoB;
+                    if(user.DoB != null)
+                    {
+                        dob = (DateTime)user.DoB;
+                    }
+                    else
+                    {
+                        dob = DateTime.Now; 
+                    }
+
                     Phone = user.Phone;
 
                     
