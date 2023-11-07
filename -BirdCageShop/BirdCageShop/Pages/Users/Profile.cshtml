@@ -80,7 +80,7 @@
             <div class="col-lg-6 offset-lg-3">
                 <div class="profile-card">
                     <h2 class="text-center mb-4">Hồ sơ người dùng</h2>
-                    <form method="post">
+                    <form method="post" asp-page-handler="OnPost">
                         <div class="form-group">
                             <label for="fullname">Họ và tên</label>
                             <input type="text"
@@ -192,8 +192,11 @@
                                     {
                                         <td class="align-middle">Đang đợi</td>
                                         <td>
-                                            <a class="btn btn-sm" style="background-color: #ff786f; color: white;" asp-page=""
-                                               asp-page-handler="Update" asp-route-OrderID="@item.OrderId">Huỷ đơn hàng</a>
+                                            <form method="post" asp-page-handler="CancelTheOrder">
+                                                <button type="submit" class="btn btn-sm" asp-page-handler="CancelTheOrder" style="background-color: #ff786f; color: white;"
+                                                        asp-route-OrderID="@item.OrderId">Huỷ đơn hàng</button>
+                                            </form>
+
                                         </td>
                                     }
                                     else if (item.OrderStatus == "Delivering")
