@@ -15,7 +15,8 @@ namespace BirdCageShop.Pages.Users
         public List<OrderDetail> GetOrderDetails { get; set; }
         public List<Order> order { get; set; }
         public Feedback fb;
-
+        [BindProperty]
+        public int OrderID { get; set; }
 
         public int countOrderDetail { get; set; }
         public User user { get; set; }
@@ -102,7 +103,25 @@ namespace BirdCageShop.Pages.Users
             }
 
         }
+        public IActionResult OnPostCancelTheOrder(int OrderID)
+        {
+            var order = _orderRepo.getOrderByOrderID(OrderID);
+            if (order != null)
+            {
+                order.OrderStatus = "Canceling";
+                _orderRepo.Update(order);
+                TempData["successMessage"] = "Huỷ đơn hàng thành công! Hãy chờ thông tin từ của hàng";
+                OnGet();
+                return RedirectToPage("../Index");
+            }
+            else
+            {
+                TempData["errorMessage"] = "Huỷ đơn hàng không thành công!";
+                OnGet();
+                return Page();
+            }
 
+        }
         public IActionResult OnPost()
         {
             try
@@ -113,16 +132,20 @@ namespace BirdCageShop.Pages.Users
                 if (isEmailExisted)
                 {
                     TempData["errorMessage"] = "Email này đã tồn tại! Sử dụng email khác";
+                    OnGet();
                     return Page();
                 }
                 else if (Password.Length < 6 || Password == null)
                 {
                     TempData["errorMessage"] = "Mật khẩu yếu! Mật khẩu cần ít nhất 7 kí tự";
+                    OnGet();
                     return Page();
                 }
                 else if (Password != PasswordRepeat || PasswordRepeat == null)
+
                 {
                     TempData["errorMessage"] = "Mật khẩu và mật khẩu lặp lại không khớp! Thử lại";
+                    OnGet();
                     return Page();
                 }
                 else
@@ -168,25 +191,7 @@ namespace BirdCageShop.Pages.Users
         /// Update Order When user cancel the Order 
         /// </summary>
         /// <param name="OrderID"></param>
-        public void OnPostUpdate(int OrderID)
-        {
-            var order = _orderRepo.getOrderByOrderID(OrderID);
-            if(order != null)
-            {
-                order.OrderStatus = "Canceling";
-                _orderRepo.Update(order);
-                TempData["successMessage"] = "Huỷ đơn hàng thành công! Hãy chờ thông tin từ của hàng";
-                OnGet();
-                RedirectToPage("../Index");
-            }
-            else
-            {
-                TempData["errorMessage"] = "Huỷ đơn hàng không thành công!";
-                OnGet();
-                Page();
-            }
-            
-        }
+
         public int countProductInOrder(int orderID)
         {
             return _orderDetailRepo.getQuantityProductByOrderID(orderID);
