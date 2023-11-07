@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Home page";
     //Set new layout here
-    Layout = "_LayoutLogin";
+    Layout = "_Layout";
     
 }
 
@@ -16,6 +16,19 @@
 
 </head>
 <body>
+
+    @{
+        var errorMessage = TempData["errorMessage"] as string;
+        var successMessage = TempData["successMessage"] as string;
+    }
+    <div class="alert alert-danger" style="@(string.IsNullOrEmpty(errorMessage) ? "display: none;" : "")">
+        @errorMessage
+    </div>
+
+    <!-- Hiển thị thông báo thành công -->
+    <div class="alert alert-success" style="@(string.IsNullOrEmpty(successMessage) ? "display: none;" : "")">
+        @successMessage
+    </div>
     <!-- partial:index.partial.html -->
     <form autocomplete='off' class='form' method="post">
         <div class='control'>

@@ -169,54 +169,62 @@
                     </thead>
                     <tbody class="align-middle">
                         <!-- Dữ liệu mẫu lịch sử đơn hàng -->
-                        @foreach (var item in Model.order)
+                        
+                        @if(Model.order.Count != 0)
                         {
-                            <tr>
-                                <td class="align-middle">
-                                    <a href="#"
-                                       class="order-link"
-                                       data-toggle="modal"
-                                       data-target="#orderDetailModal"
-                                       data-order-id="@item.OrderId">@item.OrderId</a>
-                                </td>
-                                <td class="align-middle">@item.OrderDate</td>
-                                @{
-                                    Model.countOrderDetail = Model.countProductInOrder(item.OrderId);
-                                }
-                                <td class="align-middle">@Model.countOrderDetail sản phẩm</td>
-                                <td class="align-middle">@item.OrderPrice</td>
-                                @if (item.OrderStatus == "Pending")
-                                {
-                                    <td class="align-middle">Đang đợi</td>
-                                    <td><a class="btn btn-sm" style="background-color: #ff786f; color: white;" asp-page="" asp-page-handler="Update" asp-route-OrderID="@item.OrderId">Huỷ đơn hàng</a></td>
-                                }
-                                else if (item.OrderStatus == "Delivering")
-                                {
-                                    <td class="align-middle">Đang vận chuyển</td>
-                                }
-                                else if (item.OrderStatus == "Delivered")
-                                {
-                                    <td class="align-middle">Đã giao hàng</td>
-                                    <td>
-                                        <a asp-page="../Users/Feedback" asp-route-orderID="@item.OrderId" class="btn btn-sm" style="background-color: #d19c97; color: white;">Đánh giá</a>
-
+                            @foreach (var item in Model.order)
+                            {
+                                <tr>
+                                    <td class="align-middle">
+                                        <a href="#"
+                                           class="order-link"
+                                           data-toggle="modal"
+                                           data-target="#orderDetailModal"
+                                           data-order-id="@item.OrderId">@item.OrderId</a>
                                     </td>
-                                }
-                                else if (item.OrderStatus == "Canceling")
-                                {
-                                    
-                                    <td class="align-middle">Đang huỷ đơn</td>
-                                }
-                                else if (item.OrderStatus == "Rejected")
-                                {
-                                    <td class="align-middle">Đơn đã bị huỷ</td>
-                                }
+                                    <td class="align-middle">@item.OrderDate</td>
+                                    @{
+                                        Model.countOrderDetail = Model.countProductInOrder(item.OrderId);
+                                    }
+                                    <td class="align-middle">@Model.countOrderDetail sản phẩm</td>
+                                    <td class="align-middle">@item.OrderPrice</td>
+                                    @if (item.OrderStatus == "Pending")
+                                    {
+                                        <td class="align-middle">Đang đợi</td>
+                                        <td>
+                                            <a class="btn btn-sm" style="background-color: #ff786f; color: white;" asp-page=""
+                                               asp-page-handler="Update" asp-route-OrderID="@item.OrderId">Huỷ đơn hàng</a>
+                                        </td>
+                                    }
+                                    else if (item.OrderStatus == "Delivering")
+                                    {
+                                        <td class="align-middle">Đang vận chuyển</td>
+                                    }
+                                    else if (item.OrderStatus == "Delivered")
+                                    {
+                                        <td class="align-middle">Đã giao hàng</td>
+                                        <td>
+                                            <a asp-page="../Users/Feedback" asp-route-orderID="@item.OrderId" class="btn btn-sm" style="background-color: #d19c97; color: white;">Đánh giá</a>
+
+                                        </td>
+                                    }
+                                    else if (item.OrderStatus == "Canceling")
+                                    {
+
+                                        <td class="align-middle">Đang huỷ đơn</td>
+                                    }
+                                    else if (item.OrderStatus == "Rejected")
+                                    {
+                                        <td class="align-middle">Đơn đã bị huỷ</td>
+                                    }
 
 
-                                
-                                
-                            </tr>
+
+
+                                </tr>
+                            }
                         }
+                       
                     </tbody>
                 </table>
             </div>

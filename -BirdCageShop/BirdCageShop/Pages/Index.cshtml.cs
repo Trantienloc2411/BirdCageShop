@@ -28,7 +28,7 @@ namespace BirdCageShop.Pages
             _discountRepos.AutoUpdateDiscount(); // this is function auto update account after load Index Page
             Categories = _cateRepo.GetAll().ToList();
             Products = _proRepo.getListProductTrendingForUser().ToList();
-            TempData["errorMessage"] = "";
+            
             return Page();
         }
         public IActionResult OnGetLogout()
