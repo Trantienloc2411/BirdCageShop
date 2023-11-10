@@ -29,93 +29,93 @@
         @successMessage
     </div>
     <form method="post">
-        <div class="container py-5">
-            <div class="row mb-3">
-                <div class="col-lg-6">
-                    <h4>Kích thước</h4>
-                    <div class="form-group">
-                        <select class="form-control" id="sizeSelect" onchange="updateSizeValue()">
-                            <option value="S">S </option>
-                            <option value="M">M </option>
-                            <option value="L">L</option>
-                            <option value="XL">XL</option>
-                        </select>
-                    </div>
-                    <input type="hidden" id="sizeValue" name="sizeValue" />
-
-                </div>
-                <div class="col-lg-6">
-                    <h4>Chất liệu</h4>
-                    <div class="form-group">
-                        <select class="form-control" id="materialSelect" onchange="updateMaterialValue()">
-                            <option value="Thép">Thép </option>
-                            <option value="Gỗ">Gỗ </option>
-                            <option value="Kim loại">Kim loại </option>
-                        </select>
-                    </div>
-                    <input type="hidden" id="materialValue" name="materialValue" />
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <div class="col-lg-6">
-                    <h4>Số nan</h4>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="nanInput" placeholder="Số nan lồng chim " onchange="updateNanValue()" />
-                    </div>
-                    <input type="hidden" id="nanValue" name="nanValue" />
-                </div>
-
-
-                <div class="col-lg-6">
-                    <h4>Hình ảnh hoặc bản vẽ thiết kế</h4>
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="customFile" asp-for="@Model.CageIMG    " />
-                        <label class="custom-file-label" for="customFile">Chọn tệp</label>
-                        <span asp-validation-for="@Model.CageIMG" class="text-danger"></span>
-                    </div>
-                </div>
+            <div class="container py-5">
                 <div class="row mb-3">
-                    <div class="col-lg-12">
-                        <h4>Ghi chú cho lồng</h4>
+                    <div class="col-lg-6">
+                        <h4>Kích thước</h4>
                         <div class="form-group">
-                            <label for="cageNote">Ghi chú:</label>
-                            <input type="text" class="form-control" id="cageNote" name="cageNote" />
+                            <select class="form-control" id="sizeSelect" onchange="updateSizeValue()">
+                                <option value="S">S </option>
+                                <option value="M">M </option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                            </select>
+                        </div>
+                        <input type="hidden" id="sizeValue" name="sizeValue" />
+
+                    </div>
+                    <div class="col-lg-6">
+                        <h4>Chất liệu</h4>
+                        <div class="form-group">
+                            <select class="form-control" id="materialSelect" onchange="updateMaterialValue()">
+                                <option value="Thép">Thép </option>
+                                <option value="Gỗ">Gỗ </option>
+                                <option value="Kim loại">Kim loại </option>
+                            </select>
+                        </div>
+                        <input type="hidden" id="materialValue" name="materialValue" />
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <h4>Số nan</h4>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="nanInput" placeholder="Số nan lồng chim " onchange="updateNanValue()" />
+                        </div>
+                        <input type="hidden" id="nanValue" name="nanValue" />
+                    </div>
+
+
+                    <div class="col-lg-6">
+                        <h4>Hình ảnh hoặc bản vẽ thiết kế</h4>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="customFile" asp-for="@Model.CageIMG    " />
+                            <label class="custom-file-label" for="customFile">Chọn tệp</label>
+                            <span asp-validation-for="@Model.CageIMG" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-lg-12">
+                            <h4>Ghi chú cho lồng</h4>
+                            <div class="form-group">
+                                <label for="cageNote">Ghi chú:</label>
+                                <input type="text" class="form-control" id="cageNote" name="cageNote" />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
 
 
-            <div class="d-flex align-items-center mb-4 pt-2">
-                <div class="input-group quantity mr-3" style="width: 130px;">
-                    <div class="input-group-btn">
-                        <button class="btn btn-primary btn-minus">
-                            <i class="fa fa-minus"></i>
-                        </button>
+                <div class="d-flex align-items-center mb-4 pt-2">
+                    <div class="input-group quantity mr-3" style="width: 130px;">
+                        <div class="input-group-btn">
+                            <button class="btn btn-primary btn-minus">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                        <input type="text"
+                               class="form-control bg-secondary text-center"
+                               value="1"
+                               id="myInput" onchange="updateQuantityValue(this.value);" />
+                        <div class="input-group-btn">
+                            <button class="btn btn-primary btn-plus">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                        <input type="hidden" id="quantityValue" name="quantityValue" />
+
                     </div>
-                    <input type="text"
-                           class="form-control bg-secondary text-center"
-                           value="1"
-                           id="myInput" onchange="updateQuantityValue(this.value);" />
-                    <div class="input-group-btn">
-                        <button class="btn btn-primary btn-plus">
-                            <i class="fa fa-plus"></i>
-                        </button>
-                    </div>
-                    <input type="hidden" id="quantityValue" name="quantityValue" />
+                    <button class="btn btn-primary px-3" type="submit">
+                        <i class="fa fa-shopping-cart mr-1"></i> Gửi thiết kế
+                    </button>
+
 
                 </div>
-                <button class="btn btn-primary px-3" type="submit">
-                    <i class="fa fa-shopping-cart mr-1"></i> Gửi thiết kế
-                </button>
 
 
             </div>
-
-
-        </div>
     </form>
     <script>
         function updateQuantityValue(value) {
