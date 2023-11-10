@@ -44,20 +44,8 @@ namespace BirdCageShop.Pages.Manager.MProduct
             {
                 Product.CageImg = await _uploadService.UploadFileAsync(CageImg);
             }
+            
 
-            //if (!ModelState.IsValid)
-            //{
-            //    return Page();
-            //}
-
-            //var imageFile = HttpContext.Request.Form.Files.FirstOrDefault();
-
-            //if (imageFile != null && imageFile.Length > 0)
-            //{
-            //    _proRepo.Upload(Product.CageId, imageFile);
-            //}
-
-            // Add product
             _proRepo.Add(Product);
 
             return RedirectToPage("/Admin/MProduct/Index");

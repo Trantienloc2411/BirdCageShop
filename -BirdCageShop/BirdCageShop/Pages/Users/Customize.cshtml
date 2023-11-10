@@ -1,0 +1,150 @@
+﻿@page
+@model BirdCageShop.Pages.Users.CustomizeModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Tạo lồng";
+}
+<body>
+    <div class="container-fluid bg-secondary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center"
+             style="min-height: 300px;">
+            <h1 class="font-weight-semi-bold text-uppercase mb-3">Cửa hàng</h1>
+            <div class="d-inline-flex">
+                <p class="m-0"><a asp-page="../Index">Trang chủ</a></p>
+                <p class="m-0 px-2">-</p>
+                <p class="m-0">Tạo lồng</p>
+            </div>
+        </div>
+    </div>
+    @{
+        var errorMessage = TempData["errorMessage"] as string;
+        var successMessage = TempData["successMessage"] as string;
+    }
+    <div class="alert alert-danger" style="@(string.IsNullOrEmpty(errorMessage) ? "display: none;" : "")">
+        @errorMessage
+    </div>
+
+    <!-- Hiển thị thông báo thành công -->
+    <div class="alert alert-success" style="@(string.IsNullOrEmpty(successMessage) ? "display: none;" : "")">
+        @successMessage
+    </div>
+    <form method="post">
+        <div class="container py-5">
+            <div class="row mb-3">
+                <div class="col-lg-6">
+                    <h4>Kích thước</h4>
+                    <div class="form-group">
+                        <select class="form-control" id="sizeSelect" onchange="updateSizeValue()">
+                            <option value="S">S </option>
+                            <option value="M">M </option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                        </select>
+                    </div>
+                    <input type="hidden" id="sizeValue" name="sizeValue" />
+
+                </div>
+                <div class="col-lg-6">
+                    <h4>Chất liệu</h4>
+                    <div class="form-group">
+                        <select class="form-control" id="materialSelect" onchange="updateMaterialValue()">
+                            <option value="Thép">Thép </option>
+                            <option value="Gỗ">Gỗ </option>
+                            <option value="Kim loại">Kim loại </option>
+                        </select>
+                    </div>
+                    <input type="hidden" id="materialValue" name="materialValue" />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-lg-6">
+                    <h4>Số nan</h4>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="nanInput" placeholder="Số nan lồng chim " onchange="updateNanValue()" />
+                    </div>
+                    <input type="hidden" id="nanValue" name="nanValue" />
+                </div>
+
+
+                <div class="col-lg-6">
+                    <h4>Hình ảnh hoặc bản vẽ thiết kế</h4>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="customFile" asp-for="@Model.CageIMG    " />
+                        <label class="custom-file-label" for="customFile">Chọn tệp</label>
+                        <span asp-validation-for="@Model.CageIMG" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-lg-12">
+                        <h4>Ghi chú cho lồng</h4>
+                        <div class="form-group">
+                            <label for="cageNote">Ghi chú:</label>
+                            <input type="text" class="form-control" id="cageNote" name="cageNote" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="d-flex align-items-center mb-4 pt-2">
+                <div class="input-group quantity mr-3" style="width: 130px;">
+                    <div class="input-group-btn">
+                        <button class="btn btn-primary btn-minus">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                    <input type="text"
+                           class="form-control bg-secondary text-center"
+                           value="1"
+                           id="myInput" onchange="updateQuantityValue(this.value);" />
+                    <div class="input-group-btn">
+                        <button class="btn btn-primary btn-plus">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                    <input type="hidden" id="quantityValue" name="quantityValue" />
+
+                </div>
+                <button class="btn btn-primary px-3" type="submit">
+                    <i class="fa fa-shopping-cart mr-1"></i> Gửi thiết kế
+                </button>
+
+
+            </div>
+
+
+        </div>
+    </form>
+    <script>
+        function updateQuantityValue(value) {
+            document.getElementById('quantityValue').value = value;
+        }
+    </script>
+    <script>
+        function updateSizeValue() {
+            var sizeSelect = document.getElementById('sizeSelect');
+            var sizeValue = sizeSelect.options[sizeSelect.selectedIndex].value;
+            document.getElementById('sizeValue').value = sizeValue;
+        }
+    </script>
+    <script>
+        function updateMaterialValue() {
+            var materialSelect = document.getElementById('materialSelect');
+            var materialValue = materialSelect.options[materialSelect.selectedIndex].value;
+            document.getElementById('materialValue').value = materialValue;
+        }
+    </script>
+    <script>
+        function updateNanValue() {
+            var nanInput = document.getElementById('nanInput');
+            var nanValue = nanInput.value;
+            document.getElementById('nanValue').value = nanValue;
+        }
+    </script>
+
+
+    @* string sizeValue = Request.Form["sizeValue"]; *@
+
+</body>

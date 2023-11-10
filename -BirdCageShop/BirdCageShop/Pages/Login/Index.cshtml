@@ -12,8 +12,50 @@
 <head>
     <meta charset="UTF-8">
     <title>CodePen - CSS Cube Login Form</title>
-    <link rel="stylesheet" href="~/loginCSS/style.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <style>
+        /* Form Login */
+        #login-form {
+            width: 400px;
+            margin: 0 auto;
+            background-color: #f2f2f2;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
 
+            #login-form label {
+                display: block;
+                font-weight: bold;
+                margin-bottom: 5px;
+            }
+
+            #login-form input[type="email"],
+            #login-form input[type="password"] {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 20px;
+                border: none;
+                border-radius: 5px;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            }
+
+            #login-form button[type="submit"] {
+                display: block;
+                margin: 0 auto;
+                background-color: #4caf50;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                padding: 10px 20px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+                #login-form button[type="submit"]:hover {
+                    background-color: #3e8e41;
+                }
+    </style>
 </head>
 <body>
 
@@ -29,52 +71,20 @@
     <div class="alert alert-success" style="@(string.IsNullOrEmpty(successMessage) ? "display: none;" : "")">
         @successMessage
     </div>
-    <!-- partial:index.partial.html -->
-    <form autocomplete='off' class='form' method="post">
-        <div class='control'>
-            <h1>
-                Sign In
-            </h1>
-        </div>
-        <div class='control block-cube block-input'>
-            <input placeholder='Email' type='text' asp-for="@Model.Email">
-            <div class='bg-top'>
-                <div class='bg-inner'></div>
-            </div>
-            <div class='bg-right'>
-                <div class='bg-inner'></div>
-            </div>
-            <div class='bg'>
-                <div class='bg-inner'></div>
-            </div>
-        </div>
-        <div class='control block-cube block-input'>
-            <input placeholder='Mật khẩu' type='password' asp-for="@Model.Password">
-            <div class='bg-top'>
-                <div class='bg-inner'></div>
-            </div>
-            <div class='bg-right'>
-                <div class='bg-inner'></div>
-            </div>
-            <div class='bg'>
-                <div class='bg-inner'></div>
-            </div>
-        </div>
-        <button class='btn block-cube block-cube-hover' type='submit'>
-            <div class='bg-top'>
-                <div class='bg-inner'></div>
-            </div>
-            <div class='bg-right'>
-                <div class='bg-inner'></div>
-            </div>
-            <div class='bg'>
-                <div class='bg-inner'></div>
-            </div>
-            <div class='text'>
-                Đăng nhập
-            </div>
-        </button>
-    </form>
+    <h1 style="text-align: center;">Đăng nhập</h1>
+    <form id="login-form" method="post">
+        <label for="email">Email:</label>
+        <input type="email" id="email" asp-for="@Model.Email" required />
+
+        <label for="password">Mật khẩu:</label>
+        <input type="password" id="password" asp-for="@Model.Password" required />
+
+        <button type="submit">Đăng nhập</button>
+        <p style="text-align:center ;">
+            Bạn chưa có tài khoản? Hãy <a asp-page="/Register/Index">Đăng ký</a>
+        </p>
+    </form> 
+
     <!-- partial -->
 
 </body>
