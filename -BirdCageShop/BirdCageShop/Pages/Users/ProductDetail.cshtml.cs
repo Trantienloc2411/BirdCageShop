@@ -91,15 +91,22 @@ namespace BirdCageShop.Pages.Users
         {
             if(productID != 0)
             {
-                if(HttpContext.Session.GetInt32("pID1") == null)
+                if(HttpContext.Session.GetInt32("pID1") == 0 || HttpContext.Session.GetInt32("pID1") == null)
                 {
                     HttpContext.Session.SetInt32("pID1", productID);
+                    TempData["successMessage"] = "Thêm sản phẩm thành công! (1/2)";
                     OnGet(productID);
                     return Page();
                 }
-                else if(HttpContext.Session.GetInt32("pID2") == null)
+                else if(HttpContext.Session.GetInt32("pID2") == 0 || HttpContext.Session.GetInt32("pID2") == null)
                 {
                     HttpContext.Session.SetInt32("pID2", productID);
+                    TempData["successMessage"] = "Thêm sản phẩm thành công! (2/2)";
+                    OnGet(productID);
+                    return Page();
+                } else if(HttpContext.Session.GetInt32("pID1") != 0 && HttpContext.Session.GetInt32("pID2") != 0)
+                {
+                    TempData["errorMessage"] = "Thêm sản phẩm so sánh thất bại! Danh sách so sánh đã đầy! (2/2)";
                     OnGet(productID);
                     return Page();
                 }
