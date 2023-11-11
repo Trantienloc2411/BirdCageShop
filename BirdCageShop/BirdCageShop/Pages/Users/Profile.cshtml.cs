@@ -135,9 +135,21 @@ namespace BirdCageShop.Pages.Users
                     OnGet();
                     return Page();
                 }
-                else if (Password.Length < 6 || Password == null)
+                else if (UserName == null || UserName == null || Phone == null || Address == null)
                 {
-                    TempData["errorMessage"] = "Mật khẩu yếu! Mật khẩu cần ít nhất 7 kí tự";
+                    TempData["errorMessage"] = "Tất cả các ô không được để trống";
+                    OnGet();
+                    return Page();
+                }
+                else if (Password.Length < 7 || Password == null)
+                {
+                    TempData["errorMessage"] = "Mật khẩu yếu! Mật khẩu cần ít nhất 8 kí tự";
+                    OnGet();
+                    return Page();
+                }
+                else if(Password == null || Password.Count() == 0)
+                {
+                    TempData["errorMessage"] = "Mật khẩu mới đang để trống";
                     OnGet();
                     return Page();
                 }
