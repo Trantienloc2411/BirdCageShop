@@ -39,6 +39,7 @@ namespace BirdCageShop.Pages.Users.UCart
                     TempData["errorMessage"] = "Đăng nhập để tiếp tục!";
                     RedirectToPage("../Login/Index");
                 }
+                _cartRepo.showCustomizeUserCageInCart(userID);
                 var cartList = _cartRepo.showCart();
                 if (cartList.Count != 0)
                 {

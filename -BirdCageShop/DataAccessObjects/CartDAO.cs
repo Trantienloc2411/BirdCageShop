@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,42 @@ namespace DataAccessObjects
             return odList;
         }
 
+        public void showCustomizeUserCageInCart(int userID)
+        {
+            var listProduct = _db.Products.Where(p => p.CageName.Contains(userID.ToString()) && p.CageStatus == 2).ToList();
+
+            if (listProduct.Count > 0)
+            {
+                if (odList == null)
+                {
+                    odList = new List<CartItem>();
+                }
+
+                foreach (var item in listProduct)
+                {
+                    // Check if an item with the same CageId already exists in odList
+                    var existingCartItem = odList.FirstOrDefault(cartItem => cartItem.Id == item.CageId);
+
+                    if (existingCartItem == null)
+                    {
+                        // If it doesn't exist, add the product to the cart
+                        addProductToCart(item.CageId, (int)item.Quantity, 0);
+                    }
+                    //else
+                    //{
+                    //    // If it exists, you can update the quantity or take other actions
+                    //    // For example, updating the quantity here, you may need to adjust this based on your CartItem class
+                    //    existingCartItem.DetailQuantity += (int)item.Quantity;
+                    //}
+                }
+            }
+            else
+            {
+                odList = new List<CartItem>();
+            }
+        }
+
+
         public int addProductToCart(int productID, int quantity, int type)
         {
             if (odList != null)
@@ -41,10 +78,11 @@ namespace DataAccessObjects
                     var product = _db.Products.Include(p => p.Discount).First(p => productID == p.CageId);
                     if (product != null)
                     {
+                        int productStatus = (int)product.CageStatus;
                         ///Check if product already in cart => increase quantity
                         foreach (var item in odList)
                         {
-                            if (item.Id == productID && item.type == type)
+                            if (item.Id == productID && productStatus != 2 && item.type == type)
                             {
                                 item.DetailQuantity++;
                                 return 1;
@@ -178,12 +216,17 @@ namespace DataAccessObjects
         public int deleteProductfromCart(int productID, int type)
         {
             int countList = odList.Count();
+            var product = _db.Products.First(p => p.CageId == productID);
             foreach (var item in odList)
             {
                 if (item.Id == productID && item.type == type)
                 {
+
                     od = item;
                     odList.Remove(od);
+                    if (product.CageStatus == 2) _db.Products.Remove(product); _db.SaveChanges();   
+                    
+
                     return 1;
                 }
             }
@@ -196,4 +239,5 @@ namespace DataAccessObjects
         }
 
     }
+
 }

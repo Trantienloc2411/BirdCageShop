@@ -24,6 +24,7 @@ namespace Repository
         public List<CartItem> showCart() => _dao.showCart();
 
         public void updateQuantity(int productID, int quantity, int type) =>_dao.updateQuantity(productID, quantity,type);
+        public void showCustomizeUserCageInCart(int userID) => _dao.showCustomizeUserCageInCart(userID);
 
     }
 }

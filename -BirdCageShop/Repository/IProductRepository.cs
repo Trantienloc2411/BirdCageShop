@@ -25,5 +25,8 @@ namespace Repository
         List<Accessory> GetAccessoryByName(string name);
         Tuple<int, int> getRatingAccessory(int accessoryID);
         List<Product> comparisionProduct(int prod1, int prod2);
+
+        int AddCustomizeCage(Product p);
+        
     }
 }
