@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "ignored": "true",
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:CageShopUni_alaDB",
+      "dynamicId": null
+    },
+    "secrets1": {
+      "ignored": "true",
+      "type": "secrets"
+    },
+    "mssql2": {
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Web/sites/cageshopwing/providers/Microsoft.ServiceLinker/linkers/ConnectionStringsCageShopUni_alaDB_8CA536B9D3",
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/birdcageshopdbserver/databases/CageShopUni_ala",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:CageShopUni_alaDB"
+    }
+  }
+}

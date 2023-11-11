@@ -7,6 +7,10 @@
       "type": "mssql",
       "connectionId": "ConnectionStrings:CageShopUni_alaDB",
       "dynamicId": null
+    },
+    "mssql2": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:CageShopUni_alaDB"
     }
   }
 }
