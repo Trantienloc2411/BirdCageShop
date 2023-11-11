@@ -23,7 +23,8 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release --project BirdCageShop/BirdCageShop
+        run: dotnet build --configuration Release BirdCageShop/BirdCageShop/BirdCageShop.csproj
+
 
 
 
