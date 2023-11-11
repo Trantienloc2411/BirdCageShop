@@ -1,3 +1,4 @@
+using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Repository;
@@ -19,7 +20,11 @@ namespace BirdCageShop.Pages.Admin
             // Example: HttpContext.SignOutAsync();
             
             HttpContext.Session.Clear();
-            _cart.clearCart();
+            var cartList = _cart.showCart();
+            if(cartList != null)
+            {
+                _cart.clearCart();
+            }
 
             return RedirectToPage("../Index"); // Redirect to the home page after logout
         }
