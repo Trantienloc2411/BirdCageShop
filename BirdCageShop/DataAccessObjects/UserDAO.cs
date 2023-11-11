@@ -120,6 +120,7 @@ namespace DataAccessObjects
                     user.Address = User.Address;
                     //user.UserImg = User.UserImg;
                     user.DoB = User.DoB;
+                    user.UserPassword = User.UserPassword;
                     return _dbContext.SaveChanges();
                 }
                 return 0;
