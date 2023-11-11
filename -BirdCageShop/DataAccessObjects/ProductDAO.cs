@@ -1,6 +1,7 @@
 ﻿using BusinessObjects.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using System.Drawing.Printing;
 using System.Security.Cryptography.X509Certificates;
 
@@ -67,7 +68,7 @@ namespace DataAccessObjects
                 pro.CageStatus = 0;
                 _db.SaveChanges();
             }
-        }
+        }   
 
         public IEnumerable<Product> GetAll()
         {
@@ -92,19 +93,8 @@ namespace DataAccessObjects
             return _db.Products.Count();
         }
 
-        //public void Upload(int cageId, IFormFile imageFile)
-        //{
-        //    var cage = GetProductById(cageId);
 
-        //    if (cage != null && imageFile != null && imageFile.Length > 0)
-        //    {
-        //        using (BinaryReader reader = new BinaryReader(imageFile.OpenReadStream()))
-        //        {
-        //            cage.CageImg = reader.ReadBytes((int)imageFile.Length);
-        //            _db.SaveChanges();
-        //        }
-        //    }
-        //}
+
         public List<Product> getListProductForUser()
         {
             return _db.Products
@@ -219,81 +209,6 @@ namespace DataAccessObjects
 
 
 
-        /// <summary>
-        /// This part is for add to cart function
-        /// </summary>
-        /// <param name="userID">get UserID </param>
-        /// <param name="AccessoryID">Get Product ID</param>
-        /// <param name="quantity">Default is 1</param>
-        /// <returns>integer 1  | 0    ---  Success or not</returns>
-        /// <exception cref="Exception"></exception>
-        public int AddProductToCart(int userID, int AccessoryID, int quantity)
-        {
-            try
-            {
-                //Checking the cart is existed or not
-                var order = _db.Orders.FirstOrDefault(o => o.UserId == userID && o.OrderStatus == "Cart");
-                //if not, i will create a new cart
-                if (order == null)
-                {
-                    try
-                    {
-                        //Setting some temp information i get from user
-                        Order o = new Order();
-                        o.UserId = userID;
-                        o.OrderStatus = "Cart";
-                        o.OrderDate = DateTime.Now;
-                        o.OrderName = usr.GetUserById(userID).UserName;
-                        _db.Add(o);
-                        _db.SaveChanges();
-                        //Now i use recursion to go back 
-                        AddProductToCart(userID, AccessoryID, quantity);
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new Exception(ex.Message);
-                    }
-                }
-                //in case thhe cart existed
-                else
-                {
-                    // find the product information
-                    var accessory = _db.Accessories.First(p => p.AccessoryId == AccessoryID);
-                    //get information about the cart
-                    var orderDetail = _db.OrderDetails.FirstOrDefault(od => od.AccessoryId == AccessoryID && od.OrderId == order.OrderId);
-                    //take the price not include discount
-                    if (orderDetail != null)
-                    {
-                        int bdb = (int)orderDetail.DetailQuantity;
-                        orderDetail.DetailQuantity += 1;
-                        var productCartList = usr.getListcartByUserID(userID).ToList();
-                        order.OrderPrice = productCartList.Sum(p => p.DetailPrice);
-                        return _db.SaveChanges();
-                    }
-                    else
-                    {
-                        // You need to initialize orderDetail before you can use it
-                        OrderDetail od = new OrderDetail();
-                        od.OrderId = order.OrderId;
-                        od.AccessoryId = AccessoryID;
-                        od.DetailPrice = (decimal?)accessory.AccessoryPrice;
-                        quantity = 1;
-                        od.DetailQuantity = quantity;
-                        _db.OrderDetails.Add(od);
-                        var productCartList = usr.getListcartByUserID(userID).ToList();
-                        order.OrderPrice = productCartList.Sum(p => p.DetailPrice);
-                        return _db.SaveChanges();
-                    }
-                }
-                return 0;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-
-          
-        }
 
 
 
@@ -320,13 +235,29 @@ namespace DataAccessObjects
             }
         }
 
+        public int AddCustomizeCage(Product p)
+        {
+            if (p != null)
+            {
+                _db.Products.Add(p);
+                int affectedRows = _db.SaveChanges();
 
-        //public List<Product> customizeCage(Product p)
-        //{
+                // If the save was successful and only one entity was affected
+                if (affectedRows == 1)
+                {
+                    // Access the updated ProductId from the entity
+                    int productId = p.CageId;
 
-        //}
+                    return productId;
+                }
+            }
+            return 0;
+        }
 
-       
+
+
+
+
 
 
     }

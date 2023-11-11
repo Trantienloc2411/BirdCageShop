@@ -13,9 +13,15 @@
 <body>
     @{
         var errorMessage = TempData["errorMessage"] as string;
+        var successMessage = TempData["successMessage"] as string;
     }
     <div class="alert alert-danger" style="@(string.IsNullOrEmpty(errorMessage) ? "display: none;" : "")">
         @errorMessage
+    </div>
+
+    <!-- Hiển thị thông báo thành công -->
+    <div class="alert alert-success" style="@(string.IsNullOrEmpty(successMessage) ? "display: none;" : "")">
+        @successMessage
     </div>
     <div class="container-fluid bg-secondary mb-5">
         <div class="d-flex flex-column align-items-center justify-content-center"
@@ -84,8 +90,8 @@
                                 <td class="align-middle total">@item.TotalPrice</td>
                                 <!--Delete button-->
                                 <td class="align-middle">
-                                    <form method="post" asp-route-productID="@item.Id" asp-route-type="@item.type" asp-page-handler="delete">
-                                        <button class="btn btn-sm btn-primary">
+                                    <form method="post" asp-route-productID="@item.Id" asp-route-type="@item.type" asp-page-handler="delete" id="deleteForm">
+                                        <button class="btn btn-sm btn-primary" onclick="confirmDelete(event)">
                                             <i class="fa fa-times"></i>
                                         </button>
                                     </form>
@@ -151,6 +157,16 @@
         }
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function confirmDelete(event) {
+            event.preventDefault();
 
+            var confirmation = window.confirm("Bạn có muốn xoá sản phẩm này ra khỏi giỏ hàng? (Nếu sản phẩm tự tạo sẽ không lưu trong giỏ hàng của bạn)");
+
+            if (confirmation) {
+                document.getElementById("deleteForm").submit();
+            }
+        }
+    </script>
 
 </body>
