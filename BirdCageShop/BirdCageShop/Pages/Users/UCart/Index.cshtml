@@ -85,6 +85,8 @@
                                         quantity = result;
                                     }
                                     // Calculate total
+                                    item.TotalPrice = 0;
+                                    item.TotalPrice = item.DetailPrice * item.DetailQuantity;
                                     Model.totalCart += item.TotalPrice;
                                 }
                                 <td class="align-middle total">@item.TotalPrice</td>

@@ -90,7 +90,7 @@ namespace BirdCageShop.Pages.Users.UCart
             }
             catch (Exception ex)
             {
-                TempData["errorMessage"] = "Dự án đang phát triển ! Xin lỗi vì sự bất tiện này! Lỗi: " + ex.Message + ". Hãy liên hệ với quản trị viên";
+                TempData["errorMessage"] = "Website đang phát triển ! Xin lỗi vì sự bất tiện này! Lỗi: " + ex.Message + ". \nHãy liên hệ với quản trị viên";
                 return Page();
             }
 
