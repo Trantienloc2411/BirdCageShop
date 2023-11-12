@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Exchange.WebServices.Autodiscover;
 using Repository;
@@ -41,6 +42,7 @@ namespace BirdCageShop.Login
                         HttpContext.Session.SetString("userName", user.UserName);
                         HttpContext.Session.SetString("userEmail", user.Email);
                         HttpContext.Session.SetInt32("userID", user.UserId);
+                        HttpContext.Session.SetInt32("Role", (int)user.RoleId);
                         return RedirectToPage("../Index");
                     }
 
