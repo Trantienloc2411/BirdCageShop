@@ -80,16 +80,25 @@ namespace DataAccessObjects
 
         public bool isProductAvailble(int quantity, int productID, int type)
         {
-            if(type == 0)
+            if (type == 0)
             {
                 var product = _db.Products.First(p => p.CageId == productID);
-                if (product.Quantity < quantity) return false;
+                if (product.Quantity < quantity)
+                {
+                    _cartDAO.deleteProductfromCart(productID, 0);
+                    return false;
+                }
                 else return true;
             }
             else
             {
                 var product = _db.Accessories.First(a => a.AccessoryId == productID);
-                if (product.AccessoryQuantity < quantity) return false;
+                if (product.AccessoryQuantity < quantity)
+                {
+                    _cartDAO.deleteProductfromCart(productID, 1);
+                    return false;
+                }
+
                 else return true;
             }
         }
