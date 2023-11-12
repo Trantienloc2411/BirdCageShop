@@ -63,7 +63,11 @@ namespace DataAccessObjects
             }
             else
             {
-                odList = new List<CartItem>();
+                if(odList == null)
+                {
+                    odList = new List<CartItem>();
+                }
+                
             }
         }
 
