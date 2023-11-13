@@ -77,13 +77,16 @@ namespace DataAccessObjects
             if (odList != null)
             {
                 int countList = odList.Count;
+
                 if (type == 0)
                 {
                     var product = _db.Products.Include(p => p.Discount).First(p => productID == p.CageId);
-                    if (product != null)
+
+                    if (product != null && product.Quantity > 0 && !(product.CageStatus == 2 && quantity <= 0))
                     {
                         int productStatus = (int)product.CageStatus;
-                        ///Check if product already in cart => increase quantity
+
+                        // Check if product already in cart => increase quantity
                         foreach (var item in odList)
                         {
                             if (item.Id == productID && productStatus != 2 && item.type == type)
@@ -92,31 +95,34 @@ namespace DataAccessObjects
                                 return 1;
                             }
                         }
-                        ///If not it will create  a new object
+
+                        // If not, it will create a new object
                         od = new CartItem();
                         od.Id = product.CageId;
                         od.CageName = product.CageName;
                         od.DetailQuantity = quantity;
-                        ///Check product have discout or not
-                        ///
+
+                        // Check if product has discount or not
                         if (product.Discount == null || product.Discount.Discount1 == 0)
                         {
                             od.DetailPrice = (decimal)product.Price;
                         }
                         else
                         {
-                            ///Price after discount successfully!
+                            // Price after discount successfully!
                             od.DetailPrice = (decimal)(product.Price * (1 - (product.Discount.Discount1)));
                         }
+
                         od.TotalPrice = od.DetailPrice * od.DetailQuantity;
-                        od.type = type; /// 0 is Cage 
+                        od.type = type; // 0 is Cage 
                         odList.Add(od);
+
                         if (odList.Count > countList)
                         {
                             return 1;
                         }
-                        return 0;
 
+                        return 0;
                     }
                     else
                     {
@@ -126,9 +132,10 @@ namespace DataAccessObjects
                 else
                 {
                     var ac = _db.Accessories.Include(a => a.Discount).First(a => productID == a.AccessoryId);
-                    if (ac != null)
+
+                    if (ac != null && ac.AccessoryQuantity > 0 && !(quantity <= 0))
                     {
-                        ///Check if product already in cart => increase quantity
+                        // Check if product already in cart => increase quantity
                         foreach (var item in odList)
                         {
                             if (item.Id == productID && item.type == type)
@@ -137,39 +144,40 @@ namespace DataAccessObjects
                                 return 1;
                             }
                         }
-                        ///If not it will create  a new object
+
+                        // If not, it will create a new object
                         od = new CartItem();
                         od.Id = ac.AccessoryId;
                         od.CageName = ac.AccessoryName;
                         od.DetailQuantity = quantity;
-                        ///Check product have discout or not
-                        ///
+
+                        // Check if product has discount or not
                         if (ac.Discount == null || ac.Discount.Discount1 == 0)
                         {
                             od.DetailPrice = (decimal)ac.AccessoryPrice;
                         }
                         else
                         {
-                            ///Price after discount successfully!
+                            // Price after discount successfully!
                             od.DetailPrice = (decimal)((decimal)ac.AccessoryPrice * (1 - ac.Discount.Discount1));
                         }
+
                         od.TotalPrice = od.DetailPrice * od.DetailQuantity;
-                        od.type = type; /// 1 is Accessory 
+                        od.type = type; // 1 is Accessory 
                         odList.Add(od);
+
                         if (odList.Count > countList)
                         {
                             return 1;
                         }
-                        return 0;
 
+                        return 0;
                     }
                     else
                     {
                         return 0;
                     }
                 }
-
-
             }
             else
             {
@@ -177,8 +185,9 @@ namespace DataAccessObjects
                 addProductToCart(productID, quantity, type);
                 return 1;
             }
-
         }
+
+
         public void updateQuantity(int productID, int quantity, int type)
         {
             if (type == 0)

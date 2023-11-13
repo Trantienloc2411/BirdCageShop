@@ -205,7 +205,7 @@ namespace BirdCageShop.Pages.Users
         /// <param name="OrderID"></param>
 
         public int countProductInOrder(int orderID)
-        {
+        {   
             return _orderDetailRepo.getQuantityProductByOrderID(orderID);
         }
         public List<OrderDetail> GetOrderDetailsByOrderID(int orderID)
