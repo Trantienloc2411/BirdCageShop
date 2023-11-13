@@ -39,16 +39,23 @@ namespace BirdCageShop.Pages.Admin.MAccessory
             {
                 return NotFound();
             }
+
+            // Ensure AccessoryImg is not null to avoid issues in OnPostAsync
+            if (Accessory.AccessoryImg == null)
+            {
+                Accessory.AccessoryImg = ""; // or set it to a default value if necessary
+            }
+
             var listCategories = _accRepo.GetCategories();
             var listDiscounts = _accRepo.GetDiscounts();
-            TempData["CategoryId"] = new SelectList(listCategories, "CategoryId", "CategoryName", Accessory.CategoryId);
-            TempData["DiscountId"] = new SelectList(listDiscounts, "DiscountId", "DiscountName", Accessory.DiscountId);
+            ViewData["CategoryId"] = new SelectList(listCategories, "CategoryId", "CategoryName");
+            ViewData["DiscountId"] = new SelectList(listDiscounts, "DiscountId", "DiscountName");
             return Page();
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync(IFormFile AccessoryImg)
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
@@ -56,19 +63,26 @@ namespace BirdCageShop.Pages.Admin.MAccessory
             }
 
             // Save the path of the old image
-            string oldCageImgPath = Accessory.AccessoryImg;
+            string oldAccessoryImgPath = _accRepo.GetAccessoryById(Accessory.AccessoryId).AccessoryImg;
 
-            // Check if a file is uploaded
-            if (AccessoryImg != null && AccessoryImg.Length > 0)
+            // Check if files are uploaded
+            if (HttpContext.Request.Form.Files.Any())
             {
+                var AccessoryImg = HttpContext.Request.Form.Files[0];
+
                 // If there was an old image, delete it
-                if (!string.IsNullOrEmpty(oldCageImgPath))
+                if (!string.IsNullOrEmpty(oldAccessoryImgPath) && System.IO.File.Exists(oldAccessoryImgPath))
                 {
                     // You may want to add error handling here in case the delete fails
-                    System.IO.File.Delete(oldCageImgPath);
+                    System.IO.File.Delete(oldAccessoryImgPath);
                 }
                 // Call the file upload service to save the new file
                 Accessory.AccessoryImg = await uploadService.UploadFileAsync(AccessoryImg);
+            }
+            // No new file uploaded, keep the existing CageImg value
+            else
+            {
+                Accessory.AccessoryImg = oldAccessoryImgPath;
             }
 
             try

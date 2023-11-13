@@ -24,7 +24,7 @@ namespace BirdCageShop.Pages.Admin.MProduct
         [BindProperty]
         public BusinessObjects.Models.Product Product { get; set; }
         [BindProperty]
-        public String CageImg { get; set; }
+        public string CageImg { get; set; }
 
         public IActionResult OnGet()
         {
@@ -33,8 +33,8 @@ namespace BirdCageShop.Pages.Admin.MProduct
 
             var listCategories = _proRepo.GetCategories();
             var listDiscounts = _proRepo.GetDiscounts();
-            TempData["CategoryId"] = new SelectList(listCategories, "CategoryId", "CategoryName", Product.CategoryId);
-            TempData["DiscountId"] = new SelectList(listDiscounts, "DiscountId", "DiscountName", Product.DiscountId);
+            ViewData["CategoryId"] = new SelectList(listCategories, "CategoryId", "CategoryName");
+            ViewData["DiscountId"] = new SelectList(listDiscounts, "DiscountId", "DiscountName");
             return Page();
         }
 
@@ -45,19 +45,6 @@ namespace BirdCageShop.Pages.Admin.MProduct
                 Product.CageImg = await _uploadService.UploadFileAsync(CageImg);
             }
 
-            //if (!ModelState.IsValid)
-            //{
-            //    return Page();
-            //}
-
-            //var imageFile = HttpContext.Request.Form.Files.FirstOrDefault();
-
-            //if (imageFile != null && imageFile.Length > 0)
-            //{
-            //    _proRepo.Upload(Product.CageId, imageFile);
-            //}
-
-            // Add product
             _proRepo.Add(Product);
 
             return RedirectToPage("/Admin/MProduct/Index");

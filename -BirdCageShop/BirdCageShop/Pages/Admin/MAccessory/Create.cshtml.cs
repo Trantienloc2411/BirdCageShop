@@ -26,8 +26,8 @@ namespace BirdCageShop.Pages.Admin.MAccessory
 
             var listCategories = _accRepo.GetCategories();
             var listDiscounts = _accRepo.GetDiscounts();
-            TempData["CategoryId"] = new SelectList(listCategories, "CategoryId", "CategoryName", Accessory.CategoryId);
-            TempData["DiscountId"] = new SelectList(listDiscounts, "DiscountId", "DiscountName", Accessory.DiscountId);
+            ViewData["CategoryId"] = new SelectList(listCategories, "CategoryId", "CategoryName");
+            ViewData["DiscountId"] = new SelectList(listDiscounts, "DiscountId", "DiscountName");
             return Page();
         }
 

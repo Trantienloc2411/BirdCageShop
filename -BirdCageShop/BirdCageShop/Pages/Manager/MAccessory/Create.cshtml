@@ -18,40 +18,42 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="Accessory.AccessoryName" class="control-label"></label>
-                        <input asp-for="Accessory.AccessoryName" class="form-control" />
+                        <input asp-for="Accessory.AccessoryName" class="form-control" required />
                         <span asp-validation-for="Accessory.AccessoryName" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Accessory.AccessoryPrice" class="control-label"></label>
-                        <input asp-for="Accessory.AccessoryPrice" class="form-control" />
+                        <input asp-for="Accessory.AccessoryPrice" class="form-control" required />
                         <span asp-validation-for="Accessory.AccessoryPrice" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Accessory.AccessoryDescription" class="control-label"></label>
-                        <input asp-for="Accessory.AccessoryDescription" class="form-control" />
+                        <input asp-for="Accessory.AccessoryDescription" class="form-control" required />
                         <span asp-validation-for="Accessory.AccessoryDescription" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Accessory.AccessoryQuantity" class="control-label"></label>
-                        <input asp-for="Accessory.AccessoryQuantity" class="form-control" />
+                        <input asp-for="Accessory.AccessoryQuantity" class="form-control" required />
                         <span asp-validation-for="Accessory.AccessoryQuantity" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Accessory.AccessoryStatus" class="control-label"></label>
-                        <input asp-for="Accessory.AccessoryStatus" class="form-control" />
+                        <input asp-for="Accessory.AccessoryStatus" class="form-control" required />
                         <span asp-validation-for="Accessory.AccessoryStatus" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Accessory.CategoryId" class="control-label"></label>
-                        <select asp-for="Accessory.CategoryId" class="form-control" asp-items="@((SelectList)TempData["CategoryId"])"></select>
+                        <select asp-for="Accessory.CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                        <span asp-validation-for="Accessory.CategoryId" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Accessory.DiscountId" class="control-label"></label>
-                        <select asp-for="Accessory.DiscountId" class="form-control" asp-items="@((SelectList)TempData["DiscountId"])"></select>
+                        <select asp-for="Accessory.DiscountId" class="form-control" asp-items="ViewBag.DiscountId"></select>
+                        <span asp-validation-for="Accessory.DiscountId" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Accessory.AccessoryImg" class="control-label"></label>
-                        <input name="AccessoryImg" type="file" class="form-control" />
+                        <input name="AccessoryImg" type="file" class="form-control" required />
                         <span asp-validation-for="Accessory.AccessoryImg" class="text-danger"></span>
                     </div>
                     <div class="form-group">

@@ -20,8 +20,8 @@ namespace BirdCageShop.Pages.Admin.MFeedback
             Feedback = new Feedback();
             var listOrders = _fbRepo.GetOrders();
             var listUsers = _fbRepo.GetUsers();
-            TempData["OrderId"] = new SelectList(listOrders, "OrderId", "OrderName", Feedback.OrderId);
-            TempData["UserId"] = new SelectList(listUsers, "UserId", "UserName", Feedback.UserId);
+            ViewData["OrderId"] = new SelectList(listOrders, "OrderId", "OrderName");
+            ViewData["UserId"] = new SelectList(listUsers, "UserId", "UserName");
             return Page();
         }
 

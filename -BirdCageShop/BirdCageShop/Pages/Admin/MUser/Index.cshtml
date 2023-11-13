@@ -86,9 +86,9 @@
                             <th style="color: pink; border: solid gainsboro">
                                 @Html.DisplayNameFor(model => model.User[0].Address)
                             </th>
-                            @* <th style="color: pink; border: solid gainsboro">
+                            <th style="color: pink; border: solid gainsboro">
                                 @Html.DisplayNameFor(model => model.User[0].UserImg)
-                            </th> *@
+                            </th>
                             <th style="color: pink; border: solid gainsboro">
                                 @Html.DisplayNameFor(model => model.User[0].DoB)
                             </th>
@@ -125,9 +125,9 @@
                                 <td style="border: solid gainsboro">
                                     @Html.DisplayFor(modelItem => item.Address)
                                 </td>
-                                @* <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.UserImg)
-                                </td> *@
+                                <td style="border: solid gainsboro">
+                                    <img src="~/@item.UserImg" alt="User Image" style="max-width: 100px; max-height: 100px;" />
+                                </td>
                                 <td style="border: solid gainsboro">
                                     @Html.DisplayFor(modelItem => item.DoB)
                                 </td>
@@ -138,7 +138,7 @@
                                     @Html.DisplayFor(modelItem => item.Gender)
                                 </td>
                                 <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.Role.RoleId)
+                                    @Html.DisplayFor(modelItem => item.Role.RoleName)
                                 </td>
                                 <td style="border: solid gainsboro; padding: 10px;">
 

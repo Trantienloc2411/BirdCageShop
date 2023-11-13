@@ -49,10 +49,15 @@ namespace DataAccessObjects
             {
                 //cus.Email = User.Email;
                 user.UserName = User.UserName;
+                user.UserPassword = User.UserPassword;
                 user.Phone = User.Phone;
                 user.Address = User.Address;
                 user.UserImg = User.UserImg;
+                user.RoleId = User.RoleId;
+                user.Email = User.Email;
                 user.DoB = User.DoB;
+                user.Status = User.Status;
+                user.Gender = User.Gender;
 
                 return _dbContext.SaveChanges();
             }

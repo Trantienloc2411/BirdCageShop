@@ -46,7 +46,7 @@
             @Html.DisplayNameFor(model => model.User.UserImg)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.User.UserImg)
+            <img src="~/@Model.User.UserImg" alt="Product Image" style="max-width: 100px; max-height: 100px;" />
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.User.DoB)
@@ -70,11 +70,11 @@
             @Html.DisplayNameFor(model => model.User.Role)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.User.Role.RoleId)
+            @Html.DisplayFor(model => model.User.Role.RoleName)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.User.UserId">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Edit" class="btn btn-primary" asp-route-id="@Model.User.UserId">Edit</a> |
+    <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
 </div>

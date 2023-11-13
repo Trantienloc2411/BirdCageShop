@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using BusinessObjects.Models;
+using Repository;
 
 namespace BirdCageShop.Pages.Admin.MCategory
 {
     public class CreateModel : PageModel
     {
-        private readonly BusinessObjects.Models.CageShopUni_alaContext _context;
+        private readonly ICategoryRepository _context;
 
-        public CreateModel(BusinessObjects.Models.CageShopUni_alaContext context)
+        public CreateModel(ICategoryRepository categoryRepository)
         {
-            _context = context;
+            _context = categoryRepository;
         }
 
         public IActionResult OnGet()
@@ -27,16 +23,14 @@ namespace BirdCageShop.Pages.Admin.MCategory
         public Category Category { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Categories.Add(Category);
-            await _context.SaveChangesAsync();
-
+            _context.Add(Category);
             return RedirectToPage("./Index");
         }
     }

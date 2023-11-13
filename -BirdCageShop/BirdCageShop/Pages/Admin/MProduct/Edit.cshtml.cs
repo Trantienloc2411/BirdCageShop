@@ -38,16 +38,23 @@ namespace BirdCageShop.Pages.Admin.MProduct
             {
                 return NotFound();
             }
+
+            // Ensure CageImg is not null to avoid issues in OnPostAsync
+            if (Product.CageImg == null)
+            {
+                Product.CageImg = ""; // or set it to a default value if necessary
+            }
+
             var listCategories = _proRepo.GetCategories();
             var listDiscounts = _proRepo.GetDiscounts();
-            TempData["CategoryId"] = new SelectList(listCategories, "CategoryId", "CategoryName", Product.CategoryId);
-            TempData["DiscountId"] = new SelectList(listDiscounts, "DiscountId", "DiscountName", Product.DiscountId);
+            ViewData["CategoryId"] = new SelectList(listCategories, "CategoryId", "CategoryName");
+            ViewData["DiscountId"] = new SelectList(listDiscounts, "DiscountId", "DiscountName");
             return Page();
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync(IFormFile CageImg)
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
@@ -55,19 +62,26 @@ namespace BirdCageShop.Pages.Admin.MProduct
             }
 
             // Save the path of the old image
-            string oldCageImgPath = Product.CageImg;
+            string oldCageImgPath = _proRepo.GetProductById(Product.CageId).CageImg;
 
-            // Check if a file is uploaded
-            if (CageImg != null && CageImg.Length > 0)
+            // Check if files are uploaded
+            if (HttpContext.Request.Form.Files.Any())
             {
+                var CageImg = HttpContext.Request.Form.Files[0];
+
                 // If there was an old image, delete it
-                if (!string.IsNullOrEmpty(oldCageImgPath))
+                if (!string.IsNullOrEmpty(oldCageImgPath) && System.IO.File.Exists(oldCageImgPath))
                 {
                     // You may want to add error handling here in case the delete fails
                     System.IO.File.Delete(oldCageImgPath);
                 }
                 // Call the file upload service to save the new file
                 Product.CageImg = await uploadService.UploadFileAsync(CageImg);
+            }
+            // No new file uploaded, keep the existing CageImg value
+            else
+            {
+                Product.CageImg = oldCageImgPath;
             }
 
             try
@@ -95,7 +109,6 @@ namespace BirdCageShop.Pages.Admin.MProduct
 
             return RedirectToPage("./Index");
         }
-
 
     }
 }

@@ -34,10 +34,10 @@ namespace DataAccessObjects
             if (pro != null)
             {
                 pro.CageName = product.CageName;
-                pro.Category = product.Category;
+                pro.CategoryId = product.CategoryId;
                 pro.Quantity = product.Quantity;
                 pro.Price = product.Price;
-                pro.Discount = product.Discount;
+                pro.DiscountId = product.DiscountId;
                 pro.CageImg = product.CageImg;
                 pro.Material = product.Material;
                 pro.Size = product.Size;

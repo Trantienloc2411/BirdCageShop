@@ -24,7 +24,7 @@ namespace BirdCageShop.Pages.Manager.MProduct
         [BindProperty]
         public BusinessObjects.Models.Product Product { get; set; }
         [BindProperty]
-        public String CageImg { get; set; }
+        public string CageImg { get; set; }
 
         public IActionResult OnGet()
         {
@@ -33,8 +33,9 @@ namespace BirdCageShop.Pages.Manager.MProduct
 
             var listCategories = _proRepo.GetCategories();
             var listDiscounts = _proRepo.GetDiscounts();
-            TempData["CategoryId"] = new SelectList(listCategories, "CategoryId", "CategoryName", Product.CategoryId);
-            TempData["DiscountId"] = new SelectList(listDiscounts, "DiscountId", "DiscountName", Product.DiscountId);
+            ViewData["CategoryId"] = new SelectList(listCategories, "CategoryId", "CategoryName");
+            ViewData["DiscountId"] = new SelectList(listDiscounts, "DiscountId", "DiscountName");
+            return Page();
             return Page();
         }
 
