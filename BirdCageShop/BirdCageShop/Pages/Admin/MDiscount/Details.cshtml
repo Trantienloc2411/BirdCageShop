@@ -1,0 +1,50 @@
+﻿@page
+@model BirdCageShop.Pages.Admin.MDiscount.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "_AdminLayout";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Discount</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Discount.DiscountName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Discount.DiscountName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Discount.DiscountStart)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Discount.DiscountStart)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Discount.DiscountFinish)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Discount.DiscountFinish)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Discount.Discount1)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Discount.Discount1)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Discount.DiscountStatus)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Discount.DiscountStatus)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" class="btn btn-primary" asp-route-id="@Model.Discount.DiscountId">Edit</a> |
+    <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+</div>
