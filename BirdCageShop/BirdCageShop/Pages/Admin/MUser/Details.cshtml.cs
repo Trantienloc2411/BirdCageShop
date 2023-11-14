@@ -25,7 +25,7 @@ namespace BirdCageShop.Pages.Admin.MUser
             }
 
             User = _userRepo.GetUserById(id);
-            ViewData["RoleId"] = new SelectList(_userRepo.GetUserRole(), "CategoryId", "CategoryId");
+            ViewData["RoleId"] = new SelectList(_userRepo.GetUserRole(), "RoleId", "RoleId");
 
             if (User == null)
             {

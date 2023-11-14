@@ -12,5 +12,7 @@ namespace Repository
             _dao = new RevenueDAO();
         }
         public IEnumerable<Order> GetAll() => _dao.GetAll();
+        public List<User> GetUsers() => _dao.GetUsers();
+        public string FindUserNameByUserId(int? userId) => _dao.FindUserNameByUserId(userId);
     }
 }

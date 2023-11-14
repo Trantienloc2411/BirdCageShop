@@ -41,7 +41,6 @@ namespace DataAccessObjects
         {
             return _db.OrderDetails.FirstOrDefault(o => o.DetailId == detailId);
         }
-
         public void Delete(int detailId)
         {
             var o = GetOrderDetailById(detailId);

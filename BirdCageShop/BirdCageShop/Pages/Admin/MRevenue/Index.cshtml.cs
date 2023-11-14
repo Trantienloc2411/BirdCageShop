@@ -1,5 +1,6 @@
 using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Repository;
 
 namespace BirdCageShop.Pages.Admin.MRevenue
@@ -18,13 +19,13 @@ namespace BirdCageShop.Pages.Admin.MRevenue
         }
         public decimal? TotalOrderPrice { get; set; }
         public IList<Order> Order { get; set; }
-        public List<User> UserName { get; set; }
+        public string UserName { get; set; }
 
-        public void OnGet()
+        public void OnGet(int? UserId)
         {
             Order = _orderRepo.GetAll().ToList();
+            ViewData["UserName"] = new SelectList(_revenueRepo.GetUsers(), "UserName", "UserName");
             var allOrders = _revenueRepo.GetAll();
-
             TotalOrderPrice = allOrders.Sum(order => order.OrderPrice);
         }
     }

@@ -39,6 +39,8 @@ namespace DataAccessObjects
                 acc.AccessoryQuantity = accessory.AccessoryQuantity;
                 acc.AccessoryStatus = accessory.AccessoryStatus;
                 acc.AccessoryImg = accessory.AccessoryImg;
+                acc.CategoryId = accessory.CategoryId;
+                acc.DiscountId = accessory.DiscountId;
 
                 _db.SaveChanges();
             }
