@@ -1,0 +1,349 @@
+﻿@page "{handler?}/{id?}"
+@model BirdCageShop.Pages.Users.ProfileModel;
+@using Newtonsoft.Json.Linq;
+@{
+    ViewData["Title"] = "Hồ sơ của bạn";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon" />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet" />
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+          rel="stylesheet" />
+
+    <!-- Libraries Stylesheet -->
+    <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet" />
+    <style>
+        /* Custom CSS for profile page */
+        .profile-card {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+            .profile-card h2 {
+                margin-bottom: 10px;
+            }
+
+            .profile-card label {
+                font-weight: bold;
+            }
+
+            .profile-card .form-group {
+                margin-bottom: 15px;
+            }
+    </style>
+</head>
+<body>
+
+    <!-- Page Header Start -->
+    <div class="container-fluid bg-secondary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center"
+             style="min-height: 300px;">
+            <h1 class="font-weight-semi-bold text-uppercase mb-3">Hồ sơ</h1>
+            <div class="d-inline-flex">
+                <p class="m-0"><a href="">Trang chủ</a></p>
+                <p class="m-0 px-2">-</p>
+                <p class="m-0">Hồ sơ</p>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+    <!-- Profile Page Start -->
+    @{
+        var errorMessage = TempData["errorMessage"] as string;
+        var successMessage = TempData["successMessage"] as string;
+    }
+    <div class="alert alert-danger" style="@(string.IsNullOrEmpty(errorMessage) ? "display: none;" : "")">
+        @errorMessage
+    </div>
+
+    <!-- Hiển thị thông báo thành công -->
+    <div class="alert alert-success" style="@(string.IsNullOrEmpty(successMessage) ? "display: none;" : "")">
+        @successMessage
+    </div>
+    <div class="container-fluid pt-5">
+        <div class="row px-xl-5">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="profile-card">
+                    <h2 class="text-center mb-4">Hồ sơ người dùng</h2>
+                    <form method="post" asp-page-handler="OnPost">
+                        <div class="form-group">
+                            <label for="fullname">Họ và tên</label>
+                            <input type="text"
+                                   id="fullname"
+                                   class="form-control"
+                                   asp-for="@Model.UserName" required/>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email"
+                                   id="email"
+                                   class="form-control"
+                                   asp-for="@Model.UserEmail" required/>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Số điện thoại</label>
+                            <input type="text"
+                                   id="phone"
+                                   class="form-control"
+                                   asp-for="@Model.Phone" required/>
+                        </div>
+                        <!-- Nút để chuyển đổi hiển thị thông tin bổ sung -->
+                        <button type="button" id="toggleInfo" class="btn btn-secondary">
+                            Hiển thị thêm
+                        </button>
+
+                        <!-- Thông tin bổ sung (ban đầu ẩn) -->
+                        <div id="additionalInfo" style="display: none;">
+                            <div class="form-group">
+                                <label for="address">Địa chỉ</label>
+                                <input type="text"
+                                       id="address"
+                                       class="form-control"
+                                       placeholder="Địa chỉ mới"
+                                       asp-for="@Model.Address" required/>
+                            </div>
+                            <div class="form-group">
+                                <label for="dob">Ngày sinh</label>
+                                <input type="date" id="dob" class="form-control" asp-for="@Model.dob" />
+                            </div>
+                            <div class="form-group">
+                                <label for="newPassword">Mật khẩu</label>
+                                <input type="password"
+                                       id="newPassword"
+                                       class="form-control"
+                                       placeholder="Nhập mật khẩu mới"
+                                       asp-for="@Model.Password" required
+                                       oninvalid="this.setCustomValidity('Hãy điền ô này.')"
+                                       oninput="setCustomValidity('')"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Xác nhận mật khẩu</label>
+                                <input type="password"
+                                       id="confirmPassword"
+                                       class="form-control"
+                                       placeholder="Xác nhận mật khẩu mới"
+                                       asp-for="@Model.PasswordRepeat" required
+                                       oninvalid="this.setCustomValidity('Hãy điền ô này.')"
+                                       oninput="setCustomValidity('')"/>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            Lưu thay đổi
+                        </button>
+                    </form>
+                    
+                </div>
+                <a asp-page="./UCart/Index"> Xem giỏ hàng </a>
+            </div>
+        </div>
+    </div>
+
+    <!--Order table -->
+
+    <div class="container-fluid pt-5">
+        <h2 class="text-center mb-4">Đơn hàng của bạn</h2>
+        <div class="row px-xl-5">
+            <div class="col-lg-12 table-responsive">
+                <table class="table table-bordered text-center">
+                    <thead class="bg-secondary text-dark">
+                        <tr>
+                            <th>Mã đơn hàng</th>
+                            <th>Ngày</th>
+                            <th style="width: 30%;">Số lượng sản phẩm trong đơn hàng</th>
+                            <th>Tổng cộng</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                        <!-- Dữ liệu mẫu lịch sử đơn hàng -->
+                        
+                        @if(Model.order.Count != 0)
+                        {
+                            @foreach (var item in Model.order)
+                            {
+                                <tr>
+                                    <td class="align-middle">
+                                        <a href="#"
+                                           class="order-link"
+                                           data-toggle="modal"
+                                           data-target="#orderDetailModal"
+                                           data-order-id="@item.OrderId">@item.OrderId</a>
+                                    </td>
+                                    <td class="align-middle">@item.OrderDate</td>
+                                    @{
+                                        Model.countOrderDetail = Model.countProductInOrder(item.OrderId);
+                                    }
+                                    <td class="align-middle">@Model.countOrderDetail sản phẩm</td>
+                                    <td class="align-middle">@item.OrderPrice</td>
+                                    @if (item.OrderStatus == "Pending")
+                                    {
+                                        <td class="align-middle">Đang đợi</td>
+                                        <td>
+                                            <form method="post" asp-page-handler="CancelTheOrder">
+                                                <button type="submit" class="btn btn-sm" asp-page-handler="CancelTheOrder" style="background-color: #ff786f; color: white;"
+                                                        asp-route-OrderID="@item.OrderId">Huỷ đơn hàng</button>
+                                            </form>
+
+                                        </td>
+                                    }
+                                    else if (item.OrderStatus == "Delivering")
+                                    {
+                                        <td class="align-middle">Đang vận chuyển</td>
+                                    }
+                                    else if (item.OrderStatus == "Delivered")
+                                    {
+                                        <td class="align-middle">Đã giao hàng</td>
+                                        <td>
+                                            <a asp-page="../Users/Feedback" asp-route-orderID="@item.OrderId" class="btn btn-sm" style="background-color: #d19c97; color: white;">Đánh giá</a>
+
+                                        </td>
+                                    }
+                                    else if (item.OrderStatus == "Canceling")
+                                    {
+
+                                        <td class="align-middle">Đang huỷ đơn</td>
+                                    }
+                                    else if (item.OrderStatus == "Rejected")
+                                    {
+                                        <td class="align-middle">Đơn đã bị huỷ</td>
+                                    }
+
+
+
+
+                                </tr>
+                            }
+                        }
+                       
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Detail Modal -->
+    <div class="modal fade"
+         id="orderDetailModal"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="orderDetailModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="orderDetailModalLabel">
+                        Chi tiết đơn hàng
+                    </h5>
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="orderDetailBody">
+                    <!-- Order detail will be displayed here -->
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const orderDetails = {
+        @foreach (var o in Model.order)
+        {
+            
+            
+            
+            @: "@o.OrderId": {
+            @:cageId: "@o.OrderId",
+            @:nameOrder: "@o.OrderName",
+            @:addressOrder: "@o.OrderAdress",
+            @:statusOrder: "@o.OrderStatus",
+            @:detailPrice: "@o.OrderPrice",
+            @:detailQuantity: {
+            @foreach (var product in o.OrderDetails)
+            {
+                @if(product.CageId != null)
+                {
+                    @:         "@Model.getProductNameByProductID((int)product.CageId).CageName": @product.DetailPrice,
+                }
+                else
+                {
+                    @:         "@Model.getAccessoryNameByAccessoryID((int)product.AccessoryId).AccessoryName": @product.DetailPrice,
+                }
+
+        }
+            @:     },
+            @: },
+        }
+            };
+        const orderLinks = document.querySelectorAll(".order-link");
+        const orderDetailBody = document.getElementById("orderDetailBody");
+
+        orderLinks.forEach((link) => {
+            link.addEventListener("click", (event) => {
+                event.preventDefault();
+                const orderId = event.target.dataset.orderId;
+                const orderDetail = orderDetails[orderId];
+
+                if (orderDetail) {
+                    const orderDetailHTML = `
+                <p><strong>Mã đơn hàng: </strong> ${orderDetail.cageId}</p>
+                <p><strong>Tên người đặt đơn:  </strong> ${orderDetail.nameOrder}</p>
+                <p><strong>Địa chỉ giao hàng: </strong> ${orderDetail.addressOrder}</p>
+                <p><strong>Trạng thái đơn hàng: </strong> ${orderDetail.statusOrder} </p >
+                <p><strong>Tổng giá trị đơn hàng: </strong> ${orderDetail.detailPrice}</p>
+                <p><strong>Chi tiết đơn hàng: </strong></p>
+                <ul>
+                    ${Object.entries(orderDetail.detailQuantity)
+                            .map(
+                                ([product, quantity]) => `<li>${product} - ${quantity}</li>`
+                            )
+                            .join("")}
+                </ul>
+            `;
+                    orderDetailBody.innerHTML = orderDetailHTML;
+                } else {
+                    orderDetailBody.innerHTML = "Order detail not found.";
+                }
+
+            });
+        });
+    </script>
+    <script>
+        const toggleButton = document.getElementById("toggleInfo");
+        const additionalInfo = document.getElementById("additionalInfo");
+
+        // Xử lý sự kiện khi nút "Show" được nhấn
+        toggleButton.addEventListener("click", function () {
+            if (additionalInfo.style.display === "none") {
+                additionalInfo.style.display = "block";
+                toggleButton.innerText = "Hide"; // Thay đổi nút thành "Hide"
+            } else {
+                additionalInfo.style.display = "none";
+                toggleButton.innerText = "Show More"; // Thay đổi nút thành "Show More"
+            }
+        });
+    </script>
+    <!-- JavaScript Libraries -->
+</body>
+</html>

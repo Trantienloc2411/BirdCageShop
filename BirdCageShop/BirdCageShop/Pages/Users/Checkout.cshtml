@@ -1,0 +1,119 @@
+﻿@page
+@model BirdCageShop.Pages.Users.UOrder.CheckoutModel
+@addTagHelper *, LazZiya.TagHelpers
+@{
+    ViewData["Title"] = "Thanh toán";
+    Layout = "_Layout";
+}
+
+
+<body>
+    <!-- Checkout Start -->
+    <form method="post" class="container-fluid pt-5" id="orderForm">
+        <div class="row px-xl-5">
+            <div class="col-lg-8">
+                <div class="mb-4">
+                    <h4 class="font-weight-semi-bold mb-4">Địa chỉ nhận hàng</h4>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label>Họ và tên</label>
+                            <input class="form-control" name="OrderName" type="text" value="@Model.user.UserName"  />                         
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label>Email</label>
+                            <input class="form-control"
+                                   type="text"
+                                   value="@Model.user.Email" 
+                                   name="OrderEmail" />
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Số điện thoại di động</label>
+                            <input class="form-control"
+                                   type="text"
+                                   value="@Model.user.Phone"
+                                   name="OrderPhone" />
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Địa chỉ dòng 1</label>
+                            <input class="form-control"
+                                   type="text"
+                                   value="@Model.user.Address" 
+                                   name="OrderAddress"  />
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label>Ghi chú cho đơn hàng</label>
+                            <input class="form-control"
+                                   type="text"
+                                   value="" name="Note"/>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card border-secondary mb-5">
+                    <div class="card-header bg-secondary border-0">
+                        <h4 class="font-weight-semi-bold m-0">Tổng đơn hàng</h4>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="font-weight-medium mb-3">Sản phẩm</h5>
+                        @{
+                            decimal total = 0;
+                        }
+                        @foreach(var item in Model.cartItems)
+                        {
+                            <div class="d-flex justify-content-between">
+                                <p>@item.CageName x @item.DetailQuantity cái</p>
+                                <p>@item.DetailPrice</p>
+                            </div>
+
+                            Model.OrderPrice += item.DetailPrice*item.DetailQuantity; 
+
+
+                        }
+                        <div class="d-flex justify-content-between">
+                            <p>Phí vận chuyển </p>
+                            <p>10$</p>
+                        </div>
+                        @{
+                            Model.OrderPrice += 10;
+                        }
+                    </div>
+                    <div class="card-footer border-secondary bg-transparent">
+                        <div class="d-flex justify-content-between mt-2">
+                            <h5 class="font-weight-bold">Tổng cộng</h5>
+                            <h5 class="font-weight-bold">@Model.OrderPrice</h5>
+                            <input name="OrderTotal" value="@Model.OrderPrice" type="hidden" />
+                        </div>
+                    </div>
+                </div>
+                <div class="card border-secondary mb-5">
+                    <div class="card-header bg-secondary border-0">
+                        <h4 class="font-weight-semi-bold m-0">Thanh toán</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <div class="custom-control custom-radio">
+                                <input type="radio"
+                                       class="custom-control-input"
+                                       name="payment"
+                                       id="directcheck" />
+                                <label class="custom-control-label" for="directcheck">Thanh toán trực tiếp</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-footer border-secondary bg-transparent">
+                    <a href="javascript:void(0);" onclick="document.getElementById('orderForm').submit();">
+                        <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">
+                            Đặt hàng
+                        </button>
+                    </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    <!-- Checkout End -->
+</body>

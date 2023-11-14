@@ -1,0 +1,162 @@
+﻿@page
+@model BirdCageShop.Pages.Users.UOrder.OrderViewModel
+@{
+    ViewData["Title"] = "Đơn hàng";
+    Layout = "_Layout";
+}
+
+<body>
+    <!-- Page Header Start -->
+    <div class="container-fluid bg-secondary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center"
+             style="min-height: 300px;">
+            <h1 class="font-weight-semi-bold text-uppercase mb-3">Đơn hàng</h1>
+            <div class="d-inline-flex">
+                <p class="m-0"><a asp-page="../User/Shop">Trang Chủ</a></p>
+                <p class="m-0 px-2">-</p>
+                <p class="m-0">Đơn hàng</p>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+    <!-- Order History Page Start -->
+    <div class="container-fluid pt-5">
+        <div class="row px-xl-5">
+            <div class="col-lg-12 table-responsive">
+                <table class="table table-bordered text-center">
+                    <thead class="bg-secondary text-dark">
+                        <tr>
+                            <th>Mã đơn hàng</th>
+                            <th>Ngày</th>
+                            <th style="width: 30%;">Số lượng sản phẩm trong đơn hàng</th>
+                            <th>Tổng cộng</th>
+                            <th>Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                        <!-- Dữ liệu mẫu lịch sử đơn hàng -->
+                        
+                        @foreach(var item in Model.order)
+                        {
+                            <tr>
+                                <td class="align-middle">
+                                    <a asp-page="./OrderViewDetail"
+                                       asp-route-orderID="@item.OrderId">@item.OrderId</a>
+                                </td>
+                                <td class="align-middle">@item.OrderDate</td>
+                                @{
+                                    Model.countOrderDetail = Model.countProductInOrder(item.OrderId);
+                                }
+                                <td class="align-middle">@Model.countOrderDetail</td>
+                                <td class="align-middle">@item.OrderPrice</td>
+                                @if(item.OrderStatus == "Pending")
+                                {
+                                    <td class="align-middle">Đang đợi</td>
+                                }
+                                else if (item.OrderStatus == "Delivering")
+                                {
+                                    <td class="align-middle">Đang vận chuyển</td>
+                                }
+                                else if (item.OrderStatus == "Delivered")
+                                {
+                                    <td class="align-middle">Đã giao hàng</td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade"
+         id="orderDetailModal"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="orderDetailModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="orderDetailModalLabel">
+                        Chi tiết đơn hàng
+                    </h5>
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="orderDetailBody">
+                    <!-- Order detail will be displayed here -->
+                </div>
+            </div>
+        </div>
+        </div>
+    <script>
+        // Sample order detail data
+        const orderDetails = {
+            "12345": {
+                cageId: "Cage123",
+                detailPrice: "$120",
+                detailQuantity: {
+                    "Product 1": 1,
+                    "Product 2": 2,
+                },
+            },
+            "67890": {
+                cageId: "Cage456",
+                detailPrice: "$70",
+                detailQuantity: {
+                    "Product 3": 3,
+                    "Product 4": 1,
+                },
+            },
+        };
+
+        const orderLinks = document.querySelectorAll(".order-link");
+        const orderDetailBody = document.getElementById("orderDetailBody");
+
+        orderLinks.forEach((link) => {
+            link.addEventListener("click", (event) => {
+                event.preventDefault();
+                const orderId = event.target.dataset.orderId;
+                const orderDetail = orderDetails[orderId];
+
+                if (orderDetail) {
+                    const orderDetailHTML = `
+                      <p><strong>Cage ID:</strong> ${orderDetail.cageId}</p>
+                      <p><strong>Detail Price:</strong> ${orderDetail.detailPrice}</p>
+                      <p><strong>Detail Quantity:</strong></p>
+                      <ul>
+                        ${Object.entries(orderDetail.detailQuantity)
+                            .map(
+                                ([product, quantity]) => `<li>${product} - ${quantity}</li>`
+                            )
+                            .join("")}
+                      </ul>
+                    `;
+                    orderDetailBody.innerHTML = orderDetailHTML;
+                } else {
+                    orderDetailBody.innerHTML = "Order detail not found.";
+                }
+            });
+        });
+    </script>
+    <script>
+        const toggleButton = document.getElementById("toggleInfo");
+        const additionalInfo = document.getElementById("additionalInfo");
+
+        // Xử lý sự kiện khi nút "Show" được nhấn
+        toggleButton.addEventListener("click", function () {
+            if (additionalInfo.style.display === "none") {
+                additionalInfo.style.display = "block";
+                toggleButton.innerText = "Ẩn"; // Thay đổi nút thành "Hide"
+            } else {
+                additionalInfo.style.display = "none";
+                toggleButton.innerText = "Hiển thị thêm"; // Thay đổi nút thành "Show More"
+            }
+        });
+    </script>
+
+</body>
