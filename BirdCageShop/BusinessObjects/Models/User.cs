@@ -1,4 +1,8 @@
-﻿namespace BusinessObjects.Models
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
+namespace BusinessObjects.Models
 {
     public partial class User
     {
@@ -6,7 +10,6 @@
         {
             Feedbacks = new HashSet<Feedback>();
         }
-
         public int UserId { get; set; }
         public string? UserName { get; set; }
         public string? UserPassword { get; set; }
@@ -18,7 +21,6 @@
         public int? RoleId { get; set; }
         public string? Gender { get; set; }
         public string? UserImg { get; set; }
-
         public virtual Role? Role { get; set; }
         public virtual ICollection<Feedback> Feedbacks { get; set; }
     }

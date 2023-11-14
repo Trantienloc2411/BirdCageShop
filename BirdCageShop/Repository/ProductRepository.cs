@@ -30,5 +30,29 @@ namespace Repository
         public int getTotalProductPages() => _dao.getTotalProductPages();
 
         //public void Upload(int cageId, IFormFile imageFile) => _dao.Upload(cageId, imageFile);
+
+        public Product getProductDetail(int id) => _dao.getProductDetail(id);
+
+        public Tuple<int, int> getFeedback(int id) => _dao.getRatingProduct(id);
+
+        public List<Product> getListProductTrendingForUser() => _dao.getListProductTrendingForUser();
+
+        public List<Product> getListProductForUser() => _dao.getListProductForUser();
+        public List<Product> getProductPagesForUser(int pageIndex, int pageSize) => _dao.getProductPagesForUser(pageIndex, pageSize);
+
+        public List<Accessory> GetAccessories() => _dao.GetAccessories();
+
+        public Accessory getDetailAccessoryByID(int accessoryID) => _dao.getDetailAccessoryByID(accessoryID);
+
+        public List<Accessory> getAccessoryPages(int pageIndex, int pageSize) =>  _dao.getAccessoryPages(pageIndex, pageSize);
+
+        public int getTotalAccessoryPages() => _dao.getTotalAccessoryPages();
+
+        List<Accessory> IProductRepository.GetAccessoryByName(string name) => _dao.GetAccessoryByName((string)name);
+
+        public Tuple<int, int> getRatingAccessory(int accessoryID) => _dao.getRatingAccessory(accessoryID);
+        public List<Product> comparisionProduct(int prod1, int prod2) => _dao.comparisionProduct(prod1, prod2);
+        public int AddCustomizeCage(Product p) => _dao.AddCustomizeCage((Product)p);
+        
     }
 }

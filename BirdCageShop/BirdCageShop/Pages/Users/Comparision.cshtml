@@ -1,0 +1,191 @@
+﻿@page "{handler?}"
+@model BirdCageShop.Pages.Users.ComparisionModel
+@{
+    ViewData["Title"] = "So sánh";
+    Layout = "_Layout";
+}
+
+<body>
+    <!-- Customization Options Start -->
+    <div style="display: flex; justify-content: center;">
+        <div class="container">
+            <h2 style="text-align: center;">So sánh</h2>
+            <br>
+
+
+        </div>
+    </div>
+    <!-- Customization Options End -->
+    @* <!-- Comparison Page Start -->
+    <div class="container-fluid pt-5">
+    <div class="row px-xl-5">
+    <div class="col-lg-12 table-responsive">
+    <table class="table table-bordered text-center">
+
+    <thead class="bg-secondary text-dark">
+    <tr>
+
+    <th>Sản Phẩm 1</th>
+    <th>Sản phẩm 2</th>
+    </tr>
+    </thead>
+    <tbody class="align-middle">
+    <!-- Sample product data for comparison -->
+    @if(Model.comparePro.Count == 0)
+    {
+    <div>Chưa có sản phẩm hoặc chưa đủ sản phẩm để so sánh cần tối thiểu 2 sản phẩm </div>
+    }
+    else
+    {
+    <tr>
+    <td class="align-middle">@Model.comparePro[0].CageName</td>
+    <td class="align-middle">@Model.comparePro[1].CageName</td>
+    </tr>
+    <tr>
+    <td class="align-middle">@Model.comparePro[0].Price</td>
+    <td class="align-middle">@Model.comparePro[1].Price</td>
+    </tr>
+    <tr>
+    <td class="align-middle">@Model.comparePro[0].Size</td>
+    <td class="align-middle">@Model.comparePro[1].Size</td>
+    </tr>
+    <tr>
+    <td class="align-middle">@Model.comparePro[0].Material</td>
+    <td class="align-middle">@Model.comparePro[1].Material</td>
+    </tr>
+    <tr>
+    <td class="align-middle">
+    @Model.comparePro[0].Description
+    </td>
+    <td class="align-middle">
+    @Model.comparePro[1].Description
+    </td>
+    </tr>
+    <tr>
+    <form method="post">
+    <td>
+    <button type="submit" asp-route-pID="@Model.comparePro[0].CageId" asp-page-handler="Delete" style="background-color: #e4485e">
+    <i class="fas fa-trash-alt"></i>
+    </button>
+    </td>
+    <td>
+    <button type="submit" asp-route-pID="@Model.comparePro[1].CageId" asp-page-handler="Delete"  style="background-color: #e4485e">
+    <i class="fas fa-trash-alt"></i>
+    </button>
+    </td>
+    </form>
+
+    </tr>
+    }
+
+    </tbody>
+    </table>
+    </div>
+    </div>
+    </div>
+    <!-- Comparison Page End --> *@
+    @if (Model.comparePro.Count == 0)
+    {
+        <div class="align-middle">
+            <h3>So sánh</h3>
+            <p>Chưa có sản phẩm hoặc chưa đủ sản phẩm để so sánh cần tối thiểu 2 sản phẩm</p>
+        </div>
+
+    }
+    else
+    {
+        <div class="container-fluid py-5">
+            <div class="container pb-5 mb-2">
+                <div class="comparison-table">
+                    <table class="table table-bordered">
+                        <thead class="bg-secondary">
+                            <tr>
+
+                                <td class="align-middle">
+                                    <h5>So sánh</h5>
+                                </td>
+                                <td>
+                                    <div class="comparison-item">
+                                        <a class="comparison-item-thumb"><img src="~/@Model.comparePro[0].CageImg" alt="" /></a>
+                                        <a class="comparison-item-title" asp-route-productId="@Model.comparePro[0].CageId" asp-page="./ProductDetail">@Model.comparePro[0].CageName</a>
+                                        @* <button class="btn btn-pill btn-outline-primary btn-sm" asp-route-productId="@Model.comparePro[0].CageId" asp-page-handler="Add"
+                                    type="button">
+                                    <i class="fa fa-shopping-cart mr-1"></i> Thêm vào giỏ hàng
+                                    </button> *@
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="comparison-item">
+                                        <a class="comparison-item-thumb"><img src="~/@Model.comparePro[1].CageImg" alt="" /></a> <br>
+                                        <a class="comparison-item-title" asp-route-productId="@Model.comparePro[0].CageId" asp-page="./ProductDetail">@Model.comparePro[1].CageName</a>
+                                        @*                                         <button class="btn btn-pill btn-outline-primary btn-sm" asp-page-handler="Add" asp-route-productId="@Model.comparePro[0].CageId"
+                                    type="button">
+                                    <i class="fa fa-shopping-cart mr-1"></i> Thêm vào giỏ hàng
+                                    </button> *@
+                                    </div>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-secondary">
+                                <th class="text-uppercase">Giá</th>
+                                <td>
+                                    <span class="text-dark font-weight-semibold">@Model.comparePro[0].Price</span>
+                                </td>
+                                <td>
+                                    <span class="text-dark font-weight-semibold">@Model.comparePro[1].Price</span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>Số lượng</th>
+                                <td>@Model.comparePro[0].Quantity</td>
+                                <td>@Model.comparePro[1].Quantity</td>
+                            </tr>
+                            <tr>
+                                <th>Kích cỡ</th>
+                                <td>@Model.comparePro[0].Size</td>
+                                <td>@Model.comparePro[1].Size</td>
+                            </tr>
+                            <tr>
+                                <th>Chất liệu</th>
+                                <td>@Model.comparePro[0].Material</td>
+                                <td>@Model.comparePro[1].Material</td>
+                            </tr>
+                            <tr>
+                                <th>Số nan</th>
+                                <td>@Model.comparePro[0].Bar</td>
+                                <td>@Model.comparePro[1].Bar</td>
+                            </tr>
+                            <tr>
+                                <form method="post">
+                                <th></th>
+                                <td>
+                                    <button class="btn btn-pill btn-outline-primary btn-sm" asp-route-pID="@Model.comparePro[0].CageId"
+                                            type="submit">
+                                        <i class="fa fa-shopping-cart mr-1"></i> Xoá
+                                    </button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-pill btn-outline-primary btn-sm" asp-route-pID="@Model.comparePro[1].CageId"
+                                            type="submit">
+                                        <i class="fa fa-shopping-cart mr-1"></i> Xoá
+                                    </button>
+                                </td>
+                                </form>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+
+
+    <!-- Shop Detail End -->
+
+
+
+
+
+</body>

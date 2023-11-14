@@ -20,7 +20,18 @@
         <h1>Logging out...</h1>
         <p>Are you sure you want to log out?</p>
         <button class="btn btn-primary" onclick="confirmLogout()">Logout</button>
-        <a asp-page="../Admin/MProduct/Index" class="btn btn-secondary ml-2">Cancel</a>
+        @if(HttpContext.Session.GetInt32("Role") == 2)
+        {
+            <a asp-page="../Admin/MProduct/Index" class="btn btn-secondary ml-2">Cancel</a>
+        }
+        else if (HttpContext.Session.GetInt32("Role") == 1)
+        {
+            <a asp-page="../Index" class="btn btn-secondary ml-2">Cancel</a>
+        }
+        else if (HttpContext.Session.GetInt32("Role") == 3)
+        {
+            <a asp-page="../Manager/MProduct/Index" class="btn btn-secondary ml-2">Cancel</a>
+        }
     </div>
 
     <!-- Confirmation Pop-up -->

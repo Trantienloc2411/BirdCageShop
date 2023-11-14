@@ -15,5 +15,6 @@ namespace Repository
         public void Add(Discount order) => _dao.Add(order);
         public void Update(Discount dis) => _dao.Update(dis);
         public void Delete(int orderId) => _dao.Delete(orderId);
+        public void AutoUpdateDiscount() => _dao.AutoUpdateDiscount();
     }
 }

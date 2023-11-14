@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessObjects
 {
@@ -23,6 +24,12 @@ namespace DataAccessObjects
         {
             _db.Add(order);
             _db.SaveChanges();
+        }
+        public int AddReturnOrderID(Order order)
+        {
+            _db.Orders.Add(order);
+            _db.SaveChanges();
+            return order.OrderId;
         }
         public void Update(Order order)
         {
@@ -64,55 +71,30 @@ namespace DataAccessObjects
             return _db.Orders.ToList();
         }
 
-        private bool ValidateProduct(Product product)
+        public List<Order> getOrderByUserID(int userID)
         {
-            if (string.IsNullOrEmpty(product.CageName))
-            {
-                throw new ArgumentException("Cage Name is required.", nameof(product.CageName));
-            }
-
-            if (product.CategoryId <= 0)
-            {
-                throw new ArgumentException("Category is required.", nameof(product.CategoryId));
-            }
-
-            if (product.Quantity <= 0)
-            {
-                throw new ArgumentException("Quantity must be greater than 0.", nameof(product.Quantity));
-            }
-
-            if (product.Price <= 0)
-            {
-                throw new ArgumentException("Price must be greater than 0.", nameof(product.Price));
-            }
-            if (product.DiscountId <= 0)
-            {
-                throw new ArgumentException("Discount is required.", nameof(product.DiscountId));
-            }
-            if (string.IsNullOrEmpty(product.Material))
-            {
-                throw new ArgumentException("Material is required.", nameof(product.Material));
-            }
-            if (string.IsNullOrEmpty(product.Size))
-            {
-                throw new ArgumentException("Size must be greater than 0.", nameof(product.Size));
-            }
-            if (product.Bar <= 0)
-            {
-                throw new ArgumentException("Bar is required.", nameof(product.Bar));
-            }
-            if (string.IsNullOrEmpty(product.Description))
-            {
-                throw new ArgumentException("Description is required.", nameof(product.Description));
-            }
-            if (product.CageStatus <= 0)
-            {
-                throw new ArgumentException("CageStatus is required.", nameof(product.CageStatus));
-            }
-
-            // Add validations for other required fields
-
-            return true;
+            return _db.Orders.Where(o => o.OrderStatus != "Cart" && o.UserId == userID).ToList();
         }
+
+        public int placeOrderByOrderID(int orderID)
+        {
+            var order = _db.Orders.FirstOrDefault(o => o.OrderId == orderID && o.OrderStatus == "Cart");
+            order.OrderStatus = "Pending";
+            return _db.SaveChanges();
+        }
+        public List<Order> orderListIncludeOrderDetail(int userID)
+        {
+            return _db.Orders.Include(o => o.OrderDetails).Where(o => o.UserId == userID && o.OrderStatus != "Cart").ToList();
+        }
+
+        public Order getOrderByOrderID(int orderID)
+        {
+            return _db.Orders.FirstOrDefault(o => o.OrderId == orderID);
+        }
+
+        //public Tuple<Product,Product> comparisionProduct(Product prod1, Product prd2)
+        //{
+
+        //}
     }
 }

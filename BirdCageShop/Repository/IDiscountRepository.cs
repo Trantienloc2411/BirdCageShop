@@ -9,5 +9,6 @@ namespace Repository
         void Add(Discount order);
         void Update(Discount dis);
         void Delete(int orderId);
+        void AutoUpdateDiscount();
     }
 }

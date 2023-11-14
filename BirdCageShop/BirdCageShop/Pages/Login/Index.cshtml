@@ -2,129 +2,90 @@
 @model BirdCageShop.Login.IndexModel
 @{
     ViewData["Title"] = "Home page";
+    //Set new layout here
+    Layout = "_Layout";
+    
 }
 
-@* <section>
-    <div class="container-fluid h-custom">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-
-            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                <form method="post" asp-page="Index">
-                    <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
-                        @if (TempData["errorMessage"] != null)
-                        {
-                            <div class="alert alert-danger">@TempData["errorMessage"]</div>
-                        }
-                    </div>
-
-
-
-                    <!-- Email input -->
-                    <div class="form-outline mb-4">
-                        <label for="email">Email address</label>
-                        <input type="email" class="form-control" id="email" name="email" required placeholder="Enter email">
-                    </div>
-
-                    <!-- Password input -->
-                    <div class="form-outline mb-3">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" required placeholder="Password">
-                    </div>
-
-
-
-                    <div class="text-center text-lg-start mt-4 pt-2">
-                        <button type="submit" class="btn btn-primary btn-lg"
-                                style="padding-left: 2.5rem; padding-right: 2.5rem;">
-
-                            Login
-                        </button>
-                        <p class="small fw-bold mt-2 pt-1 mb-0">
-                            Don't have an account? <a asp-page="User/Create"
-                                                      class="link-danger">Register</a>
-                        </p>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-
-    </div>
-</section> *@
-
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    <meta charset="UTF-8">
+    <title>CodePen - CSS Cube Login Form</title>
+    <link rel="stylesheet" href="~/css/style.css">
+    <style>
+        /* Form Login */
+        #login-form {
+            width: 400px;
+            margin: 0 auto;
+            background-color: #f2f2f2;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+            #login-form label {
+                display: block;
+                font-weight: bold;
+                margin-bottom: 5px;
+            }
+
+            #login-form input[type="email"],
+            #login-form input[type="password"] {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 20px;
+                border: none;
+                border-radius: 5px;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            }
+
+            #login-form button[type="submit"] {
+                display: block;
+                margin: 0 auto;
+                background-color: #4caf50;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                padding: 10px 20px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+                #login-form button[type="submit"]:hover {
+                    background-color: #3e8e41;
+                }
+    </style>
 </head>
 <body>
 
-    @Model.ErrorMessage
-    <div class="container">
-        <h1>Login</h1>
-        <form method="post">
-            <div class="form-group">
-                <label for="Email">Email:</label>
-                <input type="text" class="form-control" asp-for="@Model.Email">
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" class="form-control" asp-for="@Model.Password">
-            </div>
-            <button type="submit" value="Login" class="btn btn-primary">Login</button>
-        </form>
+    @{
+        var errorMessage = TempData["errorMessage"] as string;
+        var successMessage = TempData["successMessage"] as string;
+    }
+    <div class="alert alert-danger" style="@(string.IsNullOrEmpty(errorMessage) ? "display: none;" : "")">
+        @errorMessage
     </div>
 
-    <style>
-        .container {
-            max-width: 500px;
-            margin: 0 auto;
-            padding-top: 50px;
-        }
+    <!-- Hiển thị thông báo thành công -->
+    <div class="alert alert-success" style="@(string.IsNullOrEmpty(successMessage) ? "display: none;" : "")">
+        @successMessage
+    </div>
+    <h1 style="text-align: center;">Đăng nhập</h1>
+    <form id="login-form" method="post">
+        <label for="email">Email:</label>
+        <input type="email" id="email" asp-for="@Model.Email" required />
 
-        h1 {
-            text-align: center;
-        }
+        <label for="password">Mật khẩu:</label>
+        <input type="password" id="password" asp-for="@Model.Password" required />
 
-        form {
-            border: 1px solid #ccc;
-            padding: 20px;
-            border-radius: 10px;
-        }
+        <button type="submit">Đăng nhập</button>
+        <p style="text-align:center ;">
+            Bạn chưa có tài khoản? Hãy <a asp-page="/Register/Index">Đăng ký</a>
+        </p>
+    </form> 
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+    <!-- partial -->
 
-        label {
-            font-weight: bold;
-        }
-
-        input[type="text"], input[type="password"] {
-            width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        button[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-            button[type="submit"]:hover {
-                background-color: #45a049;
-            }
-    </style>
 </body>
 </html>

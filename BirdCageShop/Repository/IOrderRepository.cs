@@ -10,6 +10,15 @@ namespace Repository
         Order GetOrderById(int id);
         List<Order> Report(DateTime startDate, DateTime endDate);
         void Update(Order order);
+
+        List<Order> getOrderByUserID(int userID);
+       
+
         void ManagerUpdate(Order order);
+        int placeOrderByOrderID(int orderID);
+        List<Order> orderListIncludeOrderDetail(int userID);
+        int AddReturnOrderID(Order order);
+        Order getOrderByOrderID(int orderID);
+
     }
 }

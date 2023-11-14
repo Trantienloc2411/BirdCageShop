@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Exchange.WebServices.Autodiscover;
 using Repository;
 
 namespace BirdCageShop.Login
@@ -21,10 +23,6 @@ namespace BirdCageShop.Login
             _userRepo = new UserRepository();
         }
 
-        public void OnGet()
-        {
-
-        }
 
         public IActionResult OnPost()
         {
@@ -33,16 +31,39 @@ namespace BirdCageShop.Login
             {
                 if (user.RoleId == 1)
                 {
-                    HttpContext.Session.SetString("LoggedInUser", "User");
-                    return RedirectToPage("../Index");
+                    if (user.Status == "Suspended")
+                    {
+                        TempData["errorMessage"] = "Your account is banned! Contact Admin ASAP!";
+                        return RedirectToPage("../Index");
+                    }
+                    else
+                    {
+                        HttpContext.Session.SetString("LoggedInUser", "User");
+                        HttpContext.Session.SetString("userName", user.UserName);
+                        HttpContext.Session.SetString("userEmail", user.Email);
+                        HttpContext.Session.SetInt32("userID", user.UserId);
+                        HttpContext.Session.SetInt32("Role", (int)user.RoleId);
+                        return RedirectToPage("../Index");
+                    }
+
                 }
                 else if (user.RoleId == 2)
                 {
-                    HttpContext.Session.SetString("LoggedInUser", "Adminstrator");
-                    return RedirectToPage("../Admin/MProduct/Index");
+                    if (user.Status == "Suspended")
+                    {
+                        TempData["errorMessage"] = "Your account is banned! Contact Admin ASAP!";
+                        return RedirectToPage("../Index");
+                    }
+                    else
+                    {
+                        HttpContext.Session.SetString("LoggedInUser", "Adminstrator");
+                        return RedirectToPage("../Admin/MProduct/Index");
+                    }
+
                 }
                 else if (user.RoleId == 3)
                 {
+                    
                     HttpContext.Session.SetString("LoggedInUser", "Shopkeeper");
                     return RedirectToPage("../Manager/MProduct/Index");
                 }
@@ -50,9 +71,7 @@ namespace BirdCageShop.Login
                 {
                     TempData["errorMessage"] = "You are not allowed to do this function!";
                     return Page();
-
                 }
-
             }
             else
             {

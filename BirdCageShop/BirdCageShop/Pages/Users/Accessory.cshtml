@@ -1,0 +1,177 @@
+﻿@page "{handler?}"
+@model BirdCageShop.Pages.Users.AccessoryModel
+@addTagHelper *, LazZiya.TagHelpers
+@{
+    ViewData["Title"] = "Phụ kiện";
+}
+<body>
+    @{
+        var errorMessage = TempData["errorMessage"] as string;
+        var successMessage = TempData["successMessage"] as string;
+    }
+    <div class="alert alert-danger" style="@(string.IsNullOrEmpty(errorMessage) ? "display: none;" : "")">
+        @errorMessage
+    </div>
+
+    <!-- Hiển thị thông báo thành công -->
+    <div class="alert alert-success" style="@(string.IsNullOrEmpty(successMessage) ? "display: none;" : "")">
+        @successMessage
+    </div>
+    <!-- Page Header Start -->
+    <div class="container-fluid bg-secondary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center"
+             style="min-height: 300px;">
+            <h1 class="font-weight-semi-bold text-uppercase mb-3">Phụ kiện</h1>
+            <div class="d-inline-flex">
+                <p class="m-0"><a href="/Index">Trang chủ</a></p>
+                <p class="m-0 px-2">-</p>
+                <p class="m-0">Phụ kiện</p>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+    <!-- Shop Start -->
+    <div class="container-fluid pt-5">
+        <div class="row px-xl-5">
+            <!-- Shop Sidebar Start -->
+            <div class="col-lg-3 col-md-12">
+                <!-- Price Start -->
+                <div class="border-bottom mb-4 pb-4">
+                    <h5 class="font-weight-semi-bold mb-4">Lọc theo giá</h5>
+                    <form>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox"
+                                   class="custom-control-input"
+                                   checked
+                                   id="price-all" />
+                            <label class="custom-control-label" for="price-all">Tất cả giả</label>
+                            <span class="badge border font-weight-normal">1000</span>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox"
+                                   class="custom-control-input"
+                                   id="price-1" />
+                            <label class="custom-control-label" for="price-1">$0 - $100</label>
+                            <span class="badge border font-weight-normal">150</span>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox"
+                                   class="custom-control-input"
+                                   id="price-2" />
+                            <label class="custom-control-label" for="price-2">$100 - $200</label>
+                            <span class="badge border font-weight-normal">295</span>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox"
+                                   class="custom-control-input"
+                                   id="price-3" />
+                            <label class="custom-control-label" for="price-3">$200 - $300</label>
+                            <span class="badge border font-weight-normal">246</span>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox"
+                                   class="custom-control-input"
+                                   id="price-4" />
+                            <label class="custom-control-label" for="price-4">$300 - $400</label>
+                            <span class="badge border font-weight-normal">145</span>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
+                            <input type="checkbox"
+                                   class="custom-control-input"
+                                   id="price-5" />
+                            <label class="custom-control-label" for="price-5">$400 - $500</label>
+                            <span class="badge border font-weight-normal">168</span>
+                        </div>
+                    </form>
+                </div>
+                <!-- Price End -->
+            </div>
+            <!-- Shop Sidebar End -->
+            <!-- Shop Product Start -->
+            <div class="col-lg-9 col-md-12">
+                <div class="row pb-3">
+                    <div class="col-12 pb-1">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <form method="post" asp-page-handler="Search">
+                                <div class="input-group">
+                                    <input type="text"
+                                           class="form-control"
+                                           placeholder="Tìm theo tên "
+                                           name="productName"/>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text bg-transparent text-primary">
+                                            <i class="fa fa-search"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="dropdown ml-4">
+                                <button class="btn border dropdown-toggle"
+                                        type="button"
+                                        id="triggerId"
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true"
+                                        aria-expanded="false">
+                                    Sort by
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right"
+                                     aria-labelledby="triggerId">
+                                    <form method="get">
+                                        <input type="hidden" name="SortBy" value="Quantity" />
+                                        <button type="submit" class="dropdown-item">Quantity</button>
+                                    </form>
+                                    <form method="get">
+                                        <input type="hidden" name="SortBy" value="Price" />
+                                        <button type="submit" class="dropdown-item">Price</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    @foreach (var item in Model.pagedProducts)
+                    {
+                        <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
+                            <div class="card product-item border-0 mb-4">
+                                <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                    <img class="img-fluid w-100" src="~/@item.AccessoryImg" alt="" />
+                                </div>
+                                <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                                    <h6 class="text-truncate mb-3">@Html.DisplayFor(modelItem => item.AccessoryName)</h6>
+                                    <div class="d-flex justify-content-center">
+                                        @if (item.Discount != null)
+                                        {
+                                            var discountedPrice = (double)(item.AccessoryPrice - (item.AccessoryPrice * (double)item.Discount.Discount1)); ;
+                                            <h6>@Html.DisplayFor(modelItem => discountedPrice)</h6>  <!-- (Giá được giảm)  -->
+                                            <h6 class="text-muted ml-2"><del>@Html.DisplayFor(modelItem => item.AccessoryPrice) $</del></h6> <!-- Giá gốc  -->
+                                        }
+                                        else
+                                        {
+                                            <h6>@Html.DisplayFor(modelItem => item.AccessoryPrice)</h6>
+                                        }
+
+                                    </div>
+                                </div>
+                                <div class="card-footer d-flex justify-content-between bg-light border">
+                                    <a asp-page="/Users/AccessoryDetail" asp-route-accessoryId="@item.AccessoryId" class="btn btn-sm text-dark p-0">
+                                        <i class="fas fa-eye text-primary mr-1"></i>Xem chi tiết
+                                    </a>
+                                    <form method="post">
+                                        <button asp-page="" type="submit" class="btn btn-sm text-dark p-0" asp-route-accessoryId="@item.AccessoryId">
+                                            <i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm
+                                            vào giỏ
+                                        </button>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <paging class="pagination" total-records="@Model.totalProduct" show-total-pages="false" show-total-records="false" page-size="@Model.pageSize" page-no="@Model.pageNo"></paging>
+            <!-- Shop Product End -->
+        </div>
+    </div>
+</body>
+
