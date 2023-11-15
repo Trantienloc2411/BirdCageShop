@@ -1,5 +1,7 @@
-﻿using BusinessObjects.Models;
+﻿using BusinessObjects;
+using BusinessObjects.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -27,7 +29,9 @@ namespace DataAccessObjects
 
         public User GetUserById(int Id)
         {
-            return _dbContext.Users.FirstOrDefault(c => c.UserId == Id);
+            var u = _dbContext.Users.FirstOrDefault(c => c.UserId == Id);
+            u.UserPassword = Utility.dycryptoString(u.UserPassword);
+            return u;
         }
         public List<User> GetListUserByName(string name)
         {
@@ -37,6 +41,7 @@ namespace DataAccessObjects
         public void Add(User User)
         {
             User.Status = "Active";
+            User.UserPassword = Utility.encrytoStringKey(User.UserPassword);
             _dbContext.Add(User);
             _dbContext.SaveChanges();
         }
@@ -53,11 +58,15 @@ namespace DataAccessObjects
             {
                 //cus.Email = User.Email;
                 user.UserName = User.UserName;
+                user.UserPassword = Utility.encrytoStringKey(User.UserPassword);
                 user.Phone = User.Phone;
                 user.Address = User.Address;
                 user.UserImg = User.UserImg;
+                user.RoleId = User.RoleId;
+                user.Email = User.Email;
                 user.DoB = User.DoB;
-
+                user.Status = User.Status;
+                user.Gender = User.Gender;
                 return _dbContext.SaveChanges();
             }
             return 0;
@@ -88,6 +97,7 @@ namespace DataAccessObjects
         // check User login
         public User checkUserLogin(string email, string password)
         {
+            password = Utility.encrytoStringKey(password);  
             return _dbContext.Users.FirstOrDefault(c => c.Email == email && c.UserPassword == password);
         }
 
@@ -120,7 +130,7 @@ namespace DataAccessObjects
                     user.Address = User.Address;
                     //user.UserImg = User.UserImg;
                     user.DoB = User.DoB;
-                    user.UserPassword = User.UserPassword;
+                    user.UserPassword = Utility.encrytoStringKey(User.UserPassword);
                     return _dbContext.SaveChanges();
                 }
                 return 0;
