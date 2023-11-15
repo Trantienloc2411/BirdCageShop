@@ -33,7 +33,7 @@ namespace BirdCageShop.Pages.Register
             user.UserPassword = this.Password;
             user.Email = this.Email;
             user.RoleId = 1;
-            var isEmailExisted = _userRepo.isEmailexisted(this.UserName);
+            var isEmailExisted = _userRepo.isEmailexisted(this.Email);
             if (isEmailExisted)
             {
                 TempData["errorMessage"] = "Email này đã tồn tại trong hệ thống! Hãy sử dụng email khác.";
