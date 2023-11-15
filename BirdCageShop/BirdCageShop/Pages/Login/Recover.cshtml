@@ -1,0 +1,92 @@
+﻿@page
+@model BirdCageShop.Pages.Login.RecoverModel
+@{
+    ViewData["Title"] = "Khôi phục tài khoản";
+    Layout = "_Layout";
+}
+<head>
+    <style>
+        /* Form Login */
+        #login-form {
+            width: 600px;
+            margin: 0 auto;
+            background-color: #f2f2f2;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+            #login-form label {
+                display: block;
+                font-weight: bold;
+                margin-bottom: 5px;
+            }
+
+            #login-form input[type="email"],
+            #login-form input[type="password"] {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 20px;
+                border: none;
+                border-radius: 5px;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            }
+
+            #login-form button[type="submit"] {
+                display: block;
+                margin: 0 auto;
+                background-color: #4caf50;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                padding: 10px 20px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+                #login-form button[type="submit"]:hover {
+                    background-color: #3e8e41;
+                }
+    </style>
+</head>
+<body>
+    <div class="container-fluid bg-secondary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center"
+             style="min-height: 300px;">
+            <h1 class="font-weight-semi-bold text-uppercase mb-3">Gặp vấn đề đăng nhập?</h1>
+            <div class="d-inline-flex">
+                <p class="m-0"><a asp-page="">Bạn đang gặp vấn đề với đăng nhập?</a></p>
+                <p class="m-0 px-2">-</p>
+                <p class="m-0">Khôi phục mật khẩu</p>
+            </div>
+        </div>
+        @{
+            var errorMessage = TempData["errorMessage"] as string;
+            var successMessage = TempData["successMessage"] as string;
+        }
+        <div class="alert alert-danger" style="@(string.IsNullOrEmpty(errorMessage) ? "display: none;" : "")">
+            @errorMessage
+        </div>
+
+        <!-- Hiển thị thông báo thành công -->
+        <div class="alert alert-success" style="@(string.IsNullOrEmpty(successMessage) ? "display: none;" : "")">
+            @successMessage
+        </div>
+
+        <div></div>
+
+        <form id="login-form" method="post" asp-page-handler="ForgetPassword">
+            <label for="email">Hãy nhập email đã đăng kí: </label>
+            <input type="email" id="email" asp-for="@Model.EmailRecover" required />
+            <button type="submit">Tìm kiếm</button>
+            <br />
+            <p style="text-align:center ;">
+                Bạn chưa có tài khoản? Hãy <a asp-page="/Register/Index">Đăng ký</a>
+            </p>
+        </form>
+        
+
+        <br />
+    </div>
+
+</body>

@@ -33,7 +33,7 @@ namespace Repository
 
         public int UpdateProductInCartByProductID(int userID, int productID, int quantity) => _dao.UpdateProductInCartByProductID(userID, productID, quantity);
 
-        
+        public int UpdateUserPassword(User u) => _dao.UpdateUserPassword(u);
         public int ManagerUpdate(User User) => _dao.ManagerUpdate(User);
 
 
