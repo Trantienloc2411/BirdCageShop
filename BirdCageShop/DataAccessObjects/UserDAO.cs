@@ -142,6 +142,25 @@ namespace DataAccessObjects
             }
 
         }
+        public int UpdateUserPassword(User u)
+        {
+            try
+            {
+                var user = getUserByEmail(u.Email);
+                if (user != null)
+                {
+                    user.UserPassword = Utility.encrytoStringKey(u.UserPassword);
+                    return _dbContext.SaveChanges();
+                }
+                return 0;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+
+        }
         public int AddProductToCart(int userID, int productID,int quantity)
         {
             try
