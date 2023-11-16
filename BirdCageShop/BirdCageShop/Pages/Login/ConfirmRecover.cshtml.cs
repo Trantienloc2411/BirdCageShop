@@ -26,7 +26,10 @@ namespace BirdCageShop.Pages.Login
         public void OnGet()
         {
         }
-
+        /// <summary>
+        /// Sent OTP email to User 
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> OnPostConfirmOTP()
         {
             EmailRecover = HttpContext.Session.GetString("email");
