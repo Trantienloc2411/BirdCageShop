@@ -42,12 +42,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Accessory.CategoryId" class="control-label"></label>
-                <select asp-for="Accessory.CategoryId" class="form-control" asp-items="@((SelectList)TempData["CategoryId"])"></select>
+                <select asp-for="Accessory.CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
                 <span asp-validation-for="Accessory.CategoryId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Accessory.DiscountId" class="control-label"></label>
-                <select asp-for="Accessory.DiscountId" class="form-control" asp-items="@((SelectList)TempData["DiscountId"])"></select>
+                <select asp-for="Accessory.DiscountId" class="form-control" asp-items="ViewBag.DiscountId"></select>
                 <span asp-validation-for="Accessory.DiscountId" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -63,7 +63,7 @@
 </div>
 
 <div>
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
 </div>
 
 @section Scripts {

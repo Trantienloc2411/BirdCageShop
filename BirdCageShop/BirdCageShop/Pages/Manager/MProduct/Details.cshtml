@@ -46,7 +46,7 @@
             @Html.DisplayNameFor(model => model.Product.Size)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Product.Size)
+            <img src="~/@Model.Product.CageImg" alt="Product Image" style="max-width: 100px; max-height: 100px;" />
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Product.Bar)
@@ -70,13 +70,13 @@
             @Html.DisplayNameFor(model => model.Product.Category)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Product.Category.CategoryId)
+            @Html.DisplayFor(model => model.Product.Category.CategoryName)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Product.Discount)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Product.Discount.DiscountId)
+            @Html.DisplayFor(model => model.Product.Discount.DiscountName)
         </dd>
     </dl>
 </div>

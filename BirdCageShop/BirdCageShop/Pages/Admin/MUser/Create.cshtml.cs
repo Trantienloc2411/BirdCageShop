@@ -1,4 +1,5 @@
-﻿using BusinessObjects.Models;
+﻿using BirdCageShop.wwwroot.UploadService;
+using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,10 +10,12 @@ namespace BirdCageShop.Pages.Admin.MUser
     public class CreateModel : PageModel
     {
         private readonly IUserRepository _userRepo;
+        private readonly IUploadService _uploadService;
 
-        public CreateModel(IUserRepository userRepository)
+        public CreateModel(IUserRepository userRepository, IUploadService uploadService)
         {
             _userRepo = userRepository;
+            this._uploadService = uploadService;
         }
 
         public IActionResult OnGet()
@@ -20,19 +23,21 @@ namespace BirdCageShop.Pages.Admin.MUser
             User = new BusinessObjects.Models.User();
 
             var listRoles = _userRepo.GetUserRole();
-            TempData["RoleId"] = new SelectList(listRoles, "RoleId", "RoleName", User.RoleId);
+            ViewData["RoleId"] = new SelectList(listRoles, "RoleId", "RoleName");
             return Page();
         }
 
         [BindProperty]
         public User User { get; set; }
+        [BindProperty]
+        public string UserImg { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(IFormFile UserImg)
         {
-            if (!ModelState.IsValid)
+            if (UserImg != null)
             {
-                return Page();
+                User.UserImg = await _uploadService.UploadFileAsync(UserImg);
             }
 
             _userRepo.Add(User);

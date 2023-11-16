@@ -46,19 +46,19 @@
             @Html.DisplayNameFor(model => model.Accessory.AccessoryImg)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Accessory.AccessoryImg)
+            <img src="~/@Model.Accessory.AccessoryImg" alt="Product Image" style="max-width: 100px; max-height: 100px;" />
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Accessory.Category)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Accessory.Category.CategoryId)
+            @Html.DisplayFor(model => model.Accessory.Category.CategoryName)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Accessory.Discount)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Accessory.Discount.DiscountId)
+            @Html.DisplayFor(model => model.Accessory.Discount.DiscountName)
         </dd>
     </dl>
 </div>

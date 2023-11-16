@@ -1,6 +1,7 @@
 ﻿using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Repository;
 
 namespace BirdCageShop.Pages.Manager.MUser
@@ -19,6 +20,7 @@ namespace BirdCageShop.Pages.Manager.MUser
         public IActionResult OnGet()
         {
             User = _userRepo.GetAllUser().ToList();
+            ViewData["RoleName"] = new SelectList(_userRepo.GetUserRole(), "RoleName", "RoleName");
             return Page();
         }
 
