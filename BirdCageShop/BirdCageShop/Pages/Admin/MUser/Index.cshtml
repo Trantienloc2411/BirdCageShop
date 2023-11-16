@@ -19,15 +19,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="~/table-07/css/style.css">
-</head>
-
-<body>
-    <div class="row justify-content-center">
-        <div class="col-md-6 text-center">
-            <h1 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: pink; text-align: center; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px;">User List</h1>
-        </div>
-    </div>
     <style>
+        html {
+            overflow-x: auto; /* Enable horizontal scrolling for the entire page */
+        }
         .search-container {
             display: flex;
             align-items: center;
@@ -50,10 +45,32 @@
             cursor: pointer;
         }
 
-            .search-button:hover {
-                background-color: #45a049;
-            }
+        table {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 1rem;
+            background-color: transparent;
+            border-collapse: collapse;
+        }
+
+        .search-button:hover {
+            background-color: #45a049;
+        }
+        .table-container {
+                    overflow-x: auto; /* Enable horizontal scrolling for the table container */
+        margin: 20px 0; /* Add some margin for better aesthetics */
+        }
+        
     </style>
+</head>
+
+<body>
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <h1 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: pink; text-align: center; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px;">User List</h1>
+        </div>
+    </div>
+    
 
     <div class="ml-auto search-container">
         <form method="post">
@@ -66,6 +83,7 @@
             <a asp-page="Create" style="text-decoration: none; background-color: darkgray; color: #ffffff; padding: 12px 24px; border-radius: 6px; font-weight: bold; transition: background-color 0.3s;">Create a user</a>
         </p>
         <div class="row">
+            <div class="table-container">
             <div class="col-md-30">
 
                 <table class="table table-bordered table-gray table-hover">
@@ -113,9 +131,15 @@
                                 <td style="border: solid gainsboro">
                                     @Html.DisplayFor(modelItem => item.UserName)
                                 </td>
-                                <td style="border: solid gainsboro">
+                                @* <td style="border: solid gainsboro">
                                     @Html.DisplayFor(modelItem => item.UserPassword)
-                                </td>
+                                </td> *@
+                                    <td style="border: solid gainsboro">
+                                        <div class="password-container">
+                                            <input type="password" value="@item.UserPassword" class="password-field" readonly />
+                                            <button type="button" class="toggle-password-btn">Show</button>
+                                        </div>
+                                    </td>
                                 <td style="border: solid gainsboro">
                                     @Html.DisplayFor(modelItem => item.Email)
                                 </td>
@@ -176,6 +200,7 @@
                     </tbody>
                 </table>
             </div>
+            </div>
         </div>
     </section>
 
@@ -183,6 +208,25 @@
     <script src="~/table-07/js/popper.js"></script>
     <script src="~/table-07/js/bootstrap.min.js"></script>
     <script src="~/table-07/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var togglePasswordBtns = document.querySelectorAll('.toggle-password-btn');
+
+            togglePasswordBtns.forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    var passwordField = btn.previousElementSibling;
+
+                    if (passwordField.type === 'password') {
+                        passwordField.type = 'text';
+                        btn.textContent = 'Hide';
+                    } else {
+                        passwordField.type = 'password';
+                        btn.textContent = 'Show';
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
 
