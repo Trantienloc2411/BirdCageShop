@@ -22,7 +22,7 @@ namespace BirdCageShop.Pages.Admin.MUser
         {
             User = new BusinessObjects.Models.User();
 
-            var listRoles = _userRepo.GetUserRole();
+            var listRoles = _userRepo.GetUserRole().Where(u => u.RoleId != 4);
             ViewData["RoleId"] = new SelectList(listRoles, "RoleId", "RoleName");
             return Page();
         }

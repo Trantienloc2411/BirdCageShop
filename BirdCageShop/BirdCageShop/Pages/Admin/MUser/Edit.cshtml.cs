@@ -44,7 +44,7 @@ namespace BirdCageShop.Pages.Admin.MUser
             {
                 User.UserImg = ""; // or set it to a default value if necessary
             }
-            var listRoles = _userRepo.GetUserRole();
+            var listRoles = _userRepo.GetUserRole().Where(u => u.RoleId != 4);
             ViewData["RoleId"] = new SelectList(listRoles, "RoleId", "RoleName");
             return Page();
         }
