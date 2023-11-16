@@ -103,7 +103,7 @@ namespace DataAccessObjects
 
         public List<Role> GetRoles()
         {
-            return _dbContext.Roles.ToList();
+            return _dbContext.Roles.Where(u => u.RoleId != 4).ToList();
         }
         public bool isEmailExisted(string email)
         {
