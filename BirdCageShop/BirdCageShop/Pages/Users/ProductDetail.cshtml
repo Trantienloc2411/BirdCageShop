@@ -84,7 +84,13 @@
                     <h3 class="font-weight-semi-bold mb-4">@Model.product.Price $</h3>
                 }
 
-                <h4>Số lượng : @Model.product.Quantity</h4>
+                @if (Model.product.Quantity == 0)
+                    {
+                    <h4 >Số lượng: Hết hàng</h4>
+                    }else{
+                    <h4>Số lượng: @Model.product.Quantity</h4>
+                    }
+                
 
                 <div class="d-flex mb-3">
                     <p class="text-dark font-weight-medium mb-0 mr-3">Kích cỡ: @Model.product.Size</p>
