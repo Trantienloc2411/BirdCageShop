@@ -81,7 +81,7 @@ namespace BirdCageShop.Pages.Users
 
                     
                     ///Part of OrderList
-                    var orderList = _orderRepo.orderListIncludeOrderDetail(userID);
+                    var orderList = _orderRepo.orderListIncludeOrderDetail(userID).OrderByDescending(u => u.OrderDate);
                     if (orderList != null)
                     {
                         order = orderList.ToList();
