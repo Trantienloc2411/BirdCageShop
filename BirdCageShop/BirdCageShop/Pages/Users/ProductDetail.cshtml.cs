@@ -51,7 +51,7 @@ namespace BirdCageShop.Pages.Users
             catch (Exception ex)
             {
 
-                return RedirectToAction("../Error: ");
+                return RedirectToAction("../Error ");
             }
         }
 
