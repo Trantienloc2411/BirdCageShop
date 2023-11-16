@@ -67,6 +67,13 @@ namespace BirdCageShop.Login
                     HttpContext.Session.SetString("LoggedInUser", "Shopkeeper");
                     return RedirectToPage("../Manager/MProduct/Index");
                 }
+
+                ///SA - SUPER ADMIN
+                else if (user.RoleId == 4)
+                {
+                    HttpContext.Session.SetString("LoggedInUser", "Adminstrator");
+                    return RedirectToPage("../Admin/MProduct/Index");
+                }
                 else
                 {
                     TempData["errorMessage"] = "You are not allowed to do this function!";
