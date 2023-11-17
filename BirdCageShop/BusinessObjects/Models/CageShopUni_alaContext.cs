@@ -147,7 +147,7 @@ namespace BusinessObjects.Models
 
                 entity.Property(e => e.OrderAdress).HasMaxLength(100);
 
-                entity.Property(e => e.OrderDate).HasColumnType("date");
+                entity.Property(e => e.OrderDate).HasColumnType("datetime");
 
                 entity.Property(e => e.OrderName).HasMaxLength(50);
 

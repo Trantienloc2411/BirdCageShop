@@ -13,6 +13,10 @@ namespace BirdCageShop.Pages.Users
         private IOrderDetailRepository _orderDetailRepo;
         private IProductRepository productRepository;
         public List<OrderDetail> GetOrderDetails { get; set; }
+        public List<Order> orderPending { get; set; }
+        public List<Order> orderDelivering { get; set; }
+        public List<Order> orderDelivered { get; set; }
+        public List<Order> orderCancel{ get; set; }
         public List<Order> order { get; set; }
         public Feedback fb;
         [BindProperty]
@@ -85,11 +89,14 @@ namespace BirdCageShop.Pages.Users
                     if (orderList != null)
                     {
                         order = orderList.ToList();
-
+                        orderPending = orderList.Where(u => u.OrderStatus == "Pending").ToList() ;
+                        orderCancel = orderList.Where(u => u.OrderStatus == "Cancelled").ToList();
+                        orderDelivering = orderList.Where(u => u.OrderStatus == "Delivering").ToList();
+                        orderDelivered = orderList.Where(u => u.OrderStatus == "Delivered").ToList();
                     }
                     else
                     {
-                        order = new List<Order>();
+                        orderPending = new List<Order>();
                     }
 
                     return Page();
@@ -103,12 +110,16 @@ namespace BirdCageShop.Pages.Users
             }
 
         }
-        public IActionResult OnPostCancelTheOrder(int OrderID)
+        public IActionResult OnPostCancelTheOrder()
         {
+            int OrderID = int.Parse(Request.Form["orderId"].ToString());
+            string note = Request.Form["cancelOptions"].ToString(); 
             var order = _orderRepo.getOrderByOrderID(OrderID);
             if (order != null)
             {
-                order.OrderStatus = "Canceling";
+                order.OrderStatus = "Canceled";
+                order.Note = note;
+                order.OrderEst = "test01";
                 _orderRepo.Update(order);
                 TempData["successMessage"] = "Huỷ đơn hàng thành công! Hãy chờ thông tin từ của hàng";
                 OnGet();
