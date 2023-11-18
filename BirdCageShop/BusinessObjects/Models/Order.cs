@@ -14,6 +14,7 @@ namespace BusinessObjects.Models
         public int? UserId { get; set; }
         public string? OrderStatus { get; set; }
         public decimal? OrderPrice { get; set; }
+
         [Column(TypeName = "datetime")]
         public DateTime? OrderDate { get; set; }
         public string? OrderAdress { get; set; }
@@ -25,5 +26,5 @@ namespace BusinessObjects.Models
         public virtual PaymentMethod? Payment { get; set; }
         public virtual ICollection<Feedback> Feedbacks { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
-    }
+    }   
 }

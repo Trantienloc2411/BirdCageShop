@@ -3,6 +3,7 @@
 @addTagHelper *, LazZiya.TagHelpers
 @{
     ViewData["Title"] = "Phụ kiện";
+
 }
 <body>
     @{
@@ -144,12 +145,12 @@
                                         @if (item.Discount != null)
                                         {
                                             var discountedPrice = (double)(item.AccessoryPrice - (item.AccessoryPrice * (double)item.Discount.Discount1)); ;
-                                            <h6>@Html.DisplayFor(modelItem => discountedPrice)</h6>  <!-- (Giá được giảm)  -->
-                                            <h6 class="text-muted ml-2"><del>@Html.DisplayFor(modelItem => item.AccessoryPrice) $</del></h6> <!-- Giá gốc  -->
+                                            <h6>@Html.Raw(discountedPrice.ToString("N0"))đ</h6>  <!-- (Giá được giảm)  -->
+                                            <h6 class="text-muted ml-2"><del>@Html.Raw(item.AccessoryPrice.Value.ToString("N0"))đ</del></h6> <!-- Giá gốc  -->
                                         }
                                         else
                                         {
-                                            <h6>@Html.DisplayFor(modelItem => item.AccessoryPrice)</h6>
+                                            <h6>@Html.DisplayFor(modelItem => item.AccessoryPrice) <h6>đ</h6></h6>
                                         }
 
                                     </div>
@@ -173,5 +174,16 @@
             <!-- Shop Product End -->
         </div>
     </div>
+    @*Format VND Currency *@
+    <script>
+                var elements = document.getElementsByTagName('h6');
+                for (var i = 0; i < elements.length; i++) {
+                    var num = parseFloat(elements[i].innerText.replace(/,/g, ''));
+                    if (!isNaN(num)) {
+                        elements[i].innerText = num.toLocaleString('vi-VN');
+                    }
+                }
+
+    </script>
 </body>
 

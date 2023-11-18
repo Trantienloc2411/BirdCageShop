@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Exchange.WebServices.Data;
 using Repository;
+using System.Web.Helpers;
+
 
 namespace BirdCageShop.Pages.Users
 {
@@ -17,6 +19,8 @@ namespace BirdCageShop.Pages.Users
         public List<Order> orderDelivering { get; set; }
         public List<Order> orderDelivered { get; set; }
         public List<Order> orderCancel{ get; set; }
+        public int pageNo { get; set; } = 1; //PageNo
+        public int pageSize { get; set; }
         public List<Order> order { get; set; }
         public Feedback fb;
         [BindProperty]
@@ -117,7 +121,7 @@ namespace BirdCageShop.Pages.Users
             var order = _orderRepo.getOrderByOrderID(OrderID);
             if (order != null)
             {
-                order.OrderStatus = "Canceled";
+                order.OrderStatus = "Cancelled";
                 order.Note = note;
                 order.OrderEst = "test01";
                 _orderRepo.Update(order);
@@ -231,6 +235,17 @@ namespace BirdCageShop.Pages.Users
         {
             return productRepository.getDetailAccessoryByID(accessoryID);
         }
+        public List<OrderDetail> getOrderDetail(int orderID)
+        {
+            return _orderDetailRepo.getOrderDetailByOrderID(orderID);
+        }
+        public IActionResult OnGetOrderDetail(int orderId)
+        {
+            var orderDetails = getOrderDetail(orderId); // Retrieve order details
+
+            return new JsonResult(orderDetails);
+        }
+
 
 
     }

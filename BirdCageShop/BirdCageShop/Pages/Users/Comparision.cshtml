@@ -130,10 +130,10 @@
                             <tr class="bg-secondary">
                                 <th class="text-uppercase">Giá</th>
                                 <td>
-                                    <span class="text-dark font-weight-semibold">@Model.comparePro[0].Price</span>
+                                    <span class="text-dark font-weight-semibold">@Html.Raw(Model.comparePro[0].Price.Value.ToString("N0"))đ</span>
                                 </td>
                                 <td>
-                                    <span class="text-dark font-weight-semibold">@Model.comparePro[1].Price</span>
+                                    <span class="text-dark font-weight-semibold">@Html.Raw(Model.comparePro[1].Price.Value.ToString("N0"))đe</span>
                                 </td>
                             </tr>
 

@@ -66,7 +66,7 @@
                         {
                             <div class="d-flex justify-content-between">
                                 <p>@item.CageName x @item.DetailQuantity cái</p>
-                                <p>@item.DetailPrice</p>
+                                <p>@Html.Raw(item.DetailPrice.ToString("N0"))đ</p>
                             </div>
 
                             Model.OrderPrice += item.DetailPrice*item.DetailQuantity; 
@@ -75,16 +75,16 @@
                         }
                         <div class="d-flex justify-content-between">
                             <p>Phí vận chuyển </p>
-                            <p>10$</p>
+                            <p>@Html.Raw(10000.ToString("N0"))đ</p>
                         </div>
                         @{
-                            Model.OrderPrice += 10;
+                            Model.OrderPrice += 10000;
                         }
                     </div>
                     <div class="card-footer border-secondary bg-transparent">
                         <div class="d-flex justify-content-between mt-2">
                             <h5 class="font-weight-bold">Tổng cộng</h5>
-                            <h5 class="font-weight-bold">@Model.OrderPrice</h5>
+                            <h5 class="font-weight-bold">@Html.Raw(Model.OrderPrice.ToString("N0"))đ</h5>
                             <input name="OrderTotal" value="@Model.OrderPrice" type="hidden" />
                         </div>
                     </div>
