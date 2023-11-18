@@ -1,5 +1,6 @@
 ﻿@page "{handler?}/{id?}"
 @model BirdCageShop.Pages.Users.ProfileModel;
+@addTagHelper *, LazZiya.TagHelpers
 @using Newtonsoft.Json.Linq;
 @{
     ViewData["Title"] = "Hồ sơ của bạn";
@@ -168,7 +169,7 @@
             </div>
         </div>
     </div>
- 
+
     <div class="container-fluid pt-5">
         <h2 class="text-center mb-4">Đơn hàng của bạn</h2>
         <ul class="nav nav-tabs justify-content-center " id="orderTabs" role="tablist">
@@ -220,7 +221,7 @@
                                                 Model.countOrderDetail = Model.countProductInOrder(item.OrderId);
                                             }
                                             <td class="align-middle">@Model.countOrderDetail sản phẩm</td>
-                                            <td class="align-middle">@item.OrderPrice</td>
+                                            <td class="align-middle">@Html.Raw(item.OrderPrice.Value.ToString("N0"))đ</td>
                                             @if (item.OrderStatus == "Pending")
                                             {
                                                 <td class="align-middle">Đang đợi</td>
@@ -228,12 +229,12 @@
                                                     <input type="hidden" id="orderIDCancelation" value="@item.OrderId">
                                                     <button id="cancelOrderBtn" type="button" class="btn btn-sm"
                                                             style="background-color: #ff786f; color: white;"
-                                                            data-toggle="modal"     
+                                                            data-toggle="modal"
                                                             data-target="#cancelOrderModal"
                                                             data-order-id="@item.OrderId">
                                                         Huỷ đơn hàng
                                                     </button>
-                                                
+
                                                 </td>
                                             }
                                         </tr>
@@ -241,6 +242,7 @@
                                 }
                             </tbody>
                         </table>
+                        
                     </div>
                 </div>
             </div>
@@ -277,13 +279,14 @@
                                                 Model.countOrderDetail = Model.countProductInOrder(item.OrderId);
                                             }
                                             <td class="align-middle">@Model.countOrderDetail sản phẩm</td>
-                                            <td class="align-middle">@item.OrderPrice</td>
+                                            <td class="align-middle">@Html.Raw(item.OrderPrice.Value.ToString("N0"))</td>
                                             <td>@item.Note</td>
                                         </tr>
                                     }
                                 }
                             </tbody>
                         </table>
+                        
                     </div>
                 </div>
             </div>
@@ -321,7 +324,7 @@
                                                 Model.countOrderDetail = Model.countProductInOrder(item.OrderId);
                                             }
                                             <td class="align-middle">@Model.countOrderDetail sản phẩm</td>
-                                            <td class="align-middle">@item.OrderPrice</td>
+                                            <td class="align-middle">@Html.Raw(item.OrderPrice.Value.ToString("N0"))</td>
                                             @if (item.OrderStatus == "Delivered")
                                             {
                                                 <td class="align-middle">Đã giao hàng</td>
@@ -335,6 +338,7 @@
                                 }
                             </tbody>
                         </table>
+                        
                     </div>
                 </div>
             </div>
@@ -371,13 +375,14 @@
                                                 Model.countOrderDetail = Model.countProductInOrder(item.OrderId);
                                             }
                                             <td class="align-middle">@Model.countOrderDetail sản phẩm</td>
-                                            <td class="align-middle">@item.OrderPrice</td>
+                                            <td class="align-middle">@Html.Raw(item.OrderPrice.Value.ToString("N0"))</td>
                                             <td class="align-middle">@item.Note</td>
                                         </tr>
                                     }
                                 }
                             </tbody>
                         </table>
+                         
                     </div>
                 </div>
             </div>
@@ -412,10 +417,6 @@
             </div>
         </div>
     </div>
-
-
-    <!-- Modal content -->
-    <!-- Order Detail Modal -->
     <div class="modal fade"
          id="orderDetailModal"
          tabindex="-1"
@@ -436,10 +437,13 @@
                     </button>
                 </div>
                 <div class="modal-body" id="orderDetailBody">
+                    <!-- This is where the order details will be populated -->
                 </div>
             </div>
         </div>
     </div>
+
+
 
     <script>
         // Remove the current sendOrderID() function
@@ -476,68 +480,51 @@
     </script>
 
     <script>
-        const orderDetails = {
-        @foreach (var o in Model.order)
-        {
+        document.addEventListener("DOMContentLoaded", function () {
+            const orderLinks = document.querySelectorAll(".order-link");
+            const orderDetailBody = document.getElementById("orderDetailBody");
 
+            orderLinks.forEach((link) => {
+                link.addEventListener("click", (event) => {
+                    event.preventDefault();
+                    const orderId = event.target.dataset.orderId;
+                    const orderRow = event.target.closest("tr");
+                    const orderColumns = orderRow.querySelectorAll("td");
 
+                    // Replace this section with your logic to fetch products based on orderId
+                    // Example: Fetch products using AJAX or retrieve from a predefined structure
+                    const products = [
+                        { name: "Product 1", quantity: 2 },
+                        { name: "Product 2", quantity: 1 },
+                        // Add more product details as needed
+                    ];
 
-            @: "@o.OrderId": {
-            @:cageId: "@o.OrderId",
-            @:nameOrder: "@o.OrderName",
-            @:addressOrder: "@o.OrderAdress",
-            @:statusOrder: "@o.OrderStatus",
-            @:detailPrice: "@o.OrderPrice",
-            @:detailQuantity: {
-            @foreach (var product in o.OrderDetails)
-            {
-                @if (product.CageId != null)
-                {
-                    @:         "@Model.getProductNameByProductID((int)product.CageId).CageName": @product.DetailPrice,
-                }
-                else
-                {
-                    @:         "@Model.getAccessoryNameByAccessoryID((int)product.AccessoryId).AccessoryName": @product.DetailPrice,
-                }
+                    const orderProductsHTML = products.map((product) => {
+                        return `<li>${product.name} - ${product.quantity}</li>`;
+                    }).join("");
 
-            }
-            @:     },
-            @: },
-        }
-                    };
-        const orderLinks = document.querySelectorAll(".order-link");
-        const orderDetailBody = document.getElementById("orderDetailBody");
-
-        orderLinks.forEach((link) => {
-            link.addEventListener("click", (event) => {
-                event.preventDefault();
-                const orderId = event.target.dataset.orderId;
-                const orderDetail = orderDetails[orderId];
-
-                if (orderDetail) {
                     const orderDetailHTML = `
-                    <p><strong>Mã đơn hàng: </strong> ${orderDetail.cageId}</p>
-                    <p><strong>Tên người đặt đơn:  </strong> ${orderDetail.nameOrder}</p>
-                    <p><strong>Địa chỉ giao hàng: </strong> ${orderDetail.addressOrder}</p>
-                    <p><strong>Trạng thái đơn hàng: </strong> ${orderDetail.statusOrder} </p >
-                    <p><strong>Tổng giá trị đơn hàng: </strong> ${orderDetail.detailPrice}</p>
-                    <p><strong>Chi tiết đơn hàng: </strong></p>
-                    <ul>
-                    ${Object.entries(orderDetail.detailQuantity)
-                            .map(
-                                ([product, quantity]) => `<li>${product} - ${quantity}</li>`
-                            )
-                            .join("")}
-                    </ul>
-                    `;
-                    orderDetailBody.innerHTML = orderDetailHTML;
-                } else {
-                    orderDetailBody.innerHTML = "Order detail not found.";
-                }
+                            <p><strong>Mã đơn hàng: </strong> ${orderColumns[0].innerText}</p>
+                            <p><strong>Ngày: </strong> ${orderColumns[1].innerText}</p>
+                            <p><strong>Số lượng sản phẩm trong đơn hàng: </strong> ${orderColumns[2].innerText}</p>
+                            <p><strong>Tổng cộng: </strong> ${orderColumns[3].innerText}</p>
+                            <p><strong>Trạng thái: </strong> ${orderColumns[4].innerText}</p>
+                            <p><strong>Hành động: </strong> ${orderColumns[5].innerHTML}</p>
+                            <p><strong>Chi tiết đơn hàng: </strong></p>
+                            <ul>
+                                ${orderProductsHTML}
+                                <p>Error: Cant show order details</p>
+                            </ul>
+                        `;
 
+                    orderDetailBody.innerHTML = orderDetailHTML;
+                });
             });
         });
     </script>
+
+
+
 
     <script>
         const toggleButton = document.getElementById("toggleInfo");

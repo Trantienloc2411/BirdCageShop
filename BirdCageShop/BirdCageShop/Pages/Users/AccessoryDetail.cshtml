@@ -74,12 +74,12 @@
                 @if (Model.accessory.Discount != null)
                 {
                     var discountedPrice = Math.Round((double)(Model.accessory.AccessoryPrice - (Model.accessory.AccessoryPrice * (double)Model.accessory.Discount.Discount1 / 100)), 2);
-                    <h3 class="font-weight-semi-bold mb-4">@discountedPrice</h3> <!-- Giá bán -->
-                    <h3 class="font-weight-semi-bold mb-4" style="color: #6c757d; text-decoration: line-through">@Model.accessory.AccessoryPrice</h3>
+                    <h3 class="font-weight-semi-bold mb-4 price">@Html.Raw(discountedPrice.ToString("N0"))</h3> <!-- Giá bán -->
+                    <h3 class="font-weight-semi-bold mb-4 price" style="color: #6c757d; text-decoration: line-through">@Model.accessory.AccessoryPrice.Value.ToString("N0") <h3>đ</h3> </h3>
                 }
                 else
                 {
-                    <h3 class="font-weight-semi-bold mb-4">@Model.accessory.AccessoryPrice $</h3>
+                    <h3 class="font-weight-semi-bold mb-4 price">@Html.Raw(Model.accessory.AccessoryPrice.Value.ToString("N0"))đ </h3>
                 }
                 @if (Model.accessory.AccessoryQuantity == 0)
                     {
@@ -163,16 +163,16 @@
                                     {
                                         var discountedPrice = Math.Round((double)(item.Price - (item.Price * item.Discount.Discount1 / 100)), 2);
                                         <h6>@Html.DisplayFor(modelItem => discountedPrice)</h6>  <!-- (Giá được giảm)  -->
-                                        <h6 class="text-muted ml-2"><del>@Html.DisplayFor(modelItem => item.Price) $</del></h6> <!-- Giá gốc  -->
+                                        <h6 class="price" class="text-muted ml-2"><del>@Html.Raw(item.Price.Value.ToString("N0")) <h6>đ</h6></del></h6> <!-- Giá gốc  -->
                                     }
                                     else
                                     {
-                                        <h6>@Html.DisplayFor(modelItem => item.Price)</h6>
+                                        <h6 class="price">@Html.Raw(item.Price.Value.ToString("N0")) <h6>đ</h6></h6>
                                     }
                                 </div>
                             </div>
                             <div class="card-footer d-flex justify-content-between bg-light border">
-                                <a asp-page="/Users/ProductDetails" asp-route-productId="@item.CageId" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>Xem chi tiết </a>
+                                <a asp-page="./User/ProductDetail" asp-route-productId="@item.CageId" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>Xem chi tiết </a>
                                 <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm vào giỏ</a>
                             </div>
                         </div>
@@ -187,7 +187,6 @@
         <i class="fa fa-angle-double-up"></i>
     </a>
 
-    <!-- JavaScript Libraries -->
 </body>
 
 </html>
