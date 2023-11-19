@@ -44,7 +44,7 @@ namespace Repository
 
         public Accessory getDetailAccessoryByID(int accessoryID) => _dao.getDetailAccessoryByID(accessoryID);
 
-        public List<Accessory> getAccessoryPages(int pageIndex, int pageSize) =>  _dao.getAccessoryPages(pageIndex, pageSize);
+        public List<Accessory> getAccessoryPages(int pageIndex, int pageSize) => _dao.getAccessoryPages(pageIndex, pageSize);
 
         public int getTotalAccessoryPages() => _dao.getTotalAccessoryPages();
 
@@ -53,6 +53,7 @@ namespace Repository
         public Tuple<int, int> getRatingAccessory(int accessoryID) => _dao.getRatingAccessory(accessoryID);
         public List<Product> comparisionProduct(int prod1, int prod2) => _dao.comparisionProduct(prod1, prod2);
         public int AddCustomizeCage(Product p) => _dao.AddCustomizeCage((Product)p);
-        
+
+        public Product GetProduct(int id) => _dao.GetProduct(id);
     }
 }

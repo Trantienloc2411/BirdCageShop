@@ -210,11 +210,7 @@
                                     {
                                         <tr>
                                             <td class="align-middle">
-                                                <a href="#"
-                                                   class="order-link"
-                                                   data-toggle="modal"
-                                                   data-target="#orderDetailModal"
-                                                   data-order-id="@item.OrderId">@item.OrderId</a>
+                                                <a asp-page="./OrderDetail" asp-route-orderID="@item.OrderId">@item.OrderId</a>
                                             </td>
                                             <td class="align-middle">@item.OrderDate</td>
                                             @{
@@ -268,11 +264,7 @@
                                     {
                                         <tr>
                                             <td class="align-middle">
-                                                <a href="#"
-                                                   class="order-link"
-                                                   data-toggle="modal"
-                                                   data-target="#orderDetailModal"
-                                                   data-order-id="@item.OrderId">@item.OrderId</a>
+                                                <a asp-page="./OrderDetail" asp-route-orderID="@item.OrderId">@item.OrderId</a>
                                             </td>
                                             <td class="align-middle">@item.OrderDate</td>
                                             @{
@@ -313,11 +305,7 @@
                                     {
                                         <tr>
                                             <td class="align-middle">
-                                                <a href="#"
-                                                   class="order-link"
-                                                   data-toggle="modal"
-                                                   data-target="#orderDetailModal"
-                                                   data-order-id="@item.OrderId">@item.OrderId</a>
+                                                <a asp-page="./OrderDetail" asp-route-orderID="@item.OrderId"   >@item.OrderId</a>
                                             </td>
                                             <td class="align-middle">@item.OrderDate</td>
                                             @{
@@ -417,31 +405,8 @@
             </div>
         </div>
     </div>
-    <div class="modal fade"
-         id="orderDetailModal"
-         tabindex="-1"
-         role="dialog"
-         aria-labelledby="orderDetailModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="orderDetailModalLabel">
-                        Chi tiết đơn hàng
-                    </h5>
-                    <button type="button"
-                            class="close"
-                            data-dismiss="modal"
-                            aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="orderDetailBody">
-                    <!-- This is where the order details will be populated -->
-                </div>
-            </div>
-        </div>
-    </div>
+
+
 
 
 
@@ -479,47 +444,20 @@
 
     </script>
 
+
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const orderLinks = document.querySelectorAll(".order-link");
-            const orderDetailBody = document.getElementById("orderDetailBody");
+        const toggleButton = document.getElementById("toggleInfo");
+        const additionalInfo = document.getElementById("additionalInfo");
 
-            orderLinks.forEach((link) => {
-                link.addEventListener("click", (event) => {
-                    event.preventDefault();
-                    const orderId = event.target.dataset.orderId;
-                    const orderRow = event.target.closest("tr");
-                    const orderColumns = orderRow.querySelectorAll("td");
-
-                    // Replace this section with your logic to fetch products based on orderId
-                    // Example: Fetch products using AJAX or retrieve from a predefined structure
-                    const products = [
-                        { name: "Product 1", quantity: 2 },
-                        { name: "Product 2", quantity: 1 },
-                        // Add more product details as needed
-                    ];
-
-                    const orderProductsHTML = products.map((product) => {
-                        return `<li>${product.name} - ${product.quantity}</li>`;
-                    }).join("");
-
-                    const orderDetailHTML = `
-                            <p><strong>Mã đơn hàng: </strong> ${orderColumns[0].innerText}</p>
-                            <p><strong>Ngày: </strong> ${orderColumns[1].innerText}</p>
-                            <p><strong>Số lượng sản phẩm trong đơn hàng: </strong> ${orderColumns[2].innerText}</p>
-                            <p><strong>Tổng cộng: </strong> ${orderColumns[3].innerText}</p>
-                            <p><strong>Trạng thái: </strong> ${orderColumns[4].innerText}</p>
-                            <p><strong>Hành động: </strong> ${orderColumns[5].innerHTML}</p>
-                            <p><strong>Chi tiết đơn hàng: </strong></p>
-                            <ul>
-                                ${orderProductsHTML}
-                                <p>Error: Cant show order details</p>
-                            </ul>
-                        `;
-
-                    orderDetailBody.innerHTML = orderDetailHTML;
-                });
-            });
+        // Xử lý sự kiện khi nút "Show" được nhấn
+        toggleButton.addEventListener("click", function () {
+            if (additionalInfo.style.display === "none") {
+                additionalInfo.style.display = "block";
+                toggleButton.innerText = "Hide"; // Thay đổi nút thành "Hide"
+            } else {
+                additionalInfo.style.display = "none";
+                toggleButton.innerText = "Show More"; // Thay đổi nút thành "Show More"
+            }
         });
     </script>
 
