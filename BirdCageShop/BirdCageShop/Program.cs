@@ -1,6 +1,8 @@
 using BirdCageShop.wwwroot.UploadService;
 using DataAccessObjects;
+using Microsoft.AspNetCore.Localization;
 using Repository;
+using System.Globalization;
 
 namespace BirdCageShop
 {
@@ -56,6 +58,12 @@ namespace BirdCageShop
             app.UseSession();
 
             app.MapRazorPages();
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("vi-VN"),
+                SupportedCultures = new List<CultureInfo> { new CultureInfo("vi-VN") },
+                SupportedUICultures = new List<CultureInfo> { new CultureInfo("vi-VN") }
+            });
 
             app.Run();
         }
