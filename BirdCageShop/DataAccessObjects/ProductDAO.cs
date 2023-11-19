@@ -93,7 +93,10 @@ namespace DataAccessObjects
             return _db.Products.Count();
         }
 
-
+        public Product GetProduct(int id)
+        {
+            return _db.Products.FirstOrDefault(c => c.CageId == id);
+        }
 
         public List<Product> getListProductForUser()
         {

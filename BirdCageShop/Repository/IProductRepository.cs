@@ -27,6 +27,6 @@ namespace Repository
         List<Product> comparisionProduct(int prod1, int prod2);
 
         int AddCustomizeCage(Product p);
-        
+        Product GetProduct(int id);
     }
 }
