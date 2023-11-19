@@ -45,20 +45,18 @@
 <body>
     <div class="container-fluid">
         <div class="container">
-            <div class="justify-content-between">
-                <h3>Thông tin chi tiết đơn hàng</h3>
-            </div>
             <div class="d-flex justify-content-between align-items-center py-3">
                 <h2 class="h5 mb-0"><a href="#" class="text-muted"></a> Đơn hàng @Model.order.OrderId</h2>
             </div>
 
-            <div class="row">
+            <div class="row">   
                 <div class="col-lg-8">
 
                     <div class="card mb-4">
                         <div class="card-body">
                             <div class="mb-3 d-flex justify-content-between">
                                 <div>
+                                        <h3>Thông tin chi tiết đơn hàng</h3>
                                     <span class="me-3">Ngày đặt hàng: @Model.order.OrderDate</span>
                                     <span class="me-3">#@Model.order.OrderId</span>
                                     @if(@Model.order.OrderStatus == "Pending")
