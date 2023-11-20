@@ -1,0 +1,201 @@
+﻿@page
+@model BirdCageShop.Pages.Users.OrderDetailModel
+@{
+    ViewData["Title"] = "Chi tiết đơn hàng";
+    Layout = "_LayoutClear";
+}
+
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+        body {
+            background: #eee;
+        }
+
+        .card {
+            box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
+        }
+
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 0 solid rgba(0, 0, 0, .125);
+            border-radius: 1rem;
+        }
+
+        .text-reset {
+            --bs-text-opacity: 1;
+            color: inherit !important;
+        }
+
+        a {
+            color: #5465ff;
+            text-decoration: none;
+        }
+
+    </style>
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center py-3">
+                <h2 class="h5 mb-0"><a href="#" class="text-muted"></a> Đơn hàng @Model.order.OrderId</h2>
+            </div>
+
+            <div class="row">   
+                <div class="col-lg-8">
+
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="mb-3 d-flex justify-content-between">
+                                <div>
+                                        <h3>Thông tin chi tiết đơn hàng</h3>
+                                    <span class="me-3">Ngày đặt hàng: @Model.order.OrderDate</span>
+                                    <span class="me-3">#@Model.order.OrderId</span>
+                                    @if(@Model.order.OrderStatus == "Pending")
+                                    {
+                                        <span class="badge rounded-pill bg-gray" style="background-color: gray">Đang đợi</span>
+                                    }
+                                    else if(@Model.order.OrderStatus == "Delivering")
+                                    {
+                                        <span class="badge rounded-pill bg-info" style="background-color: gray">Đang vận chuyển</span>
+                                    }
+                                    else if(@Model.order.OrderStatus == "Delivered")
+                                    {
+                                        <span class="badge rounded-pill bg-success" style="background-color: gray">Đã vận chuyển</span>
+                                    }
+                                    else if(@Model.order.OrderStatus == "Cancelled")
+                                    {
+                                    <span class="badge rounded-pill bg-danger" style="background-color: gray">Đơn bị huỷ</span>
+                                    }
+                                </div>
+                                <div class="d-flex">
+                                    <div class="dropdown">
+                                        <button class="btn btn-link p-0 text-muted" type="button"
+                                                data-bs-toggle="dropdown">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="table table-borderless">
+                                <tbody>
+                                    @foreach(var item in Model.orderDetail)
+                                    {
+                                        if(item.CageId != null)
+                                        {
+                                            var p = Model.getInformationProduct((int)item.CageId);
+
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex mb-2">
+                                                        <div class="flex-shrink-0">
+                                                            @if(p.CageImg == null)
+                                                            {
+                                                                <img src="#" alt
+                                                                width="35" class="img-fluid">
+                                                            }
+                                                            else
+                                                            {
+                                                                <img src="~/@p.CageImg" alt
+                                                                     width="35" class="img-fluid">
+                                                            }
+
+                                                        </div>
+                                                        <div class="flex-lg-grow-1 ms-3">
+                                                            <h6 class="small mb-0">
+                                                                <a href="#" class="text-reset">
+                                                                        @p.CageName
+                                                                </a>
+                                                            </h6>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>@item.DetailQuantity</td>
+                                                <td class="text-end">@Html.Raw(item.DetailPrice.Value.ToString("N0"))</td>
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                            var a = Model.getInformationAccessory((int)item.AccessoryId);
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex mb-2">
+                                                        <div class="flex-shrink-0">
+                                                            <img src="~/@a.AccessoryImg" alt
+                                                                 width="35" class="img-fluid">
+                                                        </div>
+                                                        <div class="flex-lg-grow-1 ms-3">
+                                                            <h6 class="small mb-0">
+                                                                <a href="#" class="text-reset">
+                                                                    @a.AccessoryName
+                                                                </a>
+                                                            </h6>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>@item.DetailQuantity</td>
+                                                <td class="text-end">@Html.Raw(item.DetailPrice.Value.ToString("N0"))</td>
+                                            </tr>
+                                        }
+
+                                    }
+
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="2">Tổng tiền sản phẩm</td>
+                                        <td class="text-end">@Html.Raw((Model.order.OrderPrice - 10000).Value.ToString("N0"))</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">Phí vận chuyển</td>
+                                        <td class="text-end">@Html.Raw(10000.ToString("N0"))</td>
+                                    </tr>
+                                    <tr class="fw-bold" style="background-color: #20c997">
+                                        <td colspan="2">Tổng giá trị đơn hàng</td>
+                                        <td class="text-end">@Html.Raw(Model.order.OrderPrice.Value.ToString("N0"))</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h3 class="h6">Ghi chú đơn hàng</h3>
+                            <p>
+                                @Model.order.Note
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card mb-4">
+
+                        <div class="card-body">
+                            <h3 class="h6">Thông tin giao hàng</h3>
+                            <hr>
+                            <h3 class="h6">Địa chỉ giao hà</h3>
+                            <address>
+                                <strong>@Model.order.OrderName</strong><br>
+                                @Model.order.OrderAdress<br>
+                                <abbr title="Điện thoại">P:</abbr> @Model.order.OrderPhone
+                            </address>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript">
+    </script>
+    </body>

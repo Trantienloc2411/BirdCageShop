@@ -58,8 +58,8 @@
                                     <img src="img/product-1.jpg" alt="" style="width: 50px;" />
                                     @item.CageName
                                 </td>
-                                
-                                <td class="align-middle">@item.DetailPrice</td>
+
+                                <td class="align-middle">@Html.Raw(item.DetailPrice.ToString("N0"))đ</td>
                                 <td class="align-middle">
                                     <div class="input-group quantity mx-auto"
                                          style="width: 100px;">
@@ -89,7 +89,7 @@
                                     item.TotalPrice = item.DetailPrice * item.DetailQuantity;
                                     Model.totalCart += item.TotalPrice;
                                 }
-                                <td class="align-middle total">@item.TotalPrice</td>
+                                <td class="align-middle total">@Html.Raw(item.TotalPrice.ToString("N0"))đ</td>
                                 <!--Delete button-->
                                 <td class="align-middle">
                                     <form method="post" asp-route-productID="@item.Id" asp-route-type="@item.type" asp-page-handler="delete" id="deleteForm">
@@ -125,20 +125,20 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between mb-3 pt-1">
                             <h6 class="font-weight-medium">Tổng cộng</h6>
-                            <h6 class="font-weight-medium">@Model.totalCart</h6>
+                            <h6 class="font-weight-medium">@Html.Raw(Model.totalCart.Value.ToString("N0"))đ</h6>
                         </div>
                         <div class="d-flex justify-content-between">
                             <h6 class="font-weight-medium">Phí vận chuyển</h6>
-                            <h6 class="font-weight-medium">$10</h6>
+                            <h6 class="font-weight-medium">@Html.Raw(10000.ToString("N0"))đ</h6>
                         </div>
                     </div>
                     <div class="card-footer border-secondary bg-transparent">
                         <div class="d-flex justify-content-between mt-2">
                             <h5 class="font-weight-bold">Tổng cộng</h5>
                             @{
-                                Model.totalCart += 10;
+                                Model.totalCart += 10000;
                             }
-                            <h5 class="font-weight-bold">@Model.totalCart</h5>
+                            <h5 class="font-weight-bold">@Html.Raw(Model.totalCart.Value.ToString("N0"))đ</h5>
                         </div >
 
                         <a asp-page="../Checkout" class="btn btn-block btn-primary my-3 py-3">

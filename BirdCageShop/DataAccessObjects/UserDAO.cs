@@ -48,7 +48,7 @@ namespace DataAccessObjects
 
         public List<User> GetAll()
         {
-            return _dbContext.Users.ToList();
+            return _dbContext.Users.Where(u => u.RoleId!= 4).ToList();
         }
 
         public int Update(User User)
@@ -103,7 +103,7 @@ namespace DataAccessObjects
 
         public List<Role> GetRoles()
         {
-            return _dbContext.Roles.ToList();
+            return _dbContext.Roles.Where(u => u.RoleId != 4).ToList();
         }
         public bool isEmailExisted(string email)
         {

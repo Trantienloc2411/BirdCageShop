@@ -59,7 +59,11 @@ namespace BirdCageShop.Pages.Users.UOrder
             o.OrderPhone = OrderPhone;  
             o.OrderPrice = OrderTotal;
             o.OrderAdress = OrderAddress;
-            o.OrderDate = DateTime.Now;
+            ///use utc+7
+            DateTime utcNow = DateTime.UtcNow;
+            TimeZoneInfo timeZone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time");
+            DateTime localTime = TimeZoneInfo.ConvertTimeFromUtc(utcNow, timeZone);
+            o.OrderDate = localTime;
             o.OrderStatus = "Pending";
             o.PaymentId = 1;
             o.UserId = userID;

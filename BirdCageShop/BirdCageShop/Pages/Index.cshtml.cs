@@ -57,7 +57,8 @@ namespace BirdCageShop.Pages
                     else
                     {
                         TempData["successMessage"] = "Thêm vào giỏ hàng thành công";
-                        return RedirectToPage("/Users/Shop");
+                        OnGet();
+                        return Page();
                     }
                 }
             }

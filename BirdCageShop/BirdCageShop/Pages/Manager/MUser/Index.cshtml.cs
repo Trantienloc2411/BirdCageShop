@@ -20,7 +20,7 @@ namespace BirdCageShop.Pages.Manager.MUser
         public IActionResult OnGet()
         {
             User = _userRepo.GetAllUser().ToList();
-            ViewData["RoleName"] = new SelectList(_userRepo.GetUserRole(), "RoleName", "RoleName");
+            ViewData["RoleName"] = new SelectList(_userRepo.GetUserRole().Where(u => u.RoleId != 4 && u.RoleId != 2), "RoleName", "RoleName");
             return Page();
         }
 

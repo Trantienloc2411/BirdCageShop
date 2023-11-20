@@ -169,12 +169,12 @@
                                         @if (item.Discount != null )
                                         {
                                             var discountedPrice = (double)(item.Price - (item.Price * item.Discount.Discount1));
-                                            <h6>@Html.DisplayFor(modelItem => discountedPrice)</h6>  <!-- (Giá được giảm)  -->
-                                            <h6 class="text-muted ml-2"><del>@Html.DisplayFor(modelItem => item.Price) $</del></h6> <!-- Giá gốc  -->
+                                            <h6>@Html.Raw(discountedPrice.ToString("N0"))đ</h6>  <!-- (Giá được giảm)  -->
+                                            <h6 class="text-muted ml-2"><del>@Html.Raw(item.Price.Value.ToString("N0"))đ</del></h6> <!-- Giá gốc  -->
                                         }
                                         else
                                         {
-                                            <h6>@Html.DisplayFor(modelItem => item.Price)</h6>
+                                            <h6>@Html.Raw(item.Price.Value.ToString("N0"))đ</h6>
                                         }
 
                                     </div>
