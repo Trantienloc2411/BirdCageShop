@@ -1,248 +1,261 @@
 ﻿@page
 @model BirdCageShop.Pages.Users.CustomizeModel
 @{
-    Layout = "_Layout";
+
     ViewData["Title"] = "Tạo lồng";
+    Layout = "_LayoutCustomized";
 }
-    <body>
-        <div class="container-fluid bg-secondary mb-5">
-            <div class="d-flex flex-column align-items-center justify-content-center"
-                 style="min-height: 300px;">
-                <h1 class="font-weight-semi-bold text-uppercase mb-3">Cửa hàng</h1>
-                <div class="d-inline-flex">
-                    <p class="m-0"><a asp-page="../Index">Trang chủ</a></p>
-                    <p class="m-0 px-2">-</p>
-                    <p class="m-0">Tạo lồng</p>
-                </div>
+<div class="container-fluid bg-secondary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center"
+         style="min-height: 300px;">
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">Cửa hàng</h1>
+        <div class="d-inline-flex">
+            <p class="m-0"><a asp-page="../Index">Trang chủ</a></p>
+            <p class="m-0 px-2">-</p>
+            <p class="m-0">Tạo lồng</p>
+        </div>
+    </div>
+</div>
+@{
+    var errorMessage = TempData["errorMessage"] as string;
+    var successMessage = TempData["successMessage"] as string;
+}
+<div class="alert alert-danger" style="@(string.IsNullOrEmpty(errorMessage) ? "display: none;" : "")">
+    @errorMessage
+</div>
+
+<!-- Hiển thị thông báo thành công -->
+<div class="alert alert-success" style="@(string.IsNullOrEmpty(successMessage) ? "display: none;" : "")">
+    @successMessage
+</div>
+<form method="post">
+    <div class="container-fluid py-5 d-flex">
+        <div class="bo-1 col-4 p-5 bg-primary" style="background-color: #d19c97;">
+            <h4>Kiểu lồng</h4>
+            <div class="form-group">
+                <select class="form-control cage-style" style="margin-bottom: 10%;" asp-for="@Model.cageType">
+                    <option value=1029 data-img-src="/FE_Web/img/cat-2.jpg">Tròn</option>
+                    <option value=1030 data-img-src="/FE_Web/img/cat-2.jpg">Vuông</option>
+                </select>
+                <img id="cageImage" style="width: 100%;" src="/FE_Web/img/cat-1.jpg" alt="" />
             </div>
-        </div>
-        @{
-            var errorMessage = TempData["errorMessage"] as string;
-            var successMessage = TempData["successMessage"] as string;
-        }
-        <div class="alert alert-danger" style="@(string.IsNullOrEmpty(errorMessage) ? "display: none;" : "")">
-            @errorMessage
-        </div>
-
-        <!-- Hiển thị thông báo thành công -->
-        <div class="alert alert-success" style="@(string.IsNullOrEmpty(successMessage) ? "display: none;" : "")">
-            @successMessage
-        </div>
-    <form method="post" enctype="multipart/form-data">
-            <div class="container py-5">
-                <div class="row mb-3">
-                    <div class="col-lg-6">
-                        <h4>Kích thước</h4>
+            </div>
+        <div class="bo-2 col-8 ml-2 p-5" style="background-color: #d19c97;">
+            <div class="d-flex equal-height-cols">
+                <div class="col-6">
+                    <div class="col-lg-12">
+                        <h4 class="no-margin-bottom">Nắp lồng</h4>
                         <div class="form-group">
-                            <select class="form-control" id="sizeSelect" onchange="updateSizeValue(); updatePrice();">
-                                <option value="S">S (200) </option>
-                                <option value="M">M (400) </option>
-                                <option value="L">L (600)</option>
-                                <option value="XL">XL(800)</option>
+                            <select class="form-control cage_lid" asp-for="@Model.lidCage">
+                                <option value=1026>Nhựa</option>
+                                <option value=1027>Gỗ</option>
+                                <option value=1028>Vải</option>
                             </select>
                         </div>
-                        <input type="hidden" id="sizeValue" name="sizeValue" />
-
-                    </div>
-                    <div class="col-lg-6">
-                        <h4>Chất liệu</h4>
-                        <div class="form-group">
-                            <select class="form-control" id="materialSelect" onchange="updateMaterialValue(); updatePrice();">
-                                <option value="Thép">Thép (800)</option>
-                                <option value="Gỗ">Gỗ (500)</option>
-                                <option value="Kim loại">Kim loại (300)</option>
-                            </select>
-                        </div>
-                        <input type="hidden" id="materialValue" name="materialValue" />
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-lg-6">
-                        <h4>Số nan</h4>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="nanInput" placeholder="Số nan lồng chim " onchange="updateNanValue(); updatePrice();" required/>
-                        </div>
-                        <input type="hidden" id="nanValue" name="nanValue" />
                     </div>
 
-
-                    <div class="col-lg-6">
-                        <h4>Hình ảnh hoặc bản vẽ thiết kế</h4>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="customFile" asp-for="@Model.CageImg " />
-                            <label class="custom-file-label" for="customFile">Chọn tệp</label>
-                            <span asp-validation-for="@Model.CageImg" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-lg-12">
-                            <h4>Ghi chú cho lồng</h4>
+                    <div class="d-flex">
+                        <div class="col-lg-8">
+                            <h4 class="no-margin-bottom">Nan lồng</h4>
                             <div class="form-group">
-                                <label for="cageNote">Ghi chú:</label>
-                                <input type="text" class="form-control" id="cageNote" name="cageNote" />
+                                <select class="form-control cage_body" style="margin-top: 0%;" asp-for="@Model.barCageType" >
+                                    <option value=1016>Nhựa</option>
+                                    <option value=1014>Gỗ</option>
+                                    <option value=1015>Nhôm</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <h4></h4>
+                            <div class="form-group">
+                                <input value="@Model.barCageCount" type="number" class="form-control cage_body_input" placeholder="Số nan lồng chim" min="50" max="90" required />
+
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-lg-12"> 
-                        <h4>Giá trị ước tính: (cho 1 lồng) </h4>
+                    <div class="d-flex">
+                        <div class="col-lg-7">
+                            <h4 class="no-margin-bottom">Cửa lồng</h4>
+                            <div class="form-group">
+                                <select class="form-control cage_window_material" style="margin-top: 0%;" >
+                                    <option value="Nhựa">Nhựa</option>
+                                    <option value="Nhôm">Nhôm</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <h4></h4>
+                            <div class="form-group">
+                                <select class="form-control cage_window_size" style="margin-top: 0%;">
+                                    <option value="M">M</option>
+                                    <option value="L">L</option>
+                                    <option value="XL">XL</option>
+                                </select>
+                            </div>
+                        </div>
+                        <input id="productIdInput" type="hidden" value="1017" name="doorCage">
+                    </div>
+                    <div class="col-lg-12">
+                        <h4 class="no-margin-bottom">Đế lồng</h4>
+                        <div class="form-group">
+                            <select class="form-control cage_base" style="margin-top: 0%;" asp-for="@Model.baseCage">
+                                <option value=1023>Nhựa</option>
+                                <option value=1024>Gỗ</option>
+                                <option value=1025>Nhôm</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-                <p id="totalEstimatedPrice">1000 VND</p>
-
-                <input type="hidden" id="totalEstimatedPriceInput" name="totalEstimatedPrice" />
-
-                <div class="d-flex align-items-center mb-4 pt-2">
-                    <div class="input-group quantity mr-3" style="width: 130px;">
-                        <div class="input-group-btn">
-                            <button type="button" class="btn btn-primary btn-minus">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                        </div>
-                        <input type="text"
-                               class="form-control bg-secondary text-center"
-                               value="1"
-                               id="myInput" onchange="updateQuantityValue(this.value);" />
-                        <div  class="input-group-btn">
-                            <button type="button" class="btn btn-primary btn-plus">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                        </div>
-                        <input type="hidden" id="quantityValue" name="quantityValue" />
-
-                    </div>
-                    <button class="btn btn-primary px-3" type="submit">
-                        <i class="fa fa-shopping-cart mr-1"></i> Gửi thiết kế
-                    </button>
-
-
+                <div class="col-6">
+                    <h4>Tổng quan sản phẩm</h4>
+                    <img style="width: 100%;" src="/FE_Web/img/cat-1.jpg" alt="" />
                 </div>
-
-
             </div>
-        </form>
+            <div class="col-12 details mt-5" style="color: black; background-color: #35b1fc">
+                <div class="row text-center">
+                    <div class="col-3 pt-4">
+                        <p title="Đây là thời gian dự kiến cơ bản hoàn thành xong lồng" style="font-weight:600">
+                            <span title="Đây là thời gian dự kiến cơ bản hoàn thành xong lồng">THỜI GIAN DỰ KIẾN:</span> <span id="totalTime"></span> ngày  
+                        </p>
+                    </div>
 
-        <script>
-            function updateQuantityValue(value) {
-                document.getElementById('quantityValue').value = value;
-            }
-        </script>
-        <script>
-            function updateSizeValue() {
-                var sizeSelect = document.getElementById('sizeSelect');
-                var sizeValue = sizeSelect.options[sizeSelect.selectedIndex].value;
-                document.getElementById('sizeValue').value = sizeValue;
-            }
-        </script>
-        <script>
-            function updateMaterialValue() {
-                var materialSelect = document.getElementById('materialSelect');
-                var materialValue = materialSelect.options[materialSelect.selectedIndex].value;
-                document.getElementById('materialValue').value = materialValue;
-            }
-        </script>
-        <script>
-            function updateNanValue() {
-                var nanInput = document.getElementById('nanInput');
-                var nanValue = nanInput.value;
-                document.getElementById('nanValue').value = nanValue;
-            }
-        </script>
-    <script>
-        function updatePrice() {
-            // Get selected size and material values
-            var sizeSelect = document.getElementById("sizeSelect");
-            var selectedSize = sizeSelect.options[sizeSelect.selectedIndex].value;
+                    <div class="col-3 pt-4">
+                        <p>TIỀN CƠ BẢN: <span id="totalBaseMoney"></span> vnđ</p>
+                    </div>
+                    <div class="col-3 pt-4">
+                        <p>TIỀN GIA CÔNG: <span id="totalWage"></span> vnđ</p>
+                    </div>
+                    <div class="col-3" style="padding-right:0">
+                        <button type="submit" style="width: 100%; border: none;" class="bg-success">
+                            <p id="totalMoney"></p>
+                            <span>ĐẶT HÀNG</span>
+                        </button>
+                    </div>
+                </div>
+                <input name="OrderEst" value="" type="hidden" />
+                <input name="OrderPrice" value="" type="hidden" />
+            </div>
+        </div>
+    </div>
+    <!-- Shop Detail End -->
+</form>
 
-            var materialSelect = document.getElementById("materialSelect");
-            var selectedMaterial = materialSelect.options[materialSelect.selectedIndex].value;
+<!-- Products Start -->
+<div class="container-fluid py-5">
+    <div class="text-center mb-4">
+        <h2 class="section-title px-5">
+            <span class="px-2">Bạn có thể thích</span>
+        </h2>
+    </div>
+    <div class="row px-xl-5">
+        <div class="col">
+            <div class="owl-carousel related-carousel">
+                <div class="card product-item border-0">
+                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                        <img class="img-fluid w-100" src="img/product-1.jpg" alt="" />
+                    </div>
+                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                        <h6 class="text-truncate mb-3">Bird Cage</h6>
+                        <div class="d-flex justify-content-center">
+                            <h6>$123.00</h6>
+                            <h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between bg-light border">
+                        <a href="" class="btn btn-sm text-dark p-0">
+                            <i class="fas fa-eye text-primary mr-1"></i>Xem chi tiết
+                        </a>
+                        <a href="" class="btn btn-sm text-dark p-0">
+                            <i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm
+                            vào giỏ
+                        </a>
+                    </div>
+                </div>
+                <div class="card product-item border-0">
+                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                        <img class="img-fluid w-100" src="img/product-2.jpg" alt="" />
+                    </div>
+                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                        <h6 class="text-truncate mb-3">Bird Cage</h6>
+                        <div class="d-flex justify-content-center">
+                            <h6>$123.00</h6>
+                            <h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between bg-light border">
+                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                        <a href="" class="btn btn-sm text-dark p-0">
+                            <i class="fas fa-shopping-cart text-primary mr-1"></i>Add To
+                            Cart
+                        </a>
+                    </div>
+                </div>
+                <div class="card product-item border-0">
+                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                        <img class="img-fluid w-100" src="img/product-3.jpg" alt="" />
+                    </div>
+                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                        <h6 class="text-truncate mb-3">Bird Cage</h6>
+                        <div class="d-flex justify-content-center">
+                            <h6>$123.00</h6>
+                            <h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between bg-light border">
+                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                        <a href="" class="btn btn-sm text-dark p-0">
+                            <i class="fas fa-shopping-cart text-primary mr-1"></i>Add To
+                            Cart
+                        </a>
+                    </div>
+                </div>
+                <div class="card product-item border-0">
+                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                        <img class="img-fluid w-100" src="img/product-4.jpg" alt="" />
+                    </div>
+                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                        <h6 class="text-truncate mb-3">Bird Cage</h6>
+                        <div class="d-flex justify-content-center">
+                            <h6>$123.00</h6>
+                            <h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between bg-light border">
+                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                        <a href="" class="btn btn-sm text-dark p-0">
+                            <i class="fas fa-shopping-cart text-primary mr-1"></i>Add To
+                            Cart
+                        </a>
+                    </div>
+                </div>
+                <div class="card product-item border-0">
+                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                        <img class="img-fluid w-100" src="img/product-5.jpg" alt="" />
+                    </div>
+                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                        <h6 class="text-truncate mb-3">Bird Cage</h6>
+                        <div class="d-flex justify-content-center">
+                            <h6>$123.00</h6>
+                            <h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between bg-light border">
+                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                        <a href="" class="btn btn-sm text-dark p-0">
+                            <i class="fas fa-shopping-cart text-primary mr-1"></i>Add To
+                            Cart
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/easing/easing.min.js"></script>
+<script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="~/mail/jqBootstrapValidation.min.js"></script>
+<script src="~/mail/contact.js"></script>
+<script src="~/js/customized.js"></script>
 
-            // Get the number of nan input
-            var nanInput = document.getElementById("nanInput").value;
-            var numberOfNan = parseInt(nanInput) || 0;
-
-            // Calculate prices based on selected values
-            var sizePrice = getSizePrice(selectedSize);
-            var materialPrice = getMaterialPrice(selectedMaterial);
-            var nanPrice = 10 * numberOfNan;
-
-            // Calculate total price
-            var totalPrice = sizePrice + materialPrice + nanPrice;
-
-            // Update the hidden input values (if needed)
-            document.getElementById("sizeValue").value = selectedSize;
-            document.getElementById("materialValue").value = selectedMaterial;
-            document.getElementById("nanValue").value = numberOfNan;
-
-            // Update the displayed total estimated price
-            document.getElementById("totalEstimatedPrice").innerText = totalPrice + " VND";
-            document.getElementById("totalEstimatedPriceInput").value = totalPrice;
-        }
-
-        function getSizePrice(size) {
-            switch (size) {
-                case "S":
-                    return 200;
-                case "M":
-                    return 400;
-                case "L":
-                    return 600;
-                case "XL":
-                    return 800;
-                default:
-                    return 0;
-            }
-        }
-
-        function getMaterialPrice(material) {
-            switch (material) {
-                case "Thép":
-                    return 800;
-                case "Gỗ":
-                    return 500;
-                case "Kim loại":
-                    return 300;
-                default:
-                    return 0;
-            }
-        }
-    </script>
-    <script>
-        function updateQuantityValue(value) {
-            document.getElementById('quantityValue').value = value;
-            updatePrice(); // Update the price when the quantity changes
-        }
-
-        function incrementQuantity() {
-            var inputValue = document.getElementById('myInput').value;
-            var newValue = parseInt(inputValue) + 1;
-            document.getElementById('myInput').value = newValue;
-            updateQuantityValue(newValue);
-        }
-
-        function decrementQuantity() {
-            var inputValue = document.getElementById('myInput').value;
-            var newValue = Math.max(parseInt(inputValue) - 1, 1); // Ensure the value doesn't go below 1
-            document.getElementById('myInput').value = newValue;
-            updateQuantityValue(newValue);
-        }
-    </script>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-        @* string sizeValue = Request.Form["sizeValue"]; *@
-
-    </body>
