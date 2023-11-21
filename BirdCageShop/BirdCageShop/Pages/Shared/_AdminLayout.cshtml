@@ -195,34 +195,7 @@
         //     }
         // }
 
-        function toggleOrders(type) {
-            // Store the current page state in sessionStorage
-            sessionStorage.setItem('currentPageNo', document.querySelector('.pagination').getAttribute('page-no'));
-            if (type === 'show') {
-                document.getElementById('showedCage').style.display = 'block';
-                document.getElementById('hiddenCage').style.display = 'none';
-                document.getElementById('customizedCage').style.display = 'none';
-
-            } else if (type === 'hide') {
-                document.getElementById('showedCage').style.display = 'none';
-                document.getElementById('hiddenCage').style.display = 'block';
-                document.getElementById('customizedCage').style.display = 'none';
-
-            } else if (type === 'customize') {
-                document.getElementById('showedCage').style.display = 'none';
-                document.getElementById('hiddenCage').style.display = 'none';
-                document.getElementById('customizedCage').style.display = 'block';
-            }
-            // Restore the page state from sessionStorage
-            var currentPageNo = sessionStorage.getItem('currentPageNo');
-            if (currentPageNo) {
-                // Set the current page number for each pagination element
-                var paginationElements = document.querySelectorAll('.pagination');
-                paginationElements.forEach(function (pagination) {
-                    pagination.setAttribute('page-no', currentPageNo);
-                });
-            }
-        }
+        
     </script>
     <!-- Add your JavaScript links here -->
     @RenderSection("Scripts", required: false)
