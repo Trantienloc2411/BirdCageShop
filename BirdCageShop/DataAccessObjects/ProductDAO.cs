@@ -1,5 +1,9 @@
 ﻿using BusinessObjects.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
+using System.Drawing.Printing;
+using System.Security.Cryptography.X509Certificates;
 
 namespace DataAccessObjects
 {
@@ -64,23 +68,11 @@ namespace DataAccessObjects
                 pro.CageStatus = 0;
                 _db.SaveChanges();
             }
-        }
+        }   
 
         public IEnumerable<Product> GetAll()
         {
             return _db.Products.ToList();
-        }
-        public IEnumerable<Product> GetAllShow()
-        {
-            return _db.Products.Where(u => u.CageStatus == 1).ToList();
-        }
-        public IEnumerable<Product> GetAllHidden()
-        {
-            return _db.Products.Where(u => u.CageStatus == 0).ToList();
-        }
-        public IEnumerable<Product> GetAllCustomized()
-        {
-            return _db.Products.Where(u => u.CageStatus == 2).ToList();
         }
         public List<Category> GetCategories()
         {
@@ -95,34 +87,10 @@ namespace DataAccessObjects
         {
             return _db.Products.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
         }
-        public List<Product> getProductShowPages(int pageIndex, int pageSize)
-        {
-            return _db.Products.Where(u => u.CageStatus == 1).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-        }
-        public List<Product> getProductHiddenPages(int pageIndex, int pageSize)
-        {
-            return _db.Products.Where(u => u.CageStatus == 0).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-        }
-        public List<Product> getProductCustomizedPages(int pageIndex, int pageSize)
-        {
-            return _db.Products.Where(u => u.CageStatus == 2).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-        }
         //Get count of product in data
         public int getTotalProductPages()
         {
             return _db.Products.Count();
-        }
-        public int getTotalProductShowPages()
-        {
-            return _db.Products.Where(u => u.CageStatus == 1).Count();
-        }
-        public int getTotalProductHiddenPages()
-        {
-            return _db.Products.Where(u => u.CageStatus == 0).Count();
-        }
-        public int getTotalProductCustomizedPages()
-        {
-            return _db.Products.Where(u => u.CageStatus == 2).Count();
         }
 
         public Product GetProduct(int id)
@@ -200,7 +168,7 @@ namespace DataAccessObjects
             return _db.Accessories.FirstOrDefault(a => a.AccessoryId == accessoryID);
         }
 
-
+        
         public List<Accessory> GetAccessoryByName(string name)
         {
             return _db.Accessories.Where(x => x.AccessoryName.Contains(name)).ToList();
