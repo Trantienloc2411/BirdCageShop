@@ -17,8 +17,21 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="~/table-07/css/style.css">
+    <!-- Libraries Stylesheet -->
+    <link href="~/AdminNew/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">zW
+    <link href="~/AdminNew/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="~/AdminNew/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="~/AdminNew/css/style.css" rel="stylesheet">
+
+    @* <link rel="stylesheet" href="~/table-07/css/style.css"> *@
 </head>
 
 <body>
@@ -61,137 +74,187 @@
         <button asp-page-handler="search" type="submit" class="search-button">Search</button>
     </form>
 </div>
-    <section style="padding: 1cm 0">
-            <p style="text-align: left; margin-top: 20px;">
-                <a asp-page="Create" style="text-decoration: none; background-color: darkgray; color: #ffffff; padding: 12px 24px; border-radius: 6px; font-weight: bold; transition: background-color 0.3s;">Create a product</a>
-            </p>
-            <div class="row">
-                <div class="col-md-30">
+    
+    <section>
+    <div class="container-fluid pt-4 px-4">
+        <div class="col-12 mb-3">
+            <button id="pendingBtn" class="btn btn-primary" onclick="toggleOrders('show')">Showed Cage</button>
+            <button id="canceledBtn" class="btn btn-primary" onclick="toggleOrders('hide')">Hidden Cage</button>
+            <button id="deliveredBtn" class="btn btn-primary" onclick="toggleOrders('customize')">Customized Cage</button>
+               
+        </div>
+        <div>
+                <a asp-page="Create" class="btn btn-primary">Create a Product</a>
+        </div>
+            
+    </div>
+        <div id="showedCage" class="container-fluid pt-4 px-4">
+            <div class="row g-4">
+            @foreach (var item in Model.ProductShow)
+            {
+                        <div class="col-sm-12 col-md-6 col-lg-4">
+                            <div class="bg-light rounded h-100 p-4 card">
+                                <img src="~/@item.CageImg" alt="Product Image" class="img-fluid mb-4" />
+                                @* <img src="data:image/png;base64,@item.CageImg" alt="Cage Image" class="img-fluid mb-4" /> *@
 
-                        <table class="table table-bordered table-gray table-hover">
-                            <thead>
-                                <tr>
-                                    <th style="color: pink; border: solid gainsboro">
-                                        @Html.DisplayNameFor(model => model.Product[0].CageName)
-                                    </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                        @Html.DisplayNameFor(model => model.Product[0].Quantity)
-                                    </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                        @Html.DisplayNameFor(model => model.Product[0].Price)
-                                    </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                        @Html.DisplayNameFor(model => model.Product[0].CageImg)
-                                    </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                        @Html.DisplayNameFor(model => model.Product[0].Material)
-                                    </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                        @Html.DisplayNameFor(model => model.Product[0].Size)
-                                    </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                        @Html.DisplayNameFor(model => model.Product[0].Bar)
-                                    </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                        @Html.DisplayNameFor(model => model.Product[0].Description)
-                                    </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                        @Html.DisplayNameFor(model => model.Product[0].CageStatus)
-                                    </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                        @Html.DisplayNameFor(model => model.Product[0].Category)
-                                    </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                        @Html.DisplayNameFor(model => model.Product[0].Discount)
-                                    </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                        Action
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model.Product)
-                                {
-                                    <tr>
-                                <td style="border: solid gainsboro">
-                                            @Html.DisplayFor(modelItem => item.CageName)
-                                        </td>
-                                <td style="border: solid gainsboro">
-                                            @Html.DisplayFor(modelItem => item.Quantity)
-                                        </td>
-                                <td style="border: solid gainsboro">
-                                            @Html.DisplayFor(modelItem => item.Price)
-                                        </td>
-                                <td style="border: solid gainsboro">
-                                    <img src="~/@item.CageImg" alt="Product Image" style="max-width: 100px; max-height: 100px;" />
-                                        </td>
-                                <td style="border: solid gainsboro">
-                                            @Html.DisplayFor(modelItem => item.Material)
-                                        </td>
-                                <td style="border: solid gainsboro">
-                                            @Html.DisplayFor(modelItem => item.Size)
-                                        </td>
-                                <td style="border: solid gainsboro">
-                                            @Html.DisplayFor(modelItem => item.Bar)
-                                        </td>
-                                <td style="border: solid gainsboro">
-                                            @Html.DisplayFor(modelItem => item.Description)
-                                        </td>
-                                <td style="border: solid gainsboro">
-                                            @Html.DisplayFor(modelItem => item.CageStatus)
-                                        </td>
-                                <td style="border: solid gainsboro">
-                                            @Html.DisplayFor(modelItem => item.Category.CategoryName)
-                                        </td>
-                                <td style="border: solid gainsboro">
-                                            @Html.DisplayFor(modelItem => item.Discount.DiscountName)
-                                        </td>
-                                <td style="border: solid gainsboro; padding: 10px;">
+                                <!-- Cage Name -->
+                                <div class="mb-3">
+                                    <label for="inputCageName" class="form-label">Cage Name:</label>
+                                    <span id="inputCageName">@Html.DisplayFor(modelItem => item.CageName)</span>
+                                </div>
 
-                                    <style>
-                                        .action-buttons {
-                                            display: flex;
-                                            flex-direction: column;
-                                            gap: 10px;
-                                            margin-top: 10px;
-                                        }
+                                <!-- Quantity and Price -->
+                                <div class="mb-3">
+                                    <label for="inputQuantity" class="form-label">Quantity:</label>
+                                    <span id="inputQuantity">@Html.DisplayFor(modelItem => item.Quantity)</span>
 
-                                            .action-buttons a {
-                                                padding: 10px 15px;
-                                                background-color: pink;
-                                                color: white;
-                                                border: none;
-                                                border-radius: 5px;
-                                                cursor: pointer;
-                                                transition: background-color 0.3s;
-                                            }
+                                    <label for="inputPrice" class="form-label ms-3">Price:</label>
+                                    <span id="inputPrice">@Html.DisplayFor(modelItem => item.Price)</span>
+                                </div>
 
-                                                .action-buttons a:hover {
-                                                    background-color: deeppink;
-                                                }
-                                    </style>
-
-                                    <div class="action-buttons">
-                                        <a asp-page="./Edit" asp-route-id="@item.CageId">Edit</a>
-                                        <a asp-page="./Details" asp-route-id="@item.CageId">Details</a>
-                                        <a asp-page="./Delete" asp-route-id="@item.CageId">Delete</a>
+                                <!-- Discount -->
+                                <div class="mb-3">
+                                    <label for="inputDiscount" class="form-label">Discount:</label>
+                                    <span id="inputDiscount">@Html.DisplayFor(modelItem => item.Discount.DiscountName)</span>
+                                </div>
+                                <!-- Edit and view Detail Button -->
+                                <div class="mb-12 row">
+                                    <div class="col-sm-6">
+                                    <a asp-page="./Edit" asp-route-id="@item.CageId" class="btn btn-primary">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
                                     </div>
-                                </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                        <paging class="pagination" total-records="@Model.totalProduct" show-total-pages="false" show-total-records="false" page-size="@Model.pageSize" page-no="@Model.pageNo"></paging>
+                                    <div class="col-6" style="text-align: right;">
+                                        <a href="viewproduct.html?id=@item.CageId" class="btn btn-primary">
+                                            <i class="fas fa-edit"></i> View detail
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            }
+                <paging class="pagination"
+                        total-records="@Model.totalShowProduct"
+                        show-total-pages="false"
+                        show-total-records="false"
+                        page-size="@Model.pageSize"
+                        page-no="@Model.pageNo">
+                </paging>
+            </div>   
+            
+    </div>
+        <div id="hiddenCage" class="container-fluid pt-4 px-4" style="display: none;">
+            <div class="row g-4">
+                @foreach (var item in Model.ProductHidden)
+                {
+                        <div class="col-sm-12 col-md-6 col-lg-4">
+                            <div class="bg-light rounded h-100 p-4 card">
+                                <img src="~/@item.CageImg" alt="Product Image" class="img-fluid mb-4" />
+                                @* <img src="data:image/png;base64,@item.CageImg" alt="Cage Image" class="img-fluid mb-4" /> *@
+
+                                <!-- Cage Name -->
+                                <div class="mb-3">
+                                    <label for="inputCageName" class="form-label">Cage Name:</label>
+                                    <span id="inputCageName">@Html.DisplayFor(modelItem => item.CageName)</span>
+                                </div>
+
+                                <!-- Quantity and Price -->
+                                <div class="mb-3">
+                                    <label for="inputQuantity" class="form-label">Quantity:</label>
+                                    <span id="inputQuantity">@Html.DisplayFor(modelItem => item.Quantity)</span>
+
+                                    <label for="inputPrice" class="form-label ms-3">Price:</label>
+                                    <span id="inputPrice">@Html.DisplayFor(modelItem => item.Price)</span>
+                                </div>
+
+                                <!-- Discount -->
+                                <div class="mb-3">
+                                    <label for="inputDiscount" class="form-label">Discount:</label>
+                                    <span id="inputDiscount">@Html.DisplayFor(modelItem => item.Discount.DiscountName)</span>
+                                </div>
+                                <!-- Edit and view Detail Button -->
+                                <div class="mb-12 row">
+                                    <div class="col-sm-6">
+                                    <a asp-page="./Edit" asp-route-id="@item.CageId" class="btn btn-primary">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                    </div>
+                                    <div class="col-6" style="text-align: right;">
+                                        <a href="viewproduct.html?id=@item.CageId" class="btn btn-primary">
+                                            <i class="fas fa-edit"></i> View detail
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                }
+                <paging class="pagination"
+                        total-records="@Model.totalHiddenProduct"
+                        show-total-pages="false"
+                        show-total-records="false"
+                        page-size="@Model.pageSize"
+                        page-no="@Model.pageNo">
+                </paging>
             </div>
-                </div>
+            
+        </div>
+        <div id="customizedCage" class="container-fluid pt-4 px-4" style="display: none;">
+            <div class="row g-4">
+                @foreach (var item in Model.ProductCustomized)
+                {
+                        <div class="col-sm-12 col-md-6 col-lg-4">
+                            <div class="bg-light rounded h-100 p-4 card">
+                                <img src="~/@item.CageImg" alt="Product Image" class="img-fluid mb-4" />
+                                @* <img src="data:image/png;base64,@item.CageImg" alt="Cage Image" class="img-fluid mb-4" /> *@
 
+                                <!-- Cage Name -->
+                                <div class="mb-3">
+                                    <label for="inputCageName" class="form-label">Cage Name:</label>
+                                    <span id="inputCageName">@Html.DisplayFor(modelItem => item.CageName)</span>
+                                </div>
+
+                                <!-- Quantity and Price -->
+                                <div class="mb-3">
+                                    <label for="inputQuantity" class="form-label">Quantity:</label>
+                                    <span id="inputQuantity">@Html.DisplayFor(modelItem => item.Quantity)</span>
+
+                                    <label for="inputPrice" class="form-label ms-3">Price:</label>
+                                    <span id="inputPrice">@Html.DisplayFor(modelItem => item.Price)</span>
+                                </div>
+
+                                <!-- Discount -->
+                                <div class="mb-3">
+                                    <label for="inputDiscount" class="form-label">Discount:</label>
+                                    <span id="inputDiscount">@Html.DisplayFor(modelItem => item.Discount.DiscountName)</span>
+                                </div>
+                                <!-- Edit and view Detail Button -->
+                                <div class="mb-12 row">
+                                    <div class="col-sm-6">
+                                    <a asp-page="./Edit" asp-route-id="@item.CageId" class="btn btn-primary">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </a>
+                                    </div>
+                                    <div class="col-6" style="text-align: right;">
+                                        <a href="viewproduct.html?id=@item.CageId" class="btn btn-primary">
+                                            <i class="fas fa-edit"></i> View detail
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                }
+                <paging class="pagination"
+                        total-records="@Model.totalCustomizedProduct"
+                        show-total-pages="false"
+                        show-total-records="false"
+                        page-size="@Model.pageSize"
+                        page-no="@Model.pageNo">
+                </paging>
+            </div>
+           
+        </div>
+     
     </section>
-
-    <script src="~/table-07/js/jquery.min.js"></script>
-    <script src="~/table-07/js/popper.js"></script>
-    <script src="~/table-07/js/bootstrap.min.js"></script>
-    <script src="~/table-07/js/main.js"></script>
-
 </body>
 
 </html>
