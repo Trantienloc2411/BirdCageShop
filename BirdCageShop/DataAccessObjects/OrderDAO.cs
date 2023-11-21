@@ -107,19 +107,19 @@ namespace DataAccessObjects
         }
         public IEnumerable<Order> GetAllPending()
         {
-            return _db.Orders.Where(u => u.OrderStatus == "Pending").ToList();
+            return _db.Orders.Where(u => u.OrderStatus == "Pending").OrderByDescending(u => u.OrderId).ToList();
         }
         public IEnumerable<Order> GetAllCancel()
         {
-            return _db.Orders.Where(u => u.OrderStatus == "Cancelled").ToList();
+            return _db.Orders.Where(u => u.OrderStatus == "Cancelled").OrderByDescending(u => u.OrderDate).ToList();
         }
         public IEnumerable<Order> GetAllDelivering()
         {
-            return _db.Orders.Where(u => u.OrderStatus == "Delivering").ToList();
+            return _db.Orders.Where(u => u.OrderStatus == "Delivering").OrderByDescending(u => u.OrderDate).ToList();
         }
         public IEnumerable<Order> GetAllDelivered()
         {
-            return _db.Orders.Where(u => u.OrderStatus == "Delivered").ToList();
+            return _db.Orders.Where(u => u.OrderStatus == "Delivered").OrderByDescending(u => u.OrderDate).ToList();
         }
 
         public List<Order> getOrderByUserID(int userID)

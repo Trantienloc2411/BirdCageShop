@@ -61,125 +61,105 @@
             <button asp-page-handler="search" type="submit" class="search-button">Search</button>
         </form>
     </div>
-    <section style="padding: 1cm 0">
-        <div class="row">
-            <div class="col-md-30">
-
-                <table class="table table-bordered table-gray table-hover">
-                    <thead>
-                        <tr>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.User[0].UserName)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.User[0].UserPassword)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.User[0].Email)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.User[0].Phone)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.User[0].Address)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.User[0].UserImg)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.User[0].DoB)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.User[0].Status)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.User[0].Gender)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.User[0].Role)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                Action
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.User)
-                        {
-                            <tr>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.UserName)
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.UserPassword)
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.Email)
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.Phone)
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.Address)
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    <img src="~/@item.UserImg" alt="User Image" style="max-width: 100px; max-height: 100px;" />
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.DoB)
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.Status)
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.Gender)
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.Role.RoleName)
-                                </td>
-                                <td style="border: solid gainsboro; padding: 10px;">
-
-                                    <style>
-                                        .action-buttons {
-                                            display: flex;
-                                            flex-direction: column;
-                                            gap: 10px;
-                                            margin-top: 10px;
+    <section>
+        <br></br>
+        <div id="pendingOrderTable" class="container-fluid pt-4 px-4">
+            <div class="row g-4">
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row g-4">
+                        <div class="col-sm-12 col-xl-12">
+                            <div class="bg-light rounded h-100 p-4">
+                                <h6 class="mb-4">User List</h6>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">
+                                                @Html.DisplayNameFor(model => model.User[0].UserName)
+                                            </th>
+                                            <th scope="col">
+                                                @Html.DisplayNameFor(model => model.User[0].UserPassword)
+                                            </th>
+                                            <th scope="col">
+                                                @Html.DisplayNameFor(model => model.User[0].Email)
+                                            </th>
+                                            <th scope="col">
+                                                @Html.DisplayNameFor(model => model.User[0].DoB)
+                                            </th>
+                                            <th scope="col">
+                                                @Html.DisplayNameFor(model => model.User[0].Status)
+                                            </th>
+                                            <th scope="col">
+                                                @Html.DisplayNameFor(model => model.User[0].Role)
+                                            </th>
+                                            <th scope="col">
+                                                Action
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.User)
+                                        {
+                                            <tr>
+                                                <th scope="row">
+                                                    @Html.DisplayFor(modelItem => item.UserName)
+                                                </th>
+                                                <td>
+                                                    <div class="password-container">
+                                                        <input type="password" value="@item.UserPassword" class="password-field" readonly />
+                                                        <button type="button" class="toggle-password-btn">Show</button>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Email)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.DoB)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Status)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Role.RoleName)
+                                                </td>
+                                                <td>
+                                                    <div class="action-buttons">
+                                                        <a asp-page="./Edit" class="btn btn-primary btn-sm" asp-route-id="@item.UserId">Edit</a>
+                                                        <a asp-page="./Details" class="btn btn-info btn-sm" asp-route-id="@item.UserId">Details</a>
+                                                        <a asp-page="./Delete" class="btn btn-danger btn-sm" asp-route-id="@item.UserId">Delete</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                         }
-
-                                            .action-buttons a {
-                                                padding: 10px 15px;
-                                                background-color: pink;
-                                                color: white;
-                                                border: none;
-                                                border-radius: 5px;
-                                                cursor: pointer;
-                                                transition: background-color 0.3s;
-                                            }
-
-                                                .action-buttons a:hover {
-                                                    background-color: deeppink;
-                                                }
-                                    </style>
-
-                                    <div class="action-buttons">
-                                        <a asp-page="./Edit" asp-route-id="@item.UserId">Edit</a>
-                                    </div>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var togglePasswordBtns = document.querySelectorAll('.toggle-password-btn');
 
-    <script src="~/table-07/js/jquery.min.js"></script>
-    <script src="~/table-07/js/popper.js"></script>
-    <script src="~/table-07/js/bootstrap.min.js"></script>
-    <script src="~/table-07/js/main.js"></script>
+            togglePasswordBtns.forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    var passwordField = btn.previousElementSibling;
 
+                    if (passwordField.type === 'password') {
+                        passwordField.type = 'text';
+                        btn.textContent = 'Hide';
+                    } else {
+                        passwordField.type = 'password';
+                        btn.textContent = 'Show';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
+
 
 </html>
 

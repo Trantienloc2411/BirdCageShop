@@ -101,9 +101,6 @@
                                                 @Html.DisplayNameFor(model => model.User[0].Email)
                                             </th>
                                             <th scope="col">
-                                                @Html.DisplayNameFor(model => model.User[0].UserImg)
-                                            </th>
-                                            <th scope="col">
                                                 @Html.DisplayNameFor(model => model.User[0].DoB)
                                             </th>
                                             <th scope="col">
@@ -134,9 +131,6 @@
                                                     @Html.DisplayFor(modelItem => item.Email)
                                                 </td>
                                                 <td>
-                                                    <img src="~/@item.UserImg" alt="User Image" style="max-width: 100px; max-height: 100px;" />
-                                                </td>
-                                                <td>
                                                     @Html.DisplayFor(modelItem => item.DoB)
                                                 </td>
                                                 <td>
@@ -154,36 +148,6 @@
                                                 </td>
                                             </tr>
                                         }
-                                        @* <tr>
-                                            <th scope="row">1</th>
-                                            <td>abc</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>
-                                                <a href="" class="btn btn-primary btn-sm">Edit</a>
-                                                <a href="" class="btn btn-info btn-sm">View</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>abc</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>
-                                                <a href="" class="btn btn-primary btn-sm">Edit</a>
-                                                <a href="" class="btn btn-info btn-sm">View</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>abc</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>
-                                                <a href="" class="btn btn-primary btn-sm">Edit</a>
-                                                <a href="" class="btn btn-info btn-sm">View</a>
-                                            </td>
-                                        </tr> *@
                                     </tbody>
                                 </table>
                             </div>
@@ -324,7 +288,7 @@
     <script src="~/table-07/js/jquery.min.js"></script>
     <script src="~/table-07/js/popper.js"></script>
     <script src="~/table-07/js/bootstrap.min.js"></script>
-    <script src="~/table-07/js/main.js"></script>
+    <script src="~/table-07/js/main.js"></script>*@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var togglePasswordBtns = document.querySelectorAll('.toggle-password-btn');
@@ -343,7 +307,7 @@
                 });
             });
         });
-    </script> *@
+    </script> 
 
 </body>
 
