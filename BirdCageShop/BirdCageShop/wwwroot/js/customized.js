@@ -8,15 +8,15 @@
     ];
     // Nắp lồng
     var cage_lid = [
-        { id: 1026, material: "Vải", time: 8, base_money: 200000, wage: 80000 },
+        { id: 1026, material: "Nhựa", time: 8, base_money: 200000, wage: 80000 },
         { id: 1027, material: "Gỗ", time: 24, base_money: 400000, wage: 150000 },
         { id: 1028, material: "Vải", time: 12, base_money: 300000, wage: 100000 },
     ];
     // Nan lồng
     var cage_body = [
-        { id: 1016, material: "Nhựa", time: 1 / 60, base_money: 3000, wage: 0 },
-        { id: 1014, material: "Gỗ", time: 1 / 6, base_money: 1000, wage: 0 },
-        { id: 1015, material: "Nhôm", time: 1 / 30, base_money: 3000, wage: 0 },
+        { id: 1016, material: "Nhựa", time: 1 / 60, base_money: 5000, wage: 0 },
+        { id: 1014, material: "Gỗ", time: 1 / 6, base_money: 10000, wage: 0 },
+        { id: 1015, material: "Nhôm", time: 1 / 30, base_money: 5000, wage: 0 },
     ];
     // cửa lồng
     var cage_window = [
@@ -41,7 +41,7 @@
         cage_body_input: 50,
         cage_style: { id: 1029, material: "Lồng tròn", time: 48, base_money: 400000, wage: 100000 },
         cage_lid: { id: 1026, material: "Nhựa", time: 12, base_money: 200000, wage: 80000 },
-        cage_body: { id: 1016, material: "Nhựa", time: 1 / 60, base_money: 10000, wage: 0 },
+        cage_body: { id: 1016, material: "Nhựa", time: 1 / 60, base_money: 5000, wage: 0 },
         cage_base: { id: 1023, material: "Nhựa", time: 3, base_money: 50000, wage: 30000 },
         cage_window: { id: 1017, material: "Nhựa", size: "M", time: 3, base_money: 40000, wage: 10000 }
     }
@@ -70,6 +70,7 @@
         $("#totalMoney").text(formattedTotalMoney + " vnđ");
         $('input[name="OrderPrice"]').val(totalMoney);
         $('input[name="OrderEst"]').val(totalTimeString);
+        $('input[name="ExpenseMachining"]').val(totalWage);
     }
     $(".cage-style").on("change", function () {
         var selectedValue = $(this).val();

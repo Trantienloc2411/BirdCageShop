@@ -62,18 +62,34 @@
                                     @if(@Model.order.OrderStatus == "Pending")
                                     {
                                         <span class="badge rounded-pill bg-gray" style="background-color: gray">Đang đợi</span>
+                                        @if (Model.order.OrderType == 1)
+                                        {
+                                            <span class="badge rounded-pill" style="background-color: #d9727f">Lồng tự tạo</span>
+                                        }
                                     }
                                     else if(@Model.order.OrderStatus == "Delivering")
                                     {
                                         <span class="badge rounded-pill bg-info" style="background-color: gray">Đang vận chuyển</span>
+                                        @if (Model.order.OrderType == 1)
+                                        {
+                                            <span class="badge rounded-pill" style="background-color: #d9727f">Lồng tự tạo</span>
+                                        }
                                     }
                                     else if(@Model.order.OrderStatus == "Delivered")
                                     {
                                         <span class="badge rounded-pill bg-success" style="background-color: gray">Đã vận chuyển</span>
+                                        @if (Model.order.OrderType == 1)
+                                        {
+                                            <span class="badge rounded-pill" style="background-color: #d9727f">Lồng tự tạo</span>
+                                        }
                                     }
                                     else if(@Model.order.OrderStatus == "Cancelled")
                                     {
                                     <span class="badge rounded-pill bg-danger" style="background-color: gray">Đơn bị huỷ</span>
+                                        @if (Model.order.OrderType == 1)
+                                        {
+                                            <span class="badge rounded-pill" style="background-color: #d9727f">Lồng tự tạo</span>
+                                        }
                                     }
                                 </div>
                                 <div class="d-flex">

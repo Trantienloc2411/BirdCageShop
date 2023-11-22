@@ -19,6 +19,7 @@
 @{
     var errorMessage = TempData["errorMessage"] as string;
     var successMessage = TempData["successMessage"] as string;
+    var exceptionMessage = TempData["exMessage"] as string;
 }
 <div class="alert alert-danger" style="@(string.IsNullOrEmpty(errorMessage) ? "display: none;" : "")">
     @errorMessage
@@ -69,7 +70,7 @@
                             <h4></h4>
                             <div class="form-group">
                                 <input value="@Model.barCageCount" type="number" class="form-control cage_body_input" placeholder="Số nan lồng chim" min="50" max="90" required />
-
+                                @exceptionMessage
                             </div>
                         </div>
                     </div>
@@ -134,6 +135,7 @@
                 </div>
                 <input name="OrderEst" value="" type="hidden" />
                 <input name="OrderPrice" value="" type="hidden" />
+                <input name="ExpenseMachining" value="" type="hidden" />
             </div>
         </div>
     </div>

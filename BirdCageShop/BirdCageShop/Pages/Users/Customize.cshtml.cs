@@ -13,27 +13,22 @@ namespace BirdCageShop.Pages.Users
         private readonly ICartRepository _cartRepo;
 
         [BindProperty]
-        public string cageType { get; set; }
+        public int cageType { get; set; }
         [BindProperty]
-        public string lidCage {  get; set; }
+        public int lidCage {  get; set; }
         [BindProperty]
-        public string barCageType { get; set; }
+        public int barCageType { get; set; }
         [BindProperty]
         public int barCageCount { get; set; } = 50;
         [BindProperty]
-        public int barCount { get; set; }
+        public int doorCageType { get; set; }
+        [BindProperty]
+        public int baseCage { get;set ; }
+        [BindProperty]
+        public int orderPrice { get; set; }
+        [BindProperty]
+        public int expenseMachining { get; set; }
 
-        [BindProperty]
-        public string doorCageType { get; set; }
-        [BindProperty]
-        public string doorCageSize { get; set; }
-        [BindProperty]
-        public string baseCage { get;set ; }
-        [BindProperty]
-        public string orderPrice { get; set; }
-        
-        
-        public IFormFile CageImg { get; set; }
         public CustomizeModel(IUploadService uploadService)
         {
             _uploadService = uploadService;
@@ -41,13 +36,43 @@ namespace BirdCageShop.Pages.Users
             _cartRepo = new CartRepository();
         }
 
-        public void OnPost()
+        public IActionResult OnPost()
         {
-            doorCageType = Request.Form["doorCage"];
+            doorCageType = Int32.Parse(Request.Form["doorCage"]);
             string? orderEst = Request.Form["OrderEst"];
-            string? OrderPrice = Request.Form["OrderPrice"];
-            
-            Page();
+            orderPrice = int.Parse(Request.Form["OrderPrice"]);
+            expenseMachining = int.Parse(Request.Form["ExpenseMachining"]);
+
+            if (barCageCount <= 50 && barCageCount >= 80)
+            {
+                TempData["exMessage"] = "Số nan phải lớn hơn 50 và nhỏ hơn 80 nan"; return Page();
+            }
+            else if(HttpContext.Session.GetString("userName") == null) 
+            {
+                TempData["errorMessage"] = "Hãy đăng nhập tài khoản để được trải nghiệm tốt hơn";
+                return RedirectToPage("/Login/Index");
+            }
+
+            int result = 0;
+            if (_cartRepo.showCart().Count != 0) _cartRepo.clearCart();
+            //add cageStyle to cart
+            result = _cartRepo.addProductToCart(cageType, 1, 0);
+            //add lidCage to cart
+            result = _cartRepo.addProductToCart(lidCage, 1, 0);
+            //add barCageType and Quantity to cart
+            result = _cartRepo.addProductToCart(barCageType, barCageCount, 0);
+            //add doorcageType to cart
+            result = _cartRepo.addProductToCart(doorCageType, 1, 0);
+            //add baseCage (đế của lồng) to cart
+            result = _cartRepo.addProductToCart(baseCage, 1, 0);
+
+            if(result == 0)
+            {
+                TempData["errorMessage"] = "Đưa vào danh sách giỏ hàng thất bại";
+                return Page();
+            }
+
+            return RedirectToPage("./CheckoutCustomize", new { orderPrice = orderPrice, expMachining = expenseMachining, est = orderEst });
         }
 
 

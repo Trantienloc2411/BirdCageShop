@@ -5,17 +5,27 @@ using Repository;
 
 namespace BirdCageShop.Pages.Users
 {
-    public class CheckoutModel : PageModel
+    public class CheckoutCustomizeModel : PageModel
     {
+        
         public IUserRepository  _userRepo;
         public ICartRepository _cartRepo;
         public IOrderRepository _orderRepo;
         public IOrderDetailRepository _orderDetailRepo;
-        
+
+        [BindProperty(SupportsGet = true)]
+        public decimal OrderPrice { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public decimal ExpMachining { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public int Est { get; set; }
+
+
         public User user { get; set; }
         public string ErrorMessage { get; set; }
-        public decimal OrderPrice { get; set; }
-        public CheckoutModel()
+        public CheckoutCustomizeModel()
         {
             _userRepo = new UserRepository();
             _cartRepo = new CartRepository();
@@ -26,7 +36,7 @@ namespace BirdCageShop.Pages.Users
         /// <summary>
         /// Load cart to order  
         /// </summary>
-        public IActionResult OnGet()
+        public IActionResult OnGet(decimal orderPrice, decimal expMachining, int est)
         {
             int userID = HttpContext.Session.GetInt32("userID").GetValueOrDefault(-1);
             if (HttpContext.Session.Id == null)
@@ -44,6 +54,9 @@ namespace BirdCageShop.Pages.Users
             }
             else
             {
+                OrderPrice = orderPrice;
+                ExpMachining = expMachining;
+                Est = est;
                 return Page();
             }
         }
@@ -67,6 +80,8 @@ namespace BirdCageShop.Pages.Users
             o.OrderStatus = "Pending";
             o.PaymentId = 1;
             o.UserId = userID;
+            o.OrderType = 1;
+            o.OrderEst = localTime.AddDays(Est).ToString();
             if(Note == null)
             {
                 o.Note = "";
