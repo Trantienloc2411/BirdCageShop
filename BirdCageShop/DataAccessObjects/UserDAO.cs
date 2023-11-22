@@ -1,16 +1,13 @@
 ﻿using BusinessObjects;
 using BusinessObjects.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using System.Collections.Generic;
-using System.Reflection;
 
 namespace DataAccessObjects
 {
     public class UserDAO
     {
         private readonly CageShopUni_alaContext _dbContext;
-        
+
         public UserDAO()
         {
             _dbContext = new CageShopUni_alaContext();
@@ -35,7 +32,7 @@ namespace DataAccessObjects
         }
         public List<User> GetListUserByName(string name)
         {
-            return _dbContext.Users.Where(c => c.UserName.Equals(name)).ToList();
+            return _dbContext.Users.Where(c => c.UserName.Contains(name)).ToList();
         }
 
         public void Add(User User)
@@ -48,7 +45,7 @@ namespace DataAccessObjects
 
         public List<User> GetAll()
         {
-            return _dbContext.Users.Where(u => u.RoleId!= 4).ToList();
+            return _dbContext.Users.Where(u => u.RoleId != 4).ToList();
         }
 
         public int Update(User User)
@@ -97,7 +94,7 @@ namespace DataAccessObjects
         // check User login
         public User checkUserLogin(string email, string password)
         {
-            password = Utility.encrytoStringKey(password);  
+            password = Utility.encrytoStringKey(password);
             return _dbContext.Users.FirstOrDefault(c => c.Email == email && c.UserPassword == password);
         }
 
@@ -161,14 +158,14 @@ namespace DataAccessObjects
             }
 
         }
-        public int AddProductToCart(int userID, int productID,int quantity)
+        public int AddProductToCart(int userID, int productID, int quantity)
         {
             try
             {
                 //Checking the cart is existed or not
                 var order = _dbContext.Orders.FirstOrDefault(o => o.UserId == userID && o.OrderStatus == "Cart");
                 //if not, i will create a new cart
-                if(order == null)
+                if (order == null)
                 {
                     try
                     {
@@ -221,7 +218,7 @@ namespace DataAccessObjects
                 }
                 return 0;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -232,7 +229,7 @@ namespace DataAccessObjects
         {
             try
             {
-                var cart = _dbContext.Orders.FirstOrDefault(o => o.UserId == userID && o.OrderStatus == "Cart");    
+                var cart = _dbContext.Orders.FirstOrDefault(o => o.UserId == userID && o.OrderStatus == "Cart");
                 if (cart != null)
                 {
                     int orderID = cart.OrderId;
@@ -252,7 +249,7 @@ namespace DataAccessObjects
             }
         }
 
-        
+
         public Order getOrderPrice_Cart_ByUserID(int userID)
         {
             try
@@ -328,8 +325,8 @@ namespace DataAccessObjects
         }
 
 
-        
-        
+
+
 
 
     }

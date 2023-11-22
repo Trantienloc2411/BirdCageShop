@@ -16,6 +16,9 @@ namespace Repository
         public void Delete(int id) => _dao.Delete(id);
 
         public IEnumerable<Product> GetAll() => _dao.GetAll();
+        public IEnumerable<Product> GetAllShow() => _dao.GetAllShow();
+        public IEnumerable<Product> GetAllHidden() => _dao.GetAllHidden();
+        public IEnumerable<Product> GetAllCustomized() => _dao.GetAllCustomized();
 
         public List<Category> GetCategories() => _dao.GetCategories();
 
@@ -27,7 +30,13 @@ namespace Repository
 
         public void Update(Product product) => _dao.Update(product);
         public List<Product> getProductPages(int pageIndex, int pageSize) => _dao.getProductPages(pageIndex, pageSize);
+        public List<Product> getProductShowPages(int pageIndex, int pageSize) => _dao.getProductShowPages(pageIndex, pageSize);
+        public List<Product> getProductHiddenPages(int pageIndex, int pageSize) => _dao.getProductHiddenPages(pageIndex, pageSize);
+        public List<Product> getProductCustomizedPages(int pageIndex, int pageSize) => _dao.getProductCustomizedPages(pageIndex, pageSize);
         public int getTotalProductPages() => _dao.getTotalProductPages();
+        public int getTotalProductShowPages() => _dao.getTotalProductShowPages();
+        public int getTotalProductHiddenPages() => _dao.getTotalProductHiddenPages();
+        public int getTotalProductCustomizedPages() => _dao.getTotalProductCustomizedPages();
 
         //public void Upload(int cageId, IFormFile imageFile) => _dao.Upload(cageId, imageFile);
 

@@ -18,8 +18,19 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="~/table-07/css/style.css">
+    <!-- Libraries Stylesheet -->
+    <link href="~/AdminNew/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="~/AdminNew/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="~/AdminNew/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="~/AdminNew/css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -62,195 +73,62 @@
             <button asp-page-handler="search" type="submit" class="search-button">Search</button>
         </form>
     </div>
-    <section style="padding: 1cm 0">
-        <p style="text-align: left; margin-top: 20px;">
-            <a asp-page="Create" style="text-decoration: none; background-color: darkgray; color: #ffffff; padding: 12px 24px; border-radius: 6px; font-weight: bold; transition: background-color 0.3s;">Create a accessory</a>
-        </p>
-        <div class="row">
-            <div class="col-md-30">
 
-                <table class="table table-bordered table-gray table-hover">
-                    <thead>
-                        <tr>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryName)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryPrice)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryDescription)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryQuantity)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryStatus)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryImg)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.Accessory[0].Category)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.Accessory[0].Discount)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                Action
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.Accessory)
-                        {
-                            <tr>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.AccessoryName)
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.AccessoryPrice)
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.AccessoryDescription)
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.AccessoryQuantity)
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.AccessoryStatus)
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    <img src="~/@item.AccessoryImg" alt="Accessory Image" style="max-width: 100px; max-height: 100px;" />
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.Discount.DiscountName)
-                                </td>
-                                <td style="border: solid gainsboro; padding: 10px;">
+    <div class="container-fluid pt-4 px-4">
+        <div class="row g-4">
+            @foreach (var item in Model.Accessory)
+            {
+                <div class="col-sm-12 col-md-6 col-lg-4">
+                    <div class="bg-light rounded h-100 p-4 card">
+                        <img src="~/@item.AccessoryImg" alt="Product Image" class="img-fluid mb-4" />
+                        @* <img src="data:image/png;base64,@item.CageImg" alt="Cage Image" class="img-fluid mb-4" /> *@
 
-                                    <style>
-                                        .action-buttons {
-                                            display: flex;
-                                            flex-direction: column;
-                                            gap: 10px;
-                                            margin-top: 10px;
-                                        }
+                        <!-- Cage Name -->
+                        <div class="mb-3">
+                            <label for="inputAccessoryName" class="form-label">Cage Name:</label>
+                            <span id="inputCainputAccessoryNamegeName">@Html.DisplayFor(modelItem => item.AccessoryName)</span>
+                        </div>
 
-                                            .action-buttons a {
-                                                padding: 10px 15px;
-                                                background-color: pink;
-                                                color: white;
-                                                border: none;
-                                                border-radius: 5px;
-                                                cursor: pointer;
-                                                transition: background-color 0.3s;
-                                            }
+                        <!-- Quantity and Price -->
+                        <div class="mb-3">
+                            <label for="inputAccessoryQuantity" class="form-label">Quantity:</label>
+                            <span id="inputAccessoryQuantity">@Html.DisplayFor(modelItem => item.AccessoryQuantity)</span>
 
-                                                .action-buttons a:hover {
-                                                    background-color: deeppink;
-                                                }
-                                    </style>
+                            <label for="inputAccessoryPrice" class="form-label ms-3">Price:</label>
+                            <span id="inputAccessoryPrice">@Html.DisplayFor(modelItem => item.AccessoryPrice)</span>
+                        </div>
 
-                                    <div class="action-buttons">
-                                        <a asp-page="./Edit" asp-route-id="@item.AccessoryId">Edit</a>
-                                        <a asp-page="./Details" asp-route-id="@item.AccessoryId">Details</a>
-                                        <a asp-page="./Delete" asp-route-id="@item.AccessoryId">Delete</a>
-                                    </div>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-                <paging class="pagination" total-records="@Model.totalAccessory" show-total-pages="false" show-total-records="false" page-size="@Model.pageSize" page-no="@Model.pageNo"></paging>
-            </div>
+                        <!-- Discount -->
+                        <div class="mb-3">
+                            <label for="inputAccessoryDiscount" class="form-label">Discount:</label>
+                            <span id="inputAccessoryDiscount">@Html.DisplayFor(modelItem => item.Discount.DiscountName)</span>
+                        </div>
+                        <!-- Edit and view Detail Button -->
+                        <div class="mb-12 row">
+                            <div class="col-sm-6">
+                                <a asp-page="./Edit" asp-route-id="@item.AccessoryId" class="btn btn-primary">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                            </div>
+                            <div class="col-6" style="text-align: right;">
+                                <a asp-page="./Details" asp-route-id="@item.AccessoryId" class="btn btn-primary">
+                                    <i class="fas fa-edit"></i> View detail
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
-
-    </section>
-
-    <script src="~/table-07/js/jquery.min.js"></script>
-    <script src="~/table-07/js/popper.js"></script>
-    <script src="~/table-07/js/bootstrap.min.js"></script>
-    <script src="~/table-07/js/main.js"></script>
+        <paging class="pagination"
+        total-records="@Model.totalAccessory"
+        show-total-pages="false"
+        show-total-records="false"
+        page-size="@Model.pageSize"
+        page-no="@Model.pageNo">
+        </paging>
+    </div>
 
 </body>
 
 </html>
-
-
-
-
-
-@* <h1>Index</h1>
-
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryQuantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryStatus)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryImg)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Accessory[0].Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Accessory[0].Discount)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Accessory) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.AccessoryName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AccessoryPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AccessoryDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AccessoryQuantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AccessoryStatus)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AccessoryImg)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.CategoryId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Discount.DiscountId)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.AccessoryId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.AccessoryId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.AccessoryId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table> *@
