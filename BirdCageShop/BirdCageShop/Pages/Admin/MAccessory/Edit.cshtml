@@ -6,7 +6,98 @@
     Layout = "_AdminLayout";
 }
 
-<h1>Edit</h1>
+<div class="col-sm-12 col-md-8 mx-auto">
+    <div class="bg-light rounded h-100 p-4">
+        <h6 class="mb-4">Edit Accessory</h6>
+        <form method="post" enctype="multipart/form-data">
+            <div class="row">
+                <!-- Cage Name -->
+                <div class="col-md-6 mb-3">
+                    <label for="InputBar" class="form-label">Accessory Name</label>
+                    <label asp-for="Accessory.AccessoryName" class="control-label"></label>
+                    <input asp-for="Accessory.AccessoryName" class="form-control" />
+                    <span asp-validation-for="Accessory.AccessoryName" class="text-danger"></span>
+                </div>
+                <!-- Category -->
+                <div class="col-md-3 mb-3">
+                    <label for="InputBar" class="form-label">Category</label>
+                    <select asp-for="Accessory.CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                    <span asp-validation-for="Accessory.CategoryId" class="text-danger"></span>
+                </div>
+                <!-- Discount -->
+                <div class="col-md-3 mb-3">
+                    <label for="InputBar" class="form-label">Discount</label>
+                    <select asp-for="Accessory.DiscountId" class="form-control" asp-items="ViewBag.DiscountId"></select>
+                    <span asp-validation-for="Accessory.DiscountId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <!--Price-->
+                <div class="col-md-2 mb-3">
+                    <label asp-for="Accessory.AccessoryPrice" class="form-label">AccessoryPrice</label>
+                    <input asp-for="Accessory.AccessoryPrice" type="text" class="form-control form-control-lg" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                </div>
+                <!-- Quantity -->
+                <div class="col-md-2 mb-3">
+                    <label asp-for="Accessory.AccessoryQuantity" class="form-label">Quantity</label>
+                    <input asp-for="Accessory.AccessoryQuantity" type="text" class="form-control form-control-lg" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                </div>
+                <!-- Upload  -->
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Accessory.AccessoryImg" class="form-label"></label>
+
+                    <input name="AccessoryImg" type="file" class="form-control" />
+                    <span asp-validation-for="Accessory.AccessoryImg" class="text-danger"></span>
+                </div>
+                <!-- Cage Status -->
+                <div class="col-md-2 mb-3">
+                    <label asp-for="Accessory.AccessoryStatus" class="form-label">Status</label>
+                    <select asp-for="Accessory.AccessoryStatus" class="form-select form-select-lg" id="floatingSelect" aria-label="Floating label select example">
+                        <option value="0">Hidden</option>
+                        <option value="1">Show</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                @* <!-- Row1 -->
+                <div class="col-md-0 mb-3">
+                <label for="floatingSelect" class="form-label"></label>
+                <select class="form-select form-select-lg" id="floatingSelect" aria-label="Floating label select example">
+                </select>
+
+                <!-- cho nay ko biet bi loi gi nhung phai de 1 cot trong-->
+                </div> *@
+                <!-- Row2 -->
+                <div class="col-md-3 mb-3">
+                    @if (!string.IsNullOrEmpty(Model.Accessory.AccessoryImg))
+                    {
+                        <img src="~/@Model.Accessory.AccessoryImg" alt="Current Image" class="img-thumbnail" />
+                        <p>Upload a new image if you want to change it.</p>
+                    }
+                </div>
+                <div class="col-md-9 mb-3">
+                    <label asp-for="Accessory.AccessoryDescription" class="form-label">AccessoryDescription</label>
+                    <textarea asp-for="Accessory.AccessoryDescription" class="form-control form-control-lg" rows="4"></textarea>
+                    <br> </br>
+                    
+                </div>
+            </div>
+            <input type="submit" value="Save" class="btn btn-primary" />
+            <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+        </form>
+    </div>
+
+
+</div>
+
+
+
+
+
+
+@* <h1>Edit</h1>
 
 <h4>Accessory</h4>
 <hr />
@@ -64,7 +155,7 @@
 
 <div>
     <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
-</div>
+</div> *@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

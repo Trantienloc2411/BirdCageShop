@@ -78,7 +78,91 @@
             <button asp-page-handler="search" type="submit" class="search-button">Search</button>
         </form>
     </div>
-    <section style="padding: 1cm 0">
+
+    <section>
+        <br></br>
+        <div id="pendingOrderTable" class="container-fluid pt-4 px-4">
+            <div class="row g-4">
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row g-4">
+                        <div class="col-sm-12 col-xl-12">
+                            <div class="bg-light rounded h-100 p-4">
+                                <h6 class="mb-4">User List</h6>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">
+                                                @Html.DisplayNameFor(model => model.User[0].UserName)
+                                            </th>
+                                            <th scope="col">
+                                                @Html.DisplayNameFor(model => model.User[0].UserPassword)
+                                            </th>
+                                            <th scope="col">
+                                                @Html.DisplayNameFor(model => model.User[0].Email)
+                                            </th>
+                                            <th scope="col">
+                                                @Html.DisplayNameFor(model => model.User[0].DoB)
+                                            </th>
+                                            <th scope="col">
+                                                @Html.DisplayNameFor(model => model.User[0].Status)
+                                            </th>
+                                            <th scope="col">
+                                                @Html.DisplayNameFor(model => model.User[0].Role)
+                                            </th>
+                                            <th scope="col">
+                                                Action
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.User)
+                                        {
+                                            <tr>
+                                                <th scope="row">
+                                                    @Html.DisplayFor(modelItem => item.UserName)
+                                                </th>
+                                                <td>
+                                                    <div class="password-container">
+                                                        <input type="password" value="@item.UserPassword" class="password-field" readonly />
+                                                        <button type="button" class="toggle-password-btn">Show</button>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Email)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.DoB)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Status)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Role.RoleName)
+                                                </td>
+                                                <td>
+                                                    <div class="action-buttons">
+                                                        <a asp-page="./Edit" class="btn btn-primary btn-sm" asp-route-id="@item.UserId">Edit</a>
+                                                        <a asp-page="./Details" class="btn btn-info btn-sm" asp-route-id="@item.UserId">Details</a>
+                                                        <a asp-page="./Delete" class="btn btn-danger btn-sm" asp-route-id="@item.UserId">Delete</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+    @* <section style="padding: 1cm 0">
         <p style="text-align: left; margin-top: 20px;">
             <a asp-page="Create" style="text-decoration: none; background-color: darkgray; color: #ffffff; padding: 12px 24px; border-radius: 6px; font-weight: bold; transition: background-color 0.3s;">Create a user</a>
         </p>
@@ -131,9 +215,6 @@
                                 <td style="border: solid gainsboro">
                                     @Html.DisplayFor(modelItem => item.UserName)
                                 </td>
-                                @* <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.UserPassword)
-                                </td> *@
                                     <td style="border: solid gainsboro">
                                         <div class="password-container">
                                             <input type="password" value="@item.UserPassword" class="password-field" readonly />
@@ -207,7 +288,7 @@
     <script src="~/table-07/js/jquery.min.js"></script>
     <script src="~/table-07/js/popper.js"></script>
     <script src="~/table-07/js/bootstrap.min.js"></script>
-    <script src="~/table-07/js/main.js"></script>
+    <script src="~/table-07/js/main.js"></script>*@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var togglePasswordBtns = document.querySelectorAll('.toggle-password-btn');
@@ -226,7 +307,7 @@
                 });
             });
         });
-    </script>
+    </script> 
 
 </body>
 

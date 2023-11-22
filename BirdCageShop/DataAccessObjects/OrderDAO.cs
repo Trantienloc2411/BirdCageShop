@@ -66,9 +66,60 @@ namespace DataAccessObjects
                 _db.SaveChanges();
             }
         }
+
+        public List<Order> getOrderPendingPages(int pageIndex, int pageSize)
+        {
+            return _db.Orders.Where(u => u.OrderStatus == "Pending").Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+        }
+        public List<Order> getOrderCancelPages(int pageIndex, int pageSize)
+        {
+            return _db.Orders.Where(u => u.OrderStatus == "Cancelled").Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+        }
+        public List<Order> getOrderDeliveringPages(int pageIndex, int pageSize)
+        {
+            return _db.Orders.Where(u => u.OrderStatus == "Delivering").Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+        }
+        public List<Order> getOrderDeliveredPages(int pageIndex, int pageSize)
+        {
+            return _db.Orders.Where(u => u.OrderStatus == "Delivered").Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+        }
+
+        public int getTotalOrderPendingPages()
+        {
+            return _db.Orders.Where(u => u.OrderStatus == "Pending").Count();
+        }
+        public int getTotalOrderCancelPages()
+        {
+            return _db.Orders.Where(u => u.OrderStatus == "Cancelled").Count();
+        }
+        public int getTotalOrderDeliveringPages()
+        {
+            return _db.Orders.Where(u => u.OrderStatus == "Delivering").Count();
+        }
+        public int getTotalOrderDeliveredPages()
+        {
+            return _db.Orders.Where(u => u.OrderStatus == "Delivered").Count();
+        }
+
         public IEnumerable<Order> GetAll()
         {
             return _db.Orders.ToList();
+        }
+        public IEnumerable<Order> GetAllPending()
+        {
+            return _db.Orders.Where(u => u.OrderStatus == "Pending").OrderByDescending(u => u.OrderId).ToList();
+        }
+        public IEnumerable<Order> GetAllCancel()
+        {
+            return _db.Orders.Where(u => u.OrderStatus == "Cancelled").OrderByDescending(u => u.OrderDate).ToList();
+        }
+        public IEnumerable<Order> GetAllDelivering()
+        {
+            return _db.Orders.Where(u => u.OrderStatus == "Delivering").OrderByDescending(u => u.OrderDate).ToList();
+        }
+        public IEnumerable<Order> GetAllDelivered()
+        {
+            return _db.Orders.Where(u => u.OrderStatus == "Delivered").OrderByDescending(u => u.OrderDate).ToList();
         }
 
         public List<Order> getOrderByUserID(int userID)

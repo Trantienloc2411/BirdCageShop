@@ -1,5 +1,6 @@
 ﻿@page
 @model BirdCageShop.Pages.Admin.MOrder.IndexModel
+@addTagHelper *, LazZiya.TagHelpers
 
 @{
     ViewData["Title"] = "Index";
@@ -18,7 +19,6 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    @* <link rel="stylesheet" href="~/table-07/css/style.css"> *@
 </head>
 
 <body>
@@ -61,196 +61,293 @@
             <button asp-page-handler="search" type="submit" class="search-button">Search</button>
         </form>
     </div>
-    <section style="padding: 1cm 0">
-        <div class="row">
-            <div class="col-md-30">
+    <section>
+        <br></br>
 
-                <table class="table table-bordered table-gray table-hover">
-                    <thead>
-                        <tr>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.Order[0].UserId)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.Order[0].OrderStatus)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.Order[0].OrderPrice)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.Order[0].OrderDate)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.Order[0].OrderAdress)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.Order[0].OrderName)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.Order[0].OrderPhone)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.Order[0].Note)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro">
-                                @Html.DisplayNameFor(model => model.Order[0].Payment)
-                            </th>
-                            <th style="color: pink; border: solid gainsboro"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.Order)
-                        {
-                            <tr>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.UserId)
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.OrderStatus)
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.OrderPrice)
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.OrderDate)
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.OrderAdress)
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.OrderName)
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.OrderPhone)
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.Note)
-                                </td>
-                                <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.Payment.PaymentId)
-                                </td>
-                                <td style="border: solid gainsboro; padding: 10px;">
+        <div class="container-fluid pt-4 px-4">
+            <div class="col-12 mb-3">
+                <button id="pendingBtn" class="btn btn-primary" onclick="toggleOrders('pending')">Pending Order</button>
+                <button id="cancelledBtn" class="btn btn-primary" onclick="toggleOrders('cancelled')">Cancelled Order</button>
+                <button id="deliveringBtn" class="btn btn-primary" onclick="toggleOrders('delivering')">Delivering Order</button>
+                <button id="deliveredBtn" class="btn btn-primary" onclick="toggleOrders('delivered')">Delivered Order</button>
+            </div>
+        </div>
+        <div id="pendingOrderTable" class="container-fluid pt-4 px-4">
+            <div class="row g-4">
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row g-4">
+                        <div class="col-sm-18 col-xl-18">
+                            <div class="bg-light rounded h-100 p-4">
+                                <h6 class="mb-4">Pending Order</h6>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="col-1">UserId</th>
+                                            <th scope="col" class="col-2">Status</th>
+                                            <th scope="col" class="col-2">Price</th>
+                                            <th scope="col" class="col-2">OrderDate</th>
+                                            <th scope="col" class="col-2">OrderAdress</th>
+                                            <th scope="col" class="col-2">OrderName</th>
+                                            <th scope="col" class="col-2">Action</th>
 
-                                    <style>
-                                        .action-buttons {
-                                            display: flex;
-                                            flex-direction: column;
-                                            gap: 10px;
-                                            margin-top: 10px;
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.OrderPending)
+                                        {
+                                            <tr>
+                                                <th scope="row">
+                                                    @Html.DisplayFor(modelItem => item.UserId)
+                                                </th>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.OrderStatus)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.OrderPrice)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.OrderDate)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.OrderAdress)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.OrderName)
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-primary" asp-page="./Details" asp-route-id="@item.OrderId">Details</a>
+                                                </td>
+                                            </tr>
                                         }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <paging class="pagination"
+                        total-records="@Model.totalPendingOrder"
+                        show-total-pages="false"
+                        show-total-records="false"
+                        page-size="@Model.pageSize"
+                        page-no="@Model.pageNo">
+                </paging>
+            </div>
+        </div>
+        <div id="cancelledOrderTable" class="container-fluid pt-4 px-4" style="display: none;">
+            <div class="row g-4">
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row g-4">
+                        <div class="col-sm-18 col-xl-18">
+                            <div class="bg-light rounded h-100 p-4">
+                                <h6 class="mb-4">Cancelled Order</h6>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="col-1">UserId</th>
+                                            <th scope="col" class="col-2">Status</th>
+                                            <th scope="col" class="col-2">Price</th>
+                                            <th scope="col" class="col-2">OrderDate</th>
+                                            <th scope="col" class="col-2">OrderAdress</th>
+                                            <th scope="col" class="col-2">OrderName</th>
+                                            <th scope="col" class="col-2">Action</th>
 
-                                            .action-buttons a {
-                                                padding: 10px 15px;
-                                                background-color: pink;
-                                                color: white;
-                                                border: none;
-                                                border-radius: 5px;
-                                                cursor: pointer;
-                                                transition: background-color 0.3s;
-                                            }
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.OrderCancelled)
+                                        {
+                                            <tr>
+                                                <th scope="row">
+                                                    @Html.DisplayFor(modelItem => item.UserId)
+                                                </th>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.OrderStatus)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.OrderPrice)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.OrderDate)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.OrderAdress)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.OrderName)
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-primary" asp-page="./Details" asp-route-id="@item.OrderId">Details</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <paging class="pagination"
+                        total-records="@Model.totalCancelOrder"
+                        show-total-pages="false"
+                        show-total-records="false"
+                        page-size="@Model.pageSize"
+                        page-no="@Model.pageNo">
+                </paging>
+            </div>
+        </div>
+        <div id="deliveringOrderTable" class="container-fluid pt-4 px-4" style="display: none;">
+            <div class="row g-4">
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row g-4">
+                        <div class="col-sm-18 col-xl-18">
+                            <div class="bg-light rounded h-100 p-4">
+                                <h6 class="mb-4">Delivering Order</h6>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="col-1">UserId</th>
+                                            <th scope="col" class="col-2">Status</th>
+                                            <th scope="col" class="col-2">Price</th>
+                                            <th scope="col" class="col-2">OrderDate</th>
+                                            <th scope="col" class="col-2">OrderAdress</th>
+                                            <th scope="col" class="col-2">OrderName</th>
+                                            <th scope="col" class="col-2">Action</th>
 
-                                                .action-buttons a:hover {
-                                                    background-color: deeppink;
-                                                }
-                                    </style>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.OrderDelivering)
+                                        {
+                                            <tr>
+                                                <th scope="row">
+                                                    @Html.DisplayFor(modelItem => item.UserId)
+                                                </th>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.OrderStatus)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.OrderPrice)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.OrderDate)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.OrderAdress)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.OrderName)
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-primary" asp-page="./Details" asp-route-id="@item.OrderId">Details</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <paging class="pagination"
+                        total-records="@Model.totalDeliveringOrder"
+                        show-total-pages="false"
+                        show-total-records="false"
+                        page-size="@Model.pageSize"
+                        page-no="@Model.pageNo">
+                </paging>
+            </div>
+        </div>
+        <div id="deliveredOrderTable" class="container-fluid pt-4 px-4" style="display: none;">
+            <div class="row g-4">
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row g-4">
+                        <div class="col-sm-18 col-xl-18">
+                            <div class="bg-light rounded h-100 p-4">
+                                <h6 class="mb-4">Delivered Order</h6>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="col-1">UserId</th>
+                                            <th scope="col" class="col-2">Status</th>
+                                            <th scope="col" class="col-2">Price</th>
+                                            <th scope="col" class="col-2">OrderDate</th>
+                                            <th scope="col" class="col-2">OrderAdress</th>
+                                            <th scope="col" class="col-2">OrderName</th>
+                                            <th scope="col" class="col-2">Action</th>
 
-                                    <div class="action-buttons">
-                                        <a asp-page="./Details" asp-route-id="@item.OrderId">Details</a>
-                                    </div>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.OrderDelivered)
+                                        {
+                                            <tr>
+                                                <th scope="row">
+                                                    @Html.DisplayFor(modelItem => item.UserId)
+                                                </th>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.OrderStatus)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.OrderPrice)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.OrderDate)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.OrderAdress)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.OrderName)
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-primary" asp-page="./Details" asp-route-id="@item.OrderId">Details</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                        </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <paging class="pagination"
+                        total-records="@Model.totalDeliveredOrder"
+                        show-total-pages="false"
+                        show-total-records="false"
+                        page-size="@Model.pageSize"
+                        page-no="@Model.pageNo">
+                </paging>
             </div>
         </div>
     </section>
+    <script>
+        function toggleOrders(type) {
+            if (type === 'pending') {
+                document.getElementById('pendingOrderTable').style.display = 'block';
+                document.getElementById('cancelledOrderTable').style.display = 'none';
+                document.getElementById('deliveringOrderTable').style.display = 'none';
+                document.getElementById('deliveredOrderTable').style.display = 'none';
+            } else if (type === 'cancelled') {
+                document.getElementById('pendingOrderTable').style.display = 'none';
+                document.getElementById('cancelledOrderTable').style.display = 'block';
+                document.getElementById('deliveringOrderTable').style.display = 'none';
+                document.getElementById('deliveredOrderTable').style.display = 'none';
+            } else if (type === 'delivering') {
+                document.getElementById('pendingOrderTable').style.display = 'none';
+                document.getElementById('cancelledOrderTable').style.display = 'none';
+                document.getElementById('deliveringOrderTable').style.display = 'block';
+                document.getElementById('deliveredOrderTable').style.display = 'none';
+            } else if (type === 'delivered') {
+                document.getElementById('pendingOrderTable').style.display = 'none';
+                document.getElementById('cancelledOrderTable').style.display = 'none';
+                document.getElementById('deliveringOrderTable').style.display = 'none';
+                document.getElementById('deliveredOrderTable').style.display = 'block';
+            }
+        }
+    </script>
 
-    <script src="~/table-07/js/jquery.min.js"></script>
-    <script src="~/table-07/js/popper.js"></script>
-    <script src="~/table-07/js/bootstrap.min.js"></script>
-    <script src="~/table-07/js/main.js"></script>
 
 </body>
 
 </html>
-
-
-
-@* <h1>Index</h1>
-
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Order[0].UserId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Order[0].OrderStatus)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Order[0].OrderPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Order[0].OrderDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Order[0].OrderAdress)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Order[0].OrderName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Order[0].OrderPhone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Order[0].Note)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Order[0].Payment)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Order) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderStatus)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderAdress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderPhone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Note)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Payment.PaymentId)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.OrderId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.OrderId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.OrderId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table> *@

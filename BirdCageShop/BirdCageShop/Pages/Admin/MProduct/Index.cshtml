@@ -22,7 +22,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="~/AdminNew/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">zW
+    <link href="~/AdminNew/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="~/AdminNew/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
@@ -125,7 +125,7 @@
                                     </a>
                                     </div>
                                     <div class="col-6" style="text-align: right;">
-                                        <a href="viewproduct.html?id=@item.CageId" class="btn btn-primary">
+                                    <a asp-page="./Details" asp-route-id="@item.CageId" class="btn btn-primary">
                                             <i class="fas fa-edit"></i> View detail
                                         </a>
                                     </div>
@@ -180,9 +180,9 @@
                                     </a>
                                     </div>
                                     <div class="col-6" style="text-align: right;">
-                                        <a href="viewproduct.html?id=@item.CageId" class="btn btn-primary">
-                                            <i class="fas fa-edit"></i> View detail
-                                        </a>
+                                    <a asp-page="./Details" asp-route-id="@item.CageId" class="btn btn-primary">
+                                        <i class="fas fa-edit"></i> View detail
+                                    </a>
                                     </div>
                                 </div>
                             </div>
@@ -235,9 +235,9 @@
                                         </a>
                                     </div>
                                     <div class="col-6" style="text-align: right;">
-                                        <a href="viewproduct.html?id=@item.CageId" class="btn btn-primary">
-                                            <i class="fas fa-edit"></i> View detail
-                                        </a>
+                                    <a asp-page="./Details" asp-route-id="@item.CageId" class="btn btn-primary">
+                                        <i class="fas fa-edit"></i> View detail
+                                    </a>
                                     </div>
                                 </div>
                             </div>
@@ -255,6 +255,36 @@
         </div>
      
     </section>
+    <script>
+        function toggleOrders(type) {
+            // Store the current page state in sessionStorage
+            sessionStorage.setItem('currentPageNo', document.querySelector('.pagination').getAttribute('page-no'));
+            if (type === 'show') {
+                document.getElementById('showedCage').style.display = 'block';
+                document.getElementById('hiddenCage').style.display = 'none';
+                document.getElementById('customizedCage').style.display = 'none';
+
+            } else if (type === 'hide') {
+                document.getElementById('showedCage').style.display = 'none';
+                document.getElementById('hiddenCage').style.display = 'block';
+                document.getElementById('customizedCage').style.display = 'none';
+
+            } else if (type === 'customize') {
+                document.getElementById('showedCage').style.display = 'none';
+                document.getElementById('hiddenCage').style.display = 'none';
+                document.getElementById('customizedCage').style.display = 'block';
+            }
+            // Restore the page state from sessionStorage
+            var currentPageNo = sessionStorage.getItem('currentPageNo');
+            if (currentPageNo) {
+                // Set the current page number for each pagination element
+                var paginationElements = document.querySelectorAll('.pagination');
+                paginationElements.forEach(function (pagination) {
+                    pagination.setAttribute('page-no', currentPageNo);
+                });
+            }
+        }
+    </script>
 </body>
 
 </html>

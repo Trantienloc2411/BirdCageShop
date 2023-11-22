@@ -6,77 +6,80 @@
     Layout = "_ManagerLayout";
 }
 
-<h1>Edit</h1>
-
-<h4>Order</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="col-sm-12 col-md-8 mx-auto">
+    <div class="bg-light rounded h-100 p-4">
+        <h6 class="mb-4">Edit Order</h6>
         <form method="post" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Order.OrderId" />
-            <div class="form-group">
-                <label asp-for="Order.UserId" class="control-label"></label>
-                <input asp-for="Order.UserId" class="form-control" readonly />
-                <span asp-validation-for="Order.UserId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Order.OrderStatus" class="control-label"></label>
-                <select asp-for="Order.OrderStatus" class="form-control">
-                    <option value="Pending">Pending</option>
-                    <option value="Delivering">Delivering</option>
-                    <option value="Delivered">Delivered</option>
-                    <option value="Rejected">Rejected</option>
-                    <option value="Rejected">Canceled</option>
-                </select>
-                <span asp-validation-for="Order.OrderStatus" class="text-danger"></span>
+            <div class="row">
+                <!-- Cage Name -->
+                <div class="col-md-6 mb-3">
+                    <label for="InputBar" class="form-label">User Id</label>
+                    <input asp-for="Order.UserId" class="form-control" readonly/>
+                    <span asp-validation-for="Order.UserId" class="text-danger"></span>
+                </div>
+                <!-- OrderDate -->
+                <div class="col-md-3 mb-3">
+                    <label for="InputBar" class="form-label">Order Date</label>
+                    <input asp-for="Order.OrderDate" class="form-control" readonly />
+                    <span asp-validation-for="Order.OrderDate" class="text-danger"></span>
+                </div>
+                <!-- OrderAdress -->
+                <div class="col-md-3 mb-3">
+                    <label for="InputBar" class="form-label">Order Adress</label>
+                    <input asp-for="Order.OrderAdress" class="form-control" readonly />
+                    <span asp-validation-for="Order.OrderAdress" class="text-danger"></span>
+                </div>
             </div>
 
-            @* <div class="form-group"> 
-                <label asp-for="Order.OrderPrice" class="control-label"></label>
-                <input asp-for="Order.OrderPrice" class="form-control" readonly />
-                <span asp-validation-for="Order.OrderPrice" class="text-danger"></span>
-            </div> *@
-            <div class="form-group">
-                <label asp-for="Order.OrderDate" class="control-label"></label>
-                <input asp-for="Order.OrderDate" class="form-control" readonly />
-                <span asp-validation-for="Order.OrderDate" class="text-danger"></span>
+            <div class="row">
+                <!-- OrderName -->
+                <div class="col-md-2 mb-3">
+                    <label asp-for="Order.OrderName" class="form-label">Order Name</label>
+                    <input asp-for="Order.OrderName" class="form-control" readonly />
+                    <span asp-validation-for="Order.OrderName" class="text-danger"></span>
+                </div>
+                <!-- OrderPhone -->
+                <div class="col-md-2 mb-3">
+                    <label asp-for="Order.OrderPhone" class="form-label">Order Phone</label>
+                    <input asp-for="Order.OrderPhone" class="form-control" readonly />
+                    <span asp-validation-for="Order.OrderPhone" class="text-danger"></span>
+                </div>
+                <!-- PaymentId -->
+                <div class="col-md-2 mb-3">
+                    <label asp-for="Order.PaymentId" class="form-label">Payment Id</label>
+                    <input asp-for="Order.PaymentId" class="form-control" readonly />
+                    <span asp-validation-for="Order.PaymentId" class="text-danger"></span>
+                </div>
+                <!--Note-->
+                <div class="col-md-2 mb-3">
+                    <label asp-for="Order.Note" class="form-label">Note</label>
+                    <input asp-for="Order.Note" class="form-control" />
+                    <span asp-validation-for="Order.Note" class="text-danger"></span>
+                </div>
+                <!-- OrderStatus -->
+                <div class="col-md-2 mb-3">
+                    <label asp-for="Order.OrderStatus" class="form-label">Status</label>
+                    <select asp-for="Order.OrderStatus" class="form-select form-select-lg">
+                        <option value="Pending">Pending</option>
+                        <option value="Delivering">Delivering</option>
+                        <option value="Delivered">Delivered</option>
+                        <option value="Canceled">Canceled</option>
+                    </select>
+                    <span asp-validation-for="Order.OrderStatus" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Order.OrderAdress" class="control-label"></label>
-                <input asp-for="Order.OrderAdress" class="form-control" readonly />
-                <span asp-validation-for="Order.OrderAdress" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Order.OrderName" class="control-label"></label>
-                <input asp-for="Order.OrderName" class="form-control" readonly />
-                <span asp-validation-for="Order.OrderName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Order.OrderPhone" class="control-label"></label>
-                <input asp-for="Order.OrderPhone" class="form-control" readonly />
-                <span asp-validation-for="Order.OrderPhone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Order.PaymentId" class="control-label"></label>
-                <input asp-for="Order.PaymentId" class="form-control" readonly />
-                <span asp-validation-for="Order.PaymentId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Order.Note" class="control-label"></label>
-                <input asp-for="Order.Note" class="form-control" />
-                <span asp-validation-for="Order.Note" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
+            <input type="submit" value="Save" class="btn btn-primary" />
+
+            <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+
         </form>
     </div>
+
+
 </div>
 
-<div>
-    <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
-</div>
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

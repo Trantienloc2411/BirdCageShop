@@ -20,36 +20,6 @@
                 <input asp-for="User.UserName" class="form-control" readonly />
                 <span asp-validation-for="User.UserName" class="text-danger"></span>
             </div>
-            @* <div class="form-group">
-                <label asp-for="User.UserPassword" class="control-label"></label>
-                <input asp-for="User.UserPassword" class="form-control" />
-                <span asp-validation-for="User.UserPassword" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="User.Email" class="control-label"></label>
-                <input asp-for="User.Email" class="form-control" />
-                <span asp-validation-for="User.Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="User.Phone" class="control-label"></label>
-                <input asp-for="User.Phone" class="form-control" />
-                <span asp-validation-for="User.Phone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="User.Address" class="control-label"></label>
-                <input asp-for="User.Address" class="form-control" />
-                <span asp-validation-for="User.Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="User.UserImg" class="control-label"></label>
-                <input asp-for="User.UserImg" class="form-control" />
-                <span asp-validation-for="User.UserImg" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="User.DoB" class="control-label"></label>
-                <input asp-for="User.DoB" class="form-control" />
-                <span asp-validation-for="User.DoB" class="text-danger"></span>
-            </div> *@
             <div class="form-group">
                 <label asp-for="User.Status" class="control-label"></label>
                 <select asp-for="User.Status" class="form-control">
@@ -58,16 +28,6 @@
                 </select>
                 <span asp-validation-for="User.Status" class="text-danger"></span>
             </div>
-            @* <div class="form-group">
-                <label asp-for="User.RoleId" class="control-label"></label>
-                <select asp-for="User.RoleId" class="form-control" asp-items="@((SelectList)TempData["RoleId"])"></select>
-                <span asp-validation-for="User.RoleId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="User.Gender" class="control-label"></label>
-                <input asp-for="User.Gender" class="form-control" />
-                <span asp-validation-for="User.Gender" class="text-danger"></span>
-            </div> *@
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
@@ -76,7 +36,7 @@
 </div>
 
 <div>
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
 </div>
 
 @section Scripts {
