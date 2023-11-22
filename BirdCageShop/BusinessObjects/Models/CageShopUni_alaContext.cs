@@ -155,7 +155,7 @@ namespace BusinessObjects.Models
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
-                entity.Property(e => e.OrderPrice).HasColumnType("decimal(8, 2)");
+                entity.Property(e => e.OrderPrice).HasColumnType("decimal(13, 2)");
 
                 entity.Property(e => e.OrderStatus)
                     .HasMaxLength(20)
@@ -184,7 +184,7 @@ namespace BusinessObjects.Models
 
                 entity.Property(e => e.CageId).HasColumnName("CageID");
 
-                entity.Property(e => e.DetailPrice).HasColumnType("decimal(8, 2)");
+                entity.Property(e => e.DetailPrice).HasColumnType("decimal(11, 2)");
 
                 entity.Property(e => e.OrderId).HasColumnName("OrderID");
 
@@ -234,7 +234,7 @@ namespace BusinessObjects.Models
 
                 entity.Property(e => e.Material).HasMaxLength(50);
 
-                entity.Property(e => e.Price).HasColumnType("decimal(8, 2)");
+                entity.Property(e => e.Price).HasColumnType("decimal(11, 2)");
 
                 entity.Property(e => e.Size).HasMaxLength(50);
 

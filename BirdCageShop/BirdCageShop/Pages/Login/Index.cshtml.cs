@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Exchange.WebServices.Autodiscover;
@@ -33,7 +33,7 @@ namespace BirdCageShop.Login
                 {
                     if (user.Status == "Suspended")
                     {
-                        TempData["errorMessage"] = "Your account is banned! Contact Admin ASAP!";
+                        TempData["errorMessage"] = "Tài khoản của bạn đã bị hạn chế! Hãy liên hệ với Administrator";
                         return RedirectToPage("../Index");
                     }
                     else
