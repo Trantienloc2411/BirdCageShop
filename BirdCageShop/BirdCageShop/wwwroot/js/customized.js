@@ -82,10 +82,10 @@
         var imageSrc = ''; // Set the default image source
         if (selectedValue === '1029') {
             // Change image source for option 1 (Tròn)
-            imageSrc = '/FE_Web/img/cat-1.jpg';
+            imageSrc = '/img/cat-1.jpg';
         } else if (selectedValue === '1030') {
             // Change image source for option 2 (Vuông)
-            imageSrc = '/FE_Web/img/cat-2.jpg';
+            imageSrc = '/img/cat-3.jpg';
         }
         // Update the image source
         $('.bo-1 img').attr('src', imageSrc);

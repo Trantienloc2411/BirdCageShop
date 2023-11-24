@@ -7,7 +7,7 @@ namespace DataAccessObjects
         private DateTime today;
         private CageShopUni_alaContext _db;
         public DiscountDAO()
-        {
+        {//14.227.231.97
             _db = new CageShopUni_alaContext();
         }
 
