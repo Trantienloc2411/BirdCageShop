@@ -1,4 +1,4 @@
-(function ($) {
+﻿(function ($) {
     "use strict";
 
     // kiểu lồng
@@ -8,15 +8,15 @@
     ];
     // Nắp lồng
     var cage_lid = [
-        { id: 1026, material: "Nhựa", time: 8, base_money: 200000, wage: 80000 },
+        { id: 1026, material: "Vải", time: 8, base_money: 200000, wage: 80000 },
         { id: 1027, material: "Gỗ", time: 24, base_money: 400000, wage: 150000 },
         { id: 1028, material: "Vải", time: 12, base_money: 300000, wage: 100000 },
     ];
     // Nan lồng
     var cage_body = [
-        { id: 1016, material: "Nhựa", time: 1 / 60, base_money: 5000, wage: 0 },
-        { id: 1014, material: "Gỗ", time: 1 / 6, base_money: 10000, wage: 0 },
-        { id: 1015, material: "Nhôm", time: 1 / 30, base_money: 5000, wage: 0 },
+        { id: 1016, material: "Nhựa", time: 1 / 60, base_money: 3000, wage: 0 },
+        { id: 1014, material: "Gỗ", time: 1 / 6, base_money: 1000, wage: 0 },
+        { id: 1015, material: "Nhôm", time: 1 / 30, base_money: 3000, wage: 0 },
     ];
     // cửa lồng
     var cage_window = [
@@ -41,7 +41,7 @@
         cage_body_input: 50,
         cage_style: { id: 1029, material: "Lồng tròn", time: 48, base_money: 400000, wage: 100000 },
         cage_lid: { id: 1026, material: "Nhựa", time: 12, base_money: 200000, wage: 80000 },
-        cage_body: { id: 1016, material: "Nhựa", time: 1 / 60, base_money: 5000, wage: 0 },
+        cage_body: { id: 1016, material: "Nhựa", time: 1 / 60, base_money: 10000, wage: 0 },
         cage_base: { id: 1023, material: "Nhựa", time: 3, base_money: 50000, wage: 30000 },
         cage_window: { id: 1017, material: "Nhựa", size: "M", time: 3, base_money: 40000, wage: 10000 }
     }
@@ -85,11 +85,93 @@
             imageSrc = '/img/cat-1.jpg';
         } else if (selectedValue === '1030') {
             // Change image source for option 2 (Vuông)
-            imageSrc = '/img/cat-3.jpg';
+            imageSrc = '/img/cat-2.jpg';
         }
+
         // Update the image source
         $('.bo-1 img').attr('src', imageSrc);
     });
+    $(".cage_lid").on("change", function () {
+        var selectedValue = $(this).val();
+        var selectedCage = cage_lid.find(x => x.id == selectedValue);
+        formData.cage_lid = selectedCage;
+        calculateBill();
+
+        // Change the image source based on the selected cage style
+        var imageSrc = ''; // Set the default image source
+        if (selectedValue === '1028') {
+            // Change image source for option 2 (Vuông)
+            imageSrc = '/img/napvai.jpg';
+        } else if (selectedValue === '1027') { //option 2 napgo
+            imageSrc = '/img/napnhua.jpg'
+        } else if (selectedValue === '1026') {
+            imageSrc = '/img/napnhuaa.png'
+
+        }
+
+
+        // Update the image source
+        $('.bo-1 img').attr('src', imageSrc);
+    });
+
+    $(".cage_body").on("change", function () {
+        var selectedValue = $(this).val();
+        var selectedCage = cage_body.find(x => x.id == selectedValue);
+        formData.cage_body = selectedCage;
+        calculateBill();
+
+        // Change the image source based on the selected cage style
+        var imageSrc = ''; // Set the default image source
+        if (selectedValue === '1016') {
+            // Change image source for option 2 (Vuông)
+            imageSrc = '/img/nannhua.jpg';
+        } else if (selectedValue === '1014') { //option 2 napgo
+            imageSrc = '/img/nắp tre đan.jpg'
+        } else if (selectedValue === '1015') {
+            imageSrc = '/img/nan nhôm.jpg'
+
+        }
+        $('.bo-1 img').attr('src', imageSrc);
+    });
+
+    $(".cage_window_material").on("change", function () {
+        var selectedMaterial = $(this).val();
+        var selectedCageWindow = cage_window.find(x => x.material === selectedMaterial);
+        formData.cage_window = selectedCageWindow;
+        calculateBill();
+        var imageSrc = '';
+
+        if (selectedMaterial === 'Nhôm') {
+            imageSrc = '/img/cualong1.png';
+        } else if (selectedMaterial === 'Nhựa') {
+            imageSrc = '/img/cuanhua.png'
+
+        }
+
+        $('.bo-1 img').attr('src', imageSrc);
+    });
+    $(".cage_base").on("change", function () {
+        var selectedValue = $(this).val();
+        var selectedCage = cage_base.find(x => x.id == selectedValue);
+        formData.cage_base = selectedCage;
+        calculateBill();
+        var imageSrc = ''; // Set the default image source
+        if (selectedValue === '1023') {
+            // Change image source for option 2 (Vuông)
+            imageSrc = '/img/đế lồng nhôm.jpg';
+        } else if (selectedValue === '1024') { //option 2 napgo
+            imageSrc = '/img/nắp tre đan.jpg'
+        } else if (selectedValue === '1025') {
+            imageSrc = '/img/đế lồng nhựa.jpg'
+
+        }
+        $('.bo-1 img').attr('src', imageSrc);
+
+    });
+
+
+
+
 
     // Dropdown on mouse hover
     $(document).ready(function () {
@@ -262,6 +344,7 @@
 
 
 })(jQuery);
+
 
 
 
