@@ -71,13 +71,21 @@
                         <i class="fa fa-users me-2"></i>User
                     </a>
 
-                    <a asp-page="/Manager/MOrder/Index" class="nav-item nav-link @(currentUrl.Contains("MOrder") ? "active" : "")">
+                    <a asp-page="/Manager/MOrder/Index" class="nav-item nav-link @(currentUrl.Equals("/Manager/MOrder", StringComparison.OrdinalIgnoreCase) ? "active" : "")">
+                        <i class="fa fa-cart-arrow-down me-2"></i>Order
+                    </a>
+
+                    <a asp-page="/Manager/MOrderDetail/Index" class="nav-item nav-link @(currentUrl.Equals("/Manager/MOrderDetail", StringComparison.OrdinalIgnoreCase) ? "active" : "")">
+                        <i class="fa fa-archive me-2"></i>Order Detail
+                    </a>
+
+                    @* <a asp-page="/Manager/MOrder/Index" class="nav-item nav-link @(currentUrl.Contains("MOrder") ? "active" : "")">
                         <i class="fa fa-cart-arrow-down me-2"></i>Order
                     </a>
 
                     <a asp-page="/Manager/MOrderDetail/Index" class="nav-item nav-link @(currentUrl.Contains("MOrderDetail") ? "active" : "")">
                         <i class="fa fa-info-circle me-2"></i>Order Detail
-                    </a>
+                    </a> *@
 
                     <a asp-page="/Manager/MDiscount/Index" class="nav-item nav-link @(currentUrl.Contains("MDiscount") ? "active" : "")">
                         <i class="fa fa-percent me-2"></i>Discount

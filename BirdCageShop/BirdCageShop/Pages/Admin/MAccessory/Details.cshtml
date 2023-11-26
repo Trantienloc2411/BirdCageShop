@@ -26,7 +26,7 @@
 
         <div class="mb-3">
             <label for="inputPrice" class="form-label">Price:</label>
-            <span id="inputPrice">@Html.DisplayFor(model => model.Accessory.AccessoryPrice)</span>
+            <span id="inputPrice">@Html.Raw(Model.Accessory.AccessoryPrice.Value.ToString("N0"))đ</span>
         </div>
 
         <div class="mb-3">
