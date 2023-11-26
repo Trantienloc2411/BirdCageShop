@@ -5,6 +5,7 @@
     Layout = "_LayoutCustomized";
 }
 <body>
+
     <form method="post">
         <div class="container-fluid py-5 d-flex">
             <div class="bo-1 col-4 p-5 bg-primary" style="background-color: #d19c97;">
@@ -85,8 +86,88 @@
                         </div>
                     </div>
                     <div class="col-6">
-                        <h4>Tổng quan sản phẩm</h4>
-                        <img style="width: 100%;" src="~/img/cat-3.jpg" alt="" />
+                        <h4>Bảng giá</h4>
+                        <table>
+                            <tr>
+                                <td colspan="4" style="background-color: #f2f2f2;">Kiểu Lồng</td>
+                            </tr>
+                            <tr>
+                                <td>Lồng tròn</td>
+                                <td>400.000</td>
+                            </tr>
+                            <tr>
+                                <td>Lồng vuông</td>
+                                <td>300.000</td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <td colspan="4" style="background-color: #f2f2f2;">Nắp Lồng</td>
+                            </tr>
+                            <tr>
+                                <td>Nắp vải</td>
+                                <td>300.000</td>
+                            </tr>
+                            <tr>
+                                <td>Nắp gỗ</td>
+                                <td>400.000</td>
+                            </tr>
+                            <tr>
+                                <td>Nắp nhựa</td>
+                                <td>200.000</td>
+                            </tr>
+                        </table>
+                        <table style="color: black;">
+                            <tr>
+                                <td colspan="4" style="background-color: #f2f2f2;">Nan Lồng (Giá 1 Nan)</td>
+                            </tr>
+                            <tr>
+                                <td>Nan nhựa</td>
+                                <td>1.000</td>
+                            </tr>
+                            <tr>
+                                <td>Nan gỗ</td>
+                                <td>3.000</td>
+                            </tr>
+                            <tr>
+                                <td>Nan nhôm</td>
+                                <td>3.000</td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <td colspan="4" style="background-color: #f2f2f2;">Cửa Lồng</td>
+                            </tr>
+                            <tr>
+                                <td>Nhựa</td>
+                                <td>40.000(M)</td>
+                                <td>60.000(L)</td>
+                                <td>80.000(XL)</td>
+                            </tr>
+                            <tr>
+                                <td>Nhôm</td>
+                                <td>80.000(M)</td>
+                                <td>120.000(L)</td>
+                                <td>140.000(XL)</td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <td colspan="4" style="background-color: #f2f2f2;">Đế Lồng</td>
+                            </tr>
+                            <tr>
+                                <td>Nhựa</td>
+                                <td>50.000</td>
+                            </tr>
+                            <tr>
+                                <td>Gỗ</td>
+                                <td>200.000</td>
+                            </tr>
+                            <tr>
+                                <td>Nhôm</td>
+                                <td>100.000</td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
                 <div class="col-12 details mt-5" style="color: black; background-color: #35b1fc">
@@ -118,118 +199,6 @@
         </div>
         <!-- Shop Detail End -->
     </form>
-
-    <!-- Products Start -->
-    <div class="container-fluid py-5">
-        <div class="text-center mb-4">
-            <h2 class="section-title px-5">
-                <span class="px-2">Bạn có thể thích</span>
-            </h2>
-        </div>
-        <div class="row px-xl-5">
-            <div class="col">
-                <div class="owl-carousel related-carousel">
-                    <div class="card product-item border-0">
-                        <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                            <img class="img-fluid w-100" src="/img/product-1.jpg" alt="" />
-                        </div>
-                        <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                            <h6 class="text-truncate mb-3">Bird Cage</h6>
-                            <div class="d-flex justify-content-center">
-                                <h6>$123.00</h6>
-                                <h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                            </div>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between bg-light border">
-                            <a href="" class="btn btn-sm text-dark p-0">
-                                <i class="fas fa-eye text-primary mr-1"></i>Xem chi tiết
-                            </a>
-                            <a href="" class="btn btn-sm text-dark p-0">
-                                <i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm
-                                vào giỏ
-                            </a>
-                        </div>
-                    </div>
-                    <div class="card product-item border-0">
-                        <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                            <img class="img-fluid w-100" src="/img/product-2.jpg" alt="" />
-                        </div>
-                        <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                            <h6 class="text-truncate mb-3">Bird Cage</h6>
-                            <div class="d-flex justify-content-center">
-                                <h6>$123.00</h6>
-                                <h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                            </div>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between bg-light border">
-                            <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                            <a href="" class="btn btn-sm text-dark p-0">
-                                <i class="fas fa-shopping-cart text-primary mr-1"></i>Add To
-                                Cart
-                            </a>
-                        </div>
-                    </div>
-                    <div class="card product-item border-0">
-                        <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                            <img class="img-fluid w-100" src="/img/product-3.jpg" alt="" />
-                        </div>
-                        <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                            <h6 class="text-truncate mb-3">Bird Cage</h6>
-                            <div class="d-flex justify-content-center">
-                                <h6>$123.00</h6>
-                                <h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                            </div>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between bg-light border">
-                            <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                            <a href="" class="btn btn-sm text-dark p-0">
-                                <i class="fas fa-shopping-cart text-primary mr-1"></i>Add To
-                                Cart
-                            </a>
-                        </div>
-                    </div>
-                    <div class="card product-item border-0">
-                        <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                            <img class="img-fluid w-100" src="/img/product-4.jpg" alt="" />
-                        </div>
-                        <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                            <h6 class="text-truncate mb-3">Bird Cage</h6>
-                            <div class="d-flex justify-content-center">
-                                <h6>$123.00</h6>
-                                <h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                            </div>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between bg-light border">
-                            <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                            <a href="" class="btn btn-sm text-dark p-0">
-                                <i class="fas fa-shopping-cart text-primary mr-1"></i>Add To
-                                Cart
-                            </a>
-                        </div>
-                    </div>
-                    <div class="card product-item border-0">
-                        <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                            <img class="img-fluid w-100" src="/img/product-5.jpg" alt="" />
-                        </div>
-                        <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                            <h6 class="text-truncate mb-3">Bird Cage</h6>
-                            <div class="d-flex justify-content-center">
-                                <h6>$123.00</h6>
-                                <h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                            </div>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between bg-light border">
-                            <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                            <a href="" class="btn btn-sm text-dark p-0">
-                                <i class="fas fa-shopping-cart text-primary mr-1"></i>Add To
-                                Cart
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/easing/easing.min.js"></script>
