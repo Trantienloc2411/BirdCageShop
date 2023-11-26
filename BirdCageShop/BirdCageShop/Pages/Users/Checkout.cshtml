@@ -25,21 +25,21 @@
                             <input class="form-control"
                                    type="text"
                                    value="@Model.user.Email" 
-                                   name="OrderEmail" />
+                                   name="OrderEmail" required/>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Số điện thoại di động</label>
                             <input class="form-control"
                                    type="text"
                                    value="@Model.user.Phone"
-                                   name="OrderPhone" />
+                                   name="OrderPhone" required/>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Địa chỉ dòng 1</label>
                             <input class="form-control"
                                    type="text"
                                    value="@Model.user.Address" 
-                                   name="OrderAddress"  />
+                                   name="OrderAddress"  required/>
                         </div>
 
                         <div class="col-md-6 form-group">
@@ -116,4 +116,27 @@
             </div>
         </form>
     <!-- Checkout End -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('orderForm').addEventListener('submit', function (event) {
+                var inputs = this.querySelectorAll('input[required]:not([name="Note"])');
+                var isValid = true;
+
+                inputs.forEach(function (input) {
+                    if (input.value.trim() === '') {
+                        isValid = false;
+                        input.classList.add('error');
+                    } else {
+                        input.classList.remove('error');
+                    }
+                });
+
+                if (!isValid) {
+                    event.preventDefault();
+                    alert('Hãy điền tất cả thông tin trong ô còn trống -  "Ghi chú cho đơn hàng" không cần thiết.');
+                }
+            });
+        });
+    </script>
+
 </body>
