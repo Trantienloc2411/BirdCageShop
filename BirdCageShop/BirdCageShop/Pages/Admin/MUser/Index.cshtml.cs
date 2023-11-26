@@ -16,23 +16,11 @@ namespace BirdCageShop.Pages.Admin.MUser
         }
 
         public IList<User> User { get; set; }
-        public int totalUser { get; set; }
 
-        public int pageNo { get; set; }
-        public int pageSize { get; set; }
-
-        public IActionResult OnGet(int p = 1, int s = 5)
+        public IActionResult OnGet()
         {
             User = _userRepo.GetAllUser().ToList();
-            User = _userRepo.getUserPages(p, s);
             ViewData["RoleName"] = new SelectList(_userRepo.GetUserRole(), "RoleId", "RoleName");
-
-            pageSize = s;
-
-            totalUser = _userRepo.getTotalUserPages();
-
-            pageNo = p;
-
             return Page();
         }
 

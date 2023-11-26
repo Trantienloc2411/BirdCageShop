@@ -76,227 +76,256 @@
         </form>
     </div>
 
-    <section>
-        <div class="container-fluid pt-4 px-4">
-            <div class="col-12 mb-3">
-                <button id="pendingBtn" class="btn btn-primary" onclick="toggleOrders('show')">Showed Accessory</button>
-                <button id="canceledBtn" class="btn btn-primary" onclick="toggleOrders('hide')">Hidden Accessory</button>
-            </div>
-            <div>
-                <a asp-page="Create" class="btn btn-primary">Create an Accessory</a>
-            </div>
+    <div id="showedCage" class="container-fluid pt-4 px-4">
+        <div class="row g-4">
+            @foreach (var item in Model.Accessory)
+            {
+                <div class="col-sm-12 col-md-6 col-lg-4">
+                    <div class="bg-light rounded h-100 p-4 card">
+                        <img src="~/@item.AccessoryImg" alt="Product Image" class="img-fluid mb-4" />
+                        @* <img src="data:image/png;base64,@item.CageImg" alt="Cage Image" class="img-fluid mb-4" /> *@
 
-        </div>
-        <div id="showedAccessory" class="container-fluid pt-4 px-4">
-            <div class="row g-4">
-                @foreach (var item in Model.AccessoryShow)
-                {
-                    <div class="col-sm-12 col-md-6 col-lg-4">
-                        <div class="bg-light rounded h-100 p-4 card">
-                            <img src="~/@item.AccessoryImg" alt="Acessory Image" class="img-fluid mb-4" />
-                            @* <img src="data:image/png;base64,@item.CageImg" alt="Cage Image" class="img-fluid mb-4" /> *@
+                        <!-- Cage Name -->
+                        <div class="mb-3">
+                            <label for="inputAccessoryName" class="form-label">Cage Name:</label>
+                            <span id="inputCainputAccessoryNamegeName">@Html.DisplayFor(modelItem => item.AccessoryName)</span>
+                        </div>
 
-                            <!-- Cage Name -->
-                            <div class="mb-3">
-                                <label for="inputAccessoryName" class="form-label">Accessory Name:</label>
-                                <span id="inputCainputAccessoryNamegeName">@Html.DisplayFor(modelItem => item.AccessoryName)</span>
-                            </div>
-
-
-                            <!-- Quantity and Price -->
-                            <div class="mb-3">
-                                <label for="inputAccessoryQuantity" class="form-label">Quantity:</label>
-                                <span id="inputAccessoryQuantity">@Html.DisplayFor(modelItem => item.AccessoryQuantity)</span>
+                        <!-- Quantity and Price -->
+                        <div class="mb-3">
+                            <label for="inputAccessoryQuantity" class="form-label">Quantity:</label>
+                            <span id="inputAccessoryQuantity">@Html.DisplayFor(modelItem => item.AccessoryQuantity)</span>
 
                             <label for="inputAccessoryPrice" class="form-label ms-3">Price:</label>
                             <span id="inputAccessoryPrice">@Html.Raw(item.AccessoryPrice.Value.ToString("N0"))đ</span>
                         </div>
 
-
-                                <label for="inputAccessoryPrice" class="form-label ms-3">Price:</label>
-                                <span id="inputAccessoryPrice">@Html.DisplayFor(modelItem => item.AccessoryPrice)</span>
+                        <!-- Discount -->
+                        <div class="mb-3">
+                            <label for="inputAccessoryDiscount" class="form-label">Discount:</label>
+                            <span id="inputAccessoryDiscount">@Html.DisplayFor(modelItem => item.Discount.DiscountName)</span>
+                        </div>
+                        <!-- Edit and view Detail Button -->
+                        <div class="mb-12 row">
+                            <div class="col-sm-6">
+                                <a asp-page="./Edit" asp-route-id="@item.AccessoryId" class="btn btn-primary">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
                             </div>
-
-                            <!-- Discount -->
-                            <div class="mb-3">
-                                <label for="inputAccessoryDiscount" class="form-label">Discount:</label>
-                                <span id="inputAccessoryDiscount">@Html.DisplayFor(modelItem => item.Discount.DiscountName)</span>
-                            </div>
-                            <!-- Edit and view Detail Button -->
-                            <div class="mb-12 row">
-                                <div class="col-sm-4">
-                                    <a asp-page="./Edit" asp-route-id="@item.AccessoryId" class="btn btn-primary">
-                                        <i class="fas fa-edit"></i> Edit
-                                    </a>
-                                </div>
-                                <div class="col-sm-4">
-                                    <a asp-page="./Delete" asp-route-id="@item.AccessoryId" class="btn btn-danger">
-                                        <i class="fas fa-trash"></i> Delete
-                                    </a>
-                                </div>
-                                <div class="col-4" style="text-align: right;">
-                                    <a asp-page="./Details" asp-route-id="@item.AccessoryId" class="btn btn-primary">
-                                        <i class="fas fa-info-circle"></i> View detail
-                                    </a>
-                                </div>
+                            <div class="col-6" style="text-align: right;">
+                                <a asp-page="./Details" asp-route-id="@item.AccessoryId" class="btn btn-primary">
+                                    <i class="fas fa-edit"></i> View detail
+                                </a>
                             </div>
                         </div>
                     </div>
-                }
-                <paging class="pagination"
-                        total-records="@Model.totalShowAccessory"
-                        show-total-pages="false"
-                        show-total-records="false"
-                        page-size="@Model.pageSize"
-                        page-no="@Model.pageNo">
-                </paging>
+                </div>
+            }
+            <paging class="pagination"
+                    total-records="@Model.totalAccessory"
+                    show-total-pages="false"
+                    show-total-records="false"
+                    page-size="@Model.pageSize"
+                    page-no="@Model.pageNo">
+            </paging>
+        </div>
+        </div>
+
+
+
+
+
+
+
+        @* <section style="padding: 1cm 0">
+        <p style="text-align: left; margin-top: 20px;">
+            <a asp-page="Create" style="text-decoration: none; background-color: darkgray; color: #ffffff; padding: 12px 24px; border-radius: 6px; font-weight: bold; transition: background-color 0.3s;">Create a accessory</a>
+        </p>
+        <div class="row">
+            <div class="col-md-30">
+
+                <table class="table table-bordered table-gray table-hover">
+                    <thead>
+                        <tr>
+                            <th style="color: pink; border: solid gainsboro">
+                                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryName)
+                            </th>
+                            <th style="color: pink; border: solid gainsboro">
+                                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryPrice)
+                            </th>
+                            <th style="color: pink; border: solid gainsboro">
+                                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryDescription)
+                            </th>
+                            <th style="color: pink; border: solid gainsboro">
+                                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryQuantity)
+                            </th>
+                            <th style="color: pink; border: solid gainsboro">
+                                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryStatus)
+                            </th>
+                            <th style="color: pink; border: solid gainsboro">
+                                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryImg)
+                            </th>
+                            <th style="color: pink; border: solid gainsboro">
+                                @Html.DisplayNameFor(model => model.Accessory[0].Category)
+                            </th>
+                            <th style="color: pink; border: solid gainsboro">
+                                @Html.DisplayNameFor(model => model.Accessory[0].Discount)
+                            </th>
+                            <th style="color: pink; border: solid gainsboro">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Accessory)
+                        {
+                            <tr>
+                                <td style="border: solid gainsboro">
+                                    @Html.DisplayFor(modelItem => item.AccessoryName)
+                                </td>
+                                <td style="border: solid gainsboro">
+                                    @Html.DisplayFor(modelItem => item.AccessoryPrice)
+                                </td>
+                                <td style="border: solid gainsboro">
+                                    @Html.DisplayFor(modelItem => item.AccessoryDescription)
+                                </td>
+                                <td style="border: solid gainsboro">
+                                    @Html.DisplayFor(modelItem => item.AccessoryQuantity)
+                                </td>
+                                <td style="border: solid gainsboro">
+                                    @Html.DisplayFor(modelItem => item.AccessoryStatus)
+                                </td>
+                                <td style="border: solid gainsboro">
+                                    <img src="~/@item.AccessoryImg" alt="Accessory Image Image" style="max-width: 100px; max-height: 100px;" />
+                                </td>
+                                <td style="border: solid gainsboro">
+                                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                                </td>
+                                <td style="border: solid gainsboro">
+                                    @Html.DisplayFor(modelItem => item.Discount.DiscountName)
+                                </td>
+                                <td style="border: solid gainsboro; padding: 10px;">
+
+                                    <style>
+                                        .action-buttons {
+                                            display: flex;
+                                            flex-direction: column;
+                                            gap: 10px;
+                                            margin-top: 10px;
+                                        }
+
+                                            .action-buttons a {
+                                                padding: 10px 15px;
+                                                background-color: pink;
+                                                color: white;
+                                                border: none;
+                                                border-radius: 5px;
+                                                cursor: pointer;
+                                                transition: background-color 0.3s;
+                                            }
+
+                                                .action-buttons a:hover {
+                                                    background-color: deeppink;
+                                                }
+                                    </style>
+
+                                    <div class="action-buttons">
+                                        <a asp-page="./Edit" asp-route-id="@item.AccessoryId">Edit</a>
+                                        <a asp-page="./Details" asp-route-id="@item.AccessoryId">Details</a>
+                                        <a asp-page="./Delete" asp-route-id="@item.AccessoryId">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <paging class="pagination" total-records="@Model.totalAccessory" show-total-pages="false" show-total-records="false" page-size="@Model.pageSize" page-no="@Model.pageNo"></paging>
             </div>
         </div>
-        <div id="hiddenAccessory" class="container-fluid pt-4 px-4" style="display: none;">
-            <div class="row g-4">
-                @foreach (var item in Model.AccessoryHidden)
-                {
-                    <div class="col-sm-12 col-md-6 col-lg-4">
-                        <div class="bg-light rounded h-100 p-4 card">
-                            <img src="~/@item.AccessoryImg" alt="Accessory Image" class="img-fluid mb-4" />
-                            @* <img src="data:image/png;base64,@item.CageImg" alt="Cage Image" class="img-fluid mb-4" /> *@
 
-                            <!-- Cage Name -->
-                            <div class="mb-3">
-                                <label for="inputAccessoryName" class="form-label">Accessory Name:</label>
-                                <span id="inputCainputAccessoryNamegeName">@Html.DisplayFor(modelItem => item.AccessoryName)</span>
-                            </div>
+    </section>
 
-                            <!-- Quantity and Price -->
-                            <div class="mb-3">
-                                <label for="inputAccessoryQuantity" class="form-label">Quantity:</label>
-                                <span id="inputAccessoryQuantity">@Html.DisplayFor(modelItem => item.AccessoryQuantity)</span>
-
-                                <label for="inputAccessoryPrice" class="form-label ms-3">Price:</label>
-                                <span id="inputAccessoryPrice">@Html.DisplayFor(modelItem => item.AccessoryPrice)</span>
-                            </div>
-
-                            <!-- Discount -->
-                            <div class="mb-3">
-                                <label for="inputAccessoryDiscount" class="form-label">Discount:</label>
-                                <span id="inputAccessoryDiscount">@Html.DisplayFor(modelItem => item.Discount.DiscountName)</span>
-                            </div>
-                            <!-- Edit and view Detail Button -->
-                            <div class="mb-12 row">
-                                <div class="col-sm-4">
-                                    <a asp-page="./Edit" asp-route-id="@item.AccessoryId" class="btn btn-primary">
-                                        <i class="fas fa-edit"></i> Edit
-                                    </a>
-                                </div>
-                                <div class="col-sm-4">
-                                    <a asp-page="./Delete" asp-route-id="@item.AccessoryId" class="btn btn-danger">
-                                        <i class="fas fa-trash"></i> Delete
-                                    </a>
-                                </div>
-                                <div class="col-4" style="text-align: right;">
-                                    <a asp-page="./Details" asp-route-id="@item.AccessoryId" class="btn btn-primary">
-                                        <i class="fas fa-info-circle"></i> View detail
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-                <paging class="pagination"
-                        total-records="@Model.totalHiddenAccessory"
-                        show-total-pages="false"
-                        show-total-records="false"
-                        page-size="@Model.pageSize"
-                        page-no="@Model.pageNo">
-                </paging>
-            </div>
-            </div>
-            </section>
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                // Get the view type and page number from the URL parameters
-                    var urlParams = new URLSearchParams(window.location.search);
-                    var viewType = urlParams.get('view');
-                    var pageNo = urlParams.get('p');
-
-                    // Set the current page number for each pagination element
-                    var paginationElements = document.querySelectorAll('.pagination');
-                    paginationElements.forEach(function (pagination) {
-                    pagination.setAttribute('page-no', pageNo);
-                    });
-
-                    // Handle display based on the view type
-                    if (viewType === 'showed') {
-                        document.getElementById('showedAccessory').style.display = 'block';
-                        document.getElementById('hiddenAccessory').style.display = 'none';
-                    } else if (viewType === 'hidden') {
-                        document.getElementById('showedAccessory').style.display = 'none';
-                        document.getElementById('hiddenAccessory').style.display = 'block';
-                        }
-                });
-                function toggleOrders(type) {
-                    // Store the current page state in sessionStorage
-                    var pageState;
-
-                    if (type === 'show') {
-                        pageState = 0;
-                        viewType = 'showed';
-                    } else if (type === 'hide') {
-                        pageState = 1;
-                        viewType = 'hidden';
-                    }
-                
-
-                // Map pageState to descriptive viewType for URL construction
-
-
-        // Restore the page state from sessionStorage
-        var previousPageState = sessionStorage.getItem('pageState');
-        var currentPageNo = sessionStorage.getItem('currentPageNo');
-
-        // Check if previousPageState is not equal to pageState
-        if (previousPageState != pageState) {
-            currentPageNo = 1;
-
-            // Update the URL with the new view state and page number
-            setUrlWithViewState(viewType, currentPageNo);
-
-            // Reload the page with the new URL parameters
-            window.location.reload();
-        }
-
-        // Set the current page number for each pagination element
-        var paginationElements = document.querySelectorAll('.pagination');
-        paginationElements.forEach(function (pagination) {
-            pagination.setAttribute('page-no', currentPageNo);
-        });
-
-        // Update sessionStorage with the current page state
-        sessionStorage.setItem('pageState', pageState);
-        sessionStorage.setItem('currentPageNo', currentPageNo);
-
-                // Handle display based on the pageState
-                if (pageState == 0) {
-            document.getElementById('showedAccessory').style.display = 'block';
-            document.getElementById('hiddenAccessory').style.display = 'none';
-                } else if (pageState == 1) {
-            document.getElementById('showedAccessory').style.display = 'none';
-            document.getElementById('hiddenAccessory').style.display = 'block';
-                }
-                        }
-
-        function setUrlWithViewState(viewType, pageNo) {
-            // Get the current URL without query parameters
-            var baseUrl = window.location.href.split('?')[0];
-
-            // Build the new URL with the specified view state and page number
-            var newUrl = `${baseUrl}?view=${viewType}&p=${pageNo}`;
-
-            // Use pushState to update the URL without triggering a page reload
-            window.history.pushState({ viewType, pageNo }, '', newUrl);
-        }
-            </script>
+    <script src="~/table-07/js/jquery.min.js"></script>
+    <script src="~/table-07/js/popper.js"></script>
+    <script src="~/table-07/js/bootstrap.min.js"></script>
+    <script src="~/table-07/js/main.js"></script> *@
 
 </body>
 
 </html>
+
+
+
+
+
+@* <h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryQuantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Accessory[0].AccessoryImg)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Accessory[0].Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Accessory[0].Discount)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Accessory) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccessoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccessoryPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccessoryDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccessoryQuantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccessoryStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccessoryImg)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Discount.DiscountId)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.AccessoryId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.AccessoryId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.AccessoryId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table> *@

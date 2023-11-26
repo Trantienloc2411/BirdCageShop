@@ -37,18 +37,7 @@
             @Html.DisplayFor(model => model.Discount.Discount1)
         </dd>
         <dt class="col-sm-2">
-            @if (Model.Discount.DiscountStatus == "Ongoing")
-            {
-                <text>Ongoing</text>
-            }
-            else if (Model.Discount.DiscountStatus == "Ended")
-            {
-                <text>Ended</text>
-            }
-            else if (Model.Discount.DiscountStatus == "NotStarted")
-            {
-                <text>NotStarted</text>
-            }
+            @Html.DisplayNameFor(model => model.Discount.DiscountStatus)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Discount.DiscountStatus)

@@ -34,7 +34,7 @@ namespace BirdCageShop.Pages.Admin.MAccessory
         [BindProperty]
         public Accessory Accessory { get; set; }
         [BindProperty]
-        public string AccessoryImg { get; set; }
+        public String AccessoryImg { get; set; }
 
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD

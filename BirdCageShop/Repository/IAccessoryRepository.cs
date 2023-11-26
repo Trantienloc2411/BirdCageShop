@@ -9,16 +9,10 @@ namespace Repository
         Accessory GetAccessoryById(int id);
         List<Accessory> GetAccessoryByName(string name);
         List<Accessory> getAccessoryPages(int pageIndex, int pageSize);
-        List<Accessory> getAccessoryShowPages(int pageIndex, int pageSize);
-        List<Accessory> getAccessoryHiddenPages(int pageIndex, int pageSize);
         IEnumerable<Accessory> GetAll();
-        IEnumerable<Accessory> GetAllShow();
-        IEnumerable<Accessory> GetAllHidden();
         List<Category> GetCategories();
         List<Discount> GetDiscounts();
         int getTotalAccessoryPages();
-        int getTotalAccessoryShowPages();
-        int getTotalAccessoryHiddenPages();
         void Update(Accessory accessory);
         List<Accessory> GetListAccessory();
         List<Accessory> FillterProduct(int opt);

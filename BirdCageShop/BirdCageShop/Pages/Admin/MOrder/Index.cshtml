@@ -322,120 +322,28 @@
         </div>
     </section>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Get the view type and page number from the URL parameters
-            var urlParams = new URLSearchParams(window.location.search);
-            var viewType = urlParams.get('view');
-            var pageNo = urlParams.get('p');
-
-            // Set the current page number for each pagination element
-            var paginationElements = document.querySelectorAll('.pagination');
-            paginationElements.forEach(function (pagination) {
-                pagination.setAttribute('page-no', pageNo);
-            });
-
-            // Handle display based on the view type
-            if (viewType === 'pending') {
-                document.getElementById('pendingOrderTable').style.display = 'block';
-                document.getElementById('cancelledOrderTable').style.display = 'none';
-                document.getElementById('deliveringOrderTable').style.display = 'none';
-                document.getElementById('deliveredOrderTable').style.display = 'none';
-            } else if (viewType === 'cancelled') {
-                document.getElementById('pendingOrderTable').style.display = 'none';
-                document.getElementById('cancelledOrderTable').style.display = 'block';
-                document.getElementById('deliveringOrderTable').style.display = 'none';
-                document.getElementById('deliveredOrderTable').style.display = 'none';
-            } else if (viewType === 'delivering') {
-                document.getElementById('pendingOrderTable').style.display = 'none';
-                document.getElementById('cancelledOrderTable').style.display = 'none';
-                document.getElementById('deliveringOrderTable').style.display = 'block';
-                document.getElementById('deliveredOrderTable').style.display = 'none';
-            } else if (viewType === 'delivered') {
-                document.getElementById('pendingOrderTable').style.display = 'none';
-                document.getElementById('cancelledOrderTable').style.display = 'none';
-                document.getElementById('deliveringOrderTable').style.display = 'none';
-                document.getElementById('deliveredOrderTable').style.display = 'block';
-            }
-        });
-
         function toggleOrders(type) {
-            // Store the current page state in sessionStorage
-            var pageState;
-
             if (type === 'pending') {
-                pageState = 0;
-                viewType = 'pending';
-            } else if (type === 'cancelled') {
-                pageState = 1;
-                viewType = 'cancelled';
-            } else if (type === 'delivering') {
-                pageState = 2;
-                viewType = 'delivering';
-            } else if (type == 'delivered') {
-                pageState = 3;
-                viewType = 'delivered';
-            }
-
-            // Map pageState to descriptive viewType for URL construction
-
-            // Restore the page state from sessionStorage
-            var previousPageState = sessionStorage.getItem('pageState');
-            var currentPageNo = sessionStorage.getItem('currentPageNo');
-
-            // Check if previousPageState is not equal to pageState
-            if (previousPageState != pageState) {
-                currentPageNo = 1;
-
-                // Update the URL with the new view state and page number
-                setUrlWithViewState(viewType, currentPageNo);
-
-                // Reload the page with the new URL parameters
-                window.location.reload();
-            }
-
-            // Set the current page number for each pagination element
-            var paginationElements = document.querySelectorAll('.pagination');
-            paginationElements.forEach(function (pagination) {
-                pagination.setAttribute('page-no', currentPageNo);
-            });
-
-            // Update sessionStorage with the current page state
-            sessionStorage.setItem('pageState', pageState);
-            sessionStorage.setItem('currentPageNo', currentPageNo);
-
-            // Handle display based on the pageState
-            if (pageState == 0) {
                 document.getElementById('pendingOrderTable').style.display = 'block';
                 document.getElementById('cancelledOrderTable').style.display = 'none';
                 document.getElementById('deliveringOrderTable').style.display = 'none';
                 document.getElementById('deliveredOrderTable').style.display = 'none';
-            } else if (pageState == 1) {
+            } else if (type === 'cancelled') {
                 document.getElementById('pendingOrderTable').style.display = 'none';
                 document.getElementById('cancelledOrderTable').style.display = 'block';
                 document.getElementById('deliveringOrderTable').style.display = 'none';
                 document.getElementById('deliveredOrderTable').style.display = 'none';
-            } else if (pageState == 2) {
+            } else if (type === 'delivering') {
                 document.getElementById('pendingOrderTable').style.display = 'none';
                 document.getElementById('cancelledOrderTable').style.display = 'none';
                 document.getElementById('deliveringOrderTable').style.display = 'block';
                 document.getElementById('deliveredOrderTable').style.display = 'none';
-            } else if (pageState === 3) {
+            } else if (type === 'delivered') {
                 document.getElementById('pendingOrderTable').style.display = 'none';
                 document.getElementById('cancelledOrderTable').style.display = 'none';
                 document.getElementById('deliveringOrderTable').style.display = 'none';
                 document.getElementById('deliveredOrderTable').style.display = 'block';
             }
-        }
-
-        function setUrlWithViewState(viewType, pageNo) {
-            // Get the current URL without query parameters
-            var baseUrl = window.location.href.split('?')[0];
-
-            // Build the new URL with the specified view state and page number
-            var newUrl = `${baseUrl}?view=${viewType}&p=${pageNo}`;
-
-            // Use pushState to update the URL without triggering a page reload
-            window.history.pushState({ viewType, pageNo }, '', newUrl);
         }
     </script>
 

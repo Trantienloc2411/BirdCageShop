@@ -42,6 +42,7 @@ namespace DataAccessObjects
 
         public void Add(User User)
         {
+            User.Status = "Active";
             User.UserPassword = Utility.encrytoStringKey(User.UserPassword);
             _dbContext.Add(User);
             _dbContext.SaveChanges();
@@ -50,16 +51,6 @@ namespace DataAccessObjects
         public List<User> GetAll()
         {
             return _dbContext.Users.Where(u => u.RoleId != 4).ToList();
-        }
-
-        public List<User> getUserPages(int pageIndex, int pageSize)
-        {
-            return _dbContext.Users.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-        }
-
-        public int getTotalUserPages()
-        {
-            return _dbContext.Users.Count();
         }
 
         public int Update(User User)

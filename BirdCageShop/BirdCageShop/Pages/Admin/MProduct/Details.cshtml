@@ -80,7 +80,7 @@
         <div class="row">
             <div class="col-6">
                 <a asp-page="./Index" class="btn btn-secondary">
-                    <i class="fas fa-arrow-left"></i> Back to List
+                    <i class="fas fa-edit"></i> Back to List
                 </a>
             </div>
             <div class="col-6" style="text-align: right;">
@@ -171,75 +171,5 @@
 </div>
 <div>
     <a asp-page="./Edit" class="btn btn-primary" asp-route-id="@Model.Product?.CageId">Edit</a> |
-    <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
-</div> *@
-
-
-
-@* <h1>Details</h1>
-
-<div>
-    <h4>Accessory</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Accessory.AccessoryName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Accessory.AccessoryName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Accessory.AccessoryPrice)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Accessory.AccessoryPrice)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Accessory.AccessoryDescription)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Accessory.AccessoryDescription)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Accessory.AccessoryQuantity)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Accessory.AccessoryQuantity)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Accessory.AccessoryStatus)
-        </dt>
-        <dd class="col-sm-10">
-                @if (Model.Accessory.AccessoryStatus == 0)
-                {
-                    <text>0 (Hidden)</text>
-                }
-                else if (Model.Accessory.AccessoryStatus == 1)
-                {
-                    <text>1 (Show)</text>
-                }
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Accessory.AccessoryImg)
-        </dt>
-        <dd class="col-sm-10">
-            <img src="~/@Model.Accessory.AccessoryImg" alt="Product Image" style="max-width: 100px; max-height: 100px;" />
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Accessory.Category)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Accessory.Category.CategoryName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Accessory.Discount)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Accessory.Discount.DiscountName)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-page="./Edit" class="btn btn-primary" asp-route-id="@Model.Accessory.AccessoryId">Edit</a> |
     <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
 </div> *@
