@@ -93,85 +93,120 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyFhBDGh6fF6yoG400DbPZZH8+78VIaa"
       crossorigin="anonymous">
 
-
-<h1>Create</h1>
-
-<h4>Product</h4>
-<hr />
-<div class="row">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-body">
+<div class="col-sm-12 col-md-8 mx-auto">
+    <div class="bg-light rounded h-100 p-4">
+        <h6 class="mb-4">Create a Product</h6>
                 <form method="post" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Product.CageName" class="control-label"></label>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Product.CageName" class="form-label">Cage Name</label>
                         <input asp-for="Product.CageName" class="form-control" required />
                 <span asp-validation-for="Product.CageName" class="text-danger"></span>
             </div>
-                    <div class="form-group">
-                        <label asp-for="Product.CategoryId" class="control-label"></label>
-                        <select asp-for="Product.CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                <div class="col-md-3 mb-3">
+                    <label asp-for="Product.Category" class="form-label"></label>
+                    <select asp-for="Product.CategoryId" class="form-control" required asp-items="ViewBag.CategoryId"></select>
                         <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
                     </div>
-            <div class="form-group">
-                <label asp-for="Product.Quantity" class="control-label"></label>
-                        <input asp-for="Product.Quantity" class="form-control" required />
-                <span asp-validation-for="Product.Quantity" class="text-danger"></span>
+                <div class="col-md-3 mb-3">
+                    <label asp-for="Product.Discount" class="form-label"></label>
+                    <select asp-for="Product.DiscountId" class="form-control" required asp-items="ViewBag.DiscountId"></select>
+                <span asp-validation-for="Product.DiscountId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Product.Price" class="control-label"></label>
-                        <input asp-for="Product.Price" class="form-control" required />
-                <span asp-validation-for="Product.Price" class="text-danger"></span>
             </div>
-                    <div class="form-group">
-                        <label asp-for="Product.DiscountId" class="control-label"></label>
-                        <select asp-for="Product.DiscountId" class="form-control" asp-items="ViewBag.DiscountId"></select>
-                        <span asp-validation-for="Product.DiscountId" class="text-danger"></span>
-                    </div>
-            <div class="form-group">
-                <label asp-for="Product.CageImg"></label>
-                <input name="CageImg" type="file" class="form-control" />
-                <span asp-validation-for="Product.CageImg" class="text-danger"></span>
+
+            <div class="row">
+                <div class="col-md-2 mb-3">
+                    <label asp-for="Product.Material" class="form-label">Material</label>
+                    <select asp-for="Product.Material" class="form-select form-select-lg" required>
+                        <option value="" selected disabled></option>
+                        <option value="1">Gỗ</option>
+                        <option value="2">Thép</option>
+                        <option value="3">Nan Tre</option>
+                        <option value="4">Kim Loại</option>
+                        <!--Add more-->
+                    </select>
+                    <span asp-validation-for="Product.Material" class="text-danger"></span>
+                </div>
+                <!-- Size -->
+                <div class="col-md-2 mb-3">
+                    <label asp-for="Product.Size" class="form-label">Size</label>
+                    <select asp-for="Product.Size" class="form-select form-select-lg" required>
+                        <option value="" selected disabled></option>
+                        <option value="1">S</option>
+                        <option value="2">M</option>
+                        <option value="3">L</option>
+                        <option value="4">XL</option>
+                        <!--Add more-->
+                    </select>
+                    <span asp-validation-for="Product.Size" class="text-danger"></span>
+                </div>
+                <!-- Bar -->
+                <div class="col-md-2 mb-3">
+                    <label asp-for="Product.Bar" class="form-label">Bar</label>
+                    <input asp-for="Product.Bar" type="text" class="form-control form-control-lg" required>
+                    <span asp-validation-for="Product.Bar" class="text-danger"></span>
+                </div>
+                <!--Price-->
+                <div class="col-md-2 mb-3">
+                    <label asp-for="Product.Price" class="form-label">Price</label>
+                    <input asp-for="Product.Price" type="text" class="form-control form-control-lg" required>
+                    <span asp-validation-for="Product.Price" class="text-danger"></span>
+                </div>
+                <!-- Quantity -->
+                <div class="col-md-2 mb-3">
+                    <label asp-for="Product.Quantity" class="form-label">Quantity</label>
+                    <input asp-for="Product.Quantity" type="text" class="form-control form-control-lg" required>
+                    <span asp-validation-for="Product.Quantity" class="text-danger"></span>
+                </div>
+                <!-- Cage Status -->
+                <div class="col-md-2 mb-3">
+                    <label asp-for="Product.CageStatus" class="form-label">Status</label>
+                    <select asp-for="Product.CageStatus" class="form-select form-select-lg">
+                        <option value="0">Hidden</option>
+                        <option value="1">Show</option>
+                        <option value="2">Customized</option>
+                    </select>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Product.Material" class="control-label"></label>
-                        <input asp-for="Product.Material" class="form-control" required />
-                <span asp-validation-for="Product.Material" class="text-danger"></span>
+
+            <div class="row">
+                @* <!-- Row1 -->
+                <div class="col-md-0 mb-3">
+                <label for="floatingSelect" class="form-label"></label>
+                <select class="form-select form-select-lg" id="floatingSelect" aria-label="Floating label select example">
+                </select>
+
+                <!-- cho nay ko biet bi loi gi nhung phai de 1 cot trong-->
+                </div> *@
+                <!-- Row2 -->
+                @* <div class="col-md-3 mb-3">
+                    @if (!string.IsNullOrEmpty(Model.Product.CageImg))
+                    {
+                        <img src="~/@Model.Product.CageImg" alt="Current Image" class="img-thumbnail" />
+                        <p>Upload a new image if you want to change it.</p>
+                    }
+                </div> *@
+                <div class="col mb-3">
+                    <label asp-for="Product.CageImg">Cage Image</label>
+                    <input name="CageImg" type="file" class="form-control" />
+                    <span asp-validation-for="Product.CageImg" class="text-danger"></span>
+
+                    <br> </br>
+
+                    <label asp-for="Product.Description" class="form-label">Description</label>
+                    <textarea asp-for="Product.Description" class="form-control form-control-lg" required rows="4"></textarea>
+                    <span asp-validation-for="Product.Description" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Product.Size" class="control-label"></label>
-                        <input asp-for="Product.Size" class="form-control" required />
-                <span asp-validation-for="Product.Size" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product.Bar" class="control-label"></label>
-                        <input asp-for="Product.Bar" class="form-control" required />
-                <span asp-validation-for="Product.Bar" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product.Description" class="control-label"></label>
-                        <input asp-for="Product.Description" class="form-control" required />
-                <span asp-validation-for="Product.Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product.CageStatus" class="control-label"></label>
-                        <input asp-for="Product.CageStatus" class="form-control" required />
-                <span asp-validation-for="Product.CageStatus" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary btn-lg" />
-            </div>
+            <input type="submit" value="Create" class="btn btn-primary" />
+
+            <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
 
         </form>
             </div>
         </div>
-    </div>
-</div>
-
-<div class="mt-3">
-    <a asp-page="Index" class="btn btn-secondary">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

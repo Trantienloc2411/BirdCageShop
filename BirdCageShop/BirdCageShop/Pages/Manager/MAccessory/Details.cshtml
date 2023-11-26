@@ -40,7 +40,14 @@
             @Html.DisplayNameFor(model => model.Accessory.AccessoryStatus)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Accessory.AccessoryStatus)
+            @if (Model.Accessory.AccessoryStatus == 0)
+            {
+                <text>0 (Hidden)</text>
+            }
+            else if (Model.Accessory.AccessoryStatus == 1)
+            {
+                <text>1 (Show)</text>
+            }
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Accessory.AccessoryImg)

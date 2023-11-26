@@ -10,11 +10,12 @@
                 <div class="bg-light rounded h-100 p-4">
                     <h6 class="mb-4">Edit Product</h6>
                     <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Product.CageId" />
                         <div class="row">
                             <!-- Cage Name -->
                             <div class="col-md-6 mb-3">
-                                <label for="InputBar" class="form-label">Cage Name</label>
-                                <label asp-for="Product.CageName" class="control-label"></label>
+                    <label asp-for="Product.CageName" class="control-label">Cage Name</label>
                                 <input asp-for="Product.CageName" class="form-control" />
                                 <span asp-validation-for="Product.CageName" class="text-danger"></span>
                             </div>
@@ -62,22 +63,22 @@
                             <!-- Bar -->
                             <div class="col-md-2 mb-3">
                     <label asp-for="Product.Bar" class="form-label">Bar</label>
-                    <input asp-for="Product.Bar" type="text" class="form-control form-control-lg" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    <input asp-for="Product.Bar" type="text" class="form-control form-control-lg">
                             </div>
                             <!--Price-->
                             <div class="col-md-2 mb-3">
                     <label asp-for="Product.Price" class="form-label">Price</label>
-                    <input asp-for="Product.Price" type="text" class="form-control form-control-lg" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    <input asp-for="Product.Price" type="text" class="form-control form-control-lg">
                             </div>                                                       
                             <!-- Quantity -->
                             <div class="col-md-2 mb-3">
                     <label asp-for="Product.Quantity" class="form-label">Quantity</label>
-                    <input asp-for="Product.Quantity" type="text" class="form-control form-control-lg" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    <input asp-for="Product.Quantity" type="text" class="form-control form-control-lg">
                             </div>   
                             <!-- Cage Status -->
                             <div class="col-md-2 mb-3">
                     <label asp-for="Product.CageStatus" class="form-label">Status</label>
-                    <select asp-for="Product.CageStatus" class="form-select form-select-lg" id="floatingSelect" aria-label="Floating label select example">
+                    <select asp-for="Product.CageStatus" class="form-select form-select-lg">
                                     <option value="0">Hidden</option>
                                     <option value="1">Show</option>
                                     <option value="2">Customized</option>     
@@ -106,16 +107,16 @@
                     <label asp-for="Product.Description" class="form-label">Description</label>
                     <textarea asp-for="Product.Description" class="form-control form-control-lg" rows="4"></textarea>
                     <br> </br>
-                    <label asp-for="Product.CageImg"></label>
+                    <label asp-for="Product.CageImg">Cage Image</label>
                     
                     <input name="CageImg" type="file" class="form-control" />
                     <span asp-validation-for="Product.CageImg" class="text-danger"></span>
                                 </div>
                             </div>
+            
+
+            <a asp-page="./Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to List</a>
             <input type="submit" value="Save" class="btn btn-primary" />
-
-                <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
-
         </form>
                         </div>                   
                     

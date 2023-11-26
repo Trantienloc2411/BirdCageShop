@@ -10,11 +10,12 @@
     <div class="bg-light rounded h-100 p-4">
         <h6 class="mb-4">Edit Accessory</h6>
         <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Accessory.AccessoryId" />
             <div class="row">
                 <!-- Cage Name -->
                 <div class="col-md-6 mb-3">
-                    <label for="InputBar" class="form-label">Accessory Name</label>
-                    <label asp-for="Accessory.AccessoryName" class="control-label"></label>
+                    <label asp-for="Accessory.AccessoryName" class="control-label">Accessory Name</label>
                     <input asp-for="Accessory.AccessoryName" class="form-control" />
                     <span asp-validation-for="Accessory.AccessoryName" class="text-danger"></span>
                 </div>
@@ -35,17 +36,19 @@
             <div class="row">
                 <!--Price-->
                 <div class="col-md-2 mb-3">
-                    <label asp-for="Accessory.AccessoryPrice" class="form-label">AccessoryPrice</label>
-                    <input asp-for="Accessory.AccessoryPrice" type="text" class="form-control form-control-lg" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    <label asp-for="Accessory.AccessoryPrice" class="form-label">Accessory Price</label>
+                    <input asp-for="Accessory.AccessoryPrice" type="text" class="form-control form-control-lg">
+                    <span asp-validation-for="Accessory.AccessoryPrice" class="text-danger"></span>
                 </div>
                 <!-- Quantity -->
                 <div class="col-md-2 mb-3">
                     <label asp-for="Accessory.AccessoryQuantity" class="form-label">Quantity</label>
-                    <input asp-for="Accessory.AccessoryQuantity" type="text" class="form-control form-control-lg" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    <input asp-for="Accessory.AccessoryQuantity" type="text" class="form-control form-control-lg">
+                    <span asp-validation-for="Accessory.AccessoryQuantity" class="text-danger"></span>
                 </div>
                 <!-- Upload  -->
                 <div class="col-md-6 mb-3">
-                    <label asp-for="Accessory.AccessoryImg" class="form-label"></label>
+                    <label asp-for="Accessory.AccessoryImg" class="form-label">Accessory Img</label>
 
                     <input name="AccessoryImg" type="file" class="form-control" />
                     <span asp-validation-for="Accessory.AccessoryImg" class="text-danger"></span>
@@ -53,7 +56,7 @@
                 <!-- Cage Status -->
                 <div class="col-md-2 mb-3">
                     <label asp-for="Accessory.AccessoryStatus" class="form-label">Status</label>
-                    <select asp-for="Accessory.AccessoryStatus" class="form-select form-select-lg" id="floatingSelect" aria-label="Floating label select example">
+                    <select asp-for="Accessory.AccessoryStatus" class="form-select form-select-lg">
                         <option value="0">Hidden</option>
                         <option value="1">Show</option>
                     </select>
@@ -78,8 +81,9 @@
                     }
                 </div>
                 <div class="col-md-9 mb-3">
-                    <label asp-for="Accessory.AccessoryDescription" class="form-label">AccessoryDescription</label>
+                    <label asp-for="Accessory.AccessoryDescription" class="form-label">Accessory Description</label>
                     <textarea asp-for="Accessory.AccessoryDescription" class="form-control form-control-lg" rows="4"></textarea>
+                    <span asp-validation-for="Accessory.AccessoryDescription" class="text-danger"></span>
                     <br> </br>
                     
                 </div>

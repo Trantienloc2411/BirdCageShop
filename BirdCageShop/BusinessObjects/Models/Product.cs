@@ -19,7 +19,7 @@ namespace BusinessObjects.Models
         public int? DiscountId { get; set; }
         public string? Material { get; set; }
         public string? Size { get; set; }
-        [Range(0, int.MaxValue, ErrorMessage = "Bar must be greater than or equal to 0.")]
+        [Range(50, 90, ErrorMessage = "Bar must be 50 - 90.")]
         public int? Bar { get; set; }
         public string? Description { get; set; }
         [Range(0, int.MaxValue, ErrorMessage = "Cage Status must be greater than or equal to 0.")]

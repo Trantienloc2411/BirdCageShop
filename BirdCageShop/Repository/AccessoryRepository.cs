@@ -16,6 +16,8 @@ namespace Repository
         public void Delete(int id) => _dao.Delete(id);
 
         public IEnumerable<Accessory> GetAll() => _dao.GetAll();
+        public IEnumerable<Accessory> GetAllShow() => _dao.GetAllShow();
+        public IEnumerable<Accessory> GetAllHidden() => _dao.GetAllHidden();
 
         public List<Category> GetCategories() => _dao.GetCategories();
 
@@ -27,7 +29,13 @@ namespace Repository
 
         public void Update(Accessory accessory) => _dao.Update(accessory);
         public List<Accessory> getAccessoryPages(int pageIndex, int pageSize) => _dao.getAccessoryPages(pageIndex, pageSize);
+        public List<Accessory> getAccessoryShowPages(int pageIndex, int pageSize) => _dao.getAccessoryShowPages(pageIndex, pageSize);
+        public List<Accessory> getAccessoryHiddenPages(int pageIndex, int pageSize) => _dao.getAccessoryHiddenPages(pageIndex, pageSize);
         public int getTotalAccessoryPages() => _dao.getTotalAccessoryPages();
+
+        public int getTotalAccessoryShowPages() => _dao.getTotalAccessoryShowPages();
+        public int getTotalAccessoryHiddenPages() => _dao.getTotalAccessoryHiddenPages();
+
         public List<Accessory> FillterProduct(int opt) => _dao.FillterProduct(opt);
         public List<Accessory> GetListAccessory() => _dao.GetListAccessory();
     }
