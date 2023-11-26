@@ -8,6 +8,18 @@
 
 <body>
     <!-- Checkout Start -->
+    @{
+        var errorMessage = TempData["errorMessage"] as string;
+        var successMessage = TempData["successMessage"] as string;
+    }
+    <div class="alert alert-danger" style="@(string.IsNullOrEmpty(errorMessage) ? "display: none;" : "")">
+        @errorMessage
+    </div>
+
+    <!-- Hiển thị thông báo thành công -->
+    <div class="alert alert-success" style="@(string.IsNullOrEmpty(successMessage) ? "display: none;" : "")">
+        @successMessage
+    </div>
     <form method="post" class="container-fluid pt-5" id="orderForm">
         <div class="row px-xl-5">
             <div class="col-lg-8">
@@ -24,21 +36,21 @@
                             <input class="form-control"
                                    type="text"
                                    value="@Model.user.Email" 
-                                   name="OrderEmail" />
+                                   name="OrderEmail" required/>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Số điện thoại di động</label>
                             <input class="form-control"
                                    type="text"
                                    value="@Model.user.Phone"
-                                   name="OrderPhone" />
+                                   name="OrderPhone" required/>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Địa chỉ dòng 1</label>
                             <input class="form-control"
                                    type="text"
                                    value="@Model.user.Address" 
-                                   name="OrderAddress"  />
+                                   name="OrderAddress"  required/>
                         </div>
 
                         <div class="col-md-6 form-group">
@@ -124,4 +136,27 @@
             </div>
         </form>
     <!-- Checkout End -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('orderForm').addEventListener('submit', function (event) {
+                var inputs = this.querySelectorAll('input[required]:not([name="Note"])');
+                var isValid = true;
+
+                inputs.forEach(function (input) {
+                    if (input.value.trim() === '') {
+                        isValid = false;
+                        input.classList.add('error');
+                    } else {
+                        input.classList.remove('error');
+                    }
+                });
+
+                if (!isValid) {
+                    event.preventDefault();
+                    alert('Please fill in all required fields except "Ghi chú cho đơn hàng".');
+                }
+            });
+        });
+    </script>
+
 </body>

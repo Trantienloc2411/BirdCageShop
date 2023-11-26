@@ -106,7 +106,7 @@
                                 </td>
                                 <td>
                                     <div class="comparison-item">
-                                        <a class="comparison-item-thumb"><img src="~/@Model.comparePro[0].CageImg" alt="" /></a>
+                                        <a class="comparison-item-thumb"><img src="~/@Model.comparePro[0].CageImg" alt="" /></a> <br>
                                         <a class="comparison-item-title" asp-route-productId="@Model.comparePro[0].CageId" asp-page="./ProductDetail">@Model.comparePro[0].CageName</a>
                                         @* <button class="btn btn-pill btn-outline-primary btn-sm" asp-route-productId="@Model.comparePro[0].CageId" asp-page-handler="Add"
                                     type="button">
@@ -133,7 +133,7 @@
                                     <span class="text-dark font-weight-semibold">@Html.Raw(Model.comparePro[0].Price.Value.ToString("N0"))đ</span>
                                 </td>
                                 <td>
-                                    <span class="text-dark font-weight-semibold">@Html.Raw(Model.comparePro[1].Price.Value.ToString("N0"))đe</span>
+                                    <span class="text-dark font-weight-semibold">@Html.Raw(Model.comparePro[1].Price.Value.ToString("N0"))đ</span>
                                 </td>
                             </tr>
 
