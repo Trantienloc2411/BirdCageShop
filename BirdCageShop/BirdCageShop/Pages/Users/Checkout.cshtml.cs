@@ -1,7 +1,9 @@
 ﻿using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Repository;
+using System;
 
 namespace BirdCageShop.Pages.Users
 {
@@ -53,7 +55,30 @@ namespace BirdCageShop.Pages.Users
         /// </summary>
         public IActionResult OnPost(string OrderName, string OrderEmail, string OrderPhone, string OrderAddress, string Note, decimal OrderTotal)
         {
-            int userID = HttpContext.Session.GetInt32("userID").GetValueOrDefault(-1);
+            if (string.IsNullOrEmpty(OrderName))
+            {
+                OnGet(); TempData["errorMessage"] = "Tên người đặt hàng đang trống"; 
+                return Page();
+            }
+            else if (string.IsNullOrEmpty(OrderEmail))
+            {
+                OnGet(); 
+                TempData["errorMessage"] = "Email người đặt hàng đang trống";
+                return Page();
+            }
+            else if (string.IsNullOrEmpty(OrderPhone))
+            {
+                OnGet(); TempData["errorMessage"] = "Số điện thoại người đặt hàng đang trống";
+                return Page();
+            }
+            else if (string.IsNullOrEmpty(OrderAddress))
+            {
+                OnGet(); 
+                TempData["errorMessage"] = "Địa chỉ của người đặt hàng đang trống";
+                return Page();
+            }
+
+                int userID = HttpContext.Session.GetInt32("userID").GetValueOrDefault(-1);
             Order o = new Order();
             o.OrderName = OrderName;
             o.OrderPhone = OrderPhone;  
