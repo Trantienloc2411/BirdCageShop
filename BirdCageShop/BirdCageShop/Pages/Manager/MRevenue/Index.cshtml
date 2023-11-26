@@ -86,7 +86,7 @@
                                     @Html.DisplayFor(modelItem => item.UserId)
                                 </td>
                                 <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.OrderPrice)
+                                    @Html.Raw(item.OrderPrice.Value.ToString("N0"))
                                 </td>
                             </tr>
                         }
@@ -94,7 +94,7 @@
                     <!-- Display Total Order Price -->
                     <div class="row justify-content-center">
                         <div class="col-md-6 text-center">
-                            <h4 style="color: hotpink">Total Order Price: <span style="color: red;">@Model.TotalOrderPrice</span></h4>
+                            <h4 style="color: hotpink">Total Order Price: <span style="color: red;">@Html.Raw(Model.TotalOrderPrice.Value.ToString("N0"))đ</span></h4>
                         </div>
                     </div>
                 </table>
