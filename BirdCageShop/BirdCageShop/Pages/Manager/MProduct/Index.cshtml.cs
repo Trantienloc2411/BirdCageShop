@@ -27,7 +27,7 @@ namespace BirdCageShop.Pages.Manager.MProduct
         public int pageNo { get; set; }
         public int pageSize { get; set; }
 
-        public IActionResult OnGet(int p = 1, int s = 5)
+        public IActionResult OnGet(int p = 1, int s = 3)
         {
             Product = _proRepo.GetAll().ToList();
             ProductShow = _proRepo.GetAllShow().ToList();

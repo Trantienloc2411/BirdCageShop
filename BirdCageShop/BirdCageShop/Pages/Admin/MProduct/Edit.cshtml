@@ -13,8 +13,7 @@
                         <div class="row">
                             <!-- Cage Name -->
                             <div class="col-md-6 mb-3">
-                                <label for="InputBar" class="form-label">Cage Name</label>
-                                <label asp-for="Product.CageName" class="control-label"></label>
+                    <label asp-for="Product.CageName" class="control-label">Cage Name</label>
                                 <input asp-for="Product.CageName" class="form-control" />
                                 <span asp-validation-for="Product.CageName" class="text-danger"></span>
                             </div>
@@ -106,16 +105,16 @@
                     <label asp-for="Product.Description" class="form-label">Description</label>
                     <textarea asp-for="Product.Description" class="form-control form-control-lg" rows="4"></textarea>
                     <br> </br>
-                    <label asp-for="Product.CageImg"></label>
+                    <label asp-for="Product.CageImg">Cage Image</label>
                     
                     <input name="CageImg" type="file" class="form-control" />
                     <span asp-validation-for="Product.CageImg" class="text-danger"></span>
                                 </div>
                             </div>
+            
+
+            <a asp-page="./Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to List</a>
             <input type="submit" value="Save" class="btn btn-primary" />
-
-                <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
-
         </form>
                         </div>                   
                     

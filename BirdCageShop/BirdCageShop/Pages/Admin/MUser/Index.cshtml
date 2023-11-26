@@ -1,5 +1,6 @@
 ﻿@page
 @model BirdCageShop.Pages.Admin.MUser.IndexModel
+@addTagHelper *, LazZiya.TagHelpers
 
 @{
     ViewData["Title"] = "Index";
@@ -81,7 +82,11 @@
 
     <section>
         <br></br>
-        <div id="pendingOrderTable" class="container-fluid pt-4 px-4">
+        <div>
+            <a asp-page="Create" class="btn btn-primary">Create a User</a>
+        </div>
+        
+        <div class="container-fluid pt-4 px-4">
             <div class="row g-4">
                 <div class="container-fluid pt-4 px-4">
                     <div class="row g-4">
@@ -155,6 +160,13 @@
                     </div>
                 </div>
             </div>
+            <paging class="pagination"
+                    total-records="@Model.totalUser"
+                    show-total-pages="false"
+                    show-total-records="false"
+                    page-size="@Model.pageSize"
+                    page-no="@Model.pageNo">
+            </paging>
         </div>
     </section>
 

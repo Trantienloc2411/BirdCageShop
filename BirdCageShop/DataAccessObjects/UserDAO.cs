@@ -48,6 +48,16 @@ namespace DataAccessObjects
             return _dbContext.Users.Where(u => u.RoleId != 4).ToList();
         }
 
+        public List<User> getUserPages(int pageIndex, int pageSize)
+        {
+            return _dbContext.Users.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+        }
+
+        public int getTotalUserPages()
+        {
+            return _dbContext.Users.Count();
+        }
+
         public int Update(User User)
         {
             var user = GetUserById(User.UserId);

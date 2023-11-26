@@ -16,6 +16,8 @@ namespace Repository
         public User GetUserById(int id) => _dao.GetUserById(id);
         public string GetUserImage(int Id) => _dao.getUserImage(Id);
         public List<User> GetAllUser() => _dao.GetAll();
+        public List<User> getUserPages(int pageIndex, int pageSize) => _dao.getUserPages(pageIndex, pageSize);
+        public int getTotalUserPages() => _dao.getTotalUserPages();
         public User GetUserByEmail(string email) => _dao.getUserByEmail(email);
         public List<User> GetListUserByName(string name) => _dao.GetListUserByName(name);
         public int Update(User user) => _dao.Update(user);
@@ -23,7 +25,7 @@ namespace Repository
         public List<Role> GetUserRole() => _dao.GetRoles();
 
         public bool isEmailexisted(string email) => _dao.isEmailExisted(email);
-        public int UpdateUserProfile(User User) => _dao.UpdateUserProfile(User);   
+        public int UpdateUserProfile(User User) => _dao.UpdateUserProfile(User);
         public bool IsEmailExistedExceptEmailCurrent(string emailCheck, string emailCurrent) => _dao.IsEmailExistedExceptEmailCurrent(emailCheck, emailCurrent);
         public int AddProductToCart(int userID, int productID, int quantity) => _dao.AddProductToCart(userID, productID, quantity);
         public List<OrderDetail> getListcartByUserID(int userID) => _dao.getListcartByUserID(userID);

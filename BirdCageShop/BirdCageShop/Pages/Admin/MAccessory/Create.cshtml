@@ -6,69 +6,71 @@
     Layout = "_AdminLayout";
 }
 
-<h1>Create</h1>
-
-<h4>Product</h4>
-<hr />
-<div class="row">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-body">
+<div class="col-sm-12 col-md-8 mx-auto">
+    <div class="bg-light rounded h-100 p-4">
+        <h6 class="mb-4">Create an Accessory</h6>
                 <form method="post" enctype="multipart/form-data">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group">
-                        <label asp-for="Accessory.AccessoryName" class="control-label"></label>
+            <div class="row">
+            <div class="col-md-6 mb-3">
+                    <label asp-for="Accessory.AccessoryName" class="form-label">Accessory Name</label>
                         <input asp-for="Accessory.AccessoryName" class="form-control" required />
                         <span asp-validation-for="Accessory.AccessoryName" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="Accessory.AccessoryPrice" class="control-label"></label>
-                        <input asp-for="Accessory.AccessoryPrice" class="form-control" required />
-                        <span asp-validation-for="Accessory.AccessoryPrice" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Accessory.AccessoryDescription" class="control-label"></label>
-                        <input asp-for="Accessory.AccessoryDescription" class="form-control" required />
-                        <span asp-validation-for="Accessory.AccessoryDescription" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Accessory.AccessoryQuantity" class="control-label"></label>
-                        <input asp-for="Accessory.AccessoryQuantity" class="form-control" required />
-                        <span asp-validation-for="Accessory.AccessoryQuantity" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Accessory.AccessoryStatus" class="control-label"></label>
-                        <input asp-for="Accessory.AccessoryStatus" class="form-control" required />
-                        <span asp-validation-for="Accessory.AccessoryStatus" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Accessory.CategoryId" class="control-label"></label>
-                        <select asp-for="Accessory.CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
-                        <span asp-validation-for="Accessory.CategoryId" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Accessory.DiscountId" class="control-label"></label>
-                        <select asp-for="Accessory.DiscountId" class="form-control" asp-items="ViewBag.DiscountId"></select>
-                        <span asp-validation-for="Accessory.DiscountId" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Accessory.AccessoryImg" class="control-label"></label>
-                        <input name="AccessoryImg" type="file" class="form-control" required />
-                        <span asp-validation-for="Accessory.AccessoryImg" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Create" class="btn btn-primary btn-lg" />
-                    </div>
+                <div class="col-md-3 mb-3">
+                    <label asp-for="Accessory.CategoryId" class="form-label">Category</label>
+                    <select asp-for="Accessory.CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                    <span asp-validation-for="Accessory.CategoryId" class="text-danger"></span>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label asp-for="Accessory.DiscountId" class="form-label">Discount</label>
+                    <select asp-for="Accessory.DiscountId" class="form-control" asp-items="ViewBag.DiscountId"></select>
+                    <span asp-validation-for="Accessory.DiscountId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 mb-3">
+                    <label asp-for="Accessory.AccessoryPrice" class="form-label">Price</label>
+                    <input asp-for="Accessory.AccessoryPrice" class="form-control form-control-lg" required />
+                    <span asp-validation-for="Accessory.AccessoryPrice" class="text-danger"></span>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label asp-for="Accessory.AccessoryQuantity" class="form-label">Quantity</label>
+                    <input asp-for="Accessory.AccessoryQuantity" class="form-control form-control-lg" required />
+                    <span asp-validation-for="Accessory.AccessoryQuantity" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Accessory.AccessoryImg" class="form-label">Image</label>
+                    <input name="AccessoryImg" type="file" class="form-control form-control-lg" required />
+                    <span asp-validation-for="Accessory.AccessoryImg" class="text-danger"></span>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label asp-for="Accessory.AccessoryStatus" class="form-label">Status</label>
+                    <select asp-for="Accessory.AccessoryStatus" class="form-select form-select-lg">
+                        <option value="0">Hidden</option>
+                        <option value="1">Show</option>
+                    </select>
+                    <span asp-validation-for="Accessory.AccessoryStatus" class="text-danger"></span>
+                </div>
+                </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label asp-for="Accessory.AccessoryDescription" class="control-label">Description</label>
+                    <textarea asp-for="Accessory.AccessoryDescription" class="form-control form-control-lg" rows="4" required></textarea>
+                    <span asp-validation-for="Accessory.AccessoryDescription" class="text-danger"></span>
+                    <br> </br>
+                </div>
+                </div>
+                        <input type="submit" value="Create" class="btn btn-primary" />
+            <a asp-page="Index" class="btn btn-secondary">Back to List</a>
+
 
                 </form>
             </div>
         </div>
-    </div>
-</div>
 
-<div class="mt-3">
-    <a asp-page="Index" class="btn btn-secondary">Back to List</a>
-</div>
+
+ 
+
 
 @section Scripts {
     @{

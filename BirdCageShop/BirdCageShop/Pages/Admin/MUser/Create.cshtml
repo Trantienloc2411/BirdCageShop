@@ -6,7 +6,96 @@
     Layout = "_AdminLayout";
 }
 
-<h1>Create</h1>
+<!-- Add this to your head section -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyFhBDGh6fF6yoG400DbPZZH8+78VIaa"
+      crossorigin="anonymous">
+
+
+<div class="col-sm-12 col-md-8 mx-auto">
+    <div class="bg-light rounded h-100 p-4">
+        <h6 class="mb-4">Create a User</h6>
+        <form method="post" enctype="multipart/form-data">
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="User.UserName" class="form-label">User Name</label>
+                    <input asp-for="User.UserName" class="form-control" required />
+                    <span asp-validation-for="User.UserName" class="text-danger"></span>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label asp-for="User.UserPassword" class="form-label">Password</label>
+                    <input asp-for="User.UserPassword" class="form-control" required/>
+                    <span asp-validation-for="User.UserPassword" class="text-danger"></span>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label asp-for="User.Email" class="form-label">Email</label>
+                    <input asp-for="User.Email" class="form-control" required />
+                    <span asp-validation-for="User.Email" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <label asp-for="User.Phone" class="form-label">Phone</label>
+                    <input asp-for="User.Phone" class="form-control form-control-lg" required />
+                    <span asp-validation-for="User.Phone" class="text-danger"></span>
+                </div>
+                <div class="col-md-5 mb-3">
+                    <label asp-for="User.Address" class="form-label">Address</label>
+                    <input asp-for="User.Address" class="form-control form-control-lg" required />
+                    <span asp-validation-for="User.Address" class="text-danger"></span>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label asp-for="User.Gender" class="form-label"></label>
+                    <input asp-for="User.Gender" class="form-control form-control-lg" required />
+                    <span asp-validation-for="User.Gender" class="text-danger"></span>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label asp-for="User.DoB" class="form-label">Day of Birth</label>
+                    <input asp-for="User.DoB" class="form-control form-control-lg" required>
+                    <span asp-validation-for="User.DoB" class="text-danger"></span>
+                </div>
+                
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="User.UserImg" class="form-label">User Image</label>
+                    <input name="CageImg" type="file" class="form-control form-control-lg" />
+                    <span asp-validation-for="User.UserImg" class="text-danger"></span>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label asp-for="User.RoleId" class="form-label"></label>
+                    <select asp-for="User.RoleId" class="form-control form-control-lg" asp-items="ViewBag.RoleId"></select>
+                    <span asp-validation-for="User.RoleId" class="text-danger"></span>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label asp-for="User.Status" class="form-label">Status</label>
+                    <select asp-for="User.Status" class="form-select form-select-lg">
+                        <option value="Active">Active</option>
+                        <option value="Suspended">Suspended</option>
+                    </select>
+                </div>
+            </div>
+            <input type="submit" value="Create" class="btn btn-primary" />
+
+            <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+
+        </form>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+
+
+
+
+
+@* <h1>Create</h1>
 
 <h4>User</h4>
 <hr />
@@ -77,4 +166,4 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+} *@
