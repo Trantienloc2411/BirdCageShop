@@ -9,7 +9,19 @@
 
 <body>
     <!-- Checkout Start -->
-    <form method="post" class="container-fluid pt-5" id="orderForm">
+    @{
+        var errorMessage = TempData["errorMessage"] as string;
+        var successMessage = TempData["successMessage"] as string;
+    }
+    <div class="alert alert-danger" style="@(string.IsNullOrEmpty(errorMessage) ? "display: none;" : "")">
+        @errorMessage
+    </div>
+
+    <!-- Hiển thị thông báo thành công -->
+    <div class="alert alert-success" style="@(string.IsNullOrEmpty(successMessage) ? "display: none;" : "")">
+        @successMessage
+    </div>
+    <form method="post" class="container-fluid pt-5" id="orderForm" onsubmit="return validateForm()">
         <div class="row px-xl-5">
             <div class="col-lg-8">
                 <div class="mb-4">
@@ -17,36 +29,36 @@
                     <div class="row">
                         <div class="col-md-12 form-group">
                             <label>Họ và tên</label>
-                            <input class="form-control" name="OrderName" type="text" value="@Model.user.UserName"  />                         
+                            <input class="form-control" name="OrderName" type="text" value="@Model.user.UserName" />
                         </div>
 
                         <div class="col-md-6 form-group">
                             <label>Email</label>
                             <input class="form-control"
                                    type="text"
-                                   value="@Model.user.Email" 
-                                   name="OrderEmail" required/>
+                                   value="@Model.user.Email"
+                                   name="OrderEmail" required />
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Số điện thoại di động</label>
                             <input class="form-control"
                                    type="text"
                                    value="@Model.user.Phone"
-                                   name="OrderPhone" required/>
+                                   name="OrderPhone" required />
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Địa chỉ dòng 1</label>
                             <input class="form-control"
                                    type="text"
-                                   value="@Model.user.Address" 
-                                   name="OrderAddress"  required/>
+                                   value="@Model.user.Address"
+                                   name="OrderAddress" required />
                         </div>
 
                         <div class="col-md-6 form-group">
                             <label>Ghi chú cho đơn hàng</label>
                             <input class="form-control"
                                    type="text"
-                                   value="" name="Note"/>
+                                   value="" name="Note" />
                         </div>
 
                     </div>
@@ -62,14 +74,14 @@
                         @{
                             decimal total = 0;
                         }
-                        @foreach(var item in Model.cartItems)
+                        @foreach (var item in Model.cartItems)
                         {
                             <div class="d-flex justify-content-between">
                                 <p>@item.CageName x @item.DetailQuantity cái</p>
                                 <p>@Html.Raw(item.DetailPrice.ToString("N0"))đ</p>
                             </div>
 
-                            Model.OrderPrice += item.DetailPrice*item.DetailQuantity; 
+                            Model.OrderPrice += item.DetailPrice * item.DetailQuantity;
 
 
                         }
@@ -104,39 +116,34 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="card-footer border-secondary bg-transparent">
-                    <a href="javascript:void(0);" onclick="document.getElementById('orderForm').submit();">
-                        <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">
-                            Đặt hàng
-                        </button>
-                    </a>
+                        <a href="javascript:void(0);" onclick="document.getElementById('orderForm').submit();">
+                            <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">
+                                Đặt hàng
+                            </button>
+                        </a>
                     </div>
                 </div>
             </div>
-        </form>
+            </div>
+    </form>
     <!-- Checkout End -->
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            document.getElementById('orderForm').addEventListener('submit', function (event) {
-                var inputs = this.querySelectorAll('input[required]:not([name="Note"])');
-                var isValid = true;
+        function validateForm() {
+            var name = document.getElementById('OrderName').value;
+            var email = document.getElementById('OrderEmail').value;
+            var phone = document.getElementById('OrderPhone').value;
+            var address = document.getElementById('OrderAddress').value;
 
-                inputs.forEach(function (input) {
-                    if (input.value.trim() === '') {
-                        isValid = false;
-                        input.classList.add('error');
-                    } else {
-                        input.classList.remove('error');
-                    }
-                });
-
-                if (!isValid) {
-                    event.preventDefault();
-                    alert('Hãy điền tất cả thông tin trong ô còn trống -  "Ghi chú cho đơn hàng" không cần thiết.');
-                }
-            });
-        });
+            if (name.trim() === '' || email.trim() === '' || phone.trim() === '' || address.trim() === '') {
+                alert("Please fill in all required fields");
+                return false;
+            }
+            return true; // Allow form submission if all fields are filled
+        }
     </script>
+
+    
 
 </body>

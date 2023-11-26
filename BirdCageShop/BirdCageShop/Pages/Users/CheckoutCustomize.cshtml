@@ -137,26 +137,26 @@
         </form>
     <!-- Checkout End -->
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            document.getElementById('orderForm').addEventListener('submit', function (event) {
-                var inputs = this.querySelectorAll('input[required]:not([name="Note"])');
-                var isValid = true;
+        function validateForm() {
+            var elements = document.getElementsByName('OrderName');
+            var name = elements[0].value.trim();
 
-                inputs.forEach(function (input) {
-                    if (input.value.trim() === '') {
-                        isValid = false;
-                        input.classList.add('error');
-                    } else {
-                        input.classList.remove('error');
-                    }
-                });
+            elements = document.getElementsByName('OrderEmail');
+            var email = elements[0].value.trim();
 
-                if (!isValid) {
-                    event.preventDefault();
-                    alert('Please fill in all required fields except "Ghi chú cho đơn hàng".');
-                }
-            });
-        });
+            elements = document.getElementsByName('OrderPhone');
+            var phone = elements[0].value.trim();
+
+            elements = document.getElementsByName('OrderAddress');
+            var address = elements[0].value.trim();
+
+            if (name === '' || email === '' || phone === '' || address === '') {
+                alert("Please fill in all required fields");
+                return false; // Prevent form submission
+            }
+            return true; // Allow form submission if all fields are filled
+        }
     </script>
+
 
 </body>
