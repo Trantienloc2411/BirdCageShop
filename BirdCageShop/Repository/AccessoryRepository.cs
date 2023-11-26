@@ -28,5 +28,7 @@ namespace Repository
         public void Update(Accessory accessory) => _dao.Update(accessory);
         public List<Accessory> getAccessoryPages(int pageIndex, int pageSize) => _dao.getAccessoryPages(pageIndex, pageSize);
         public int getTotalAccessoryPages() => _dao.getTotalAccessoryPages();
+        public List<Accessory> FillterProduct(int opt) => _dao.FillterProduct(opt);
+        public List<Accessory> GetListAccessory() => _dao.GetListAccessory();
     }
 }

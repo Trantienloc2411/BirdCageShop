@@ -40,49 +40,52 @@
                 <!-- Price Start -->
                 <div class="border-bottom mb-4 pb-4">
                     <h5 class="font-weight-semi-bold mb-4">Lọc theo giá</h5>
-                    <form>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox"
+                    <form id="priceForm" method="post" asp-page-handler="FilterPrice">
+                        <div class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3">
+                            <input type="radio"
                                    class="custom-control-input"
                                    checked
-                                   id="price-all" />
+                                   id="price-all"
+                                   name="priceRange"
+                                   value="0" />
                             <label class="custom-control-label" for="price-all">Tất cả giả</label>
-                            <span class="badge border font-weight-normal">1000</span>
+                            <span class="badge border font-weight-normal" style="color:black">@Model.pOpt0</span>
                         </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox"
+                        <div class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3">
+                            <input type="radio"
                                    class="custom-control-input"
-                                   id="price-1" />
-                            <label class="custom-control-label" for="price-1">$0 - $100</label>
-                            <span class="badge border font-weight-normal">150</span>
+                                   id="price-2"
+                                   name="priceRange"
+                                   value="1" />
+                            <label class="custom-control-label" for="price-2">10.000đ - 100.000đ</label>
+                            <span class="badge border font-weight-normal" style="color:black">@Model.pOpt1</span>
                         </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox"
+                        <div class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3">
+                            <input type="radio"
                                    class="custom-control-input"
-                                   id="price-2" />
-                            <label class="custom-control-label" for="price-2">$100 - $200</label>
-                            <span class="badge border font-weight-normal">295</span>
+                                   id="price-3"
+                                   name="priceRange"
+                                   value="2" />
+                            <label class="custom-control-label" for="price-3">100.000đ - 150.000đ</label>
+                            <span class="badge border font-weight-normal" style="color:black">@Model.pOpt2</span>
                         </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox"
+                        <div class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3">
+                            <input type="radio"
                                    class="custom-control-input"
-                                   id="price-3" />
-                            <label class="custom-control-label" for="price-3">$200 - $300</label>
-                            <span class="badge border font-weight-normal">246</span>
+                                   id="price-4"
+                                   name="priceRange"
+                                   value="3" />
+                            <label class="custom-control-label" for="price-4">150.000đ - 250.000đ</label>
+                            <span class="badge border font-weight-normal" style="color:black">@Model.pOpt3</span>
                         </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox"
+                        <div class="custom-control custom-radio d-flex align-items-center justify-content-between">
+                            <input type="radio"
                                    class="custom-control-input"
-                                   id="price-4" />
-                            <label class="custom-control-label" for="price-4">$300 - $400</label>
-                            <span class="badge border font-weight-normal">145</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                            <input type="checkbox"
-                                   class="custom-control-input"
-                                   id="price-5" />
-                            <label class="custom-control-label" for="price-5">$400 - $500</label>
-                            <span class="badge border font-weight-normal">168</span>
+                                   id="price-5"
+                                   name="priceRange"
+                                   value="4" />
+                            <label class="custom-control-label" for="price-5">250.000 - 500.000</label>
+                            <span class="badge border font-weight-normal" style="color:black">@Model.pOpt4</span>
                         </div>
                     </form>
                 </div>
@@ -185,5 +188,16 @@
                 }
 
     </script>
+
+    <script>
+        const radioButtons = document.querySelectorAll('input[type="radio"]');
+
+        radioButtons.forEach((radio) => {
+            radio.addEventListener('change', () => {
+                document.getElementById('priceForm').submit();
+            });
+        });
+    </script>
+
 </body>
 

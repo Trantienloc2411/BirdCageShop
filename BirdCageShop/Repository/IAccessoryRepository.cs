@@ -14,5 +14,7 @@ namespace Repository
         List<Discount> GetDiscounts();
         int getTotalAccessoryPages();
         void Update(Accessory accessory);
+        List<Accessory> GetListAccessory();
+        List<Accessory> FillterProduct(int opt);
     }
 }
