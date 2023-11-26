@@ -35,6 +35,7 @@ namespace Repository
 
         public int UpdateUserPassword(User u) => _dao.UpdateUserPassword(u);
         public int ManagerUpdate(User User) => _dao.ManagerUpdate(User);
+        public User GetUserByIdWithoutPassword(int Id) => _dao.GetUserByIdWithoutPassword(Id);
 
 
     }
