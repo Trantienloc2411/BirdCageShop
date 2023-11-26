@@ -64,20 +64,20 @@ namespace DataAccessObjects
 
         public int Update(User User)
         {
-            var user = GetUserById(User.UserId);
-            if (user != null)
+            var u = GetUserById(User.UserId);
+            if (u != null)
             {
                 //cus.Email = User.Email;
-                user.UserName = User.UserName;
-                user.UserPassword = Utility.encrytoStringKey(User.UserPassword);
-                user.Phone = User.Phone;
-                user.Address = User.Address;
-                user.UserImg = User.UserImg;
-                user.RoleId = User.RoleId;
-                user.Email = User.Email;
-                user.DoB = User.DoB;
-                user.Status = User.Status;
-                user.Gender = User.Gender;
+                u.UserName = User.UserName;
+                u.UserPassword = Utility.encrytoStringKey(User.UserPassword);
+                u.Phone = User.Phone;
+                u.Address = User.Address;
+                u.UserImg = User.UserImg;
+                u.RoleId = User.RoleId;
+                u.Email = User.Email;
+                u.DoB = User.DoB;
+                u.Status = User.Status;
+                u.Gender = User.Gender;
                 return _dbContext.SaveChanges();
             }
             return 0;
@@ -89,7 +89,7 @@ namespace DataAccessObjects
             {
 
                 user.Status = User.Status;
-
+                user.UserPassword = Utility.encrytoStringKey(user.UserPassword);
 
                 return _dbContext.SaveChanges();
             }
