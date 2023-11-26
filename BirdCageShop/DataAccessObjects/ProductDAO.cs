@@ -24,7 +24,6 @@ namespace DataAccessObjects
 
         public void Add(Product product)
         {
-            product.CageStatus = 1;
             _db.Add(product);
             _db.SaveChanges();
         }

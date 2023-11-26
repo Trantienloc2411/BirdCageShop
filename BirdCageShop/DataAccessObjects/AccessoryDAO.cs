@@ -23,7 +23,6 @@ namespace DataAccessObjects
 
         public void Add(Accessory accessory)
         {
-            accessory.AccessoryStatus = 1;
             _db.Add(accessory);
             _db.SaveChanges();
         }

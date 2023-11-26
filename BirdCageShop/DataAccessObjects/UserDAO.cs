@@ -37,7 +37,6 @@ namespace DataAccessObjects
 
         public void Add(User User)
         {
-            User.Status = "Active";
             User.UserPassword = Utility.encrytoStringKey(User.UserPassword);
             _dbContext.Add(User);
             _dbContext.SaveChanges();
