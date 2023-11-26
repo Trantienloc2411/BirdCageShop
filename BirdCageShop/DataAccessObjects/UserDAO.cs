@@ -64,7 +64,7 @@ namespace DataAccessObjects
 
         public int Update(User User)
         {
-            var u = GetUserById(User.UserId);
+            var u = GetUserByIdWithoutPassword(User.UserId);
             if (u != null)
             {
                 //cus.Email = User.Email;
