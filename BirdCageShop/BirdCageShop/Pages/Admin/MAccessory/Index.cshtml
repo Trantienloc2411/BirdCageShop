@@ -83,7 +83,7 @@
                 <button id="canceledBtn" class="btn btn-primary" onclick="toggleOrders('hide')">Hidden Accessory</button>
             </div>
             <div>
-                <a asp-page="Create" class="btn btn-primary">Create an Acessory</a>
+                <a asp-page="Create" class="btn btn-primary">Create an Accessory</a>
             </div>
 
         </div>
@@ -208,7 +208,7 @@
             </section>
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
-                    // Get the view type and page number from the URL parameters
+                // Get the view type and page number from the URL parameters
                     var urlParams = new URLSearchParams(window.location.search);
                     var viewType = urlParams.get('view');
                     var pageNo = urlParams.get('p');
@@ -216,17 +216,18 @@
                     // Set the current page number for each pagination element
                     var paginationElements = document.querySelectorAll('.pagination');
                     paginationElements.forEach(function (pagination) {
-                        pagination.setAttribute('page-no', pageNo);
+                    pagination.setAttribute('page-no', pageNo);
                     });
 
                     // Handle display based on the view type
                     if (viewType === 'showed') {
-                document.getElementById('showedAccessory').style.display = 'block';
-                document.getElementById('hiddenAccessory').style.display = 'none';
+                        document.getElementById('showedAccessory').style.display = 'block';
+                        document.getElementById('hiddenAccessory').style.display = 'none';
                     } else if (viewType === 'hidden') {
-                document.getElementById('showedAccessory').style.display = 'none';
-                document.getElementById('hiddenAccessory').style.display = 'block';
-                    });
+                        document.getElementById('showedAccessory').style.display = 'none';
+                        document.getElementById('hiddenAccessory').style.display = 'block';
+                        }
+                });
                 function toggleOrders(type) {
                     // Store the current page state in sessionStorage
                     var pageState;
@@ -238,35 +239,35 @@
                         pageState = 1;
                         viewType = 'hidden';
                     }
-                }
+                
 
                 // Map pageState to descriptive viewType for URL construction
 
 
-                // Restore the page state from sessionStorage
-                var previousPageState = sessionStorage.getItem('pageState');
-                var currentPageNo = sessionStorage.getItem('currentPageNo');
+        // Restore the page state from sessionStorage
+        var previousPageState = sessionStorage.getItem('pageState');
+        var currentPageNo = sessionStorage.getItem('currentPageNo');
 
-                // Check if previousPageState is not equal to pageState
-                if (previousPageState != pageState) {
-                    currentPageNo = 1;
+        // Check if previousPageState is not equal to pageState
+        if (previousPageState != pageState) {
+            currentPageNo = 1;
 
-                    // Update the URL with the new view state and page number
-                    setUrlWithViewState(viewType, currentPageNo);
+            // Update the URL with the new view state and page number
+            setUrlWithViewState(viewType, currentPageNo);
 
-                    // Reload the page with the new URL parameters
-                    window.location.reload();
-                }
+            // Reload the page with the new URL parameters
+            window.location.reload();
+        }
 
-                // Set the current page number for each pagination element
-                var paginationElements = document.querySelectorAll('.pagination');
-                paginationElements.forEach(function (pagination) {
-                    pagination.setAttribute('page-no', currentPageNo);
-                });
+        // Set the current page number for each pagination element
+        var paginationElements = document.querySelectorAll('.pagination');
+        paginationElements.forEach(function (pagination) {
+            pagination.setAttribute('page-no', currentPageNo);
+        });
 
-                // Update sessionStorage with the current page state
-                sessionStorage.setItem('pageState', pageState);
-                sessionStorage.setItem('currentPageNo', currentPageNo);
+        // Update sessionStorage with the current page state
+        sessionStorage.setItem('pageState', pageState);
+        sessionStorage.setItem('currentPageNo', currentPageNo);
 
                 // Handle display based on the pageState
                 if (pageState == 0) {
@@ -278,16 +279,16 @@
                 }
                         }
 
-                function setUrlWithViewState(viewType, pageNo) {
-                    // Get the current URL without query parameters
-                    var baseUrl = window.location.href.split('?')[0];
+        function setUrlWithViewState(viewType, pageNo) {
+            // Get the current URL without query parameters
+            var baseUrl = window.location.href.split('?')[0];
 
-                    // Build the new URL with the specified view state and page number
-                    var newUrl = `${baseUrl}?view=${viewType}&p=${pageNo}`;
+            // Build the new URL with the specified view state and page number
+            var newUrl = `${baseUrl}?view=${viewType}&p=${pageNo}`;
 
-                    // Use pushState to update the URL without triggering a page reload
-                    window.history.pushState({ viewType, pageNo }, '', newUrl);
-                }
+            // Use pushState to update the URL without triggering a page reload
+            window.history.pushState({ viewType, pageNo }, '', newUrl);
+        }
             </script>
 
 </body>
