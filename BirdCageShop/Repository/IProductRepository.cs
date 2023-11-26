@@ -40,5 +40,6 @@ namespace Repository
 
         int AddCustomizeCage(Product p);
         Product GetProduct(int id);
+        List<Product> FillterProduct(int opt);
     }
 }

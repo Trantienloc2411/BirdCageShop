@@ -96,6 +96,34 @@ namespace DataAccessObjects
         //        }
         //    }
         //}
+        public List<Accessory> GetListAccessory()
+        {
+            return _db.Accessories.Where(p => p.AccessoryStatus == 1).ToList();
+        }
+
+        public List<Accessory> FillterProduct(int opt)
+        {
+            switch (opt)
+            {
+                case 0:
+                    return GetListAccessory();
+                case 1:
+                    var product = GetListAccessory().Where(p => p.AccessoryPrice > 10000 && p.AccessoryPrice <= 100000);
+                    return product.ToList();
+                case 2:
+                    product = GetListAccessory().Where(p => p.AccessoryPrice > 100000 && p.AccessoryPrice <= 150000);
+                    return product.ToList();
+                case 3:
+                    product = GetListAccessory().Where(p => p.AccessoryPrice > 150000 && p.AccessoryPrice <= 250000);
+                    return product.ToList();
+                case 4:
+                    product = GetListAccessory().Where(p => p.AccessoryPrice > 250000 && p.AccessoryPrice <= 500000);
+                    return product.ToList();
+                default:
+                    return GetListAccessory();
+
+            }
+        }
 
     }
 }

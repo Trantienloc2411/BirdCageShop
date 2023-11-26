@@ -48,7 +48,7 @@
             <div class="d-inline-flex">
                 <p class="m-0"><a asp-page="../Index">Trang chủ</a></p>
                 <p class="m-0 px-2">-</p>
-                <p class="m-0">Cửa hàng</p>
+                <p class="m-0">Lồng chim</p>
             </div>
         </div>
     </div>
@@ -61,49 +61,52 @@
                 <!-- Price Start -->
                 <div class="border-bottom mb-4 pb-4">
                     <h5 class="font-weight-semi-bold mb-4">Lọc theo giá</h5>
-                    <form>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox"
+                    <form id="priceForm" method="post" asp-page-handler="FilterPrice">
+                        <div class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3">
+                            <input type="radio"
                                    class="custom-control-input"
                                    checked
-                                   id="price-all" />
+                                   id="price-all"
+                                   name="priceRange"
+                                   value="0"/>
                             <label class="custom-control-label" for="price-all">Tất cả giả</label>
-                            <span class="badge border font-weight-normal">1000</span>
+                            <span class="badge border font-weight-normal" style="color:black">@Model.pOpt0</span>
                         </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox"
+                        <div class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3">
+                            <input type="radio"
                                    class="custom-control-input"
-                                   id="price-1" />
-                            <label class="custom-control-label" for="price-1">0đ - 300.000đ</label>
-                            <span class="badge border font-weight-normal">150</span>
+                                   id="price-2"
+                                   name="priceRange"
+                                   value="1" />
+                            <label class="custom-control-label" for="price-2">500.000đ - 1.000.000đ</label>
+                            <span class="badge border font-weight-normal" style="color:black">@Model.pOpt1</span>
                         </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox"
+                        <div class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3">
+                            <input type="radio"
                                    class="custom-control-input"
-                                   id="price-2" />
-                            <label class="custom-control-label" for="price-2">300.000đ - 500.000đ</label>
-                            <span class="badge border font-weight-normal">295</span>
+                                   id="price-3"
+                                   name="priceRange"
+                                   value="2" />
+                            <label class="custom-control-label" for="price-3">1.000.000đ - 1.500.000đ</label>
+                            <span class="badge border font-weight-normal" style="color:black">@Model.pOpt2</span>
                         </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox"
+                        <div class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3">
+                            <input type="radio"
                                    class="custom-control-input"
-                                   id="price-3" />
-                            <label class="custom-control-label" for="price-3">500.000đ - 1.500.000đ</label>
-                            <span class="badge border font-weight-normal">246</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox"
-                                   class="custom-control-input"
-                                   id="price-4" />
+                                   id="price-4"
+                                   name="priceRange"
+                                   value="3" />
                             <label class="custom-control-label" for="price-4">1.500.000đ - 2.500.000đ</label>
-                            <span class="badge border font-weight-normal">145</span>
+                            <span class="badge border font-weight-normal" style="color:black">@Model.pOpt3</span>
                         </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                            <input type="checkbox"
+                        <div class="custom-control custom-radio d-flex align-items-center justify-content-between">
+                            <input type="radio"
                                    class="custom-control-input"
-                                   id="price-5" />
+                                   id="price-5"
+                                   name="priceRange"
+                                   value="4" />
                             <label class="custom-control-label" for="price-5">2.500.000 - 6.000.000</label>
-                            <span class="badge border font-weight-normal">168</span>
+                            <span class="badge border font-weight-normal" style="color:black">@Model.pOpt4</span>
                         </div>
                     </form>
                 </div>
@@ -211,6 +214,15 @@
         </div>
     </div>
     <!-- Shop End -->
+    <script>
+        const radioButtons = document.querySelectorAll('input[type="radio"]');
+
+        radioButtons.forEach((radio) => {
+            radio.addEventListener('change', () => {
+                document.getElementById('priceForm').submit();
+            });
+        });
+    </script>
     <!-- JavaScript Libraries -->
 </body>
 </html>

@@ -64,5 +64,6 @@ namespace Repository
         public int AddCustomizeCage(Product p) => _dao.AddCustomizeCage((Product)p);
 
         public Product GetProduct(int id) => _dao.GetProduct(id);
+        public List<Product> FillterProduct(int opt) => _dao.FillterProduct(opt);
     }
 }
