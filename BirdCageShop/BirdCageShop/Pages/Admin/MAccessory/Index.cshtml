@@ -102,10 +102,16 @@
                                 <span id="inputCainputAccessoryNamegeName">@Html.DisplayFor(modelItem => item.AccessoryName)</span>
                             </div>
 
+
                             <!-- Quantity and Price -->
                             <div class="mb-3">
                                 <label for="inputAccessoryQuantity" class="form-label">Quantity:</label>
                                 <span id="inputAccessoryQuantity">@Html.DisplayFor(modelItem => item.AccessoryQuantity)</span>
+
+                            <label for="inputAccessoryPrice" class="form-label ms-3">Price:</label>
+                            <span id="inputAccessoryPrice">@Html.Raw(item.AccessoryPrice.Value.ToString("N0"))đ</span>
+                        </div>
+
 
                                 <label for="inputAccessoryPrice" class="form-label ms-3">Price:</label>
                                 <span id="inputAccessoryPrice">@Html.DisplayFor(modelItem => item.AccessoryPrice)</span>

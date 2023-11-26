@@ -30,6 +30,11 @@ namespace DataAccessObjects
             u.UserPassword = Utility.dycryptoString(u.UserPassword);
             return u;
         }
+        public User GetUserByIdWithoutPassword(int Id)
+        {
+            var u = _dbContext.Users.FirstOrDefault(c => c.UserId == Id);
+            return u;
+        }
         public List<User> GetListUserByName(string name)
         {
             return _dbContext.Users.Where(c => c.UserName.Contains(name)).ToList();
@@ -93,7 +98,7 @@ namespace DataAccessObjects
 
         public void Delete(int cusID)
         {
-            var flag = GetUserById(cusID);
+            var flag = GetUserByIdWithoutPassword(cusID);
             if (flag != null)
             {
                 _dbContext.Users.Remove(flag);

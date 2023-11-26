@@ -32,7 +32,11 @@ namespace Repository
         public List<Accessory> getAccessoryShowPages(int pageIndex, int pageSize) => _dao.getAccessoryShowPages(pageIndex, pageSize);
         public List<Accessory> getAccessoryHiddenPages(int pageIndex, int pageSize) => _dao.getAccessoryHiddenPages(pageIndex, pageSize);
         public int getTotalAccessoryPages() => _dao.getTotalAccessoryPages();
+
         public int getTotalAccessoryShowPages() => _dao.getTotalAccessoryShowPages();
         public int getTotalAccessoryHiddenPages() => _dao.getTotalAccessoryHiddenPages();
+
+        public List<Accessory> FillterProduct(int opt) => _dao.FillterProduct(opt);
+        public List<Accessory> GetListAccessory() => _dao.GetListAccessory();
     }
 }

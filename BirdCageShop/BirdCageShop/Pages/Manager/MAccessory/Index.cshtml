@@ -96,11 +96,16 @@
                             <img src="~/@item.AccessoryImg" alt="Acessory Image" class="img-fluid mb-4" />
                             @* <img src="data:image/png;base64,@item.CageImg" alt="Cage Image" class="img-fluid mb-4" /> *@
 
+
                             <!-- Cage Name -->
                             <div class="mb-3">
                                 <label for="inputAccessoryName" class="form-label">Accessory Name:</label>
                                 <span id="inputCainputAccessoryNamegeName">@Html.DisplayFor(modelItem => item.AccessoryName)</span>
-                            </div>
+
+                            <label for="inputAccessoryPrice" class="form-label ms-3">Price:</label>
+                            <span id="inputAccessoryPrice">@Html.Raw(item.AccessoryPrice.Value.ToString("N0"))đ</span>
+                        </div>
+
 
                             <!-- Quantity and Price -->
                             <div class="mb-3">

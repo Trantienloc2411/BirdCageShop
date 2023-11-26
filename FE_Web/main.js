@@ -1,6 +1,18 @@
 (function ($) {
     "use strict";
     
+    function formatMoney(amount) {
+        var numericAmount = parseFloat(amount);
+        var roundedAmount = Math.round(numericAmount * 100) / 100;
+        return roundedAmount.toLocaleString('vi-VN');
+    }
+    function convertHoursToDaysAndHours(hours) {
+        var days = Math.floor(hours / 24);
+        var remainingHours = Math.floor(hours % 24);
+        return days + " ngày " + remainingHours + " giờ";
+    }
+    
+    
     // kiểu lồng
     var cage_style = [
         {id: 1, material: "Lồng tròn", time: 48, base_money: 400000, wage: 100000},
@@ -48,15 +60,32 @@
     var totalBaseMoney = 0;
     var totalWage = 0;
     var totalMoney = 0;
+    
     function calculateBill() {
-        totalTime = formData.cage_style.time + formData.cage_lid.time + formData.cage_body.time*formData.cage_body_input + formData.cage_base.time + formData.cage_window.time;
-        totalBaseMoney = formData.cage_style.base_money + formData.cage_lid.base_money + formData.cage_body.base_money*formData.cage_body_input + formData.cage_base.base_money + formData.cage_window.base_money;
-        totalWage = formData.cage_style.wage + formData.cage_lid.wage + formData.cage_body.wage*formData.cage_body_input + formData.cage_base.wage + formData.cage_window.wage;
+        totalTime = formData.cage_style.time + formData.cage_lid.time + formData.cage_body.time * formData.cage_body_input + formData.cage_base.time + formData.cage_window.time;
+        
+        // Chuyển đổi giờ thành ngày + giờ
+        var totalTimeFormatted = convertHoursToDaysAndHours(totalTime);
+    
+        totalBaseMoney = formData.cage_style.base_money + formData.cage_lid.base_money + formData.cage_body.base_money * formData.cage_body_input + formData.cage_base.base_money + formData.cage_window.base_money;
+        totalWage = formData.cage_style.wage + formData.cage_lid.wage + formData.cage_body.wage * formData.cage_body_input + formData.cage_base.wage + formData.cage_window.wage;
         totalMoney = totalBaseMoney + totalWage;
-        $("#totalTime").text(totalTime);
-        $("#totalBaseMoney").text(totalBaseMoney);
-        $("#totalWage").text(totalWage);
-        $("#totalMoney").text(totalMoney + " vnđ");
+    
+        $("#totalTime").text(totalTimeFormatted);
+        $("#totalBaseMoney").text(formatMoney(totalBaseMoney) + " vnđ");
+        $("#totalWage").text(formatMoney(totalWage) + " vnđ");
+        $("#totalMoney").text(formatMoney(totalMoney) + " vnđ");
+
+        var imageSrc = ''; // Set the default image source
+        if (selectedValue === '1029') {
+            // Change image source for option 1 (Tròn)
+            imageSrc = '/img/cat-1.jpg';
+        } else if (selectedValue === '1030') {
+            // Change image source for option 2 (Vuông)
+            imageSrc = '/img/cat-2.jpg';
+        }
+        // Update the image source
+        $('.bo-1 img').attr('src', imageSrc);
     }
     // Dropdown on mouse hover
     $(document).ready(function () {

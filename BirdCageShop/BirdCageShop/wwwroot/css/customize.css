@@ -1,0 +1,21 @@
+﻿
+/* Đảm bảo các cột trong hàng có cùng chiều cao */
+.equal-height-cols [class^="col-"] {
+    display: flex;
+    flex-direction: column;
+}
+
+    /* Hiển thị nội dung bên trong cột */
+    .equal-height-cols [class^="col-"] > * {
+        flex: 1;
+    }
+
+.bo-1 {
+    border-radius: 30px;
+}
+
+.bo-2 {
+    border-radius: 30px;
+}
+
+</style >

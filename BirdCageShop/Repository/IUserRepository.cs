@@ -27,6 +27,7 @@ namespace Repository
         int UpdateProductInCartByProductID(int userID, int productID, int quantity);
         int UpdateUserPassword(User u);
         int ManagerUpdate(User User);
+        User GetUserByIdWithoutPassword(int Id);
 
 
     }

@@ -65,7 +65,9 @@ namespace BirdCageShop.Pages.Users
                 }
                 else
                 {
+                    
                     int userID = (int)HttpContext.Session.GetInt32("userID");
+                    var cart = _cartRepo.showCart();
                     int result = _cartRepo.addProductToCart(accessoryID, 1,1);
                     if (result == 0)
                     {

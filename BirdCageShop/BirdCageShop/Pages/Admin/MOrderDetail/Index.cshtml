@@ -93,7 +93,7 @@
                         {
                             <tr>
                                 <td style="border: solid gainsboro">
-                                    @Html.DisplayFor(modelItem => item.DetailPrice)
+                                    @Html.Raw(item.DetailPrice.Value.ToString("N0"))đ
                                 </td>
                                 <td style="border: solid gainsboro">
                                     @Html.DisplayFor(modelItem => item.DetailQuantity)

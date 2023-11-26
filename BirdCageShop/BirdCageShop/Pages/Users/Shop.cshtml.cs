@@ -1,5 +1,6 @@
 ﻿using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
@@ -37,10 +38,21 @@ namespace BirdCageShop.Pages.Users
         public IList<BusinessObjects.Models.Product> pagedProducts { get; set; } //Product
         public List<Product> Products { get; set; }
 
+        public int pOpt0 { get; set; }
+        public int pOpt1 { get; set; }  
+        public int pOpt2 { get; set; }
+        public int pOpt3 { get; set; }
+        public int pOpt4 { get; set; }
 
 
         public IActionResult OnGet(int p = 1, int s = 6)
         {
+            pOpt0 = _proRepos.FillterProduct(0).Count();
+            pOpt1 = _proRepos.FillterProduct(1).Count();
+            pOpt2 = _proRepos.FillterProduct(2).Count();
+            pOpt3 = _proRepos.FillterProduct(3).Count();
+            pOpt4 = _proRepos.FillterProduct(4).Count();
+
             try
             {
                 Products = _proRepos.getListProductForUser().ToList();
@@ -117,10 +129,35 @@ namespace BirdCageShop.Pages.Users
             }
         public void OnPostSearch(string productName)
         {
+            pOpt0 = _proRepos.FillterProduct(0).Count();
+            pOpt1 = _proRepos.FillterProduct(1).Count();
+            pOpt2 = _proRepos.FillterProduct(2).Count();
+            pOpt3 = _proRepos.FillterProduct(3).Count();
+            pOpt4 = _proRepos.FillterProduct(4).Count();
             pagedProducts = _proRepos.GetListProductByName(productName);
             if (pagedProducts == null)
             {
                 OnGet();
+            }
+        }
+
+        public void OnPostFilterPrice()
+        {
+            pOpt0 = _proRepos.FillterProduct(0).Count();
+            pOpt1 = _proRepos.FillterProduct(1).Count();
+            pOpt2 = _proRepos.FillterProduct(2).Count();
+            pOpt3 = _proRepos.FillterProduct(3).Count();
+            pOpt4 = _proRepos.FillterProduct(4).Count();
+            int opt = int.Parse(Request.Form["priceRange"]);
+            var list =  _proRepos.FillterProduct(opt);
+            if(list == null)
+            {
+                OnGet();
+            }
+            else
+            {
+                pagedProducts = list.ToList();
+                Page();
             }
         }
 

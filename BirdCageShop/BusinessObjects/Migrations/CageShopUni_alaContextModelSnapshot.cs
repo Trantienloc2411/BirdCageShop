@@ -181,7 +181,7 @@ namespace BusinessObjects.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime?>("OrderDate")
-                        .HasColumnType("date");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("OrderEst")
                         .HasColumnType("nvarchar(max)");
@@ -203,6 +203,9 @@ namespace BusinessObjects.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(20)");
 
+                    b.Property<int?>("OrderType")
+                        .HasColumnType("int");
+
                     b.Property<int?>("PaymentId")
                         .HasColumnType("int")
                         .HasColumnName("PaymentID");
@@ -215,7 +218,7 @@ namespace BusinessObjects.Migrations
 
                     b.HasIndex("PaymentId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.OrderDetail", b =>
@@ -408,7 +411,7 @@ namespace BusinessObjects.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Accessory", b =>

@@ -290,6 +290,32 @@ namespace DataAccessObjects
 
 
 
+        public List<Product> FillterProduct(int opt)
+        {
+            switch (opt)
+            {
+                case 0:
+                    return getListProductForUser(); 
+                case 1:
+                    var product = getListProductForUser().Where(p => p.Price > 500000 && p.Price <= 1000000);
+                    return product.ToList();
+                case 2:
+                    product = getListProductForUser().Where(p => p.Price > 1000000 && p.Price <= 1500000);
+                    return product.ToList();
+                case 3:
+                    product = getListProductForUser().Where(p => p.Price > 1500000 && p.Price <= 2500000);
+                    return product.ToList();
+                case 4:
+                    product = getListProductForUser().Where(p => p.Price > 2500000 && p.Price <= 6000000);
+                    return product.ToList();
+                default:
+                    return getListProductForUser();
+
+            }
+        }
+
+
+
 
 
 

@@ -20,5 +20,7 @@ namespace Repository
         int getTotalAccessoryShowPages();
         int getTotalAccessoryHiddenPages();
         void Update(Accessory accessory);
+        List<Accessory> GetListAccessory();
+        List<Accessory> FillterProduct(int opt);
     }
 }

@@ -109,7 +109,7 @@
                                 <span id="inputQuantity">@Html.DisplayFor(modelItem => item.Quantity)</span>
 
                                 <label for="inputPrice" class="form-label ms-3">Price:</label>
-                                <span id="inputPrice">@Html.DisplayFor(modelItem => item.Price)</span>
+                                <span id="inputPrice">@Html.Raw(item.Price.Value.ToString("N0"))đ</span>
                             </div>
 
                             <!-- Discount -->
@@ -169,7 +169,7 @@
                                 <span id="inputQuantity">@Html.DisplayFor(modelItem => item.Quantity)</span>
 
                                 <label for="inputPrice" class="form-label ms-3">Price:</label>
-                                <span id="inputPrice">@Html.DisplayFor(modelItem => item.Price)</span>
+                                <span id="inputPrice">@Html.Raw(item.Price.Value.ToString("N0"))đ</span>
                             </div>
 
                             <!-- Discount -->
@@ -229,7 +229,7 @@
                                 <span id="inputQuantity">@Html.DisplayFor(modelItem => item.Quantity)</span>
 
                                 <label for="inputPrice" class="form-label ms-3">Price:</label>
-                                <span id="inputPrice">@Html.DisplayFor(modelItem => item.Price)</span>
+                                <span id="inputPrice">@Html.Raw(item.Price.Value.ToString("N0"))đ</span>
                             </div>
 
                             <!-- Discount -->

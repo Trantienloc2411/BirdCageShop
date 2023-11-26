@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Repository;
 
-namespace BirdCageShop.Pages.Users.UOrder
+namespace BirdCageShop.Pages.Users
 {
     public class CheckoutModel : PageModel
     {
