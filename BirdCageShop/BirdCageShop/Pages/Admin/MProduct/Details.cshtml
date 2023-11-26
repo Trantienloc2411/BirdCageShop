@@ -23,7 +23,7 @@
             <span id="inputQuantity">@Html.DisplayFor(model => model.Product.Quantity)</span>
 
             <label for="inputPrice" class="form-label ms-3">Price:</label>
-            <span id="inputPrice">@Html.DisplayFor(model => model.Product.Price)</span>
+            <span id="inputPrice">@Html.Raw(Model.Product.Price.Value.ToString("N0"))đ</span>
         </div>
 
         <!-- Material -->
