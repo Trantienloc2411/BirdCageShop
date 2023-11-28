@@ -42,7 +42,6 @@ namespace DataAccessObjects
 
         public void Add(User User)
         {
-            User.Status = "Active";
             User.UserPassword = Utility.encrytoStringKey(User.UserPassword);
             _dbContext.Add(User);
             _dbContext.SaveChanges();
@@ -53,22 +52,32 @@ namespace DataAccessObjects
             return _dbContext.Users.Where(u => u.RoleId != 4).ToList();
         }
 
+        public List<User> getUserPages(int pageIndex, int pageSize)
+        {
+            return _dbContext.Users.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+        }
+
+        public int getTotalUserPages()
+        {
+            return _dbContext.Users.Count();
+        }
+
         public int Update(User User)
         {
-            var user = GetUserById(User.UserId);
-            if (user != null)
+            var u = GetUserByIdWithoutPassword(User.UserId);
+            if (u != null)
             {
                 //cus.Email = User.Email;
-                user.UserName = User.UserName;
-                user.UserPassword = Utility.encrytoStringKey(User.UserPassword);
-                user.Phone = User.Phone;
-                user.Address = User.Address;
-                user.UserImg = User.UserImg;
-                user.RoleId = User.RoleId;
-                user.Email = User.Email;
-                user.DoB = User.DoB;
-                user.Status = User.Status;
-                user.Gender = User.Gender;
+                u.UserName = User.UserName;
+                u.UserPassword = Utility.encrytoStringKey(User.UserPassword);
+                u.Phone = User.Phone;
+                u.Address = User.Address;
+                u.UserImg = User.UserImg;
+                u.RoleId = User.RoleId;
+                u.Email = User.Email;
+                u.DoB = User.DoB;
+                u.Status = User.Status;
+                u.Gender = User.Gender;
                 return _dbContext.SaveChanges();
             }
             return 0;
@@ -80,7 +89,7 @@ namespace DataAccessObjects
             {
 
                 user.Status = User.Status;
-
+                user.UserPassword = Utility.encrytoStringKey(user.UserPassword);
 
                 return _dbContext.SaveChanges();
             }

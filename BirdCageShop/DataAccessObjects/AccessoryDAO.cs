@@ -23,7 +23,6 @@ namespace DataAccessObjects
 
         public void Add(Accessory accessory)
         {
-            accessory.AccessoryStatus = 1;
             _db.Add(accessory);
             _db.SaveChanges();
         }
@@ -66,6 +65,14 @@ namespace DataAccessObjects
         {
             return _db.Accessories.ToList();
         }
+        public IEnumerable<Accessory> GetAllShow()
+        {
+            return _db.Accessories.Where(u => u.AccessoryStatus == 1).ToList();
+        }
+        public IEnumerable<Accessory> GetAllHidden()
+        {
+            return _db.Accessories.Where(u => u.AccessoryStatus == 0).ToList();
+        }
         public List<Category> GetCategories()
         {
             return _db.Categories.ToList();
@@ -78,9 +85,25 @@ namespace DataAccessObjects
         {
             return _db.Accessories.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
         }
+        public List<Accessory> getAccessoryShowPages(int pageIndex, int pageSize)
+        {
+            return _db.Accessories.Where(u => u.AccessoryStatus == 1).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+        }
+        public List<Accessory> getAccessoryHiddenPages(int pageIndex, int pageSize)
+        {
+            return _db.Accessories.Where(u => u.AccessoryStatus == 0).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+        }
         public int getTotalAccessoryPages()
         {
             return _db.Accessories.Count();
+        }
+        public int getTotalAccessoryShowPages()
+        {
+            return _db.Accessories.Where(u => u.AccessoryStatus == 1).Count();
+        }
+        public int getTotalAccessoryHiddenPages()
+        {
+            return _db.Accessories.Where(u => u.AccessoryStatus == 0).Count();
         }
 
         //public void Upload(int cageId, IFormFile imageFile)

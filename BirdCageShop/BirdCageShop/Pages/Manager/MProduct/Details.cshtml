@@ -6,81 +6,88 @@
     Layout = "_ManagerLayout";
 }
 
-<h1>Details</h1>
+<div class="col-sm-12 col-md-8 mx-auto">
+    <div class="bg-light rounded h-100 p-4">
+        @* <img src="data:image/png;base64,@item.CageImg" alt="Cage Image" class="img-fluid mb-4" /> *@
+        <img src="~/@Model.Product.CageImg" alt="Cage Image" class="img-fluid mb-4" />
 
-<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Product.CageName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Product.CageName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Product.Quantity)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Product.Quantity)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Product.Price)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.Raw(Model.Product.Price.Value.ToString("N0"))đ
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Product.CageImg)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Product.CageImg)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Product.Material)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Product.Material)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Product.Size)
-        </dt>
-        <dd class="col-sm-10">
-            <img src="~/@Model.Product.CageImg" alt="Product Image" style="max-width: 100px; max-height: 100px;" />
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Product.Bar)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Product.Bar)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Product.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Product.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Product.CageStatus)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Product.CageStatus)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Product.Category)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Product.Category.CategoryName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Product.Discount)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Product.Discount.DiscountName)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-page="./Edit" class="btn btn-primary" asp-route-id="@Model.Product?.CageId">Edit</a> |
-    <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+        <!-- Cage Name -->
+        <div class="mb-3">
+            <label for="inputCageName" class="form-label">Cage Name:</label>
+            <span id="inputCageName">@Html.DisplayFor(model => model.Product.CageName)</span>
+        </div>
+
+        <!-- Quantity and Price -->
+        <div class="mb-3">
+            <label for="inputQuantity" class="form-label">Quantity:</label>
+            <span id="inputQuantity">@Html.DisplayFor(model => model.Product.Quantity)</span>
+
+            <label for="inputPrice" class="form-label ms-3">Price:</label>
+            <span id="inputPrice">@Html.Raw(Model.Product.Price.Value.ToString("N0"))đ</span>
+        </div>
+
+        <!-- Material -->
+        <div class="mb-3">
+            <label for="inputMaterial" class="form-label">Material:</label>
+            <span id="inputMaterial">@Html.DisplayFor(model => model.Product.Material)</span>
+        </div>
+
+        <!-- Size and Bar and Status -->
+        <div class="mb-3 row">
+            <div class="col-sm-3">
+                <label for="inputQuantity" class="form-label">Size:</label>
+                <span id="inputQuantity">@Html.DisplayFor(model => model.Product.Size)</span>
+            </div>
+
+            <div class="col-sm-3 text-center">
+                <label for="inputPrice" class="form-label">Bar:</label>
+                <span id="inputPrice">@Html.DisplayFor(model => model.Product.Bar)</span>
+            </div>
+            <div class="col-sm-6 text-center">
+                <label for="inputStatus" class="form-label">Status:</label>
+                <span id="inputStatus">
+                    @Html.DisplayFor(model => model.Product.CageStatus)
+                    @if (Model.Product.CageStatus == 1)
+                    {
+                        <text>(Show)</text>
+                    }
+                    else if (Model.Product.CageStatus == 0)
+                    {
+                        <text>(Hidden)</text>
+                    }
+                    else if (Model.Product.CageStatus == 2)
+                    {
+                        <text>(Customize)</text>
+                    }
+                </span>
+            </div>
+        </div>
+
+        <!-- Category -->
+        <div class="mb-3">
+            <label for="inputCategory" class="form-label">Category:</label>
+            <span id="inputCategory">@Html.DisplayFor(model => model.Product.Category.CategoryName)</span>
+        </div>
+
+        <!-- Discount -->
+        <div class="mb-3">
+            <label for="inputDiscount" class="form-label">Discount:</label>
+            <span id="inputDiscount">@Html.DisplayFor(model => model.Product.Discount.DiscountName)</span>
+        </div>
+
+        <!-- Edit Button -->
+
+        <div class="row">
+            <div class="col-6">
+                <a asp-page="./Index" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to List
+                </a>
+            </div>
+            <div class="col-6" style="text-align: right;">
+                <a asp-page="./Edit" class="btn btn-primary" asp-route-id="@Model.Product?.CageId">
+                    <i class="fas fa-edit"></i> Edit
+                </a>
+            </div>
+        </div>
+    </div>
 </div>

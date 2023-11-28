@@ -55,16 +55,45 @@
                         <span>Admin</span>
                     </div>
                 </div>
+                @{
+                    string currentUrl = Context.Request.Path;
+                }
                 <div class="navbar-nav w-100">
-                    <a asp-page="/Admin/MProduct/Index" class="nav-item nav-link active"><i class="fa fa-archive me-2"></i>Product</a>
-                    <a asp-page="/Admin/MAccessory/Index" class="nav-item nav-link"><i class="fa fa-cog me-2"></i>Accessory</a>
-                    <a asp-page="/Admin/MUser/Index" class="nav-item nav-link"><i class="fa fa-users me-2"></i>User</a>
-                    <a asp-page="/Admin/MOrder/Index" class="nav-item nav-link"><i class="fa fa-cart-arrow-down  me-2"></i>Order</a>
-                    <a asp-page="/Admin/MOrderDetail/Index" class="nav-item nav-link"><i class="fa fa-archive me-2"></i>Order Detail</a>
-                    <a asp-page="/Admin/MDiscount/Index" class="nav-item nav-link"><i class="fa fa-archive me-2"></i>Discount</a>
-                    <a asp-page="/Admin/MCategory/Index" class="nav-item nav-link"><i class="fa fa-archive me-2"></i>Category</a>
-                    <a asp-page="/Admin/MRevenue/Index" class="nav-item nav-link"><i class="fa fa-archive me-2"></i>Revenue</a>
-                    <a asp-page="/Admin/MFeedback/Index" class="nav-item nav-link"><i class="fa fa-archive me-2"></i>Feedback</a>
+                    <a asp-page="/Admin/MProduct/Index" class="nav-item nav-link @(currentUrl.Contains("MProduct") ? "active" : "")">
+                        <i class="fa fa-archive me-2"></i>Product
+                    </a>
+
+                    <a asp-page="/Admin/MAccessory/Index" class="nav-item nav-link @(currentUrl.Contains("MAccessory") ? "active" : "")">
+                        <i class="fa fa-cog me-2"></i>Accessory
+                    </a>
+
+                    <a asp-page="/Admin/MUser/Index" class="nav-item nav-link @(currentUrl.Contains("MUser") ? "active" : "")">
+                        <i class="fa fa-users me-2"></i>User
+                    </a>
+
+                    <a asp-page="/Admin/MOrder/Index" class="nav-item nav-link @(currentUrl.Equals("/Admin/MOrder", StringComparison.OrdinalIgnoreCase) ? "active" : "")">
+                        <i class="fa fa-cart-arrow-down me-2"></i>Order
+                    </a>
+
+                    <a asp-page="/Admin/MOrderDetail/Index" class="nav-item nav-link @(currentUrl.Equals("/Admin/MOrderDetail", StringComparison.OrdinalIgnoreCase) ? "active" : "")">
+                        <i class="fa fa-archive me-2"></i>Order Detail
+                    </a>
+
+                    <a asp-page="/Admin/MDiscount/Index" class="nav-item nav-link @(currentUrl.Contains("MDiscount") ? "active" : "")">
+                        <i class="fa fa-percent me-2"></i>Discount
+                    </a>
+
+                    <a asp-page="/Admin/MCategory/Index" class="nav-item nav-link @(currentUrl.Contains("MCategory") ? "active" : "")">
+                        <i class="fa fa-folder-open me-2"></i>Category
+                    </a>
+
+                    <a asp-page="/Admin/MRevenue/Index" class="nav-item nav-link @(currentUrl.Contains("MRevenue") ? "active" : "")">
+                        <i class="fa fa-coins me-2"></i>Revenue
+                    </a>
+
+                    <a asp-page="/Admin/MFeedback/Index" class="nav-item nav-link @(currentUrl.Contains("MFeedback") ? "active" : "")">
+                        <i class="fa fa-comments me-2"></i>Feedback
+                    </a>
                 </div>
         </nav>
     </div>
@@ -148,7 +177,7 @@
 
     <!-- Template Javascript -->
     <script src="~/AdminNew/js/main.js"></script>
-    <script>
+    @* <script>
         $(document).ready(function () {
             // Add click event handler to all nav links
             $('.navbar-nav a').on('click', function () {
@@ -160,7 +189,7 @@
             });
         });
         
-    </script>
+    </script> *@
     <!-- Add your JavaScript links here -->
     @RenderSection("Scripts", required: false)
 </body>

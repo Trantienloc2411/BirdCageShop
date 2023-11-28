@@ -1,5 +1,6 @@
 ﻿@page
 @model BirdCageShop.Pages.Manager.MUser.IndexModel
+@addTagHelper *, LazZiya.TagHelpers
 
 @{
     ViewData["Title"] = "Index";
@@ -123,9 +124,9 @@
                                                 </td>
                                                 <td>
                                                     <div class="action-buttons">
+
+
                                                         <a asp-page="./Edit" class="btn btn-primary btn-sm" asp-route-id="@item.UserId">Edit</a>
-                                                        <a asp-page="./Details" class="btn btn-info btn-sm" asp-route-id="@item.UserId">Details</a>
-                                                        <a asp-page="./Delete" class="btn btn-danger btn-sm" asp-route-id="@item.UserId">Delete</a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -137,6 +138,13 @@
                     </div>
                 </div>
             </div>
+            <paging class="pagination"
+                    total-records="@Model.totalUser"
+                    show-total-pages="false"
+                    show-total-records="false"
+                    page-size="@Model.pageSize"
+                    page-no="@Model.pageNo">
+            </paging>
         </div>
     </section>
     <script>
